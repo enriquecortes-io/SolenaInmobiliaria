@@ -41,7 +41,7 @@ export default function PropertyExperience({ property, locale }: Props) {
 
   return (
     <div style={{ position: "fixed", inset: 0, width: "100%", height: "100vh", overflow: "hidden", background: "#0a0a0a" }}>
-      <Navbar locale={locale} />
+      <Navbar locale={locale} onPrivateAccess={() => setShowForm(true)} />
       <ScrollIndicator />
       <div ref={stageRef} style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100vh", willChange: "height, transform" }}>
         <VideoSection
@@ -124,26 +124,6 @@ export default function PropertyExperience({ property, locale }: Props) {
           </div>
         </div>
       )}
-      {/* Botón Private Access — fijo abajo centro */}
-      <button
-        onClick={() => setShowForm(true)}
-        style={{
-          position:"fixed", bottom:"2rem", left:"50%", transform:"translateX(-50%)",
-          zIndex:50, background:"none",
-          border:"1px solid rgba(201,169,110,0.4)",
-          color:"#c9a96e",
-          fontFamily:"'Helvetica Neue',sans-serif",
-          fontSize:"0.5rem", letterSpacing:"0.5em",
-          textTransform:"uppercase", padding:"1rem 2.5rem",
-          cursor:"pointer", transition:"all 0.3s ease",
-          backdropFilter:"blur(10px)",
-        }}
-        onMouseEnter={e=>{e.currentTarget.style.background="rgba(201,169,110,0.1)";}}
-        onMouseLeave={e=>{e.currentTarget.style.background="none";}}
-      >
-        ✦ Private Access
-      </button>
-
       {/* Modal formulario */}
       {showForm && (
         <div style={{

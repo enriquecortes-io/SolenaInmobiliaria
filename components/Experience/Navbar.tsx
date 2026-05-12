@@ -10,9 +10,9 @@ const LANGS = [
   { code: "ru", label: "RU", name: "Русский" },
 ];
 
-interface Props { locale?: string; }
+interface Props { locale?: string; onPrivateAccess?: () => void; }
 
-export default function Navbar({ locale = "es" }: Props) {
+export default function Navbar({ locale = "es", onPrivateAccess }: Props) {
   const [open, setOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
@@ -72,6 +72,26 @@ export default function Navbar({ locale = "es" }: Props) {
             }}>LISTING MARBELLA</span>
           </div>
         </Link>
+
+        {/* Private Access — solo si hay callback */}
+        {onPrivateAccess && (
+          <button
+            onClick={onPrivateAccess}
+            style={{
+              background:"none", border:"none",
+              color:"rgba(201,169,110,0.6)",
+              fontFamily:"'Helvetica Neue',sans-serif",
+              fontSize:"0.42rem", letterSpacing:"0.4em",
+              textTransform:"uppercase", cursor:"pointer",
+              transition:"all 0.3s ease",
+              padding:"0.4rem 0",
+            }}
+            onMouseEnter={e=>{e.currentTarget.style.color="#c9a96e";}}
+            onMouseLeave={e=>{e.currentTarget.style.color="rgba(201,169,110,0.6)";}}
+          >
+            ✦ Private Access
+          </button>
+        )}
 
         {/* Selector de idioma desplegable */}
         <div style={{ position:"relative" }}>
