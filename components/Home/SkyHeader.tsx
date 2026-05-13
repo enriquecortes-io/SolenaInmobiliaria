@@ -68,7 +68,7 @@ export default function SkyHeader({ locale }: Props) {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,300;1,400&family=Bebas+Neue&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,900;1,9..144,300&family=Cormorant+Garamond:ital,wght@1,300&display=swap');
 
         @keyframes fadeInScene { 0%{opacity:0;} 100%{opacity:1;} }
         @keyframes fadeOutScene { 0%{opacity:1;} 100%{opacity:0;} }
@@ -152,14 +152,16 @@ export default function SkyHeader({ locale }: Props) {
 
           {/* Palabra impacto — Bebas Neue */}
           <div className="word-anim" style={{
-            fontFamily:"'Bebas Neue', sans-serif",
-            fontSize:"clamp(5rem,16vw,16rem)",
-            fontWeight:400,
+            fontFamily:"'Fraunces', serif",
+            fontSize:"clamp(6rem,18vw,18rem)",
+            fontWeight:900,
+            fontStyle:"normal",
             color:"#ffffff",
-            letterSpacing:"0.06em",
-            lineHeight:0.85,
+            letterSpacing:"-0.02em",
+            lineHeight:0.82,
             userSelect:"none",
-            textShadow:"0 0 80px rgba(0,0,0,0.8), 0 4px 40px rgba(0,0,0,0.9)",
+            fontVariationSettings:"'opsz' 144, 'SOFT' 0, 'WONK' 0",
+            textShadow:"0 4px 60px rgba(0,0,0,0.7)",
           }}>
             {scene.word}
           </div>
@@ -177,11 +179,11 @@ export default function SkyHeader({ locale }: Props) {
             fontStyle:"italic",
             fontSize:"clamp(2rem,5vw,5rem)",
             fontWeight:300,
-            color:"rgba(255,255,255,0.9)",
-            letterSpacing:"0.03em",
-            lineHeight:1.15,
+            color:"rgba(255,255,255,0.88)",
+            letterSpacing:"0.04em",
+            lineHeight:1.1,
             userSelect:"none",
-            textShadow:"0 2px 20px rgba(0,0,0,0.8)",
+            textShadow:"0 2px 30px rgba(0,0,0,0.7)",
           }}>
             {scene.phrase}
           </div>
