@@ -10,8 +10,8 @@ interface Props {
 const COPY = {
   es: {
     label: "VISITA PRIVADA",
-    headline: "Esta propiedad no se anuncia públicamente.",
-    sub: "Para conocer condiciones y concertar una visita privada, identifíquese como comprador cualificado.",
+    headline: "No vendemos propiedades. Introducimos personas al lugar donde quieren vivir.",
+    sub: "Trabajamos con un número deliberadamente limitado de clientes. Si ha llegado hasta aquí, hay una razón. Cuéntenos la suya.",
     disclaimer: "Nuestro servicio de representación exclusiva tiene honorarios. Trabajamos únicamente con compradores serios.",
     fields: {
       name: "Nombre completo",
@@ -26,8 +26,8 @@ const COPY = {
   },
   en: {
     label: "PRIVATE VIEWING",
-    headline: "This property is not publicly listed.",
-    sub: "To learn about terms and arrange a private viewing, please identify yourself as a qualified buyer.",
+    headline: "We do not sell properties. We introduce people to where they belong.",
+    sub: "We work with a deliberately limited number of clients. If you have come this far, there is a reason. Tell us yours.",
     disclaimer: "Our exclusive representation service carries a fee. We work only with serious buyers.",
     fields: {
       name: "Full name",
@@ -42,8 +42,8 @@ const COPY = {
   },
   fr: {
     label: "VISITE PRIVÉE",
-    headline: "Cette propriété n'est pas annoncée publiquement.",
-    sub: "Pour connaître les conditions et organiser une visite privée, identifiez-vous en tant qu'acheteur qualifié.",
+    headline: "Nous ne vendons pas des propriétés. Nous introduisons des personnes là où elles appartiennent.",
+    sub: "Nous travaillons avec un nombre délibérément limité de clients. Si vous êtes arrivé jusqu'ici, il y a une raison. Dites-nous la vôtre.",
     disclaimer: "Notre service de représentation exclusive est payant. Nous travaillons uniquement avec des acheteurs sérieux.",
     fields: {
       name: "Nom complet",
@@ -58,8 +58,8 @@ const COPY = {
   },
   ru: {
     label: "ЧАСТНЫЙ ПРОСМОТР",
-    headline: "Этот объект не размещён в открытом доступе.",
-    sub: "Для получения условий и организации частного просмотра идентифицируйте себя как квалифицированного покупателя.",
+    headline: "Мы не продаём недвижимость. Мы знакомим людей с местом, где они принадлежат.",
+    sub: "Мы работаем с намеренно ограниченным числом клиентов. Если вы дошли до этого момента, на то есть причина. Расскажите нам свою.",
     disclaimer: "Наша служба эксклюзивного представительства является платной. Мы работаем только с серьёзными покупателями.",
     fields: {
       name: "Полное имя",
