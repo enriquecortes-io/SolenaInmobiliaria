@@ -133,7 +133,7 @@ export default function SkyHeader({ locale }: Props) {
       {/* Overlay oscuro para legibilidad */}
       <div style={{
         position:"absolute", inset:0, zIndex:1,
-        background:"linear-gradient(180deg, rgba(0,0,0,0.3) 0%, rgba(0,0,0,0.5) 60%, rgba(0,0,0,0.8) 100%)",
+        background:"linear-gradient(180deg, rgba(0,0,0,0.4) 0%, rgba(0,0,0,0.55) 50%, rgba(0,0,0,0.85) 100%)",
       }}/>
 
       {/* Contenido tipográfico */}
@@ -153,13 +153,13 @@ export default function SkyHeader({ locale }: Props) {
           {/* Palabra impacto — Bebas Neue */}
           <div className="word-anim" style={{
             fontFamily:"'Bebas Neue', sans-serif",
-            fontSize:"clamp(5rem,15vw,14rem)",
+            fontSize:"clamp(5rem,16vw,16rem)",
             fontWeight:400,
-            color:"transparent",
-            WebkitTextStroke:"1.5px rgba(255,255,255,0.95)",
-            letterSpacing:"0.05em",
-            lineHeight:0.9,
+            color:"#ffffff",
+            letterSpacing:"0.06em",
+            lineHeight:0.85,
             userSelect:"none",
+            textShadow:"0 0 80px rgba(0,0,0,0.8), 0 4px 40px rgba(0,0,0,0.9)",
           }}>
             {scene.word}
           </div>
@@ -175,12 +175,13 @@ export default function SkyHeader({ locale }: Props) {
           <div className="phrase-anim" style={{
             fontFamily:"'Cormorant Garamond', serif",
             fontStyle:"italic",
-            fontSize:"clamp(1.5rem,4vw,3.5rem)",
+            fontSize:"clamp(2rem,5vw,5rem)",
             fontWeight:300,
-            color:"rgba(255,255,255,0.85)",
-            letterSpacing:"0.02em",
-            lineHeight:1.2,
+            color:"rgba(255,255,255,0.9)",
+            letterSpacing:"0.03em",
+            lineHeight:1.15,
             userSelect:"none",
+            textShadow:"0 2px 20px rgba(0,0,0,0.8)",
           }}>
             {scene.phrase}
           </div>
