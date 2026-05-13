@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 180" fill="white">
+  <!-- L -->
+  <rect x="10" y="10" width="52" height="160" rx="3"/>
+  <rect x="10" y="128" width="140" height="42" rx="3"/>
+  <!-- I -->
+  <rect x="185" y="10" width="52" height="160" rx="3"/>
+  <rect x="155" y="10" width="112" height="38" rx="3"/>
+  <rect x="155" y="132" width="112" height="38" rx="3"/>
+  <!-- V -->
+  <polygon points="280,10 332,10 390,130 408,130 466,10 518,10 430,170 370,170"/>
+  <!-- E -->
+  <rect x="540" y="10" width="52" height="160" rx="3"/>
+  <rect x="540" y="10" width="130" height="38" rx="3"/>
+  <rect x="540" y="81" width="110" height="34" rx="3"/>
+  <rect x="540" y="132" width="130" height="38" rx="3"/>
+</svg>
