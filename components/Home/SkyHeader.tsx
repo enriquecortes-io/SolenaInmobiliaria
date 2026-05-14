@@ -55,12 +55,19 @@ export default function SkyHeader({ locale }: Props) {
     return () => clearInterval(timer);
   }, []);
 
-  // Preload todos los videos
+  // Controlar reproducción — solo el activo juega
   useEffect(() => {
-    videoRefs.current.forEach(v => {
-      if (v) { v.muted = true; v.load(); }
+    videoRefs.current.forEach((v, i) => {
+      if (!v) return;
+      v.muted = true;
+      if (i === sceneIdx) {
+        v.play().catch(() => {});
+      } else {
+        v.pause();
+        v.currentTime = 0;
+      }
     });
-  }, []);
+  }, [sceneIdx]);
 
   const scene = SCENES[sceneIdx];
   const alignMap = { left:"flex-start", right:"flex-end", center:"center" };
@@ -118,7 +125,7 @@ export default function SkyHeader({ locale }: Props) {
           key={i}
           ref={el => { videoRefs.current[i] = el; }}
           src={s.video}
-          muted playsInline autoPlay loop
+          muted playsInline loop
           style={{
             position:"absolute", inset:0,
             width:"100%", height:"100%",

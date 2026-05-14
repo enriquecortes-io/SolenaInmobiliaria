@@ -4,7 +4,6 @@ import { usePathname } from "next/navigation";
 
 export default function SkyBackground() {
   const skyRef = useRef<HTMLDivElement>(null);
-  const starsRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
 
   // Intensidad según la página
@@ -40,27 +39,16 @@ export default function SkyBackground() {
           ${lc(pA[2],pB[2],k)} 30%,${lc(pA[3],pB[3],k)} 60%,
           ${lc(pA[4],pB[4],k)} 100%)`;
       }
-      if (starsRef.current) {
-        let v = 0;
-        if (t > 0.5 && t < 0.95) v = Math.sin(((t-0.5)/0.45)*Math.PI);
-        starsRef.current.style.opacity = String(v * (opacity < 0.5 ? 0 : 1));
-      }
+
       rafId = requestAnimationFrame(tick);
     };
     rafId = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(rafId);
   }, []);
 
-  const stars = Array.from({ length: 80 }, (_, i) => ({
-    left: (i * 37) % 100, top: (i * 71) % 70,
-    size: i % 3 === 0 ? 2 : 1, delay: (i * 0.13) % 4, bright: i % 5 === 0,
-  }));
-
   return (
     <>
       <style>{`
-        @keyframes starTwinkle{0%,100%{opacity:0.3;transform:scale(1);}50%{opacity:1;transform:scale(1.5);}}
-        .star-bg{animation:starTwinkle ease-in-out infinite;}
         .sky-bg{transition:opacity 1.5s ease;}
       `}</style>
       <div
@@ -73,23 +61,6 @@ export default function SkyBackground() {
           transition:"background 0.1s linear, opacity 1.5s ease",
         }}
       />
-      <div
-        ref={starsRef}
-        style={{
-          position:"fixed", inset:0, zIndex:1,
-          opacity:0, pointerEvents:"none",
-        }}
-      >
-        {stars.map((s,i) => (
-          <div key={i} className="star-bg" style={{
-            position:"absolute", left:`${s.left}%`, top:`${s.top}%`,
-            width:`${s.size}px`, height:`${s.size}px`, borderRadius:"50%",
-            background:s.bright?"rgba(255,255,255,1)":"rgba(220,230,255,0.7)",
-            boxShadow:s.bright?"0 0 4px rgba(255,255,255,0.8)":"none",
-            animationDuration:`${2+s.delay}s`, animationDelay:`${s.delay}s`,
-          }}/>
-        ))}
-      </div>
     </>
   );
 }
