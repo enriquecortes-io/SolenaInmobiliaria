@@ -125,6 +125,7 @@ export default function SkyHeader({ locale }: Props) {
             position:"absolute", inset:0,
             width:"100%", height:"100%",
             objectFit:"cover",
+            objectPosition:"center center",
             opacity: i === sceneIdx
               ? 1
               : transitioning && i === (sceneIdx - 1 + SCENES.length) % SCENES.length
@@ -145,7 +146,7 @@ export default function SkyHeader({ locale }: Props) {
       {/* Overlay oscuro para legibilidad */}
       <div style={{
         position:"absolute", inset:0, zIndex:1,
-        background:"linear-gradient(180deg, rgba(0,0,0,0.45) 0%, rgba(0,0,0,0.6) 50%, rgba(0,0,0,0.88) 100%)",
+        background:"linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.65) 50%, rgba(0,0,0,0.9) 100%)",
       }}/>
 
       {/* Contenido tipográfico */}
