@@ -104,18 +104,18 @@ export default function SkyHeader({ locale }: Props) {
         width:"100%", height:"100%",
         display:"flex", flexDirection:"column",
         justifyContent:"center",
-        paddingLeft: scene.align === "left" ? "clamp(1.5rem,8vw,12vw)" : scene.align === "center" ? "clamp(1.5rem,8vw,12vw)" : "0",
-        paddingRight: scene.align === "right" ? "clamp(1.5rem,8vw,12vw)" : scene.align === "center" ? "clamp(1.5rem,8vw,12vw)" : "0",
+        paddingLeft: scene.word.length > 7 ? "5vw" : scene.align === "left" ? "clamp(1.5rem,8vw,12vw)" : scene.align === "center" ? "clamp(1.5rem,8vw,12vw)" : "0",
+        paddingRight: scene.word.length > 7 ? "5vw" : scene.align === "right" ? "clamp(1.5rem,8vw,12vw)" : scene.align === "center" ? "clamp(1.5rem,8vw,12vw)" : "0",
         alignItems: alignMap[scene.align as keyof typeof alignMap] as any,
       }}>
         <div key={animKey} style={{
           display:"flex", flexDirection:"column",
-          alignItems: scene.align === "right" ? "flex-end" : scene.align === "center" ? "center" : "flex-start",
+          alignItems: scene.word.length > 7 ? "center" : scene.align === "right" ? "flex-end" : scene.align === "center" ? "center" : "flex-start",
           maxWidth:"90vw",
         }}>
           <div className="word-anim" style={{
             fontFamily:"'Fraunces', serif",
-            fontSize:`clamp(${scene.word.length > 7 ? "3rem" : "6rem"},${scene.word.length > 7 ? "10vw" : "16vw"},${scene.word.length > 7 ? "10rem" : "16rem"})` as any,
+            fontSize:"clamp(6rem,16vw,16rem)",
             fontWeight:900,
             color:"#ffffff",
             letterSpacing:"-0.02em",
