@@ -6,11 +6,11 @@ import { getT } from "@/lib/i18n";
 interface Props { locale: string; }
 
 const SCENES = [
-  { start:0,  end:5,  word:"LIVE",  phrase:"where the sea is your garden",         align:"left" },
-  { start:5,  end:10, word:"DRIVE", phrase:"from your garage to the coast",         align:"right" },
-  { start:10, end:15, word:"DINE",  phrase:"like every night is worth remembering", align:"center" },
-  { start:15, end:20, word:"PLAY",  phrase:"on courses that define privilege",      align:"left" },
-  { start:20, end:27, word:"OWN",   phrase:"a place that defines you",              align:"right" },
+  { start:0,  end:5,  word:"LIVE",  phrase:"where the sea is your garden",         align:"left",   pos:"80% top" },
+  { start:5,  end:10, word:"DRIVE", phrase:"from your garage to the coast",         align:"right",  pos:"center top" },
+  { start:10, end:15, word:"DINE",  phrase:"like every night is worth remembering", align:"center", pos:"center top" },
+  { start:15, end:20, word:"PLAY",  phrase:"on courses that define privilege",      align:"left",   pos:"center top" },
+  { start:20, end:27, word:"OWN",   phrase:"a place that defines you",              align:"right",  pos:"center top" },
 ];
 
 export default function SkyHeader({ locale }: Props) {
@@ -84,7 +84,7 @@ export default function SkyHeader({ locale }: Props) {
           position:"absolute", inset:0,
           width:"100%", height:"100%",
           objectFit:"cover",
-          objectPosition:"center top",
+          objectPosition:scene.pos,
           zIndex:0,
         }}
       />
