@@ -52,8 +52,8 @@ export default function SkyHeader({ locale }: Props) {
         @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,900&family=Montserrat:wght@200;300&display=swap');
 
         @keyframes wordIn {
-          0%   { opacity:0; transform:translateY(40px) scaleY(0.8) scaleX(var(--sx,1)); filter:blur(10px); }
-          100% { opacity:1; transform:translateY(0) scaleY(1.5) scaleX(var(--sx,1)); filter:blur(0); }
+          0%   { opacity:0; transform:translateY(40px) scaleY(0.8); filter:blur(10px); }
+          100% { opacity:1; transform:translateY(0) scaleY(1.5); filter:blur(0); }
         }
         @keyframes phraseIn {
           0%   { opacity:0; transform:translateX(-20px); }
@@ -115,7 +115,7 @@ export default function SkyHeader({ locale }: Props) {
         }}>
           <div className="word-anim" style={{
             fontFamily:"'Fraunces', serif",
-            fontSize:"clamp(6rem,16vw,16rem)",
+            fontSize:`clamp(${scene.word.length > 7 ? "3rem" : "6rem"},${scene.word.length > 7 ? "10vw" : "16vw"},${scene.word.length > 7 ? "10rem" : "16rem"})` as any,
             fontWeight:900,
             color:"#ffffff",
             letterSpacing:"-0.02em",
@@ -123,7 +123,7 @@ export default function SkyHeader({ locale }: Props) {
             userSelect:"none",
             display:"inline-block",
             textShadow:"0 4px 60px rgba(0,0,0,0.7)",
-            ["--sx" as any]: scene.word.length > 6 ? "0.75" : "1",
+
           }}>
             {scene.word}
           </div>
