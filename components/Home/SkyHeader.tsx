@@ -68,7 +68,7 @@ export default function SkyHeader({ locale }: Props) {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,900;1,9..144,300&family=Cormorant+Garamond:ital,wght@1,300&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,900&family=Montserrat:wght@200;300&display=swap');
 
         @keyframes fadeInScene { 0%{opacity:0;} 100%{opacity:1;} }
         @keyframes fadeOutScene { 0%{opacity:1;} 100%{opacity:0;} }
@@ -123,8 +123,8 @@ export default function SkyHeader({ locale }: Props) {
             position:"absolute", inset:0,
             width:"100%", height:"100%",
             objectFit:"cover",
-            opacity: i === sceneIdx ? (transitioning ? 0 : 1) : 0,
-            transition:"opacity 0.6s ease",
+            opacity: i === sceneIdx ? 1 : (i === (sceneIdx - 1 + SCENES.length) % SCENES.length && transitioning ? 1 : 0),
+            transition:"opacity 0.8s ease",
             zIndex:0,
           }}
         />
@@ -177,15 +177,16 @@ export default function SkyHeader({ locale }: Props) {
 
           {/* Frase — Cormorant Garamond italic */}
           <div className="phrase-anim" style={{
-            fontFamily:"'Cormorant Garamond', serif",
-            fontStyle:"italic",
-            fontSize:"clamp(2rem,5vw,5rem)",
-            fontWeight:300,
-            color:"rgba(255,255,255,0.88)",
-            letterSpacing:"0.04em",
-            lineHeight:1.1,
+            fontFamily:"'Montserrat', sans-serif",
+            fontStyle:"normal",
+            fontSize:"clamp(1rem,2.2vw,2rem)",
+            fontWeight:200,
+            color:"rgba(255,255,255,0.75)",
+            letterSpacing:"0.25em",
+            lineHeight:1.2,
+            textTransform:"uppercase",
             userSelect:"none",
-            textShadow:"0 2px 30px rgba(0,0,0,0.7)",
+            textShadow:"0 2px 20px rgba(0,0,0,0.6)",
           }}>
             {scene.phrase}
           </div>
