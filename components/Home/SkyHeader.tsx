@@ -104,18 +104,18 @@ export default function SkyHeader({ locale }: Props) {
         width:"100%", height:"100%",
         display:"flex", flexDirection:"column",
         justifyContent:"center",
-        paddingLeft: scene.align === "left" ? "12vw" : scene.align === "center" ? "12vw" : "0",
-        paddingRight: scene.align === "right" ? "12vw" : scene.align === "center" ? "12vw" : "0",
+        paddingLeft: scene.align === "left" ? "clamp(1.5rem,8vw,12vw)" : scene.align === "center" ? "clamp(1.5rem,8vw,12vw)" : "0",
+        paddingRight: scene.align === "right" ? "clamp(1.5rem,8vw,12vw)" : scene.align === "center" ? "clamp(1.5rem,8vw,12vw)" : "0",
         alignItems: alignMap[scene.align as keyof typeof alignMap] as any,
       }}>
         <div key={animKey} style={{
           display:"flex", flexDirection:"column",
           alignItems: scene.align === "right" ? "flex-end" : scene.align === "center" ? "center" : "flex-start",
-          maxWidth:"70vw",
+          maxWidth:"85vw",
         }}>
           <div className="word-anim" style={{
             fontFamily:"'Fraunces', serif",
-            fontSize:"clamp(6rem,16vw,16rem)",
+            fontSize:"clamp(3.5rem,12vw,16rem)",
             fontWeight:900,
             color:"#ffffff",
             letterSpacing:"-0.02em",
@@ -130,7 +130,7 @@ export default function SkyHeader({ locale }: Props) {
           <div className="phrase-anim" style={{
             fontFamily:"'Montserrat', sans-serif",
             fontStyle:"normal",
-            fontSize:"clamp(1rem,2.2vw,2rem)",
+            fontSize:"clamp(0.65rem,1.8vw,2rem)",
             fontWeight:200,
             color:"rgba(255,255,255,0.75)",
             letterSpacing:"0.25em",
