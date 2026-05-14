@@ -111,11 +111,12 @@ export default function SkyHeader({ locale }: Props) {
         <div key={animKey} style={{
           display:"flex", flexDirection:"column",
           alignItems: scene.align === "right" ? "flex-end" : scene.align === "center" ? "center" : "flex-start",
-          maxWidth:"85vw",
+          maxWidth:"100%",
+            overflow:"hidden",
         }}>
           <div className="word-anim" style={{
             fontFamily:"'Fraunces', serif",
-            fontSize:"clamp(3.5rem,12vw,16rem)",
+            fontSize:"clamp(6rem,16vw,16rem)",
             fontWeight:900,
             color:"#ffffff",
             letterSpacing:"-0.02em",
