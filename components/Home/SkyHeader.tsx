@@ -55,19 +55,14 @@ export default function SkyHeader({ locale }: Props) {
     return () => clearInterval(timer);
   }, []);
 
-  // Controlar reproducción — solo el activo juega
+  // Precargar todos — reproducir todos en loop, solo el activo es visible
   useEffect(() => {
-    videoRefs.current.forEach((v, i) => {
+    videoRefs.current.forEach((v) => {
       if (!v) return;
       v.muted = true;
-      if (i === sceneIdx) {
-        v.play().catch(() => {});
-      } else {
-        v.pause();
-        v.currentTime = 0;
-      }
+      v.play().catch(() => {});
     });
-  }, [sceneIdx]);
+  }, []);
 
   const scene = SCENES[sceneIdx];
   const alignMap = { left:"flex-start", right:"flex-end", center:"center" };
@@ -130,12 +125,23 @@ export default function SkyHeader({ locale }: Props) {
             position:"absolute", inset:0,
             width:"100%", height:"100%",
             objectFit:"cover",
-            opacity: i === sceneIdx ? 1 : (i === (sceneIdx - 1 + SCENES.length) % SCENES.length && transitioning ? 1 : 0),
-            transition:"opacity 0.8s ease",
+            opacity: i === sceneIdx
+              ? 1
+              : transitioning && i === (sceneIdx - 1 + SCENES.length) % SCENES.length
+                ? 1
+                : 0,
+            transition: i === sceneIdx ? "opacity 0.8s ease 0s" : "opacity 0.8s ease 0s",
+            zIndex: i === sceneIdx ? 2 : transitioning && i === (sceneIdx - 1 + SCENES.length) % SCENES.length ? 1 : 0,
             zIndex:0,
           }}
         />
       ))}
+
+      {/* Fondo fallback — nunca negro puro */}
+      <div style={{
+        position:"absolute", inset:0, zIndex:0,
+        background:"linear-gradient(135deg, #0a0a1a 0%, #1a0a0a 50%, #0a1a0a 100%)",
+      }}/>
 
       {/* Overlay oscuro para legibilidad */}
       <div style={{
