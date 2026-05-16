@@ -209,6 +209,9 @@ export default function Portfolio({ password, onEdit }: Props) {
               <th onClick={()=>toggleSort("zona")} style={{padding:"12px 16px",textAlign:"left",fontSize:"11px",fontWeight:700,color:"#6b7280",textTransform:"uppercase",letterSpacing:"0.06em",cursor:"pointer",userSelect:"none"}}>
                 Zona {sort.field==="zona" ? (sort.dir==="asc"?"↑":"↓") : "↕"}
               </th>
+              <th style={{padding:"12px 16px",textAlign:"left",fontSize:"11px",fontWeight:700,color:"#6b7280",textTransform:"uppercase",letterSpacing:"0.06em"}}>
+                Ubicación
+              </th>
               <th onClick={()=>toggleSort("precio")} style={{padding:"12px 16px",textAlign:"left",fontSize:"11px",fontWeight:700,color:"#6b7280",textTransform:"uppercase",letterSpacing:"0.06em",cursor:"pointer",userSelect:"none"}}>
                 Precio {sort.field==="precio" ? (sort.dir==="asc"?"↑":"↓") : "↕"}
               </th>
@@ -227,6 +230,7 @@ export default function Portfolio({ password, onEdit }: Props) {
                       <div style={{ fontSize:"12px", color:"#9ca3af", marginTop:"2px" }}>{p.slug}</div>
                     </td>
                     <td style={{ padding:"14px 16px", fontSize:"13px", color:"#374151" }}>{p.tipo || "—"}</td>
+                    <td style={{ padding:"14px 16px", fontSize:"13px", color:"#374151", textTransform:"capitalize" }}>{(p as any).zona || "—"}</td>
                     <td style={{ padding:"14px 16px", fontSize:"13px", color:"#374151" }}>{p.ubicacion || "—"}</td>
                     <td style={{ padding:"14px 16px", fontSize:"13px", fontWeight:600, color:"#111" }}>
                       {p.precio ? `€${(p.precio/1000000).toFixed(1)}M` : "—"}
