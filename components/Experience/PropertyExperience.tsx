@@ -172,7 +172,7 @@ export default function PropertyExperience({ property, locale }: Props) {
             {property.titulo[lang]}
           </h1>
           <div style={{ width:"4rem", height:"1px", background:"rgba(201,169,110,0.5)", margin:"0 0 3rem" }}/>
-          <p style={{ fontFamily:"'Cormorant Garamond','Georgia',serif", fontSize:"clamp(1.1rem,2vw,1.6rem)", fontWeight:300, fontStyle:"italic", color:"rgba(255,255,255,0.75)", lineHeight:1.8, margin:0, whiteSpace:"pre-line" }}>
+          <p style={{ fontFamily:"'Cormorant Garamond','Georgia',serif", fontSize:"clamp(1.1rem,2vw,1.6rem)", fontWeight:300, fontStyle:"normal", color:"rgba(255,255,255,0.75)", lineHeight:1.8, margin:0, whiteSpace:"pre-line" }}>
             {typeof property.descripcion === "object"
               ? (property.descripcion as any)[lang] || (property.descripcion as any)["en"] || ""
               : property.descripcion || ""}
