@@ -18,7 +18,10 @@ export default function AdminPanel() {
   });
 
   useEffect(() => {
-    if (localStorage.getItem("mdlm_admin") === "mdlm2026secure") setAuth(true);
+    if (localStorage.getItem("mdlm_admin") === "mdlm2026secure") {
+      setAuth(true);
+      setPassword("mdlm2026secure");
+    }
   }, []);
 
   const generateSlug = (text: string) =>
