@@ -129,7 +129,7 @@ export default function AdminPanel() {
           Million Dollars Listing
         </h2>
         <input
-          type="password" placeholder="Contraseña"
+          type="password" name="password" autoComplete="current-password" placeholder="Contraseña"
           value={password} onChange={e=>setPassword(e.target.value)}
           onKeyDown={e=>e.key==="Enter"&&handleAuth()}
           style={{...INPUT, marginBottom:"1rem", textAlign:"center"}}
