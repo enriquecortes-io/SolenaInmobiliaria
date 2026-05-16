@@ -20,7 +20,10 @@ export default function Portfolio({ password, onEdit }: Props) {
   const [filters, setFilters] = useState({ tipo:"", localidad:"", activa:"", search:"" });
   const [sort, setSort] = useState<{field:"precio"|"zona"|null, dir:"asc"|"desc"}>({field:null, dir:"asc"});
   const [editing, setEditing] = useState<Property|null>(null);
-  const [editForm, setEditForm] = useState<Partial<Property>>({});
+  const [editForm, setEditForm] = useState<any>({});
+  const [editTranslating, setEditTranslating] = useState(false);
+  const [editTranslated, setEditTranslated] = useState<Record<string,Record<string,string>>>({});
+  const [editSourceLang, setEditSourceLang] = useState("es");
 
   const fetchProperties = async () => {
     setLoading(true);
@@ -53,6 +56,8 @@ export default function Portfolio({ password, onEdit }: Props) {
   const handleEdit = (p: Property) => {
     setEditing(p);
     setEditForm(p);
+    setEditTranslated({});
+    setEditSourceLang("es");
   };
 
   const handleSaveEdit = async () => {
@@ -61,12 +66,32 @@ export default function Portfolio({ password, onEdit }: Props) {
     try {
       const res = await fetch("/api/admin/save-property", {
         method:"POST", headers:{"Content-Type":"application/json"},
-        body: JSON.stringify({ password, property: editForm }),
+        body: JSON.stringify({ password, property: {
+          ...editForm,
+          titulo: editTranslated.titulo || editForm.titulo,
+          descripcion: editTranslated.descripcion || editForm.descripcion,
+        }}),
       });
       const data = await res.json();
       if (data.ok) { setStatus("✅ Actualizado"); setEditing(null); fetchProperties(); }
       else setStatus(`❌ ${data.error}`);
     } catch { setStatus("❌ Error"); }
+  };
+
+  const handleEditTranslate = async (field: "titulo"|"descripcion") => {
+    const obj = editForm[field];
+    const text = typeof obj === "object" ? (obj[editSourceLang] || obj["es"] || obj["en"] || "") : obj || "";
+    if (!text) return;
+    setEditTranslating(true);
+    try {
+      const res = await fetch("/api/admin/translate", {
+        method:"POST", headers:{"Content-Type":"application/json"},
+        body: JSON.stringify({ text, sourceLang: editSourceLang }),
+      });
+      const data = await res.json();
+      setEditTranslated(prev => ({...prev, [field]: data.translations}));
+    } catch {}
+    setEditTranslating(false);
   };
 
   const handleDelete = async (slug: string) => {
@@ -202,7 +227,7 @@ export default function Portfolio({ password, onEdit }: Props) {
                       <div style={{ fontSize:"12px", color:"#9ca3af", marginTop:"2px" }}>{p.slug}</div>
                     </td>
                     <td style={{ padding:"14px 16px", fontSize:"13px", color:"#374151" }}>{p.tipo || "—"}</td>
-                    <td style={{ padding:"14px 16px", fontSize:"13px", color:"#374151", textTransform:"capitalize" }}>{p.localidad || p.ubicacion || "—"}</td>
+                    <td style={{ padding:"14px 16px", fontSize:"13px", color:"#374151" }}>{p.ubicacion || "—"}</td>
                     <td style={{ padding:"14px 16px", fontSize:"13px", fontWeight:600, color:"#111" }}>
                       {p.precio ? `€${(p.precio/1000000).toFixed(1)}M` : "—"}
                     </td>
@@ -250,18 +275,68 @@ export default function Portfolio({ password, onEdit }: Props) {
         <div onClick={()=>setEditing(null)} style={{position:"fixed",inset:0,background:"rgba(0,0,0,0.5)",zIndex:1000,display:"flex",alignItems:"center",justifyContent:"center",padding:"20px"}}>
           <div onClick={e=>e.stopPropagation()} style={{background:"white",borderRadius:"12px",padding:"32px",width:"100%",maxWidth:"600px",maxHeight:"90vh",overflowY:"auto"}}>
             <h2 style={{fontSize:"18px",fontWeight:700,marginBottom:"24px",color:"#111"}}>Editar Propiedad</h2>
+
+            {/* Idioma fuente */}
+            <label style={{display:"block",fontSize:"11px",fontWeight:600,color:"#6b7280",textTransform:"uppercase",letterSpacing:"0.08em",marginBottom:"4px"}}>Idioma del texto</label>
+            <select value={editSourceLang} onChange={e=>setEditSourceLang(e.target.value)}
+              style={{width:"100%",padding:"10px 12px",border:"1px solid #d1d5db",borderRadius:"6px",fontSize:"14px",outline:"none",boxSizing:"border-box",marginBottom:"16px"}}>
+              <option value="es">Español</option>
+              <option value="en">English</option>
+              <option value="fr">Français</option>
+              <option value="ru">Русский</option>
+            </select>
+
+            {/* Título */}
+            <label style={{display:"block",fontSize:"11px",fontWeight:600,color:"#6b7280",textTransform:"uppercase",letterSpacing:"0.08em",marginBottom:"4px"}}>Título</label>
+            <div style={{display:"flex",gap:"8px",marginBottom:"8px"}}>
+              <input value={typeof editForm.titulo==="object"?(editForm.titulo[editSourceLang]||""):editForm.titulo||""}
+                onChange={e=>setEditForm((p:any)=>({...p,titulo:{...(typeof p.titulo==="object"?p.titulo:{}), [editSourceLang]:e.target.value}}))}
+                style={{flex:1,padding:"10px 12px",border:"1px solid #d1d5db",borderRadius:"6px",fontSize:"14px",outline:"none"}}/>
+              <button onClick={()=>handleEditTranslate("titulo")} disabled={editTranslating}
+                style={{padding:"10px 16px",background:"#7c3aed",color:"white",border:"none",borderRadius:"6px",fontSize:"13px",cursor:"pointer"}}>
+                {editTranslating?"...":"Traducir"}
+              </button>
+            </div>
+            {editTranslated.titulo && (
+              <div style={{background:"#f5f3ff",border:"1px solid #ddd6fe",borderRadius:"6px",padding:"12px",marginBottom:"16px",fontSize:"12px"}}>
+                {Object.entries(editTranslated.titulo).map(([lang,txt])=>(
+                  <div key={lang}><strong style={{color:"#7c3aed"}}>{lang.toUpperCase()}:</strong> {txt as string}</div>
+                ))}
+              </div>
+            )}
+
+            {/* Descripción */}
+            <label style={{display:"block",fontSize:"11px",fontWeight:600,color:"#6b7280",textTransform:"uppercase",letterSpacing:"0.08em",marginBottom:"4px"}}>Descripción</label>
+            <div style={{display:"flex",gap:"8px",marginBottom:"8px"}}>
+              <textarea value={typeof editForm.descripcion==="object"?(editForm.descripcion[editSourceLang]||""):editForm.descripcion||""}
+                onChange={e=>setEditForm((p:any)=>({...p,descripcion:{...(typeof p.descripcion==="object"?p.descripcion:{}), [editSourceLang]:e.target.value}}))}
+                rows={4} style={{flex:1,padding:"10px 12px",border:"1px solid #d1d5db",borderRadius:"6px",fontSize:"14px",outline:"none",resize:"vertical"}}/>
+              <button onClick={()=>handleEditTranslate("descripcion")} disabled={editTranslating}
+                style={{padding:"10px 16px",background:"#7c3aed",color:"white",border:"none",borderRadius:"6px",fontSize:"13px",cursor:"pointer",alignSelf:"flex-start"}}>
+                {editTranslating?"...":"Traducir"}
+              </button>
+            </div>
+            {editTranslated.descripcion && (
+              <div style={{background:"#f5f3ff",border:"1px solid #ddd6fe",borderRadius:"6px",padding:"12px",marginBottom:"16px",fontSize:"12px"}}>
+                {Object.entries(editTranslated.descripcion).map(([lang,txt])=>(
+                  <div key={lang} style={{marginBottom:"4px"}}><strong style={{color:"#7c3aed"}}>{lang.toUpperCase()}:</strong> {txt as string}</div>
+                ))}
+              </div>
+            )}
+
+            {/* Campos numéricos */}
             {[
               {label:"Precio (€)", field:"precio", type:"number"},
               {label:"Habitaciones", field:"habitaciones", type:"number"},
               {label:"Baños", field:"banos", type:"number"},
               {label:"M² Construidos", field:"m2_construidos", type:"number"},
               {label:"M² Parcela", field:"m2_parcela", type:"number"},
-              {label:"Ubicación", field:"ubicacion", type:"text"},
+              {label:"Ubicación/Zona", field:"ubicacion", type:"text"},
             ].map(({label,field,type})=>(
               <div key={field}>
                 <label style={{display:"block",fontSize:"11px",fontWeight:600,color:"#6b7280",textTransform:"uppercase",letterSpacing:"0.08em",marginBottom:"4px"}}>{label}</label>
                 <input type={type} value={(editForm as any)[field]||""}
-                  onChange={e=>setEditForm(p=>({...p,[field]:type==="number"?parseFloat(e.target.value)||0:e.target.value}))}
+                  onChange={e=>setEditForm((p:any)=>({...p,[field]:type==="number"?parseFloat(e.target.value)||0:e.target.value}))}
                   style={{width:"100%",padding:"10px 12px",border:"1px solid #d1d5db",borderRadius:"6px",fontSize:"14px",outline:"none",boxSizing:"border-box",marginBottom:"16px"}}/>
               </div>
             ))}
