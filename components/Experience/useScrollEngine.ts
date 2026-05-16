@@ -2,7 +2,7 @@
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 
-export type Phase = "video" | "transition" | "gallery";
+export type Phase = "video" | "transition" | "description" | "gallery";
 
 interface ScrollEngineProps {
   videoRef: React.RefObject<HTMLVideoElement | null>;
@@ -27,6 +27,7 @@ export function useScrollEngine({
   const galleryProgressRef = useRef(0);
   const inf1LockedRef = useRef(false);
   const inf2LockedRef = useRef(false);
+  const descProgressRef = useRef(0);
 
   useEffect(() => {
     const video = videoRef.current;
@@ -150,19 +151,14 @@ export function useScrollEngine({
         ));
         targetTransition = transitionProgressRef.current;
 
-        // Descripción — visible durante la transición
-        if (descRef?.current) {
-          const t = transitionProgressRef.current;
-          const opacity = t < 0.2 ? t/0.2 : t > 0.8 ? (1-t)/0.2 : 1;
-          descRef.current.style.opacity = String(Math.max(0, Math.min(1, opacity)));
-          descRef.current.style.pointerEvents = opacity > 0.1 ? "auto" : "none";
-        }
-
         if (transitionProgressRef.current >= 0.999 && delta > 0) {
-          phaseRef.current = "gallery";
-          galleryProgressRef.current = 0;
-          targetGallery = 0;
-          if (descRef?.current) { descRef.current.style.opacity = "0"; descRef.current.style.pointerEvents = "none"; }
+          phaseRef.current = "description";
+          descProgressRef.current = 0;
+          if (descRef?.current) {
+            descRef.current.style.opacity = "1";
+            descRef.current.style.pointerEvents = "auto";
+            descRef.current.scrollTop = 0;
+          }
         }
         if (transitionProgressRef.current <= 0.001 && delta < 0) {
           phaseRef.current = "video";
@@ -171,7 +167,34 @@ export function useScrollEngine({
         }
       }
 
-      // ── FASE 3: GALERIA ──────────────────────────────────────────────────
+      // ── FASE 3: DESCRIPTION ─────────────────────────────────────────────
+      else if (phaseRef.current === "description") {
+        const el = descRef?.current;
+        if (el) {
+          const maxScroll = el.scrollHeight - el.clientHeight;
+          if (maxScroll > 0) {
+            el.scrollTop = Math.max(0, Math.min(maxScroll, el.scrollTop + delta * 0.8));
+            descProgressRef.current = el.scrollTop / maxScroll;
+          } else {
+            descProgressRef.current = 1;
+          }
+        }
+
+        if (descProgressRef.current >= 0.999 && delta > 0) {
+          phaseRef.current = "gallery";
+          galleryProgressRef.current = 0;
+          targetGallery = 0;
+          if (descRef?.current) { descRef.current.style.opacity = "0"; descRef.current.style.pointerEvents = "none"; }
+        }
+        if (delta < 0 && descProgressRef.current <= 0.001) {
+          phaseRef.current = "transition";
+          transitionProgressRef.current = 1;
+          targetTransition = 1;
+          if (descRef?.current) { descRef.current.style.opacity = "0"; descRef.current.style.pointerEvents = "none"; }
+        }
+      }
+
+      // ── FASE 4: GALERIA ──────────────────────────────────────────────────
       else if (phaseRef.current === "gallery") {
         galleryProgressRef.current = Math.max(0, Math.min(1,
           galleryProgressRef.current + delta * 0.0006
@@ -179,9 +202,14 @@ export function useScrollEngine({
         targetGallery = galleryProgressRef.current;
 
         if (galleryProgressRef.current <= 0.001 && delta < 0) {
-          phaseRef.current = "transition";
-          transitionProgressRef.current = 1;
-          targetTransition = 1;
+          phaseRef.current = "description";
+          descProgressRef.current = 1;
+          if (descRef?.current) {
+            descRef.current.style.opacity = "1";
+            descRef.current.style.pointerEvents = "auto";
+            const maxScroll = descRef.current.scrollHeight - descRef.current.clientHeight;
+            descRef.current.scrollTop = maxScroll;
+          }
         }
       }
     };
