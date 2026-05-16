@@ -127,17 +127,17 @@ export default function VideoSection({
             }}
           >
             <span style={{ color:"rgba(255,255,255,0.55)", textTransform:"uppercase", letterSpacing:"0.45em", fontSize:"clamp(0.4rem,1vw,0.55rem)", display:"block", marginBottom:"1rem", fontStyle:"italic" }}>
-              {getText(inf2?.label, locale) || "Perspectiva"}
+              {getText(inf2?.label, locale)}
             </span>
             <h2 style={{ fontFamily:"Georgia,serif", color:"white", fontSize:"clamp(1.6rem,3.5vw,4rem)", fontWeight:300, lineHeight:1.15, margin:"0 0 0.8rem" }}>
-              {getText(inf2?.titulo, locale) || "Horizonte"}<br />
+              {getText(inf2?.titulo, locale)}<br />
               <span style={{ color:"rgba(255,255,255,0.6)", fontSize:"0.75em", fontFamily:"sans-serif", fontWeight:100 }}>
-                {getText(inf2?.subtitulo, locale) || "Sin Limites"}
+                {getText(inf2?.subtitulo, locale)}
               </span>
             </h2>
             <div style={{ width:"2.5rem", height:"1px", background:"rgba(255,255,255,0.35)", marginBottom:"0.8rem", marginLeft:"auto" }}/>
             <p style={{ color:"rgba(255,255,255,0.8)", textTransform:"uppercase", letterSpacing:"0.15em", fontSize:"clamp(0.4rem,0.9vw,0.6rem)", lineHeight:1.9, margin:0 }}>
-              {getText(inf2?.texto, locale) || "Piscina panoramica con reflejos de titanio."}
+              {getText(inf2?.texto, locale)}
             </p>
           </div>
         </div>
