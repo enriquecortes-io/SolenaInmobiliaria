@@ -186,15 +186,13 @@ export default function AdminPanel() {
         {/* Título */}
         <label style={LABEL}>Título</label>
         <div style={{display:"flex",gap:"1rem",alignItems:"flex-end"}}>
-          <input value={form.titulo} onChange={e=>setForm(p=>({...p,titulo:e.target.value}))}
+          <input value={form.titulo}
+            onChange={e => setForm(p => ({
+              ...p,
+              titulo: e.target.value,
+              slug: generateSlug(e.target.value)
+            }))}
             placeholder="Villa Golden Mile" style={{...INPUT,flex:1}}
-            onChange={e => {
-              setForm(p => ({
-                ...p,
-                titulo: e.target.value,
-                slug: generateSlug(e.target.value)
-              }));
-            }}
           />
           <button onClick={()=>handleTranslate("titulo")} disabled={translating}
             style={{background:"none",border:"1px solid rgba(201,169,110,0.3)",color:"#c9a96e",
