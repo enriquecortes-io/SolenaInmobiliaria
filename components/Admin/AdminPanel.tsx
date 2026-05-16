@@ -29,6 +29,16 @@ export default function AdminPanel() {
   const [password, setPassword] = useState("");
   const [auth, setAuth] = useState(false);
 
+  const generateSlug = (text: string) => {
+    return text
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[̀-ͯ]/g, "")
+      .replace(/[^a-z0-9\s-]/g, "")
+      .trim()
+      .replace(/\s+/g, "-");
+  };
+
   useEffect(() => {
     const saved = localStorage.getItem("mdlm_admin");
     if (saved === "mdlm2026secure") setAuth(true);
@@ -177,7 +187,15 @@ export default function AdminPanel() {
         <label style={LABEL}>Título</label>
         <div style={{display:"flex",gap:"1rem",alignItems:"flex-end"}}>
           <input value={form.titulo} onChange={e=>setForm(p=>({...p,titulo:e.target.value}))}
-            placeholder="Villa Golden Mile" style={{...INPUT,flex:1}}/>
+            placeholder="Villa Golden Mile" style={{...INPUT,flex:1}}
+            onChange={e => {
+              setForm(p => ({
+                ...p,
+                titulo: e.target.value,
+                slug: generateSlug(e.target.value)
+              }));
+            }}
+          />
           <button onClick={()=>handleTranslate("titulo")} disabled={translating}
             style={{background:"none",border:"1px solid rgba(201,169,110,0.3)",color:"#c9a96e",
             fontFamily:"'Helvetica Neue',sans-serif",fontSize:"0.4rem",letterSpacing:"0.3em",
