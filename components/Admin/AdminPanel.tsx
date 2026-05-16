@@ -9,7 +9,7 @@ export default function AdminPanel() {
   const [translated, setTranslated] = useState<Record<string,Record<string,string>>>({});
 
   const [form, setForm] = useState({
-    slug: "", sourceLang: "es", tipo: "",
+    slug: "", sourceLang: "es", tipo: "", localidad: "",
     titulo: "", descripcion: "",
     precio: "", habitaciones: "", banos: "",
     m2Construidos: "", m2Parcela: "", tieneJardin: false,
@@ -67,6 +67,7 @@ export default function AdminPanel() {
       const property = {
         slug: form.slug,
         tipo: form.tipo,
+        localidad: form.localidad,
         titulo: translated.titulo || { [form.sourceLang]: form.titulo },
         descripcion: translated.descripcion || { [form.sourceLang]: form.descripcion },
         precio: parseFloat(form.precio),
@@ -198,6 +199,17 @@ export default function AdminPanel() {
             <option value="media-planta">Apartamento — Media Planta</option>
             <option value="bajo">Apartamento — Bajo</option>
             <option value="terreno">Terreno</option>
+          </select>
+
+          {/* Localidad */}
+          <label style={L}>Localidad</label>
+          <select value={form.localidad} onChange={e=>setForm(p=>({...p,localidad:e.target.value}))} style={F}>
+            <option value="">— Seleccionar —</option>
+            <option value="marbella">Marbella</option>
+            <option value="estepona">Estepona</option>
+            <option value="mijas">Mijas</option>
+            <option value="benahavis">Benahavís</option>
+            <option value="sotogrande">Sotogrande</option>
           </select>
 
           {/* Slug */}
