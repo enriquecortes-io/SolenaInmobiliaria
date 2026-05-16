@@ -10,6 +10,7 @@ interface ScrollEngineProps {
   galleryTrackRef: React.RefObject<HTMLDivElement | null>;
   infographic1Ref: React.RefObject<HTMLDivElement | null>;
   infographic2Ref: React.RefObject<HTMLDivElement | null>;
+  descRef?: React.RefObject<HTMLDivElement | null>;
 }
 
 export function useScrollEngine({
@@ -18,6 +19,7 @@ export function useScrollEngine({
   galleryTrackRef,
   infographic1Ref,
   infographic2Ref,
+  descRef,
 }: ScrollEngineProps) {
   const phaseRef = useRef<Phase>("video");
   const videoProgressRef = useRef(0);
@@ -148,14 +150,24 @@ export function useScrollEngine({
         ));
         targetTransition = transitionProgressRef.current;
 
+        // Descripción — visible durante la transición
+        if (descRef?.current) {
+          const t = transitionProgressRef.current;
+          const opacity = t < 0.2 ? t/0.2 : t > 0.8 ? (1-t)/0.2 : 1;
+          descRef.current.style.opacity = String(Math.max(0, Math.min(1, opacity)));
+          descRef.current.style.pointerEvents = opacity > 0.1 ? "auto" : "none";
+        }
+
         if (transitionProgressRef.current >= 0.999 && delta > 0) {
           phaseRef.current = "gallery";
           galleryProgressRef.current = 0;
           targetGallery = 0;
+          if (descRef?.current) { descRef.current.style.opacity = "0"; descRef.current.style.pointerEvents = "none"; }
         }
         if (transitionProgressRef.current <= 0.001 && delta < 0) {
           phaseRef.current = "video";
           videoProgressRef.current = 1;
+          if (descRef?.current) { descRef.current.style.opacity = "0"; descRef.current.style.pointerEvents = "none"; }
         }
       }
 

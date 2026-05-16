@@ -59,6 +59,7 @@ export default function PropertyExperience({ property, locale }: Props) {
     galleryTrackRef,
     infographic1Ref,
     infographic2Ref,
+    descRef,
   });
 
   return (
@@ -147,7 +148,7 @@ export default function PropertyExperience({ property, locale }: Props) {
         </div>
       )}
       {/* Sección descripción — aparece entre video y galería */}
-      <div style={{
+      <div ref={descRef} style={{
         position:"fixed",
         inset:0,
         zIndex:8,
@@ -158,8 +159,8 @@ export default function PropertyExperience({ property, locale }: Props) {
         background:"rgba(0,0,0,0.92)",
         opacity:0,
         pointerEvents:"none",
-        transition:"opacity 0.5s ease",
-      }} id="desc-section">
+        transition:"opacity 0.3s ease",
+      }}>
         <div style={{ maxWidth:"900px", width:"100%" }}>
           <p style={{ fontFamily:"'Helvetica Neue',sans-serif", fontSize:"0.5rem", color:"rgba(201,169,110,0.7)", letterSpacing:"0.6em", textTransform:"uppercase", margin:"0 0 2rem" }}>
             {property.ubicacion}
