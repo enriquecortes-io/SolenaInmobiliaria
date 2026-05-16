@@ -97,7 +97,11 @@ export default function Portfolio({ password, onEdit }: Props) {
         body: JSON.stringify({ text, sourceLang: editSourceLang }),
       });
       const data = await res.json();
-      // Guardar traducciones — se usarán al guardar
+      // Volcar traducciones directamente en editForm como objeto multiidioma
+      setEditForm((prev: any) => ({
+        ...prev,
+        [field]: data.translations,
+      }));
       setEditTranslated(prev => ({...prev, [field]: data.translations}));
     } catch {}
     setEditTranslating(false);
