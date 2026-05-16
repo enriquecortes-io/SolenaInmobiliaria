@@ -2,9 +2,9 @@
 import { useState, useEffect } from "react";
 
 interface Property {
-  id: string; slug: string; titulo: any; precio: number;
+  id: string; slug: string; titulo: any; descripcion: any; precio: number;
   habitaciones: number; banos: number; m2_construidos: number;
-  ubicacion: string; tipo: string; localidad: string;
+  ubicacion: string; tipo: string; zona: string;
   activa: boolean; destacada: boolean;
 }
 
