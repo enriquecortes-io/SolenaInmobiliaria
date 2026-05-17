@@ -139,7 +139,12 @@ export default function SkyHeader({ locale }: Props) {
             textShadow:"0 4px 60px rgba(0,0,0,0.7)",
 
           }}>
-            {scene.word}
+            {scene.word.length > 7
+              ? <>
+                  {scene.word.slice(0, Math.ceil(scene.word.length/2))}<br/>
+                  {scene.word.slice(Math.ceil(scene.word.length/2))}
+                </>
+              : scene.word}
           </div>
 
           <div className="phrase-anim" style={{
