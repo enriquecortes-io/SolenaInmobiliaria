@@ -58,25 +58,27 @@ export default function Navbar({ locale = "es", onPrivateAccess }: Props) {
         borderBottom:"1px solid rgba(255,255,255,0.05)",
       }}>
 
-        {/* Logo */}
+        {/* Logo EDIT MARBELLA */}
         <Link href={`/${locale}`} style={{ textDecoration:"none" }}>
-          <div style={{ display:"flex", flexDirection:"column", lineHeight:1.2 }}>
-            <span style={{
-              fontFamily:"'Helvetica Neue',sans-serif",
-              fontSize:"clamp(0.45rem,1vw,0.6rem)",
-              fontWeight:400,
-              color:"#c9a96e",
-              letterSpacing:"0.4em",
-              textTransform:"uppercase",
-            }}>MILLION DOLLARS</span>
-            <span style={{
-              fontFamily:"'Helvetica Neue',sans-serif",
-              fontSize:"clamp(0.35rem,0.8vw,0.5rem)",
-              fontWeight:200,
-              color:"rgba(201,169,110,0.6)",
-              letterSpacing:"0.5em",
-              textTransform:"uppercase",
-            }}>LISTING MARBELLA</span>
+          <div style={{ width:"clamp(80px,12vw,140px)" }}>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 150" width="100%" height="100%">
+              <g transform="translate(200, 75)">
+                <text x="0" y="0"
+                  fontFamily="'Montserrat','Helvetica Neue',sans-serif"
+                  fontWeight="900"
+                  fontSize="80"
+                  fill="white"
+                  textAnchor="middle"
+                  letterSpacing="2">EDIT</text>
+                <text x="0" y="45"
+                  fontFamily="'Montserrat','Helvetica Neue',sans-serif"
+                  fontWeight="300"
+                  fontSize="34"
+                  fill="rgba(255,255,255,0.6)"
+                  textAnchor="middle"
+                  letterSpacing="10">marbella</text>
+              </g>
+            </svg>
           </div>
         </Link>
 
