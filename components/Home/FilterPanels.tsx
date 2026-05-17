@@ -194,15 +194,15 @@ export default function FilterPanels({ locale, panelRefs }: Props) {
             <div style={{display:"flex",alignItems:"center",gap:"1.5rem"}}>
               {i > 0 && (
                 <button className="back-btn" onClick={()=>handleBack(i)}
-                  style={{background:"none",border:"none",padding:0,color:"rgba(255,255,255,0.25)",fontFamily:"'Helvetica Neue',sans-serif",fontSize:"0.42rem",letterSpacing:"0.3em",textTransform:"uppercase",display:"flex",alignItems:"center",gap:"0.4rem",cursor:"pointer"}}>
+                  style={{background:"none",border:"none",padding:0,color:"rgba(255,255,255,0.25)",fontFamily:"'Montserrat',sans-serif",fontSize:"0.6rem",letterSpacing:"0.3em",textTransform:"uppercase",display:"flex",alignItems:"center",gap:"0.4rem",cursor:"pointer"}}>
                   {tf.back}
                 </button>
               )}
-              <span style={{fontFamily:"'Helvetica Neue',sans-serif",fontSize:"0.42rem",fontWeight:300,color:`rgba(${filter.accentRgb},0.8)`,letterSpacing:"0.65em",textTransform:"uppercase"}}>
+              <span style={{fontFamily:"'Montserrat',sans-serif",fontSize:"0.6rem",fontWeight:300,color:`rgba(${filter.accentRgb},0.8)`,letterSpacing:"0.65em",textTransform:"uppercase"}}>
                 {filterLabels[filter.id] || filter.label}
               </span>
             </div>
-            <span style={{fontFamily:"'Helvetica Neue',sans-serif",fontSize:"0.42rem",fontWeight:200,color:"rgba(255,255,255,0.1)",letterSpacing:"0.3em"}}>
+            <span style={{fontFamily:"'Montserrat',sans-serif",fontSize:"0.6rem",fontWeight:200,color:"rgba(255,255,255,0.1)",letterSpacing:"0.3em"}}>
               {filter.index} / 03
             </span>
           </div>
@@ -210,7 +210,7 @@ export default function FilterPanels({ locale, panelRefs }: Props) {
           {/* Pregunta */}
           <div style={{padding:"2rem 3rem 0",flexShrink:0}} key={`q-${i}`}>
             <h2 className="q-anim filter-question" style={{
-              fontFamily:"'Helvetica Neue','Arial',sans-serif",
+              fontFamily:"'Montserrat',sans-serif",
               fontWeight:100,
               color:"rgba(255,255,255,0.92)",
               letterSpacing:"-0.025em",
@@ -252,7 +252,7 @@ export default function FilterPanels({ locale, panelRefs }: Props) {
                   }}
                 >
                   <div className="filter-label fname" style={{
-                    fontFamily:"'Helvetica Neue',sans-serif",
+                    fontFamily:"'Montserrat',sans-serif",
                     fontWeight:200,
                     textTransform:"uppercase",
                     color: isSel ? "#fff" : "rgba(255,255,255,0.65)",
@@ -270,7 +270,7 @@ export default function FilterPanels({ locale, panelRefs }: Props) {
                   }}/>
 
                   <span className="filter-sub" style={{
-                    fontFamily:"'Helvetica Neue',sans-serif",
+                    fontFamily:"'Montserrat',sans-serif",
                     fontWeight:200,
                     color: isSel
                       ? `rgba(${filter.accentRgb},0.9)`
@@ -297,7 +297,7 @@ export default function FilterPanels({ locale, panelRefs }: Props) {
             <div style={{padding:"1.5rem 3rem",flexShrink:0,display:"flex",justifyContent:"flex-end",borderTop:`1px solid rgba(${filter.accentRgb},0.08)`}}>
               <button
                 onClick={()=>router.push(`/${locale}/propiedades?${new URLSearchParams(selected).toString()}`)}
-                style={{background:"none",border:`1px solid rgba(${filter.accentRgb},0.45)`,color:filter.accent,fontFamily:"'Helvetica Neue',sans-serif",fontSize:"0.42rem",letterSpacing:"0.6em",textTransform:"uppercase",padding:"1rem 2.5rem",cursor:"pointer",transition:"all 0.4s"}}
+                style={{background:"none",border:`1px solid rgba(${filter.accentRgb},0.45)`,color:filter.accent,fontFamily:"'Montserrat',sans-serif",fontSize:"0.6rem",letterSpacing:"0.6em",textTransform:"uppercase",padding:"1rem 2.5rem",cursor:"pointer",transition:"all 0.4s"}}
                 onMouseEnter={e=>{e.currentTarget.style.background=`rgba(${filter.accentRgb},0.12)`;}}
                 onMouseLeave={e=>{e.currentTarget.style.background="none";}}
               >
