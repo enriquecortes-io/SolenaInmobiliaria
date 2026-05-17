@@ -21,7 +21,7 @@ export function convertGDriveUrl(url: string): string {
       if (url.includes("preview") || url.includes("video")) {
         return `https://drive.google.com/file/d/${id}/preview`;
       }
-      return `https://drive.google.com/uc?export=view&id=${id}`;
+      return `https://lh3.googleusercontent.com/d/${id}`;
     }
   }
   
