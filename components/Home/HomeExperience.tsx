@@ -30,7 +30,7 @@ export default function HomeExperience({ locale }: Props) {
       {/* Filtros */}
       <div ref={filtersRef} style={{
         position:"absolute", inset:0, zIndex:10,
-        opacity:0, pointerEvents:"none",
+        opacity:1, pointerEvents:"none",
         perspective:"500px",
         perspectiveOrigin:"center center",
         background:"transparent",
