@@ -184,8 +184,8 @@ export default function PropertyExperience({ property, locale }: Props) {
       {showForm && (
         <div style={{
           position:"fixed", inset:0, zIndex:200,
-          background:"rgba(0,0,0,0.85)",
-          backdropFilter:"blur(20px)",
+          background:"linear-gradient(135deg, #0d0a08 0%, #1a1008 40%, #0a0d1a 100%)",
+          backdropFilter:"blur(4px)",
           display:"flex", alignItems:"center", justifyContent:"center",
           padding:"2rem",
           overflowY:"auto",
