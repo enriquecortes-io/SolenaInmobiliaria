@@ -92,12 +92,13 @@ export default function Navbar({ locale = "es", onPrivateAccess }: Props) {
             style={{
               background:"none",
               border:"none",
-              color:"rgba(201,169,110,0.7)",
+              color:"#c9a96e",
               fontFamily:"'Montserrat','Helvetica Neue',sans-serif",
               fontSize:"0.6rem", letterSpacing:"0.3em",
               textTransform:"uppercase", cursor:"pointer",
               transition:"all 0.3s ease",
               padding:"0.5rem 1.2rem",
+              textShadow:"0 0 8px rgba(201,169,110,0.9), 0 0 20px rgba(201,169,110,0.6), 0 0 40px rgba(201,169,110,0.3)",
             }}
             onMouseEnter={e=>{
               e.currentTarget.style.color="#c9a96e";
@@ -110,7 +111,7 @@ export default function Navbar({ locale = "es", onPrivateAccess }: Props) {
               e.currentTarget.style.background="none";
             }}
           >
-            ✦ {PRIVATE_VIEWING[locale as keyof typeof PRIVATE_VIEWING] || "Private Viewing"}
+            {PRIVATE_VIEWING[locale as keyof typeof PRIVATE_VIEWING] || "Private Viewing"}
           </button>
         )}
 
