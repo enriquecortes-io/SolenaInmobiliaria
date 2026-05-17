@@ -68,6 +68,7 @@ export default function Navbar({ locale = "es", onPrivateAccess }: Props) {
               color:"white",
               letterSpacing:"0.05em",
               lineHeight:1,
+            whiteSpace:"nowrap",
             }}>The Edit</span>
             <div style={{ display:"flex", alignItems:"center", gap:"0", width:"100%" }}>
               <div style={{ flex:1, height:"0.5px", background:"rgba(255,255,255,0.4)" }}/>
