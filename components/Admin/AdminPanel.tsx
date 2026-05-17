@@ -6,15 +6,16 @@ import Leads from "./Leads";
 import CruceVentas from "./CruceVentas";
 import FeedsPanel from "./FeedsPanel";
 import Users from "./Users";
+import Dashboard from "./Dashboard";
 
-type Section = "portfolio" | "new" | "leads" | "cruce" | "feeds" | "users";
+type Section = "dashboard" | "portfolio" | "new" | "leads" | "cruce" | "feeds" | "users";
 
 export default function AdminPanel() {
   const [password, setPassword] = useState("");
   const [auth, setAuth] = useState(false);
   const [user, setUser] = useState<{name:string,role:string,password:string}|null>(null);
   const [authError, setAuthError] = useState("");
-  const [section, setSection] = useState<Section>("portfolio");
+  const [section, setSection] = useState<Section>("dashboard");
 
   useEffect(() => {
     const saved = localStorage.getItem("mdlm_admin_user");
@@ -85,6 +86,7 @@ export default function AdminPanel() {
   );
 
   const NAV: { id: Section; icon: string; label: string; green?: boolean }[] = [
+    { id:"dashboard", icon:"📊", label:"Dashboard" },
     { id:"new",       icon:"➕", label:"Nueva Propiedad", green:true },
     { id:"portfolio", icon:"🏠", label:"Portfolio" },
     { id:"leads",     icon:"👥", label:"Leads" },
@@ -145,6 +147,7 @@ export default function AdminPanel() {
         {section === "new" && <NewProperty password={password} />}
         {section === "leads" && <Leads password={password} />}
         {section === "cruce" && <CruceVentas password={password} />}
+        {section === "dashboard" && <Dashboard password={password} />}
         {section === "feeds" && <FeedsPanel />}
         {section === "users" && <Users password={password} />}
       </div>
