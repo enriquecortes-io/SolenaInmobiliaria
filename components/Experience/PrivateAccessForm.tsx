@@ -80,12 +80,12 @@ export default function PrivateAccessForm({ locale, propertyTitle, propertySlug 
   const lang = (["es","en","fr","ru"].includes(locale) ? locale : "en") as Locale;
   const c = COPY[lang];
 
-  const [form, setForm] = useState({ name:"", email:"", phone:"", horizon:"" });
+  const [form, setForm] = useState({ name:"", email:"", phone:"", horizon:"", privacy:false });
   const [status, setStatus] = useState<"idle"|"sending"|"done"|"error">("idle");
   const [focused, setFocused] = useState<string|null>(null);
 
   const handleSubmit = async () => {
-    if (!form.name || !form.email || !form.phone || !form.horizon) return;
+    if (!form.name || !form.email || !form.phone || !form.horizon || !form.privacy) return;
     setStatus("sending");
     try {
       await fetch("/api/contact", {
@@ -229,10 +229,38 @@ export default function PrivateAccessForm({ locale, propertyTitle, propertySlug 
                 ))}
               </div>
             </div>
+            {/* Checkbox privacidad */}
+            <label style={{
+              display:"flex", alignItems:"flex-start", gap:"0.8rem",
+              cursor:"pointer", marginBottom:"1rem",
+            }}>
+              <input
+                type="checkbox"
+                checked={form.privacy}
+                onChange={e=>setForm(p=>({...p,privacy:e.target.checked}))}
+                style={{ marginTop:"3px", accentColor:"#c9a96e", width:"16px", height:"16px", flexShrink:0 }}
+              />
+              <span style={{
+                fontFamily:"'Montserrat',sans-serif",
+                fontSize:"0.6rem", fontWeight:200,
+                color:"rgba(255,255,255,0.45)",
+                lineHeight:1.7,
+              }}>
+                {({"es":"He leído y acepto la ","en":"I have read and accept the ","fr":"J'ai lu et j'accepte la ","ru":"Я прочитал и принимаю "} as Record<string,string>)[locale]}
+                <a
+                  href={`/${locale}/privacidad`}
+                  target="_blank"
+                  style={{ color:"#c9a96e", textDecoration:"none" }}
+                >
+                  {({"es":"Política de Privacidad","en":"Privacy Policy","fr":"Politique de Confidentialité","ru":"Политику конфиденциальности"} as Record<string,string>)[locale]}
+                </a>
+              </span>
+            </label>
+
             {/* Submit */}
             <button
               onClick={handleSubmit}
-              disabled={status==="sending" || !form.name || !form.email || !form.phone || !form.horizon}
+              disabled={status==="sending" || !form.name || !form.email || !form.phone || !form.horizon || !form.privacy}
               style={{
                 background:"none",
                 border:`1px solid rgba(201,169,110,${!form.name||!form.email||!form.phone||!form.horizon?0.2:0.5})`,
