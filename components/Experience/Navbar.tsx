@@ -60,7 +60,7 @@ export default function Navbar({ locale = "es", onPrivateAccess }: Props) {
 
         {/* Logo EDIT MARBELLA */}
         <Link href={`/${locale}`} style={{ textDecoration:"none" }}>
-          <div style={{ width:"clamp(80px,12vw,140px)" }}>
+          <div style={{ width:"clamp(120px,16vw,200px)" }}>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 150" width="100%" height="100%">
               <g transform="translate(200, 75)">
                 <text x="0" y="0"
