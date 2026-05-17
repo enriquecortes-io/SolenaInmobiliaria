@@ -114,6 +114,7 @@ export default function SkyHeader({ locale }: Props) {
           alignItems: scene.word.length > 7 ? "center" : scene.align === "right" ? "flex-end" : scene.align === "center" ? "center" : "flex-start",
           maxWidth:"90vw",
         }}>
+          {/* Partir en 2 líneas si la palabra es larga en mobile */}
           <div className="word-anim" style={{
             fontFamily:"'Cormorant Garamond','Cormorant',serif",
             fontSize:"clamp(6rem,16vw,16rem)",
