@@ -60,7 +60,7 @@ export default function Navbar({ locale = "es", onPrivateAccess }: Props) {
 
                         {/* Logo THE EDIT MARBELLA */}
         <Link href={`/${locale}`} style={{ textDecoration:"none" }}>
-          <div style={{ display:"flex", flexDirection:"column", alignItems:"flex-start", gap:"4px" }}>
+          <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:"4px" }}>
             <span style={{
               fontFamily:"'Cormorant Garamond','Cormorant',Georgia,serif",
               fontSize:"clamp(1.4rem,2.5vw,2.2rem)",
