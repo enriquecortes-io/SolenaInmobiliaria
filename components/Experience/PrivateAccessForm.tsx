@@ -229,17 +229,6 @@ export default function PrivateAccessForm({ locale, propertyTitle, propertySlug 
                 ))}
               </div>
             </div>
-
-            {/* Disclaimer */}
-            <p style={{
-              fontFamily:"'Helvetica Neue',sans-serif",
-              fontSize:"0.6rem", fontWeight:300,
-              color:"rgba(255,255,255,0.5)",
-              letterSpacing:"0.02em", lineHeight:1.8,
-              borderLeft:"1px solid rgba(201,169,110,0.2)",
-              paddingLeft:"1rem",
-            }}>{c.disclaimer}</p>
-
             {/* Submit */}
             <button
               onClick={handleSubmit}
