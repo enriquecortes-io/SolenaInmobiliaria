@@ -160,7 +160,7 @@ export default function Leads({ password }: Props) {
           </table>
         </div>
       )}
-    </div>
+
       {/* Modal notas */}
       {notaLead && (
         <div onClick={()=>setNotaLead(null)} style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.5)", zIndex:1000, display:"flex", alignItems:"center", justifyContent:"center", padding:"20px" }}>
@@ -181,5 +181,6 @@ export default function Leads({ password }: Props) {
           </div>
         </div>
       )}
+    </div>
   );
 }
