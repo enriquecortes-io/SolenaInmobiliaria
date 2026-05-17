@@ -176,7 +176,7 @@ export default function FilterPanels({ locale, panelRefs }: Props) {
           className="filter-panel"
           style={{
             willChange:"transform,opacity,filter",
-            background:"rgba(6,4,2,0.35)",
+            background:"rgba(6,4,2,0.55)",
             backdropFilter:"blur(50px) saturate(150%)",
             WebkitBackdropFilter:"blur(50px) saturate(150%)",
             border:`1px solid rgba(${filter.accentRgb},0.18)`,
