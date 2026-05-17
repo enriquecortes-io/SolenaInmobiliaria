@@ -91,7 +91,7 @@ export default function Navbar({ locale = "es", onPrivateAccess }: Props) {
             onClick={onPrivateAccess}
             style={{
               background:"none",
-              border:"1px solid rgba(201,169,110,0.35)",
+              border:"none",
               color:"rgba(201,169,110,0.7)",
               fontFamily:"'Montserrat','Helvetica Neue',sans-serif",
               fontSize:"0.6rem", letterSpacing:"0.3em",
@@ -101,12 +101,12 @@ export default function Navbar({ locale = "es", onPrivateAccess }: Props) {
             }}
             onMouseEnter={e=>{
               e.currentTarget.style.color="#c9a96e";
-              e.currentTarget.style.borderColor="rgba(201,169,110,0.7)";
+              e.currentTarget.style.textShadow="0 0 10px rgba(201,169,110,0.9), 0 0 20px rgba(201,169,110,0.5)";
               e.currentTarget.style.background="rgba(201,169,110,0.08)";
             }}
             onMouseLeave={e=>{
               e.currentTarget.style.color="rgba(201,169,110,0.7)";
-              e.currentTarget.style.borderColor="rgba(201,169,110,0.35)";
+              e.currentTarget.style.textShadow="0 0 8px rgba(201,169,110,0.7), 0 0 16px rgba(201,169,110,0.3)";
               e.currentTarget.style.background="none";
             }}
           >
