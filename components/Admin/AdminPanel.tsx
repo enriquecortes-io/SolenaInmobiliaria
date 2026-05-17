@@ -2,8 +2,9 @@
 import { useState, useEffect } from "react";
 import NewProperty from "./NewProperty";
 import Portfolio from "./Portfolio";
+import Leads from "./Leads";
 
-type Section = "portfolio" | "new";
+type Section = "portfolio" | "new" | "leads";
 
 export default function AdminPanel() {
   const [password, setPassword] = useState("");
@@ -52,6 +53,7 @@ export default function AdminPanel() {
   const NAV: { id: Section; icon: string; label: string }[] = [
     { id:"portfolio", icon:"🏠", label:"Portfolio" },
     { id:"new",       icon:"➕", label:"Nueva Propiedad" },
+    { id:"leads",     icon:"👥", label:"Leads" },
   ];
 
   return (
@@ -98,6 +100,7 @@ export default function AdminPanel() {
       <div style={{ flex:1, overflow:"auto" }}>
         {section === "portfolio" && <Portfolio password={password} onEdit={()=>setSection("new")} />}
         {section === "new" && <NewProperty password={password} />}
+        {section === "leads" && <Leads password={password} />}
       </div>
     </div>
   );
