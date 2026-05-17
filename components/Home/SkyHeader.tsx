@@ -24,12 +24,14 @@ export default function SkyHeader({ locale }: Props) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [sceneIdx, setSceneIdx] = useState(0);
   const [animKey, setAnimKey] = useState(0);
+  const [videoReady, setVideoReady] = useState(false);
 
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
     video.muted = true;
     video.play().catch(() => {});
+    video.addEventListener("canplay", () => setVideoReady(true));
 
     const handleTime = () => {
       const ct = video.currentTime;
@@ -79,11 +81,21 @@ export default function SkyHeader({ locale }: Props) {
         .progress-bar { animation: progressBar 5s linear both; }
       `}</style>
 
+      {/* Fondo fallback — visible hasta que carga el video */}
+      <div style={{
+        position:"absolute", inset:0, zIndex:0,
+        background:"linear-gradient(135deg, #0a0a0f 0%, #0f0a08 50%, #080a0f 100%)",
+        opacity: videoReady ? 0 : 1,
+        transition:"opacity 0.8s ease",
+        pointerEvents:"none",
+      }}/>
+
       {/* Video único */}
       <video
         ref={videoRef}
         src="/videos/HeroHeader.mp4"
         muted playsInline loop
+        onCanPlay={()=>setVideoReady(true)}
         style={{
           position:"absolute", inset:0,
           width:"100%", height:"100%",
