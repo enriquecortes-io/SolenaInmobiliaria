@@ -58,15 +58,27 @@ export default function AdminPanel() {
         <label style={{ display:"block", fontSize:"11px", fontWeight:600, color:"#6b7280", textTransform:"uppercase", letterSpacing:"0.08em", marginBottom:"4px", fontFamily:"system-ui" }}>
           Contraseña
         </label>
-        <input type="password" name="password" autoComplete="current-password"
-          value={password} onChange={e=>setPassword(e.target.value)}
-          onKeyDown={e=>e.key==="Enter"&&handleAuth()}
-          style={{ width:"100%", padding:"10px 12px", border:"1px solid #d1d5db", borderRadius:"6px", fontSize:"14px", fontFamily:"system-ui", outline:"none", boxSizing:"border-box", marginBottom:"12px" }}
-          placeholder="••••••••"
-        />
-        <button onClick={handleAuth} style={{ width:"100%", padding:"10px", background:"#111", color:"white", border:"none", borderRadius:"6px", fontSize:"14px", fontWeight:600, cursor:"pointer", fontFamily:"system-ui" }}>
-          Entrar
-        </button>
+        <form onSubmit={e=>{e.preventDefault();handleAuth();}} method="post" action="">
+          <input
+            type="text" name="username"
+            autoComplete="username"
+            value="admin"
+            readOnly
+            style={{ display:"none" }}
+          />
+          <input
+            type="password"
+            name="password"
+            autoComplete="current-password"
+            value={password}
+            onChange={e=>setPassword(e.target.value)}
+            style={{ width:"100%", padding:"10px 12px", border:"1px solid #d1d5db", borderRadius:"6px", fontSize:"14px", fontFamily:"system-ui", outline:"none", boxSizing:"border-box", marginBottom:"12px" }}
+            placeholder="••••••••"
+          />
+          <button type="submit" style={{ width:"100%", padding:"10px", background:"#111", color:"white", border:"none", borderRadius:"6px", fontSize:"14px", fontWeight:600, cursor:"pointer", fontFamily:"system-ui" }}>
+            Entrar
+          </button>
+        </form>
         {authError && <p style={{ color:"#ef4444", marginTop:"12px", fontSize:"13px", fontFamily:"system-ui" }}>{authError}</p>}
       </div>
     </div>
