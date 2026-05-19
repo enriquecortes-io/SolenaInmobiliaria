@@ -21,11 +21,7 @@ export function convertGDriveUrl(url: string): string {
       if (url.includes("preview") || url.includes("video")) {
         return `https://drive.google.com/file/d/${id}/preview`;
       }
-      // Para videos usar preview, para imágenes usar lh3
-      if (url.includes('preview') || url.includes('.mp4') || url.includes('video')) {
-        return `https://drive.google.com/file/d/${id}/preview`;
-      }
-      return `https://lh3.googleusercontent.com/d/${id}`;
+      return `https://drive.google.com/uc?export=view&id=${id}`;
     }
   }
   
