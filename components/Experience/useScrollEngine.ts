@@ -166,8 +166,10 @@ export function useScrollEngine({
 
       // ── FASE 2: TRANSICION ───────────────────────────────────────────────
       else if (phaseRef.current === "transition") {
+        const isMobile = window.innerWidth < 768;
+        const sensitivity = isMobile ? 0.0005 : 0.0015;
         transitionProgressRef.current = Math.max(0, Math.min(1,
-          transitionProgressRef.current + delta * 0.0015
+          transitionProgressRef.current + delta * sensitivity
         ));
         targetTransition = transitionProgressRef.current;
 
@@ -189,9 +191,11 @@ export function useScrollEngine({
 
       // ── FASE 3: DESCRIPTION ─────────────────────────────────────────────
       else if (phaseRef.current === "description") {
-        // Acumular progreso con scroll
+        // Acumular progreso con scroll — más lento en mobile
+        const isMobileDesc = window.innerWidth < 768;
+        const descSensitivity = isMobileDesc ? 0.0012 : 0.004;
         descProgressRef.current = Math.max(0, Math.min(1,
-          descProgressRef.current + delta * 0.004
+          descProgressRef.current + delta * descSensitivity
         ));
 
         // Mostrar enmarcado
