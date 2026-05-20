@@ -55,15 +55,28 @@ export function useScrollEngine({
       smoothGallery = lerp(smoothGallery, targetGallery, 0.08);
 
       if (smoothTransition > 0.001) {
-        const newHeight = 100 + smoothTransition * 300;
-        const scrollY = smoothTransition * 300;
-        gsap.set(stage, { y: -scrollY + "vh", height: newHeight + "vh" });
+        const vh = window.innerHeight;
+        const descH = descRef?.current?.offsetHeight || vh;
+        const galleryEl = document.querySelector(".gallery-section") as HTMLElement;
+        const galleryH = galleryEl?.offsetHeight || vh * 0.5;
         
-        // Mostrar descripción cuando el stage la empieza a revelar (>50% transición)
+        // Total scroll = video(vh) + desc(descH) + gallery(galleryH)
+        const totalScroll = descH + galleryH;
+        const scrollY = smoothTransition * totalScroll;
+        const newHeight = vh + totalScroll;
+        
+        gsap.set(stage, { y: -scrollY + "px", height: newHeight + "px" });
+        
+        // Posicionar galería justo después de la descripción
+        if (galleryEl) {
+          galleryEl.style.top = (vh + descH) + "px";
+        }
+        
+        // Descripción visible cuando se empieza a revelar
         if (descRef?.current) {
-          const descOpacity = Math.max(0, Math.min(1, (smoothTransition - 0.4) / 0.4));
+          const descOpacity = Math.max(0, Math.min(1, (smoothTransition - 0.2) / 0.3));
           descRef.current.style.opacity = String(descOpacity);
-          descRef.current.style.pointerEvents = descOpacity > 0.3 ? "auto" : "none";
+          descRef.current.style.pointerEvents = descOpacity > 0.1 ? "auto" : "none";
         }
       }
 
