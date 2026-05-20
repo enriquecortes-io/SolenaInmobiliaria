@@ -93,6 +93,7 @@ export default function Portfolio({ password, onEdit }: Props) {
         titulo, descripcion,
         ...editFields,
         galeria_urls: editFields.galeria_urls.split("\n").map((s:string)=>convertGDriveUrl(s.trim())).filter(Boolean),
+        video_url: convertGDriveUrl(editFields.video_url||""),
       };
       const res = await fetch("/api/admin/save-property", {
         method:"POST", headers:{"Content-Type":"application/json"},
