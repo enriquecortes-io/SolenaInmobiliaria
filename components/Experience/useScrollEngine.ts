@@ -32,7 +32,7 @@ export function useScrollEngine({
   useEffect(() => {
     const video = videoRef.current;
     const stage = stageRef.current;
-    const isDrive = video?.src?.includes("drive.google.com") || !video;
+    const isDrive = video?.src?.includes("drive.google.com") || video?.src?.includes("/api/drive") || !video;
     const galleryTrack = galleryTrackRef.current;
     if (!video || !stage || !galleryTrack) return;
 
