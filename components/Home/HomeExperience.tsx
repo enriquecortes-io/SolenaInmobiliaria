@@ -17,15 +17,6 @@ export default function HomeExperience({ locale }: Props) {
 
   useHomeScroll({ headerRef, filtersRef, carouselRef, panelRefs, totalPanels: TOTAL_PANELS });
 
-  // Debug temporal — forzar visibilidad del carrusel
-  if (typeof window !== "undefined") {
-    setTimeout(() => {
-      if (carouselRef.current) {
-        carouselRef.current.style.opacity = "1";
-        carouselRef.current.style.pointerEvents = "auto";
-      }
-    }, 2000);
-  }
 
   return (
     <div style={{position:"fixed",inset:0,width:"100%",height:"100vh",overflow:"hidden",background:"transparent"}}>
@@ -47,7 +38,9 @@ export default function HomeExperience({ locale }: Props) {
         display:"flex", alignItems:"center", justifyContent:"center",
         padding:"0 clamp(1rem,5vw,4rem)",
       }}>
-        <PropertyCarousel locale={locale} />
+        <div style={{ color:"white", fontSize:"3rem", fontFamily:"serif" }}>
+          CARRUSEL TEST
+        </div>
       </div>
 
       {/* Filtros — empieza oculto, RAF lo muestra */}
