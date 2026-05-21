@@ -102,7 +102,7 @@ export function useHomeScroll({ headerRef, filtersRef, carouselRef, panelRefs, t
       if (phaseRef.current === "header") {
         headerProgressRef.current = Math.max(0, Math.min(1, headerProgressRef.current + delta * 0.003));
         targetHeader = headerProgressRef.current;
-        if (headerProgressRef.current >= 1) phaseRef.current = "filters";
+        if (headerProgressRef.current >= 1) phaseRef.current = "carousel";
       } else {
         if (targetProgressRef.current <= 0 && delta < 0) {
           phaseRef.current = "header";
@@ -121,7 +121,7 @@ export function useHomeScroll({ headerRef, filtersRef, carouselRef, panelRefs, t
       if (phaseRef.current === "header") {
         headerProgressRef.current = Math.max(0, Math.min(1, headerProgressRef.current + delta * 0.003));
         targetHeader = headerProgressRef.current;
-        if (headerProgressRef.current >= 1) phaseRef.current = "filters";
+        if (headerProgressRef.current >= 1) phaseRef.current = "carousel";
       } else {
         if (targetProgressRef.current <= 0 && delta < 0) {
           phaseRef.current = "header";
