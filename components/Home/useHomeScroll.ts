@@ -94,9 +94,13 @@ export function useHomeScroll({ headerRef, filtersRef, carouselRef, panelRefs, t
       } else if (phaseRef.current === "carousel") {
         if (delta < 0) {
           phaseRef.current = "header";
+          const dh = document.getElementById("phase-debug");
+          if (dh) dh.textContent = "header";
           targetHeader = 0.5;
         } else if (delta > 0) {
           phaseRef.current = "filters";
+          const df = document.getElementById("phase-debug");
+          if (df) df.textContent = "filters";
           targetProgressRef.current = 0;
         }
       } else if (phaseRef.current === "filters") {
