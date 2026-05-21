@@ -1,5 +1,4 @@
 "use client";
-import PropertyCarousel from "./PropertyCarousel";
 import { useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 
@@ -49,7 +48,7 @@ export default function FilterPanels({ locale, panelRefs }: Props) {
   const urlLocale = pathname.split("/")[1] || locale;
   const t = getT(urlLocale);
   const tf = t.filters;
-  const [activePanel, setActivePanel] = useState(-1);
+  const [activePanel, setActivePanel] = useState(0);
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const getSub = (filterId: string, opt: Record<string,any>) => {
@@ -79,7 +78,7 @@ export default function FilterPanels({ locale, panelRefs }: Props) {
       setTimeout(() => {
         setActivePanel(next);
         // +1 porque los filtros empiezan en panel 1
-        (window as any).__advancePanel?.(next + 1);
+        (window as any).__advancePanel?.(next);
       }, 400);
     }
   };
@@ -174,7 +173,7 @@ export default function FilterPanels({ locale, panelRefs }: Props) {
       {FILTERS.map((filter, i) => (
         <div
           key={filter.id}
-          ref={el => { panelRefs.current[i + 1] = el; }}
+          ref={el => { panelRefs.current[i] = el; }}
           className="filter-panel"
           style={{
             willChange:"transform,opacity,filter",
