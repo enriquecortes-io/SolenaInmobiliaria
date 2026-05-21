@@ -28,7 +28,7 @@ export default function HomeExperience({ locale }: Props) {
         <SkyHeader locale={locale} />
       </div>
 
-      {/* Filtros */}
+      {/* Filtros + Carrusel */}
       <div ref={filtersRef} style={{
         position:"absolute", inset:0, zIndex:10,
         opacity:1, pointerEvents:"none",
@@ -37,7 +37,19 @@ export default function HomeExperience({ locale }: Props) {
         background:"transparent",
       }}>
         <div style={{position:"absolute",inset:0,transformStyle:"preserve-3d"}}>
-          <FilterPanels locale={locale} panelRefs={panelRefs} />
+          {/* Panel 3 — Carrusel (primer panel que se ve tras el header) */}
+          <div ref={el => { panelRefs.current[0] = el; }} style={{
+            position:"absolute", inset:0,
+            display:"flex", alignItems:"center", justifyContent:"center",
+            padding:"0 clamp(1rem,5vw,4rem)",
+            willChange:"transform,opacity,filter",
+            pointerEvents:"auto",
+          }}>
+            <PropertyCarousel locale={locale} />
+          </div>
+
+          {/* Paneles 1-3 — Filtros */}
+          <FilterPanels locale={locale} panelRefs={panelRefs} startIndex={1} />
         </div>
       </div>
     </div>
