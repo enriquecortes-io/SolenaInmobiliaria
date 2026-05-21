@@ -11,6 +11,7 @@ interface Props {
 
 export function useHomeScroll({ headerRef, filtersRef, carouselRef, panelRefs, totalPanels }: Props) {
   const phaseRef = useRef<"header" | "carousel" | "filters">("header");
+  const carouselElRef = useRef<HTMLDivElement | null>(null);
   const progressRef = useRef(0);
   const targetProgressRef = useRef(0);
 
@@ -26,6 +27,11 @@ export function useHomeScroll({ headerRef, filtersRef, carouselRef, panelRefs, t
     const tick = () => {
       smoothHeader = lerp(smoothHeader, targetHeader, 0.055);
 
+      // Actualizar ref al elemento del carrusel
+      if (carouselRef?.current) carouselElRef.current = carouselRef.current;
+      const carEl = carouselElRef.current;
+      const phase = phaseRef.current;
+      
       // Header
       if (headerRef.current) {
         headerRef.current.style.opacity = String(1 - smoothHeader);
@@ -34,11 +40,12 @@ export function useHomeScroll({ headerRef, filtersRef, carouselRef, panelRefs, t
       }
 
       // Carousel
-      if (carouselRef?.current) {
-        const show = phaseRef.current === "carousel";
-        const cur = parseFloat(carouselRef.current.style.opacity || "0");
-        carouselRef.current.style.opacity = String(lerp(cur, show ? 1 : 0, 0.06));
-        carouselRef.current.style.pointerEvents = cur > 0.3 ? "auto" : "none";
+      if (carEl) {
+        const show = phase === "carousel";
+        const cur = parseFloat(carEl.style.opacity || "0");
+        const next = lerp(cur, show ? 1 : 0, 0.06);
+        carEl.style.opacity = String(next);
+        carEl.style.pointerEvents = next > 0.3 ? "auto" : "none";
       }
 
       // Filters
