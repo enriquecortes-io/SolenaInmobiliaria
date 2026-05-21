@@ -15,9 +15,6 @@ export default function HomeExperience({ locale }: Props) {
   const panelRefs = useRef<(HTMLDivElement | null)[]>([]);
   useHomeScroll({ headerRef, filtersRef, carouselRef, panelRefs, totalPanels: TOTAL_PANELS });
 
-  // Observar la opacidad del header — cuando casi desaparece, mostrar carrusel
-
-
   return (
     <div style={{position:"fixed",inset:0,width:"100%",height:"100vh",overflow:"hidden",background:"transparent"}}>
 
