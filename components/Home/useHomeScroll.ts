@@ -87,6 +87,7 @@ export function useHomeScroll({ headerRef, filtersRef, carouselRef, panelRefs, t
     };
     rafId = requestAnimationFrame(tick);
 
+    (window as any).__getPhase = () => phaseRef.current;
     (window as any).__advancePanel = (next: number) => {
       targetProgressRef.current = Math.max(0, Math.min(totalPanels - 1, next));
     };

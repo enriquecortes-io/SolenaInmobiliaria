@@ -20,11 +20,9 @@ export default function HomeExperience({ locale }: Props) {
   // Observar la opacidad del header — cuando casi desaparece, mostrar carrusel
   useEffect(() => {
     const observer = setInterval(() => {
-      if (!headerRef.current || !filtersRef.current) return;
+      if (!headerRef.current) return;
       const headerOp = parseFloat(headerRef.current.style.opacity || "1");
-      const filtersOp = parseFloat(filtersRef.current.style.opacity || "0");
-      // Carrusel solo visible cuando header invisible Y filtros invisibles
-      setShowCarousel(headerOp < 0.15 && filtersOp < 0.5);
+      setShowCarousel(headerOp < 0.15);
     }, 100);
     return () => clearInterval(observer);
   }, []);
