@@ -19,10 +19,10 @@ export default function PropertyCarousel({ locale = "es" }: { locale?: string })
   const isDragging = useRef(false);
 
   useEffect(() => {
-    fetch("/api/admin/properties")
+    fetch("/api/properties")
       .then(r => r.json())
       .then(data => {
-        const props = (data.properties || []).filter((p: any) => p.activa).slice(0, 5);
+        const props = (data.properties || []).slice(0, 5);
         setProperties(props);
         setActive(Math.floor(props.length / 2));
       })
