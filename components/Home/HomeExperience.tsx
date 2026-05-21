@@ -30,7 +30,7 @@ export default function HomeExperience({ locale }: Props) {
 
       <div ref={carouselRef} style={{
         position:"absolute", inset:0, zIndex:15,
-        opacity:0, pointerEvents:"none",
+        opacity:1, pointerEvents:"auto",
         display:"flex", alignItems:"center", justifyContent:"center",
         padding:"0 clamp(1rem,5vw,4rem)",
       }}>
