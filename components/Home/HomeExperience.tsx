@@ -19,6 +19,8 @@ export default function HomeExperience({ locale }: Props) {
 
   return (
     <div style={{position:"fixed",inset:0,width:"100%",height:"100vh",overflow:"hidden",background:"transparent"}}>
+
+      {/* Header */}
       <div ref={headerRef} style={{
         position:"absolute", inset:0, zIndex:20,
         willChange:"opacity,transform",
@@ -28,20 +30,20 @@ export default function HomeExperience({ locale }: Props) {
         <SkyHeader locale={locale} />
       </div>
 
-      {/* Carrusel */}
-     <div ref={carouselRef} style={{
-       position:"absolute", inset:0, zIndex:15,
-       opacity:0, pointerEvents:"none",
-       display:"flex", alignItems:"center", justifyContent:"center",
-       padding:"0 clamp(1rem,5vw,4rem)",
-       transition:"opacity 0.4s ease",
-     }}>
-       <PropertyCarousel locale={locale} />
-     </div>
+      {/* Carrusel — empieza oculto, RAF lo muestra */}
+      <div ref={carouselRef} style={{
+        position:"absolute", inset:0, zIndex:15,
+        opacity:0, pointerEvents:"none",
+        display:"flex", alignItems:"center", justifyContent:"center",
+        padding:"0 clamp(1rem,5vw,4rem)",
+      }}>
+        <PropertyCarousel locale={locale} />
+      </div>
 
-     <div ref={filtersRef} style={{
+      {/* Filtros — empieza oculto, RAF lo muestra */}
+      <div ref={filtersRef} style={{
         position:"absolute", inset:0, zIndex:10,
-        opacity:1, pointerEvents:"none",
+        opacity:0, pointerEvents:"none",
         perspective:"500px",
         perspectiveOrigin:"center center",
         background:"transparent",
@@ -50,6 +52,7 @@ export default function HomeExperience({ locale }: Props) {
           <FilterPanels locale={locale} panelRefs={panelRefs} />
         </div>
       </div>
+
     </div>
   );
 }
