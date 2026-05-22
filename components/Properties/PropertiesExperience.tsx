@@ -168,6 +168,25 @@ export default function PropertiesExperience({ properties, locale, filters }: Pr
     );
   }
 
+  if (isMobile) return (
+    <>
+      <Navbar locale={urlLocale} />
+      <MobileCarousel properties={properties} locale={urlLocale} tp={tp} />
+      <button
+        onClick={() => router.push(`/${locale}`)}
+        style={{
+          position:"fixed", bottom:"1.5rem", left:"50%", transform:"translateX(-50%)",
+          zIndex:500, background:"rgba(4,3,2,0.7)",
+          border:"1px solid rgba(201,169,110,0.35)",
+          color:"rgba(201,169,110,0.8)",
+          fontFamily:"'Montserrat',sans-serif",
+          fontSize:"0.5rem", letterSpacing:"0.4em", textTransform:"uppercase",
+          padding:"0.7rem 2rem", cursor:"pointer",
+        }}
+      >{tp.search}</button>
+    </>
+  );
+
   return (
     <div style={{ position:"fixed", inset:0, background:"rgba(4,3,2,0.7)", overflow:"hidden" }}>
       <Navbar locale={locale} />
