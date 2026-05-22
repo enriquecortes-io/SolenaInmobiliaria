@@ -35,137 +35,182 @@ export default function PropertyCarousel({ locale = "es" }: { locale?: string })
   // Si no hay propiedades, mostrar placeholder
   if (properties.length === 0) {
     return (
-      <div style={{
-        color:"rgba(201,169,110,0.6)",
-        fontFamily:"'Montserrat',sans-serif",
-        fontSize:"0.5rem",
-        letterSpacing:"0.5em",
-        textTransform:"uppercase",
-      }}>Cargando selección...</div>
-    );
-  }
-
-  const getCardStyle = (i: number): React.CSSProperties => {
-    const diff = i - active;
-    const abs = Math.abs(diff);
-    if (abs > 2) return { display: "none" };
-    return {
-      position: "absolute",
-      left: "50%",
-      top: "50%",
-      width: "clamp(280px,40vw,500px)",
-      height: "clamp(380px,55vw,640px)",
-      marginLeft: `-${abs === 0 ? 250 : 180}px`,
-      marginTop: `-${abs === 0 ? 320 : 240}px`,
-      transform: `translateX(${diff * 52}%) translateZ(${abs === 0 ? 0 : -180}px) rotateY(${diff * 42}deg) scale(${abs === 0 ? 1 : abs === 1 ? 0.78 : 0.58})`,
-      opacity: abs === 0 ? 1 : abs === 1 ? 0.65 : 0.35,
-      zIndex: 10 - abs,
-      transition: "all 0.55s cubic-bezier(0.25,0.46,0.45,0.94)",
-      cursor: diff !== 0 ? "pointer" : "default",
-    };
-  };
-
-  return (
     <div style={{
-      width:"100%", maxWidth:"1200px", margin:"0 auto",
-      display:"flex", flexDirection:"column",
-      alignItems:"center", justifyContent:"center",
-      gap:"2rem",
+      width:"100%", height:"100%",
+      display:"flex", alignItems:"center", justifyContent:"center",
+      padding:"0 clamp(1rem,3vw,3rem)",
     }}>
-      <div style={{ textAlign:"center" }}>
-        <p style={{
-          fontFamily:"'Montserrat',sans-serif",
-          fontSize:"0.45rem", fontWeight:400,
-          color:"rgba(201,169,110,0.8)",
-          letterSpacing:"0.65em", textTransform:"uppercase",
-          margin:0,
-        }}>Últimos Listados</p>
-        <div style={{ width:"2rem", height:"1px", background:"rgba(201,169,110,0.4)", margin:"0.6rem auto 0" }}/>
-      </div>
+      {/* Panel estilo filtro */}
+      <div style={{
+        width:"100%", maxWidth:"1400px",
+        height:"clamp(500px,80vh,800px)",
+        display:"grid",
+        gridTemplateColumns:"1fr 1fr",
+        gap:"0",
+        background:"rgba(6,4,2,0.65)",
+        border:"1px solid rgba(201,169,110,0.18)",
+        boxShadow:"0 0 0 1px rgba(255,255,255,0.04),0 20px 60px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.08)",
+        backdropFilter:"blur(50px)",
+        overflow:"hidden",
+        position:"relative",
+      }}>
+        {/* Línea dorada superior */}
+        <div style={{ position:"absolute", top:0, left:"10%", right:"10%", height:"1px", background:"linear-gradient(90deg,transparent,rgba(201,169,110,0.8),transparent)", zIndex:2 }}/>
 
-      <div
-        style={{
+        {/* Columna izquierda — Carrusel */}
+        <div style={{
           position:"relative",
-          width:"100%",
-          height:"clamp(300px,40vw,440px)",
-          perspective:"1200px",
-          perspectiveOrigin:"50% 50%",
-          transformStyle:"preserve-3d",
-        }}
-        onMouseDown={e => { isDragging.current = true; dragStartX.current = e.clientX; }}
-        onMouseUp={e => {
-          if (!isDragging.current) return;
-          isDragging.current = false;
-          const diff = dragStartX.current - e.clientX;
-          if (Math.abs(diff) > 40) setActive(a => Math.max(0, Math.min(properties.length-1, a + (diff > 0 ? 1 : -1))));
-        }}
-        onTouchStart={e => { isDragging.current = true; dragStartX.current = e.touches[0].clientX; }}
-        onTouchEnd={e => {
-         if (!isDragging.current) return;
-         isDragging.current = false;
-         const diff = dragStartX.current - e.changedTouches[0].clientX;
-         if (Math.abs(diff) > 40) setActive(a => Math.max(0, Math.min(properties.length-1, a + (diff > 0 ? 1 : -1))));
-       }}
-       onWheel={e => {
-         e.stopPropagation();
-         if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
-           if (e.deltaX > 30) setActive(a => Math.min(properties.length-1, a + 1));
-           if (e.deltaX < -30) setActive(a => Math.max(0, a - 1));
-         }
-       }}
-     >
-        {properties.map((p, i) => (
-          <div key={p.slug} style={getCardStyle(i)} onClick={() => i !== active && setActive(i)}>
-            <div style={{
-              width:"100%", height:"100%",
-              background:"rgba(6,4,2,0.65)",
-              border:`1px solid rgba(201,169,110,${i === active ? 0.4 : 0.12})`,
-              boxShadow: i === active
-                ? "0 0 0 1px rgba(255,255,255,0.04), 0 40px 120px rgba(0,0,0,0.7), inset 0 1px 0 rgba(255,255,255,0.08)"
-                : "0 20px 60px rgba(0,0,0,0.5)",
-              backdropFilter:"blur(20px)",
-              display:"flex", flexDirection:"column",
-              overflow:"hidden", position:"relative",
-            }}>
-              <div style={{ position:"absolute", top:0, left:"10%", right:"10%", height:"1px", background:`linear-gradient(90deg,transparent,rgba(201,169,110,${i === active ? 0.8 : 0.3}),transparent)` }}/>
+          display:"flex", flexDirection:"column",
+          alignItems:"center", justifyContent:"center",
+          padding:"2rem 1rem",
+          borderRight:"1px solid rgba(201,169,110,0.12)",
+        }}>
+          {/* Label */}
+          <p style={{
+            fontFamily:"'Montserrat',sans-serif",
+            fontSize:"0.45rem", fontWeight:400,
+            color:"rgba(201,169,110,0.8)",
+            letterSpacing:"0.65em", textTransform:"uppercase",
+            margin:"0 0 1.5rem", alignSelf:"flex-start", paddingLeft:"1rem",
+          }}>Últimos Listados</p>
+          <div style={{ width:"1.5rem", height:"1px", background:"rgba(201,169,110,0.4)", marginBottom:"1.5rem", alignSelf:"flex-start", marginLeft:"1rem" }}/>
 
-              <div style={{ flex:1, overflow:"hidden", position:"relative" }}>
-                {p.galeria_urls?.[0] ? (
-                  <img src={p.galeria_urls[0]} alt={getTitle(p)} style={{ width:"100%", height:"100%", objectFit:"cover" }}/>
-                ) : (
-                  <div style={{ width:"100%", height:"100%", background:"#111" }}/>
-                )}
-                <div style={{ position:"absolute", inset:0, background:"linear-gradient(to bottom, transparent 50%, rgba(6,4,2,0.9) 100%)" }}/>
-              </div>
-
-              <div style={{ padding:"1rem 1.2rem 1.2rem" }}>
-                <span style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.38rem", color:"rgba(201,169,110,0.7)", letterSpacing:"0.5em", textTransform:"uppercase", display:"block", marginBottom:"0.4rem" }}>{p.ubicacion}</span>
-                <h3 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(0.95rem,1.4vw,1.2rem)", fontWeight:600, color:"white", margin:"0 0 0.6rem", lineHeight:1.1 }}>{getTitle(p)}</h3>
-                <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center" }}>
-                  <div style={{ display:"flex", gap:"0.8rem" }}>
-                    {p.m2_construidos && <span style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.4rem", color:"rgba(255,255,255,0.35)" }}>{p.m2_construidos}m²</span>}
-                    {p.habitaciones && <span style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.4rem", color:"rgba(255,255,255,0.35)" }}>{p.habitaciones} hab</span>}
+          {/* Stage 3D */}
+          <div
+            style={{
+              position:"relative",
+              width:"100%",
+              flex:1,
+              perspective:"1000px",
+              perspectiveOrigin:"50% 50%",
+              transformStyle:"preserve-3d",
+            }}
+            onMouseDown={e => { isDragging.current = true; dragStartX.current = e.clientX; }}
+            onMouseUp={e => {
+              if (!isDragging.current) return;
+              isDragging.current = false;
+              const diff = dragStartX.current - e.clientX;
+              if (Math.abs(diff) > 40) setActive(a => Math.max(0, Math.min(properties.length-1, a + (diff > 0 ? 1 : -1))));
+            }}
+            onTouchStart={e => { isDragging.current = true; dragStartX.current = e.touches[0].clientX; }}
+            onTouchEnd={e => {
+              if (!isDragging.current) return;
+              isDragging.current = false;
+              const diff = dragStartX.current - e.changedTouches[0].clientX;
+              if (Math.abs(diff) > 40) setActive(a => Math.max(0, Math.min(properties.length-1, a + (diff > 0 ? 1 : -1))));
+            }}
+            onWheel={e => {
+              e.stopPropagation();
+              if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+                if (e.deltaX > 30) setActive(a => Math.min(properties.length-1, a + 1));
+                if (e.deltaX < -30) setActive(a => Math.max(0, a - 1));
+              }
+            }}
+          >
+            {properties.map((p, i) => {
+              const diff = i - active;
+              const abs = Math.abs(diff);
+              if (abs > 2) return null;
+              return (
+                <div key={p.slug} style={{
+                  position:"absolute",
+                  left:"50%", top:"50%",
+                  width:"clamp(160px,20vw,240px)",
+                  height:"clamp(220px,28vw,340px)",
+                  marginLeft:`-${abs === 0 ? 120 : 90}px`,
+                  marginTop:`-${abs === 0 ? 170 : 130}px`,
+                  transform:`translateX(${diff * 48}%) translateZ(${abs === 0 ? 0 : -150}px) rotateY(${diff * 40}deg) scale(${abs === 0 ? 1 : abs === 1 ? 0.78 : 0.58})`,
+                  opacity: abs === 0 ? 1 : abs === 1 ? 0.65 : 0.35,
+                  zIndex: 10 - abs,
+                  transition:"all 0.55s cubic-bezier(0.25,0.46,0.45,0.94)",
+                  cursor: diff !== 0 ? "pointer" : "default",
+                }} onClick={() => diff !== 0 && setActive(i)}>
+                  <div style={{
+                    width:"100%", height:"100%",
+                    background:"rgba(6,4,2,0.8)",
+                    border:`1px solid rgba(201,169,110,${i === active ? 0.5 : 0.15})`,
+                    boxShadow: i === active ? "0 20px 60px rgba(0,0,0,0.8)" : "0 10px 30px rgba(0,0,0,0.5)",
+                    overflow:"hidden", position:"relative",
+                  }}>
+                    <div style={{ position:"absolute", top:0, left:"10%", right:"10%", height:"1px", background:`linear-gradient(90deg,transparent,rgba(201,169,110,${i === active ? 0.8 : 0.2}),transparent)` }}/>
+                    {p.galeria_urls?.[0]
+                      ? <img src={p.galeria_urls[0]} alt={getTitle(p)} style={{ width:"100%", height:"100%", objectFit:"cover" }}/>
+                      : <div style={{ width:"100%", height:"100%", background:"#111" }}/>
+                    }
+                    <div style={{ position:"absolute", inset:0, background:"linear-gradient(to bottom, transparent 40%, rgba(6,4,2,0.95) 100%)" }}/>
+                    <div style={{ position:"absolute", bottom:0, left:0, right:0, padding:"0.8rem" }}>
+                      <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.35rem", color:"rgba(201,169,110,0.7)", letterSpacing:"0.4em", textTransform:"uppercase", margin:"0 0 0.3rem" }}>{p.ubicacion}</p>
+                      <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(0.8rem,1.2vw,1rem)", color:"white", margin:0, fontWeight:600, lineHeight:1.1 }}>{getTitle(p)}</p>
+                    </div>
                   </div>
-                  {p.precio && <span style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(0.9rem,1.3vw,1.1rem)", color:"#c9a96e", fontWeight:300 }}>€{(p.precio/1000000).toFixed(1)}M</span>}
                 </div>
-                {i === active && (
-                  <Link href={`/${locale}/propiedades/${p.slug}`} style={{ display:"block", textAlign:"center", fontFamily:"'Montserrat',sans-serif", fontSize:"0.38rem", letterSpacing:"0.45em", textTransform:"uppercase", color:"rgba(201,169,110,0.7)", textDecoration:"none", marginTop:"0.8rem", paddingTop:"0.7rem", borderTop:"1px solid rgba(201,169,110,0.2)" }}>Ver propiedad</Link>
-                )}
-              </div>
-            </div>
+              );
+            })}
           </div>
-        ))}
-      </div>
 
-      <div style={{ display:"flex", gap:"0.5rem", alignItems:"center" }}>
-        {properties.map((_, i) => (
-          <button key={i} onClick={() => setActive(i)} style={{
-            width: i === active ? "1.5rem" : "0.35rem",
-            height:"0.35rem", borderRadius:"2px", border:"none", cursor:"pointer",
-            background: i === active ? "#c9a96e" : "rgba(255,255,255,0.2)",
-            transition:"all 0.3s ease", padding:0,
-          }}/>
-        ))}
+          {/* Dots */}
+          <div style={{ display:"flex", gap:"0.4rem", marginTop:"1rem" }}>
+            {properties.map((_, i) => (
+              <button key={i} onClick={() => setActive(i)} style={{
+                width: i === active ? "1.2rem" : "0.3rem",
+                height:"0.3rem", borderRadius:"2px", border:"none", cursor:"pointer",
+                background: i === active ? "#c9a96e" : "rgba(255,255,255,0.2)",
+                transition:"all 0.3s", padding:0,
+              }}/>
+            ))}
+          </div>
+        </div>
+
+        {/* Columna derecha — Infografía propiedad activa */}
+        {(() => {
+          const p = properties[active];
+          if (!p) return null;
+          return (
+            <div style={{
+              display:"flex", flexDirection:"column",
+              justifyContent:"space-between",
+              padding:"3rem 2.5rem",
+            }}>
+              {/* Nombre y ubicación */}
+              <div>
+                <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.45rem", color:"#c9a96e", letterSpacing:"0.5em", textTransform:"uppercase", margin:"0 0 0.8rem" }}>{p.ubicacion}</p>
+                <div style={{ width:"2rem", height:"1px", background:"rgba(201,169,110,0.5)", margin:"0 0 1.2rem" }}/>
+                <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1.5rem,2.5vw,2.5rem)", fontWeight:600, color:"white", lineHeight:1.1, margin:"0 0 2rem" }}>{getTitle(p)}</h2>
+              </div>
+
+              {/* Datos */}
+              <div style={{ display:"flex", flexDirection:"column", gap:"0" }}>
+                {[
+                  { label:"Superficie", value: p.m2_construidos ? `${p.m2_construidos} m²` : null },
+                  { label:"Habitaciones", value: p.habitaciones || null },
+                  { label:"Baños", value: (p as any).banos || null },
+                ].filter(d => d.value).map(d => (
+                  <div key={d.label} style={{ display:"flex", justifyContent:"space-between", alignItems:"baseline", padding:"1rem 0", borderBottom:"1px solid rgba(255,255,255,0.06)" }}>
+                    <span style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.42rem", color:"rgba(255,255,255,0.35)", letterSpacing:"0.3em", textTransform:"uppercase" }}>{d.label}</span>
+                    <span style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1.6rem", color:"white", fontWeight:300 }}>{String(d.value)}</span>
+                  </div>
+                ))}
+              </div>
+
+              {/* Precio */}
+              {p.precio && (
+                <div style={{ marginTop:"auto", paddingTop:"1.5rem", borderTop:"1px solid rgba(201,169,110,0.2)" }}>
+                  <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.4rem", color:"rgba(201,169,110,0.5)", letterSpacing:"0.4em", textTransform:"uppercase", margin:"0 0 0.4rem" }}>Precio</p>
+                  <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(2rem,3vw,3rem)", color:"#c9a96e", margin:"0 0 1.5rem", fontWeight:300 }}>€{(p.precio/1000000).toFixed(1)}M</p>
+                  <Link href={`/${locale}/propiedades/${p.slug}`} style={{
+                    display:"block", textAlign:"center",
+                    fontFamily:"'Montserrat',sans-serif",
+                    fontSize:"0.42rem", letterSpacing:"0.45em",
+                    textTransform:"uppercase", color:"rgba(201,169,110,0.7)",
+                    textDecoration:"none", padding:"0.8rem",
+                    border:"1px solid rgba(201,169,110,0.3)",
+                    transition:"all 0.3s",
+                  }}>Ver propiedad</Link>
+                </div>
+              )}
+            </div>
+          );
+        })()}
       </div>
     </div>
   );
