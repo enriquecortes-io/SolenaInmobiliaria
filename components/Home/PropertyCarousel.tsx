@@ -109,7 +109,6 @@ export default function PropertyCarousel({ locale = "es" }: { locale?: string })
         {/* Imagen con swipe — altura fija 38% del viewport */}
         <div
           style={{ position:"relative", width:"100%", height:"38dvh", flexShrink:0, overflow:"hidden" }}
-          style={{ position:"relative", width:"100%", height:"38dvh", flexShrink:0, overflow:"hidden" }}
         >
           {p.galeria_urls?.[0]
             ? <img src={p.galeria_urls[0]} alt={getTitle(p)} style={{ width:"100%", height:"100%", objectFit:"cover", display:"block" }}/>
