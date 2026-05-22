@@ -114,6 +114,13 @@ export default function PropertyCarousel({ locale = "es" }: { locale?: string })
             : <div style={{ width:"100%", height:"100%", background:"#111" }}/>
           }
           <div style={{ position:"absolute", inset:0, background:"linear-gradient(to bottom, transparent 50%, rgba(6,4,2,0.95) 100%)" }}/>
+
+          {/* Infografía esquina superior izquierda */}
+          <div style={{ position:"absolute", top:0, left:0, padding:"0.8rem 1rem" }}>
+            <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.38rem", color:"rgba(201,169,110,0.9)", letterSpacing:"0.45em", textTransform:"uppercase", margin:"0 0 0.3rem", textShadow:"0 1px 8px rgba(0,0,0,0.8)" }}>{t.latestListings}</p>
+            <div style={{ width:"1.2rem", height:"1px", background:"rgba(201,169,110,0.6)" }}/>
+          </div>
+
           <div style={{ position:"absolute", bottom:0, left:0, right:0, padding:"0.8rem 1rem" }}>
             <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.45rem", color:"rgba(201,169,110,0.8)", letterSpacing:"0.35em", textTransform:"uppercase", margin:0 }}>{p.ubicacion}</p>
           </div>
