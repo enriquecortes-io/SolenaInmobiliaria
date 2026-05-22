@@ -22,7 +22,7 @@ const TRANSLATIONS: Record<string, Record<string, string>> = {
   es: { latestListings:"Últimos Listados", surface:"Superficie", bedrooms:"Habitaciones", bathrooms:"Baños", garden:"Jardín / Terraza", price:"Precio", viewProperty:"Ver propiedad", loading:"Cargando selección..." },
   en: { latestListings:"Latest Listings", surface:"Built Area", bedrooms:"Bedrooms", bathrooms:"Bathrooms", garden:"Garden / Terrace", price:"Price", viewProperty:"View property", loading:"Loading selection..." },
   fr: { latestListings:"Dernières Annonces", surface:"Surface", bedrooms:"Chambres", bathrooms:"Salles de bain", garden:"Jardin / Terrasse", price:"Prix", viewProperty:"Voir la propriété", loading:"Chargement..." },
-  de: { latestListings:"Neueste Angebote", surface:"Wohnfläche", bedrooms:"Schlafzimmer", bathrooms:"Badezimmer", garden:"Garten / Terrasse", price:"Preis", viewProperty:"Immobilie ansehen", loading:"Wird geladen..." },
+  ru: { latestListings:"Последние объекты", surface:"Площадь", bedrooms:"Спальни", bathrooms:"Ванные", garden:"Сад / Терраса", price:"Цена", viewProperty:"Смотреть объект", loading:"Загрузка..." },
 };
 
 export default function PropertyCarousel({ locale = "es" }: { locale?: string }) {
