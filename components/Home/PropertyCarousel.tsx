@@ -31,6 +31,9 @@ export default function PropertyCarousel({ locale = "es" }: { locale?: string })
   const [isMobile, setIsMobile] = useState(false);
   const dragStartX = useRef(0);
   const isDragging = useRef(false);
+  const [slideDir, setSlideDir] = useState<"left"|"right"|null>(null);
+  const [displayActive, setDisplayActive] = useState(0);
+  const imgRef = useRef<HTMLDivElement>(null);
 
   const t = TRANSLATIONS[locale] || TRANSLATIONS["es"];
 
@@ -102,15 +105,29 @@ export default function PropertyCarousel({ locale = "es" }: { locale?: string })
         if (!isDragging.current) return;
         isDragging.current = false;
         const diff = dragStartX.current - e.changedTouches[0].clientX;
-        if (Math.abs(diff) > 40) setActive(a => Math.max(0, Math.min(properties.length-1, a + (diff > 0 ? 1 : -1))));
+        if (Math.abs(diff) > 40) {
+          const dir = diff > 0 ? "left" : "right";
+          const next = Math.max(0, Math.min(properties.length-1, active + (diff > 0 ? 1 : -1)));
+          if (next !== active) {
+            setSlideDir(dir);
+            setTimeout(() => { setActive(next); setDisplayActive(next); setSlideDir(null); }, 350);
+          }
+        }
       }}
       >
+        <style>{`
+          @keyframes slideInLeft  { from { opacity:0; transform:translateX(60px);  } to { opacity:1; transform:translateX(0); } }
+          @keyframes slideInRight { from { opacity:0; transform:translateX(-60px); } to { opacity:1; transform:translateX(0); } }
+          .slide-left  { animation: slideInLeft  0.35s cubic-bezier(0.25,0.46,0.45,0.94) forwards; }
+          .slide-right { animation: slideInRight 0.35s cubic-bezier(0.25,0.46,0.45,0.94) forwards; }
+        `}</style>
         {/* Línea dorada */}
         <div style={{ position:"absolute", top:0, left:"10%", right:"10%", height:"1px", background:"linear-gradient(90deg,transparent,rgba(201,169,110,0.8),transparent)", zIndex:2 }}/>
 
         {/* Imagen con swipe — altura fija 38% del viewport */}
         <div
           style={{ position:"relative", width:"100%", height:"38dvh", flexShrink:0, overflow:"hidden" }}
+          className={slideDir === "left" ? "slide-left" : slideDir === "right" ? "slide-right" : ""}
         >
           {p.galeria_urls?.[0]
             ? <img src={p.galeria_urls[0]} alt={getTitle(p)} style={{ width:"100%", height:"100%", objectFit:"cover", display:"block" }}/>
