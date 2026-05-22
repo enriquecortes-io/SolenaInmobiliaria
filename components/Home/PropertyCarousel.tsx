@@ -16,55 +16,27 @@ interface Property {
 }
 
 const TRANSLATIONS: Record<string, Record<string, string>> = {
-  es: {
-    latestListings: "Últimos Listados",
-    surface: "Superficie",
-    bedrooms: "Habitaciones",
-    bathrooms: "Baños",
-    garden: "Jardín / Terraza",
-    price: "Precio",
-    viewProperty: "Ver propiedad",
-    loading: "Cargando selección...",
-  },
-  en: {
-    latestListings: "Latest Listings",
-    surface: "Built Area",
-    bedrooms: "Bedrooms",
-    bathrooms: "Bathrooms",
-    garden: "Garden / Terrace",
-    price: "Price",
-    viewProperty: "View property",
-    loading: "Loading selection...",
-  },
-  fr: {
-    latestListings: "Dernières Annonces",
-    surface: "Surface",
-    bedrooms: "Chambres",
-    bathrooms: "Salles de bain",
-    garden: "Jardin / Terrasse",
-    price: "Prix",
-    viewProperty: "Voir la propriété",
-    loading: "Chargement...",
-  },
-  de: {
-    latestListings: "Neueste Angebote",
-    surface: "Wohnfläche",
-    bedrooms: "Schlafzimmer",
-    bathrooms: "Badezimmer",
-    garden: "Garten / Terrasse",
-    price: "Preis",
-    viewProperty: "Immobilie ansehen",
-    loading: "Wird geladen...",
-  },
+  es: { latestListings:"Últimos Listados", surface:"Superficie", bedrooms:"Habitaciones", bathrooms:"Baños", garden:"Jardín / Terraza", price:"Precio", viewProperty:"Ver propiedad", loading:"Cargando selección..." },
+  en: { latestListings:"Latest Listings", surface:"Built Area", bedrooms:"Bedrooms", bathrooms:"Bathrooms", garden:"Garden / Terrace", price:"Price", viewProperty:"View property", loading:"Loading selection..." },
+  fr: { latestListings:"Dernières Annonces", surface:"Surface", bedrooms:"Chambres", bathrooms:"Salles de bain", garden:"Jardin / Terrasse", price:"Prix", viewProperty:"Voir la propriété", loading:"Chargement..." },
+  de: { latestListings:"Neueste Angebote", surface:"Wohnfläche", bedrooms:"Schlafzimmer", bathrooms:"Badezimmer", garden:"Garten / Terrasse", price:"Preis", viewProperty:"Immobilie ansehen", loading:"Wird geladen..." },
 };
 
 export default function PropertyCarousel({ locale = "es" }: { locale?: string }) {
   const [properties, setProperties] = useState<Property[]>([]);
   const [active, setActive] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
   const dragStartX = useRef(0);
   const isDragging = useRef(false);
 
   const t = TRANSLATIONS[locale] || TRANSLATIONS["es"];
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
 
   useEffect(() => {
     fetch("/api/properties")
@@ -72,7 +44,7 @@ export default function PropertyCarousel({ locale = "es" }: { locale?: string })
       .then(data => {
         const props = (data.properties || []).slice(0, 5);
         setProperties(props);
-        setActive(2);
+        setActive(isMobile ? 0 : 2);
       })
       .catch(() => {});
   }, []);
@@ -89,7 +61,7 @@ export default function PropertyCarousel({ locale = "es" }: { locale?: string })
 
   if (properties.length === 0) {
     return (
-      <div style={{ color:"rgba(201,169,110,0.6)", fontFamily:"'Montserrat',sans-serif", fontSize:"0.5rem", letterSpacing:"0.5em", textTransform:"uppercase" }}>
+      <div style={{ color:"rgba(201,169,110,0.6)", fontFamily:"'Montserrat',sans-serif", fontSize:"0.6rem", letterSpacing:"0.5em", textTransform:"uppercase", textAlign:"center" }}>
         {t.loading}
       </div>
     );
@@ -97,16 +69,95 @@ export default function PropertyCarousel({ locale = "es" }: { locale?: string })
 
   const p = properties[active];
 
-  // +10% respecto a 280×380
-  const CARD_W = 308;
-  const CARD_H = 418;
-
   const stats = [
     { label: t.surface,   value: p.m2_construidos ? `${p.m2_construidos} m²` : null },
     { label: t.bedrooms,  value: p.habitaciones || null },
     { label: t.bathrooms, value: p.banos || null },
     { label: t.garden,    value: p.m2_parcela ? `${p.m2_parcela} m²` : null },
   ].filter(d => d.value);
+
+  // ── MOBILE LAYOUT ─────────────────────────────────────────────────────────
+  if (isMobile) {
+    return (
+      <div style={{
+        width:"100%", height:"100%",
+        display:"flex", flexDirection:"column",
+        overflow:"hidden",
+        background:"rgba(6,4,2,0.75)",
+        border:"1px solid rgba(201,169,110,0.18)",
+        boxShadow:"0 0 0 1px rgba(255,255,255,0.04),0 20px 60px rgba(0,0,0,0.5)",
+        backdropFilter:"blur(50px)",
+        position:"relative",
+      }}>
+        {/* Línea dorada */}
+        <div style={{ position:"absolute", top:0, left:"10%", right:"10%", height:"1px", background:"linear-gradient(90deg,transparent,rgba(201,169,110,0.8),transparent)", zIndex:2 }}/>
+
+        {/* Imagen con swipe */}
+        <div
+          style={{ position:"relative", width:"100%", flex:"0 0 45%", overflow:"hidden" }}
+          onTouchStart={e => { isDragging.current = true; dragStartX.current = e.touches[0].clientX; }}
+          onTouchEnd={e => {
+            if (!isDragging.current) return;
+            isDragging.current = false;
+            const diff = dragStartX.current - e.changedTouches[0].clientX;
+            if (Math.abs(diff) > 40) setActive(a => Math.max(0, Math.min(properties.length-1, a + (diff > 0 ? 1 : -1))));
+          }}
+        >
+          {p.galeria_urls?.[0]
+            ? <img src={p.galeria_urls[0]} alt={getTitle(p)} style={{ width:"100%", height:"100%", objectFit:"cover", display:"block" }}/>
+            : <div style={{ width:"100%", height:"100%", background:"#111" }}/>
+          }
+          <div style={{ position:"absolute", inset:0, background:"linear-gradient(to bottom, transparent 50%, rgba(6,4,2,0.95) 100%)" }}/>
+          {/* Label ubicacion sobre imagen */}
+          <div style={{ position:"absolute", bottom:0, left:0, right:0, padding:"0.8rem 1rem" }}>
+            <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.45rem", color:"rgba(201,169,110,0.8)", letterSpacing:"0.35em", textTransform:"uppercase", margin:0 }}>{p.ubicacion}</p>
+          </div>
+          {/* Dots */}
+          <div style={{ position:"absolute", top:"0.8rem", right:"0.8rem", display:"flex", gap:"0.3rem" }}>
+            {properties.map((_, i) => (
+              <button key={i} onClick={() => setActive(i)} style={{ width: i === active ? "1rem" : "0.25rem", height:"0.25rem", borderRadius:"2px", border:"none", cursor:"pointer", background: i === active ? "#c9a96e" : "rgba(255,255,255,0.3)", transition:"all 0.3s", padding:0 }}/>
+            ))}
+          </div>
+        </div>
+
+        {/* Info */}
+        <div style={{ flex:1, overflowY:"auto", padding:"1rem 1.2rem", display:"flex", flexDirection:"column", gap:"0.6rem" }}>
+          <div style={{ width:"1.5rem", height:"1px", background:"rgba(201,169,110,0.5)" }}/>
+          <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1.4rem,5vw,2rem)", fontWeight:600, color:"white", lineHeight:1.1, margin:0 }}>{getTitle(p)}</h2>
+
+          {/* Stats 2×2 grid */}
+          <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"0.5rem 1rem", margin:"0.5rem 0" }}>
+            {stats.map(d => (
+              <div key={d.label} style={{ borderBottom:"1px solid rgba(255,255,255,0.06)", paddingBottom:"0.5rem" }}>
+                <span style={{ display:"block", fontFamily:"'Montserrat',sans-serif", fontSize:"0.38rem", color:"rgba(255,255,255,0.5)", letterSpacing:"0.2em", textTransform:"uppercase", marginBottom:"0.2rem" }}>{d.label}</span>
+                <span style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1.3rem", color:"white", fontWeight:300 }}>{String(d.value)}</span>
+              </div>
+            ))}
+          </div>
+
+          {getDesc(p) && (
+            <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"0.9rem", fontStyle:"italic", color:"rgba(255,255,255,0.7)", lineHeight:1.6, margin:0 }}>
+              {getDesc(p)}
+            </p>
+          )}
+
+          {p.precio && (
+            <div style={{ borderTop:"1px solid rgba(201,169,110,0.2)", paddingTop:"0.8rem", marginTop:"auto" }}>
+              <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.38rem", color:"rgba(201,169,110,0.5)", letterSpacing:"0.4em", textTransform:"uppercase", margin:"0 0 0.3rem" }}>{t.price}</p>
+              <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"2rem", color:"#c9a96e", margin:"0 0 0.8rem", fontWeight:300 }}>€{(p.precio/1000000).toFixed(1)}M</p>
+              <Link href={`/${locale}/propiedades/${p.slug}`} style={{ display:"block", textAlign:"center", fontFamily:"'Montserrat',sans-serif", fontSize:"0.6rem", letterSpacing:"0.4em", textTransform:"uppercase", color:"rgba(201,169,110,0.7)", textDecoration:"none", padding:"0.75rem", border:"1px solid rgba(201,169,110,0.3)" }}>
+                {t.viewProperty}
+              </Link>
+            </div>
+          )}
+        </div>
+      </div>
+    );
+  }
+
+  // ── DESKTOP LAYOUT ────────────────────────────────────────────────────────
+  const CARD_W = 308;
+  const CARD_H = 418;
 
   return (
     <div style={{ width:"100%", height:"100%", display:"flex", alignItems:"center", justifyContent:"center", padding:"0 clamp(1rem,3vw,3rem)" }}>
@@ -120,36 +171,15 @@ export default function PropertyCarousel({ locale = "es" }: { locale?: string })
         backdropFilter:"blur(50px)",
         overflow:"hidden", position:"relative",
       }}>
-        {/* Línea dorada superior */}
         <div style={{ position:"absolute", top:0, left:"10%", right:"10%", height:"1px", background:"linear-gradient(90deg,transparent,rgba(201,169,110,0.8),transparent)", zIndex:2 }}/>
 
-        {/* Columna izquierda — Carrusel */}
-        <div style={{
-          position:"relative",
-          display:"flex",
-          flexDirection:"column",
-          alignItems:"center",
-          justifyContent:"flex-start",
-          padding:"3.5rem 1rem 1.5rem",
-          borderRight:"1px solid rgba(201,169,110,0.12)",
-          height:"100%",
-          boxSizing:"border-box",
-        }}>
-          <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.6rem", color:"rgba(201,169,110,0.9)", letterSpacing:"0.4em", textTransform:"uppercase", margin:"0 0 0.8rem", alignSelf:"flex-start", paddingLeft:"1rem" }}>
-            {t.latestListings}
-          </p>
+        {/* Columna izquierda — Carrusel 3D */}
+        <div style={{ position:"relative", display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"flex-start", padding:"3.5rem 1rem 1.5rem", borderRight:"1px solid rgba(201,169,110,0.12)", height:"100%", boxSizing:"border-box" }}>
+          <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.6rem", color:"rgba(201,169,110,0.9)", letterSpacing:"0.4em", textTransform:"uppercase", margin:"0 0 0.8rem", alignSelf:"flex-start", paddingLeft:"1rem" }}>{t.latestListings}</p>
           <div style={{ width:"1.5rem", height:"1px", background:"rgba(201,169,110,0.4)", marginBottom:"1.5rem", alignSelf:"flex-start", marginLeft:"1rem" }}/>
 
-          {/* Stage 3D */}
           <div
-            style={{
-              position:"relative",
-              width:"100%",
-              flex:1,
-              overflow:"hidden",
-              perspective:"1000px",
-              perspectiveOrigin:"50% 50%",
-            }}
+            style={{ position:"relative", width:"100%", flex:1, overflow:"hidden", perspective:"1000px", perspectiveOrigin:"50% 50%" }}
             onMouseDown={e => { isDragging.current = true; dragStartX.current = e.clientX; }}
             onMouseUp={e => {
               if (!isDragging.current) return;
@@ -180,18 +210,9 @@ export default function PropertyCarousel({ locale = "es" }: { locale?: string })
               return (
                 <div key={prop.slug}
                   style={{
-                    position:"absolute",
-                    left:"50%",
-                    top:"50%",
-                    width:`${CARD_W}px`,
-                    height:`${CARD_H}px`,
-                    transform:[
-                      `translate(-50%, -50%)`,
-                      `translateX(${diff * 55}%)`,
-                      `translateZ(${abs === 0 ? 0 : -160}px)`,
-                      `rotateY(${diff * 38}deg)`,
-                      `scale(${scale})`,
-                    ].join(" "),
+                    position:"absolute", left:"50%", top:"50%",
+                    width:`${CARD_W}px`, height:`${CARD_H}px`,
+                    transform:[`translate(-50%, -50%)`,`translateX(${diff * 55}%)`,`translateZ(${abs === 0 ? 0 : -160}px)`,`rotateY(${diff * 38}deg)`,`scale(${scale})`].join(" "),
                     opacity: abs === 0 ? 1 : abs === 1 ? 0.7 : abs === 2 ? 0.45 : 0.25,
                     zIndex: 10 - abs,
                     transition:"all 0.55s cubic-bezier(0.25,0.46,0.45,0.94)",
@@ -217,46 +238,21 @@ export default function PropertyCarousel({ locale = "es" }: { locale?: string })
             })}
           </div>
 
-          {/* Dots — fuera del stage, siempre visibles */}
           <div style={{ display:"flex", gap:"0.4rem", marginTop:"1rem", flexShrink:0, paddingBottom:"0.5rem" }}>
             {properties.map((_, i) => (
-              <button
-                key={i}
-                onClick={() => setActive(i)}
-                style={{
-                  width: i === active ? "1.2rem" : "0.3rem",
-                  height:"0.3rem",
-                  borderRadius:"2px",
-                  border:"none",
-                  cursor:"pointer",
-                  background: i === active ? "#c9a96e" : "rgba(255,255,255,0.2)",
-                  transition:"all 0.3s",
-                  padding:0,
-                  flexShrink:0,
-                }}
-              />
+              <button key={i} onClick={() => setActive(i)} style={{ width: i === active ? "1.2rem" : "0.3rem", height:"0.3rem", borderRadius:"2px", border:"none", cursor:"pointer", background: i === active ? "#c9a96e" : "rgba(255,255,255,0.2)", transition:"all 0.3s", padding:0, flexShrink:0 }}/>
             ))}
           </div>
         </div>
 
-        {/* Columna derecha — Info propiedad */}
-        <div style={{
-          display:"flex",
-          flexDirection:"column",
-          justifyContent:"space-between",
-          padding:"3rem 2.5rem 2rem",
-          background:"rgba(6,4,2,0.82)",
-          overflow:"auto",           // ← permite scroll interno si el contenido es largo
-          boxSizing:"border-box",
-        }}>
-          {/* Header */}
+        {/* Columna derecha — Info */}
+        <div style={{ display:"flex", flexDirection:"column", justifyContent:"space-between", padding:"3rem 2.5rem 2rem", background:"rgba(6,4,2,0.82)", overflow:"auto", boxSizing:"border-box" }}>
           <div>
             <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.6rem", color:"#c9a96e", letterSpacing:"0.4em", textTransform:"uppercase", margin:"0 0 0.8rem" }}>{p.ubicacion}</p>
             <div style={{ width:"2rem", height:"1px", background:"rgba(201,169,110,0.5)", margin:"0 0 1.2rem" }}/>
             <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1.5rem,2.5vw,2.5rem)", fontWeight:600, color:"white", lineHeight:1.1, margin:"0 0 1.5rem" }}>{getTitle(p)}</h2>
           </div>
 
-          {/* Stats — ahora incluye m2_parcela */}
           <div style={{ display:"flex", flexDirection:"column" }}>
             {stats.map(d => (
               <div key={d.label} style={{ display:"flex", justifyContent:"space-between", alignItems:"baseline", padding:"0.75rem 0", borderBottom:"1px solid rgba(255,255,255,0.06)" }}>
@@ -266,44 +262,22 @@ export default function PropertyCarousel({ locale = "es" }: { locale?: string })
             ))}
           </div>
 
-          {/* Descripción */}
           {getDesc(p) && (
             <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(0.85rem,1.1vw,1rem)", fontStyle:"italic", color:"rgba(255,255,255,0.75)", lineHeight:1.7, margin:"1rem 0 0" }}>
               {getDesc(p)}
             </p>
           )}
 
-          {/* Precio + CTA — siempre visible */}
           {p.precio && (
             <div style={{ paddingTop:"1.25rem", borderTop:"1px solid rgba(201,169,110,0.2)", marginTop:"1rem", flexShrink:0 }}>
-              <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.4rem", color:"rgba(201,169,110,0.5)", letterSpacing:"0.4em", textTransform:"uppercase", margin:"0 0 0.4rem" }}>
-                {t.price}
-              </p>
-              <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(2rem,3.5vw,3rem)", color:"#c9a96e", margin:"0 0 1.25rem", fontWeight:300 }}>
-                €{(p.precio/1000000).toFixed(1)}M
-              </p>
-              <Link
-                href={`/${locale}/propiedades/${p.slug}`}
-                style={{
-                  display:"block",
-                  textAlign:"center",
-                  fontFamily:"'Montserrat',sans-serif",
-                  fontSize:"0.6rem",
-                  letterSpacing:"0.45em",
-                  textTransform:"uppercase",
-                  color:"rgba(201,169,110,0.7)",
-                  textDecoration:"none",
-                  padding:"0.9rem",
-                  border:"1px solid rgba(201,169,110,0.3)",
-                  transition:"all 0.3s",
-                }}
-              >
+              <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.4rem", color:"rgba(201,169,110,0.5)", letterSpacing:"0.4em", textTransform:"uppercase", margin:"0 0 0.4rem" }}>{t.price}</p>
+              <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(2rem,3.5vw,3rem)", color:"#c9a96e", margin:"0 0 1.25rem", fontWeight:300 }}>€{(p.precio/1000000).toFixed(1)}M</p>
+              <Link href={`/${locale}/propiedades/${p.slug}`} style={{ display:"block", textAlign:"center", fontFamily:"'Montserrat',sans-serif", fontSize:"0.6rem", letterSpacing:"0.45em", textTransform:"uppercase", color:"rgba(201,169,110,0.7)", textDecoration:"none", padding:"0.9rem", border:"1px solid rgba(201,169,110,0.3)", transition:"all 0.3s" }}>
                 {t.viewProperty}
               </Link>
             </div>
           )}
         </div>
-
       </div>
     </div>
   );
