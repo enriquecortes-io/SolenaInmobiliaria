@@ -1,6 +1,7 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
+import CarouselScrollIndicator from "./CarouselScrollIndicator";
 
 interface Property {
   slug: string;
@@ -80,21 +81,25 @@ export default function PropertyCarousel({ locale = "es" }: { locale?: string })
   if (isMobile) {
     return (
       <div style={{
-        width:"100%", height:"100%",
+        width:"100%",
+        height:"100dvh",           // ocupa exactamente el viewport, sin desbordar
+        maxHeight:"100dvh",
         display:"flex", flexDirection:"column",
         overflow:"hidden",
-        background:"rgba(6,4,2,0.75)",
+        background:"rgba(6,4,2,0.85)",
         border:"1px solid rgba(201,169,110,0.18)",
         boxShadow:"0 0 0 1px rgba(255,255,255,0.04),0 20px 60px rgba(0,0,0,0.5)",
         backdropFilter:"blur(50px)",
         position:"relative",
+        paddingTop:"env(safe-area-inset-top)",   // respeta notch iOS
+        boxSizing:"border-box",
       }}>
         {/* Línea dorada */}
         <div style={{ position:"absolute", top:0, left:"10%", right:"10%", height:"1px", background:"linear-gradient(90deg,transparent,rgba(201,169,110,0.8),transparent)", zIndex:2 }}/>
 
-        {/* Imagen con swipe */}
+        {/* Imagen con swipe — altura fija 38% del viewport */}
         <div
-          style={{ position:"relative", width:"100%", flex:"0 0 45%", overflow:"hidden" }}
+          style={{ position:"relative", width:"100%", height:"38dvh", flexShrink:0, overflow:"hidden" }}
           onTouchStart={e => { isDragging.current = true; dragStartX.current = e.touches[0].clientX; }}
           onTouchEnd={e => {
             if (!isDragging.current) return;
@@ -108,44 +113,42 @@ export default function PropertyCarousel({ locale = "es" }: { locale?: string })
             : <div style={{ width:"100%", height:"100%", background:"#111" }}/>
           }
           <div style={{ position:"absolute", inset:0, background:"linear-gradient(to bottom, transparent 50%, rgba(6,4,2,0.95) 100%)" }}/>
-          {/* Label ubicacion sobre imagen */}
           <div style={{ position:"absolute", bottom:0, left:0, right:0, padding:"0.8rem 1rem" }}>
             <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.45rem", color:"rgba(201,169,110,0.8)", letterSpacing:"0.35em", textTransform:"uppercase", margin:0 }}>{p.ubicacion}</p>
           </div>
-          {/* Dots */}
-          <div style={{ position:"absolute", top:"0.8rem", right:"0.8rem", display:"flex", gap:"0.3rem" }}>
-            {properties.map((_, i) => (
-              <button key={i} onClick={() => setActive(i)} style={{ width: i === active ? "1rem" : "0.25rem", height:"0.25rem", borderRadius:"2px", border:"none", cursor:"pointer", background: i === active ? "#c9a96e" : "rgba(255,255,255,0.3)", transition:"all 0.3s", padding:0 }}/>
-            ))}
-          </div>
         </div>
 
-        {/* Info */}
-        <div style={{ flex:1, overflowY:"auto", padding:"1rem 1.2rem", display:"flex", flexDirection:"column", gap:"0.6rem" }}>
-          <div style={{ width:"1.5rem", height:"1px", background:"rgba(201,169,110,0.5)" }}/>
-          <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1.4rem,5vw,2rem)", fontWeight:600, color:"white", lineHeight:1.1, margin:0 }}>{getTitle(p)}</h2>
+        {/* Indicador horizontal elástico */}
+        <div style={{ flexShrink:0, paddingTop:"0.5rem" }}>
+          <CarouselScrollIndicator total={properties.length} active={active} />
+        </div>
+
+        {/* Info — ocupa el resto, scroll interno si necesario */}
+        <div style={{ flex:1, overflowY:"auto", padding:"0.8rem 1.2rem 1.2rem", display:"flex", flexDirection:"column", gap:"0.5rem", boxSizing:"border-box" }}>
+          <div style={{ width:"1.5rem", height:"1px", background:"rgba(201,169,110,0.5)", flexShrink:0 }}/>
+          <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1.3rem,5vw,1.8rem)", fontWeight:600, color:"white", lineHeight:1.1, margin:0, flexShrink:0 }}>{getTitle(p)}</h2>
 
           {/* Stats 2×2 grid */}
-          <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"0.5rem 1rem", margin:"0.5rem 0" }}>
+          <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"0.4rem 1rem", flexShrink:0 }}>
             {stats.map(d => (
-              <div key={d.label} style={{ borderBottom:"1px solid rgba(255,255,255,0.06)", paddingBottom:"0.5rem" }}>
-                <span style={{ display:"block", fontFamily:"'Montserrat',sans-serif", fontSize:"0.38rem", color:"rgba(255,255,255,0.5)", letterSpacing:"0.2em", textTransform:"uppercase", marginBottom:"0.2rem" }}>{d.label}</span>
-                <span style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1.3rem", color:"white", fontWeight:300 }}>{String(d.value)}</span>
+              <div key={d.label} style={{ borderBottom:"1px solid rgba(255,255,255,0.06)", paddingBottom:"0.4rem" }}>
+                <span style={{ display:"block", fontFamily:"'Montserrat',sans-serif", fontSize:"0.38rem", color:"rgba(255,255,255,0.5)", letterSpacing:"0.2em", textTransform:"uppercase", marginBottom:"0.15rem" }}>{d.label}</span>
+                <span style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1.2rem", color:"white", fontWeight:300 }}>{String(d.value)}</span>
               </div>
             ))}
           </div>
 
           {getDesc(p) && (
-            <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"0.9rem", fontStyle:"italic", color:"rgba(255,255,255,0.7)", lineHeight:1.6, margin:0 }}>
+            <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"0.85rem", fontStyle:"italic", color:"rgba(255,255,255,0.7)", lineHeight:1.6, margin:0 }}>
               {getDesc(p)}
             </p>
           )}
 
           {p.precio && (
-            <div style={{ borderTop:"1px solid rgba(201,169,110,0.2)", paddingTop:"0.8rem", marginTop:"auto" }}>
-              <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.38rem", color:"rgba(201,169,110,0.5)", letterSpacing:"0.4em", textTransform:"uppercase", margin:"0 0 0.3rem" }}>{t.price}</p>
-              <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"2rem", color:"#c9a96e", margin:"0 0 0.8rem", fontWeight:300 }}>€{(p.precio/1000000).toFixed(1)}M</p>
-              <Link href={`/${locale}/propiedades/${p.slug}`} style={{ display:"block", textAlign:"center", fontFamily:"'Montserrat',sans-serif", fontSize:"0.6rem", letterSpacing:"0.4em", textTransform:"uppercase", color:"rgba(201,169,110,0.7)", textDecoration:"none", padding:"0.75rem", border:"1px solid rgba(201,169,110,0.3)" }}>
+            <div style={{ borderTop:"1px solid rgba(201,169,110,0.2)", paddingTop:"0.8rem", marginTop:"auto", flexShrink:0 }}>
+              <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.38rem", color:"rgba(201,169,110,0.5)", letterSpacing:"0.4em", textTransform:"uppercase", margin:"0 0 0.25rem" }}>{t.price}</p>
+              <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1.8rem", color:"#c9a96e", margin:"0 0 0.7rem", fontWeight:300 }}>€{(p.precio/1000000).toFixed(1)}M</p>
+              <Link href={`/${locale}/propiedades/${p.slug}`} style={{ display:"block", textAlign:"center", fontFamily:"'Montserrat',sans-serif", fontSize:"0.6rem", letterSpacing:"0.4em", textTransform:"uppercase", color:"rgba(201,169,110,0.7)", textDecoration:"none", padding:"0.7rem", border:"1px solid rgba(201,169,110,0.3)" }}>
                 {t.viewProperty}
               </Link>
             </div>
