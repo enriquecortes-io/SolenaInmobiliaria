@@ -94,20 +94,22 @@ export default function PropertyCarousel({ locale = "es" }: { locale?: string })
         position:"relative",
         paddingTop:"env(safe-area-inset-top)",   // respeta notch iOS
         boxSizing:"border-box",
-      }}>
+      }}
+      onTouchStart={e => { isDragging.current = true; dragStartX.current = e.touches[0].clientX; }}
+      onTouchEnd={e => {
+        if (!isDragging.current) return;
+        isDragging.current = false;
+        const diff = dragStartX.current - e.changedTouches[0].clientX;
+        if (Math.abs(diff) > 40) setActive(a => Math.max(0, Math.min(properties.length-1, a + (diff > 0 ? 1 : -1))));
+      }}
+      >
         {/* Línea dorada */}
         <div style={{ position:"absolute", top:0, left:"10%", right:"10%", height:"1px", background:"linear-gradient(90deg,transparent,rgba(201,169,110,0.8),transparent)", zIndex:2 }}/>
 
         {/* Imagen con swipe — altura fija 38% del viewport */}
         <div
           style={{ position:"relative", width:"100%", height:"38dvh", flexShrink:0, overflow:"hidden" }}
-          onTouchStart={e => { isDragging.current = true; dragStartX.current = e.touches[0].clientX; }}
-          onTouchEnd={e => {
-            if (!isDragging.current) return;
-            isDragging.current = false;
-            const diff = dragStartX.current - e.changedTouches[0].clientX;
-            if (Math.abs(diff) > 40) setActive(a => Math.max(0, Math.min(properties.length-1, a + (diff > 0 ? 1 : -1))));
-          }}
+          style={{ position:"relative", width:"100%", height:"38dvh", flexShrink:0, overflow:"hidden" }}
         >
           {p.galeria_urls?.[0]
             ? <img src={p.galeria_urls[0]} alt={getTitle(p)} style={{ width:"100%", height:"100%", objectFit:"cover", display:"block" }}/>
