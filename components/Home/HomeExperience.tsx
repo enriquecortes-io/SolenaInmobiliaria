@@ -33,7 +33,7 @@ export default function HomeExperience({ locale }: Props) {
         position:"absolute", inset:0, zIndex:25,
         opacity:0, pointerEvents:"none",
         display:"flex", alignItems:"center", justifyContent:"center",
-        padding:"0 clamp(1rem,5vw,4rem)",
+        padding:"clamp(0px,2vw,2rem) clamp(0px,5vw,4rem)",
       }}>
         <PropertyCarousel locale={locale} />
       </div>
