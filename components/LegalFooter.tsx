@@ -1,12 +1,21 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { useEffect, useState } from "react";
 
 export default function LegalFooter() {
   const pathname = usePathname();
   const locale = pathname.split("/")[1] || "es";
+  const [visible, setVisible] = useState(false);
 
-  // No mostrar en admin
+  useEffect(() => {
+    const handler = (e: Event) => {
+      setVisible((e as CustomEvent).detail === "filters");
+    };
+    window.addEventListener("scrollphase", handler);
+    return () => window.removeEventListener("scrollphase", handler);
+  }, []);
+
   if (pathname.includes("/admin")) return null;
 
   return (
@@ -15,6 +24,9 @@ export default function LegalFooter() {
       transform:"translateX(-50%)",
       zIndex:30,
       display:"flex", gap:"1.5rem", alignItems:"center",
+      opacity: visible ? 1 : 0,
+      pointerEvents: visible ? "auto" : "none",
+      transition:"opacity 0.6s ease",
     }}>
       {[
         { href:`/${locale}/legal`, label:"Aviso Legal" },

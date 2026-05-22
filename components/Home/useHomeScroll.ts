@@ -23,6 +23,17 @@ export function useHomeScroll({ headerRef, filtersRef, carouselRef, panelRefs, t
     let targetHeader = 0;
     const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
+    const emitPhase = (phase: string) => {
+      window.dispatchEvent(new CustomEvent("scrollphase", { detail: phase }));
+    };
+
+    const setPhase = (next: "header" | "carousel" | "filters") => {
+      if (phaseRef.current !== next) {
+        phaseRef.current = next;
+        emitPhase(next);
+      }
+    };
+
     const tick = () => {
       smoothHeader = lerp(smoothHeader, targetHeader, 0.055);
       const phase = phaseRef.current;
@@ -34,7 +45,7 @@ export function useHomeScroll({ headerRef, filtersRef, carouselRef, panelRefs, t
         headerRef.current.style.pointerEvents = smoothHeader > 0.85 ? "none" : "auto";
       }
 
-      // Carousel — acceder al ref directamente en cada tick
+      // Carousel
       const carEl = carouselRef?.current;
       if (carEl) {
         const target = phase === "carousel" ? 1 : 0;
@@ -90,30 +101,30 @@ export function useHomeScroll({ headerRef, filtersRef, carouselRef, panelRefs, t
     };
 
     let carouselScrollAccum = 0;
-    const CAROUSEL_THRESHOLD = 1800; // px necesarios para salir del carrusel
+    const CAROUSEL_THRESHOLD = 1800;
 
     const handleDelta = (delta: number) => {
       if (phaseRef.current === "header") {
         targetHeader = Math.max(0, Math.min(1, targetHeader + delta * 0.002));
         if (targetHeader >= 1) {
           targetHeader = 1;
-          phaseRef.current = "carousel";
+          setPhase("carousel");
           carouselScrollAccum = 0;
         }
       } else if (phaseRef.current === "carousel") {
         carouselScrollAccum += delta;
         if (carouselScrollAccum < -CAROUSEL_THRESHOLD) {
-          phaseRef.current = "header";
+          setPhase("header");
           targetHeader = 0.5;
           carouselScrollAccum = 0;
         } else if (carouselScrollAccum > CAROUSEL_THRESHOLD) {
-          phaseRef.current = "filters";
+          setPhase("filters");
           targetProgressRef.current = 0;
           carouselScrollAccum = 0;
         }
       } else if (phaseRef.current === "filters") {
         if (targetProgressRef.current <= 0 && delta < 0) {
-          phaseRef.current = "carousel";
+          setPhase("carousel");
           carouselScrollAccum = 0;
         }
       }
