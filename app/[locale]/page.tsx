@@ -7,15 +7,16 @@ interface Props { params: Promise<{ locale: string }>; }
 export default async function HomePage({ params }: Props) {
   const { locale } = await params;
   return (
-    <>
+    <div style={{ minHeight:"300vh" }}>
       <Navbar locale={locale} />
-      {/* Hero fijo */}
-      <HomeExperience locale={locale} />
-      {/* Carrusel — sección separada con scroll nativo */}
+      {/* Hero sticky — se queda fijo mientras hay scroll */}
+      <div style={{ height:"100vh", position:"sticky", top:0, zIndex:10 }}>
+        <HomeExperience locale={locale} />
+      </div>
+      {/* Carrusel debajo */}
       <div style={{
         position:"relative",
-        zIndex:50,
-        marginTop:"100vh",
+        zIndex:20,
         background:"#080604",
         padding:"6rem clamp(1rem,5vw,4rem)",
         minHeight:"100vh",
@@ -25,6 +26,6 @@ export default async function HomePage({ params }: Props) {
       }}>
         <PropertyCarousel locale={locale} />
       </div>
-    </>
+    </div>
   );
 }
