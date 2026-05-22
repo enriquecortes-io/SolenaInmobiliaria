@@ -53,10 +53,10 @@ export default function PropertyCarousel({ locale = "es" }: { locale?: string })
       position: "absolute",
       left: "50%",
       top: "50%",
-      width: "clamp(200px,25vw,300px)",
-      height: "clamp(280px,35vw,420px)",
-      marginLeft: `-${abs === 0 ? 150 : 120}px`,
-      marginTop: `-${abs === 0 ? 210 : 168}px`,
+      width: "clamp(280px,40vw,500px)",
+      height: "clamp(380px,55vw,640px)",
+      marginLeft: `-${abs === 0 ? 250 : 180}px`,
+      marginTop: `-${abs === 0 ? 320 : 240}px`,
       transform: `translateX(${diff * 52}%) translateZ(${abs === 0 ? 0 : -180}px) rotateY(${diff * 42}deg) scale(${abs === 0 ? 1 : abs === 1 ? 0.78 : 0.58})`,
       opacity: abs === 0 ? 1 : abs === 1 ? 0.65 : 0.35,
       zIndex: 10 - abs,
@@ -79,7 +79,7 @@ export default function PropertyCarousel({ locale = "es" }: { locale?: string })
           color:"rgba(201,169,110,0.8)",
           letterSpacing:"0.65em", textTransform:"uppercase",
           margin:0,
-        }}>Selección</p>
+        }}>Últimos Listados</p>
         <div style={{ width:"2rem", height:"1px", background:"rgba(201,169,110,0.4)", margin:"0.6rem auto 0" }}/>
       </div>
 
@@ -101,12 +101,19 @@ export default function PropertyCarousel({ locale = "es" }: { locale?: string })
         }}
         onTouchStart={e => { isDragging.current = true; dragStartX.current = e.touches[0].clientX; }}
         onTouchEnd={e => {
-          if (!isDragging.current) return;
-          isDragging.current = false;
-          const diff = dragStartX.current - e.changedTouches[0].clientX;
-          if (Math.abs(diff) > 40) setActive(a => Math.max(0, Math.min(properties.length-1, a + (diff > 0 ? 1 : -1))));
-        }}
-      >
+         if (!isDragging.current) return;
+         isDragging.current = false;
+         const diff = dragStartX.current - e.changedTouches[0].clientX;
+         if (Math.abs(diff) > 40) setActive(a => Math.max(0, Math.min(properties.length-1, a + (diff > 0 ? 1 : -1))));
+       }}
+       onWheel={e => {
+         e.stopPropagation();
+         if (Math.abs(e.deltaX) > Math.abs(e.deltaY)) {
+           if (e.deltaX > 30) setActive(a => Math.min(properties.length-1, a + 1));
+           if (e.deltaX < -30) setActive(a => Math.max(0, a - 1));
+         }
+       }}
+     >
         {properties.map((p, i) => (
           <div key={p.slug} style={getCardStyle(i)} onClick={() => i !== active && setActive(i)}>
             <div style={{
