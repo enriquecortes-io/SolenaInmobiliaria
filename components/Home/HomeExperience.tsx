@@ -17,7 +17,7 @@ export default function HomeExperience({ locale }: Props) {
   useHomeScroll({ headerRef, filtersRef, carouselRef, panelRefs, totalPanels: TOTAL_PANELS });
 
   return (
-    <div style={{position:"fixed",inset:0,width:"100%",height:"100vh",overflow:"hidden",background:"transparent"}}>
+    <div style={{position:"sticky",top:0,width:"100%",height:"100vh",overflow:"hidden",background:"transparent"}}>
 
       <div ref={headerRef} style={{
         position:"absolute", inset:0, zIndex:20,

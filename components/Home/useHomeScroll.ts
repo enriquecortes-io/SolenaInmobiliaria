@@ -16,8 +16,9 @@ export function useHomeScroll({ headerRef, filtersRef, carouselRef, panelRefs, t
   const targetProgressRef = useRef(0);
 
   useEffect(() => {
-    document.body.style.overflow = "hidden";
-    document.documentElement.style.overflow = "hidden";
+    // Permitir scroll nativo para el carrusel
+    document.body.style.overflow = "auto";
+    document.documentElement.style.overflow = "auto";
 
     let rafId: number;
     let smoothHeader = 0;
@@ -137,8 +138,8 @@ export function useHomeScroll({ headerRef, filtersRef, carouselRef, panelRefs, t
       window.removeEventListener("touchstart", handleTouchStart);
       window.removeEventListener("touchmove", handleTouchMove);
       cancelAnimationFrame(rafId);
-      document.body.style.overflow = "";
-      document.documentElement.style.overflow = "";
+      document.body.style.overflow = "auto";
+      document.documentElement.style.overflow = "auto";
     };
   }, []);
 }
