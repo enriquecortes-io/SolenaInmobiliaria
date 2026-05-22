@@ -17,7 +17,7 @@ export default function CarouselDiscoverIndicator() {
         .discover-label { animation: textFadeV 2.4s ease-in-out infinite; }
       `}</style>
       <div style={{
-        display:"flex", flexDirection:"column", alignItems:"flex-start",
+        display:"flex", flexDirection:"column", alignItems:"flex-end",
         gap:"0.7rem", pointerEvents:"none",
       }}>
         <span className="discover-label" style={{
