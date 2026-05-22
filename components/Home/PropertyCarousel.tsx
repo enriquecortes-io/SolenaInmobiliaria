@@ -117,7 +117,7 @@ export default function PropertyCarousel({ locale = "es" }: { locale?: string })
 
           {/* Infografía esquina superior izquierda */}
           <div style={{ position:"absolute", top:0, left:0, padding:"0.8rem 1rem" }}>
-            <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.38rem", color:"rgba(201,169,110,0.9)", letterSpacing:"0.45em", textTransform:"uppercase", margin:"0 0 0.3rem", textShadow:"0 1px 8px rgba(0,0,0,0.8)" }}>{t.latestListings}</p>
+            <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.38rem", color:"rgba(255,255,255,1)", letterSpacing:"0.45em", textTransform:"uppercase", margin:"0 0 0.3rem", textShadow:"0 1px 8px rgba(0,0,0,0.8)" }}>{t.latestListings}</p>
             <div style={{ width:"1.2rem", height:"1px", background:"rgba(201,169,110,0.6)" }}/>
           </div>
 
