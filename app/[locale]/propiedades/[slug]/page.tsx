@@ -108,5 +108,23 @@ export default async function PropertyPage({ params }: Props) {
 
   if (!property) notFound();
 
-  return <PropertyExperience property={property} locale={locale} />;
+  const titulo = typeof property.titulo === "object"
+    ? property.titulo[locale] || property.titulo.es || property.titulo.en || ""
+    : property.titulo || "";
+
+  const desc = typeof property.descripcion === "object"
+    ? property.descripcion[locale] || property.descripcion.es || property.descripcion.en || ""
+    : property.descripcion || "";
+
+  const jsonLd = buildJsonLd(property, titulo, desc, locale, slug);
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <PropertyExperience property={property} locale={locale} />
+    </>
+  );
 }
