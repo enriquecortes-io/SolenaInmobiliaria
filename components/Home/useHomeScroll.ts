@@ -34,17 +34,6 @@ export function useHomeScroll({ headerRef, filtersRef, carouselRef, panelRefs, t
         headerRef.current.style.pointerEvents = smoothHeader > 0.85 ? "none" : "auto";
       }
 
-      // TEST VISUAL — div rojo cuando fase es carousel
-      let testDiv = document.getElementById("carousel-test");
-      if (!testDiv) {
-        testDiv = document.createElement("div");
-        testDiv.id = "carousel-test";
-        testDiv.style.cssText = "position:fixed;top:50%;left:50%;transform:translate(-50%,-50%);background:red;color:white;padding:2rem;z-index:99999;font-size:3rem;font-weight:bold;display:none;";
-        testDiv.textContent = "CAROUSEL";
-        document.body.appendChild(testDiv);
-      }
-      testDiv.style.display = phase === "carousel" ? "block" : "none";
-
       // Carousel — acceder al ref directamente en cada tick
       const carEl = carouselRef?.current;
       if (carEl) {
@@ -101,7 +90,7 @@ export function useHomeScroll({ headerRef, filtersRef, carouselRef, panelRefs, t
     };
 
     let carouselScrollAccum = 0;
-    const CAROUSEL_THRESHOLD = 300; // px necesarios para salir del carrusel
+    const CAROUSEL_THRESHOLD = 800; // px necesarios para salir del carrusel
 
     const handleDelta = (delta: number) => {
       if (phaseRef.current === "header") {
