@@ -3,6 +3,7 @@ import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import CarouselScrollIndicator from "./CarouselScrollIndicator";
 import ScrollIndicator from "../Experience/ScrollIndicator";
+import CarouselDiscoverIndicator from "./CarouselDiscoverIndicator";
 
 interface Property {
   slug: string;
@@ -166,8 +167,8 @@ export default function PropertyCarousel({ locale = "es" }: { locale?: string })
         </div>
 
         {/* Indicador scroll vertical — señala que hay más secciones abajo */}
-        <div style={{ position:"absolute", bottom:"3rem", left:"1.2rem", zIndex:10, pointerEvents:"none" }}>
-          <ScrollIndicator />
+        <div style={{ position:"absolute", bottom:"3rem", left:"1.2rem", zIndex:10 }}>
+          <CarouselDiscoverIndicator />
         </div>
       </div>
     );
