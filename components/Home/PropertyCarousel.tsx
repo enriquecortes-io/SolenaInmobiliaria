@@ -167,7 +167,7 @@ export default function PropertyCarousel({ locale = "es" }: { locale?: string })
         </div>
 
         {/* Indicador scroll vertical — señala que hay más secciones abajo */}
-        <div style={{ position:"absolute", bottom:"3rem", right:"0rem", zIndex:10 }}>
+        <div style={{ position:"absolute", bottom:"5rem", right:"-0.5rem", zIndex:10 }}>
           <CarouselDiscoverIndicator />
         </div>
       </div>
