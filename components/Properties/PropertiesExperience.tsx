@@ -10,9 +10,10 @@ interface Props {
   properties: Property[];
   locale: string;
   filters: { zona?: string; tipo?: string; precio?: string };
+  isMobile?: boolean;
 }
 
-export default function PropertiesExperience({ properties, locale, filters }: Props) {
+export default function PropertiesExperience({ properties, locale, filters, isMobile = false }: Props) {
   const router = useRouter();
   const pathname = usePathname();
   const urlLocale = pathname.split("/")[1] || locale;
@@ -51,15 +52,7 @@ export default function PropertiesExperience({ properties, locale, filters }: Pr
   const STEP = 360 / n;               // grados entre paneles
   const RADIUS = 600;
   const PERSPECTIVE = 800;
-  const [isMobile, setIsMobile] = useState<boolean | null>(null);
-  useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
-    check();
-    window.addEventListener("resize", check);
-    return () => window.removeEventListener("resize", check);
-  }, []);
-
-  if (isMobile === null) return null; // espera hidratación
+  // isMobile viene del servidor via user-agent
 
   useEffect(() => {
     document.body.style.overflow = "hidden";

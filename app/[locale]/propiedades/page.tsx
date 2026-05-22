@@ -1,4 +1,5 @@
 import { createClient } from "@supabase/supabase-js";
+import { headers } from "next/headers";
 import { Property } from "@/types/property";
 import PropertiesExperience from "@/components/Properties/PropertiesExperience";
 
@@ -51,11 +52,16 @@ export default async function PropertiesPage({ params, searchParams }: Props) {
 
   const properties: Property[] = error ? [] : (data || []);
 
+  const headersList = await headers();
+  const ua = headersList.get("user-agent") || "";
+  const isMobile = /iPhone|Android|Mobile|iPad/i.test(ua);
+
   return (
     <PropertiesExperience
       properties={properties}
       locale={locale}
       filters={{ zona, tipo, precio }}
+      isMobile={isMobile}
     />
   );
 }
