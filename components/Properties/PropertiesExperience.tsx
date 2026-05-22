@@ -49,51 +49,15 @@ export default function PropertiesExperience({ properties, locale, filters }: Pr
   const SCROLL_THRESHOLD = 180;
   const n = properties.length;
   const STEP = 360 / n;               // grados entre paneles
-  const [RADIUS, setRADIUS] = useState(600);
-  const [PERSPECTIVE, setPERSPECTIVE] = useState(800);
-
-  useEffect(() => {
-    const update = () => {
-      const w = window.innerWidth;
-      if (w < 768) {
-        setRADIUS(Math.min(w * 0.55, 320));
-        setPERSPECTIVE(Math.min(w * 0.9, 600));
-      } else {
-        setRADIUS(600);
-        setPERSPECTIVE(800);
-      }
-    };
-    update();
-    window.addEventListener("resize", update);
-    return () => window.removeEventListener("resize", update);
-  }, []);
-
+  const RADIUS = 600;
+  const PERSPECTIVE = 800;
   const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
-    const check = () => setIsMobile(window.innerWidth < 768);
+    const check = () => setIsMobile(window.innerWidth < 480);
     check();
     window.addEventListener("resize", check);
     return () => window.removeEventListener("resize", check);
   }, []);
-
-  if (isMobile) return (
-    <>
-      <Navbar locale={urlLocale} />
-      <MobileCarousel properties={properties} locale={urlLocale} tp={tp} />
-      <button
-        onClick={() => router.push(`/${locale}`)}
-        style={{
-          position:"fixed", bottom:"1.5rem", left:"50%", transform:"translateX(-50%)",
-          zIndex:500, background:"rgba(4,3,2,0.7)",
-          border:"1px solid rgba(201,169,110,0.35)",
-          color:"rgba(201,169,110,0.8)",
-          fontFamily:"'Montserrat',sans-serif",
-          fontSize:"0.5rem", letterSpacing:"0.4em", textTransform:"uppercase",
-          padding:"0.7rem 2rem", cursor:"pointer",
-        }}
-      >{tp.search}</button>
-    </>
-  );
 
   useEffect(() => {
     document.body.style.overflow = "hidden";
