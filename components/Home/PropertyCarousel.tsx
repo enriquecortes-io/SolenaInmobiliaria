@@ -95,7 +95,7 @@ export default function PropertyCarousel({ locale = "es" }: { locale?: string })
         background:"rgba(6,4,2,0.85)",
         border:"1px solid rgba(201,169,110,0.18)",
         boxShadow:"0 0 0 1px rgba(255,255,255,0.04),0 20px 60px rgba(0,0,0,0.5)",
-        backdropFilter:"blur(50px)",
+        backdropFilter:"blur(12px)",
         position:"relative",
         paddingTop:"env(safe-area-inset-top)",   // respeta notch iOS
         boxSizing:"border-box",
@@ -136,7 +136,7 @@ export default function PropertyCarousel({ locale = "es" }: { locale?: string })
           <div style={{ position:"absolute", inset:0, background:"linear-gradient(to bottom, transparent 50%, rgba(6,4,2,0.95) 100%)" }}/>
 
           {/* Infografía esquina superior izquierda */}
-          <div style={{ position:"absolute", top:"0.8rem", left:"0.8rem", padding:"0.5rem 0.8rem", background:"rgba(6,4,2,0.75)", border:"1px solid rgba(201,169,110,0.35)", backdropFilter:"blur(8px)" }}>
+          <div style={{ position:"absolute", top:"0.8rem", left:"0.8rem", padding:"0.5rem 0.8rem", background:"rgba(6,4,2,0.75)", border:"1px solid rgba(201,169,110,0.35)", backdropFilter:"blur(4px)" }}>
             <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.38rem", color:"rgba(255,255,255,1)", letterSpacing:"0.45em", textTransform:"uppercase", margin:"0 0 0.3rem" }}>{t.latestListings}</p>
             <div style={{ width:"1.2rem", height:"1px", background:"rgba(201,169,110,0.6)" }}/>
           </div>
@@ -204,7 +204,7 @@ export default function PropertyCarousel({ locale = "es" }: { locale?: string })
         background:"rgba(6,4,2,0.65)",
         border:"1px solid rgba(201,169,110,0.18)",
         boxShadow:"0 0 0 1px rgba(255,255,255,0.04),0 20px 60px rgba(0,0,0,0.5),inset 0 1px 0 rgba(255,255,255,0.08)",
-        backdropFilter:"blur(50px)",
+        backdropFilter:"blur(30px)",
         overflow:"hidden", position:"relative",
       }}>
         <div style={{ position:"absolute", top:0, left:"10%", right:"10%", height:"1px", background:"linear-gradient(90deg,transparent,rgba(201,169,110,0.8),transparent)", zIndex:2 }}/>
