@@ -27,7 +27,7 @@ export default function PropertyCarousel({ locale = "es" }: { locale?: string })
       .then(data => {
         const props = (data.properties || []).slice(0, 5);
         setProperties(props);
-        setActive(Math.min(2, props.length - 1));
+        setActive(2);
       })
       .catch(() => {});
   }, []);
@@ -135,9 +135,9 @@ export default function PropertyCarousel({ locale = "es" }: { locale?: string })
         </div>
 
         {/* Columna derecha — Info propiedad */}
-        <div style={{ display:"flex", flexDirection:"column", justifyContent:"space-between", padding:"3rem 2.5rem" }}>
+        <div style={{ display:"flex", flexDirection:"column", justifyContent:"space-between", padding:"3rem 2.5rem", background:"rgba(6,4,2,0.5)" }}>
           <div>
-            <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.45rem", color:"#c9a96e", letterSpacing:"0.5em", textTransform:"uppercase", margin:"0 0 0.8rem" }}>{p.ubicacion}</p>
+            <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.6rem", color:"#c9a96e", letterSpacing:"0.4em", textTransform:"uppercase", margin:"0 0 0.8rem" }}>{p.ubicacion}</p>
             <div style={{ width:"2rem", height:"1px", background:"rgba(201,169,110,0.5)", margin:"0 0 1.2rem" }}/>
             <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1.5rem,2.5vw,2.5rem)", fontWeight:600, color:"white", lineHeight:1.1, margin:"0 0 2rem" }}>{getTitle(p)}</h2>
           </div>
@@ -149,8 +149,8 @@ export default function PropertyCarousel({ locale = "es" }: { locale?: string })
               { label:"Baños", value: p.banos || null },
             ].filter(d => d.value).map(d => (
               <div key={d.label} style={{ display:"flex", justifyContent:"space-between", alignItems:"baseline", padding:"1rem 0", borderBottom:"1px solid rgba(255,255,255,0.06)" }}>
-                <span style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.42rem", color:"rgba(255,255,255,0.35)", letterSpacing:"0.3em", textTransform:"uppercase" }}>{d.label}</span>
-                <span style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1.6rem", color:"white", fontWeight:300 }}>{String(d.value)}</span>
+                <span style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.55rem", color:"rgba(255,255,255,0.6)", letterSpacing:"0.25em", textTransform:"uppercase" }}>{d.label}</span>
+                <span style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"2rem", color:"white", fontWeight:300 }}>{String(d.value)}</span>
               </div>
             ))}
           </div>
@@ -158,7 +158,7 @@ export default function PropertyCarousel({ locale = "es" }: { locale?: string })
           {(() => {
             const desc = typeof p.descripcion === "object" ? (p.descripcion as any)["es"] || (p.descripcion as any)["en"] || "" : p.descripcion || "";
             const first = desc.match(/^[^.!?]+[.!?]/)?.[0] || "";
-            return first ? <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(0.85rem,1.1vw,1rem)", fontStyle:"italic", color:"rgba(255,255,255,0.5)", lineHeight:1.7, margin:"0.5rem 0 1rem" }}>{first}</p> : null;
+            return first ? <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(0.85rem,1.1vw,1rem)", fontStyle:"italic", color:"rgba(255,255,255,0.75)", lineHeight:1.7, margin:"1rem 0 1.5rem" }}>{first}</p> : null;
           })()}
           {(() => {
             const desc = typeof p.descripcion === "object"
@@ -174,7 +174,7 @@ export default function PropertyCarousel({ locale = "es" }: { locale?: string })
           {p.precio && (
             <div style={{ paddingTop:"1.5rem", borderTop:"1px solid rgba(201,169,110,0.2)" }}>
               <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.4rem", color:"rgba(201,169,110,0.5)", letterSpacing:"0.4em", textTransform:"uppercase", margin:"0 0 0.4rem" }}>Precio</p>
-              <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(2rem,3vw,3rem)", color:"#c9a96e", margin:"0 0 1.5rem", fontWeight:300 }}>€{(p.precio/1000000).toFixed(1)}M</p>
+              <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(2.5rem,4vw,3.5rem)", color:"#c9a96e", margin:"0 0 1.5rem", fontWeight:300 }}>€{(p.precio/1000000).toFixed(1)}M</p>
               <Link href={`/${locale}/propiedades/${p.slug}`} style={{ display:"block", textAlign:"center", fontFamily:"'Montserrat',sans-serif", fontSize:"0.42rem", letterSpacing:"0.45em", textTransform:"uppercase", color:"rgba(201,169,110,0.7)", textDecoration:"none", padding:"0.8rem", border:"1px solid rgba(201,169,110,0.3)" }}>
                 Ver propiedad
               </Link>
