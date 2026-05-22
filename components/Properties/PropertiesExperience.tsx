@@ -65,7 +65,10 @@ export default function PropertiesExperience({ properties, locale, filters }: Pr
     };
     update();
     window.addEventListener("resize", update);
-    const [isMobile, setIsMobile] = useState(false);
+    return () => window.removeEventListener("resize", update);
+  }, []);
+
+  const [isMobile, setIsMobile] = useState(false);
   useEffect(() => {
     const check = () => setIsMobile(window.innerWidth < 768);
     check();
