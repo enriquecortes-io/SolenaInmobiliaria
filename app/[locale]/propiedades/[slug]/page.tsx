@@ -74,6 +74,28 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   };
 }
 
+function buildJsonLd(property: any, titulo: string, desc: string, locale: string, slug: string) {
+  return {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": titulo,
+    "description": desc.slice(0, 300),
+    "image": property.galeria_urls || [],
+    "offers": {
+      "@type": "Offer",
+      "price": property.precio,
+      "priceCurrency": "EUR",
+      "availability": "https://schema.org/InStock",
+    },
+    "additionalProperty": [
+      { "@type": "PropertyValue", "name": "Superficie", "value": `${property.m2_construidos} m²` },
+      { "@type": "PropertyValue", "name": "Habitaciones", "value": property.habitaciones },
+      { "@type": "PropertyValue", "name": "Ubicación", "value": property.ubicacion },
+    ],
+    "url": `https://mdlm-xi.vercel.app/${locale}/propiedades/${slug}`,
+  };
+}
+
 export default async function PropertyPage({ params }: Props) {
   const { locale, slug } = await params;
 

@@ -40,6 +40,16 @@ export default async function LocaleLayout({
       <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous"/>
       <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,600;0,700;1,300;1,400&family=Montserrat:wght@200;300;400;500&display=swap" rel="stylesheet"/>
       <body style={{ background: "#000", margin: 0 }}>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
+          "@context": "https://schema.org",
+          "@type": "RealEstateAgent",
+          "name": "The Edit Marbella",
+          "description": "Exclusive ultra-luxury properties on the Costa del Sol.",
+          "url": "https://mdlm-xi.vercel.app",
+          "areaServed": ["Marbella", "Estepona", "Sotogrande", "Costa del Sol"],
+          "priceRange": "€€€€€",
+          "address": { "@type": "PostalAddress", "addressRegion": "Andalucía", "addressCountry": "ES" }
+        })}} />
         <SkyBackground />{children}<CookieBanner /><LegalFooter /></body>
     </html>
   );
