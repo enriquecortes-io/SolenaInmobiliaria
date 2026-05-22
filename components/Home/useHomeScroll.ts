@@ -1,16 +1,19 @@
 "use client";
 import { useEffect, useRef } from "react";
 
+type Phase = "header" | "manifesto" | "carousel" | "filters";
+
 interface Props {
   headerRef: React.RefObject<HTMLDivElement | null>;
+  manifestoRef: React.RefObject<HTMLDivElement | null>;
   filtersRef: React.RefObject<HTMLDivElement | null>;
   carouselRef?: React.RefObject<HTMLDivElement | null>;
   panelRefs: React.RefObject<(HTMLDivElement | null)[]>;
   totalPanels: number;
 }
 
-export function useHomeScroll({ headerRef, filtersRef, carouselRef, panelRefs, totalPanels }: Props) {
-  const phaseRef = useRef<"header" | "carousel" | "filters">("header");
+export function useHomeScroll({ headerRef, manifestoRef, filtersRef, carouselRef, panelRefs, totalPanels }: Props) {
+  const phaseRef = useRef<Phase>("header");
   const progressRef = useRef(0);
   const targetProgressRef = useRef(0);
 
@@ -23,49 +26,45 @@ export function useHomeScroll({ headerRef, filtersRef, carouselRef, panelRefs, t
     let targetHeader = 0;
     const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
 
-    // Cooldown entre cambios de sección — evita doble-disparo
     let lastPhaseChange = 0;
-    const PHASE_COOLDOWN = 800; // ms
+    const PHASE_COOLDOWN = 800;
 
-    const emitPhase = (phase: string) => {
+    const emitPhase = (phase: Phase) => {
       window.dispatchEvent(new CustomEvent("scrollphase", { detail: phase }));
     };
 
-    const setPhase = (next: "header" | "carousel" | "filters") => {
+    const setPhase = (next: Phase) => {
       if (phaseRef.current !== next) {
         phaseRef.current = next;
         emitPhase(next);
       }
     };
 
+    const lerpOpacity = (el: HTMLDivElement | null, target: number) => {
+      if (!el) return;
+      const cur = parseFloat(el.style.opacity || "0");
+      const next = lerp(cur, target, 0.08);
+      el.style.opacity = String(next);
+      el.style.pointerEvents = next > 0.3 ? "auto" : "none";
+    };
+
     const tick = () => {
       smoothHeader = lerp(smoothHeader, targetHeader, 0.055);
       const phase = phaseRef.current;
 
+      // Header (controlado por smoothHeader/targetHeader)
       if (headerRef.current) {
         headerRef.current.style.opacity = String(1 - smoothHeader);
         headerRef.current.style.transform = `translate3d(0,${-smoothHeader * 80}px,0) scale(${1 - smoothHeader * 0.03})`;
         headerRef.current.style.pointerEvents = smoothHeader > 0.85 ? "none" : "auto";
       }
 
-      const carEl = carouselRef?.current;
-      if (carEl) {
-        const target = phase === "carousel" ? 1 : 0;
-        const cur = parseFloat(carEl.style.opacity || "0");
-        const next = lerp(cur, target, 0.08);
-        carEl.style.opacity = String(next);
-        carEl.style.pointerEvents = next > 0.3 ? "auto" : "none";
-      }
+      // Manifesto / Carousel / Filters — opacidad fase-target
+      lerpOpacity(manifestoRef.current, phase === "manifesto" ? 1 : 0);
+      lerpOpacity(carouselRef?.current ?? null, phase === "carousel" ? 1 : 0);
+      lerpOpacity(filtersRef.current,   phase === "filters" ? 1 : 0);
 
-      const filEl = filtersRef.current;
-      if (filEl) {
-        const target = phase === "filters" ? 1 : 0;
-        const cur = parseFloat(filEl.style.opacity || "0");
-        const next = lerp(cur, target, 0.08);
-        filEl.style.opacity = String(next);
-        filEl.style.pointerEvents = next > 0.3 ? "auto" : "none";
-      }
-
+      // Panels Z-axis
       progressRef.current = lerp(progressRef.current, targetProgressRef.current, 0.07);
       for (let i = 0; i < totalPanels; i++) {
         const el = panelRefs.current[i];
@@ -100,24 +99,48 @@ export function useHomeScroll({ headerRef, filtersRef, carouselRef, panelRefs, t
       targetProgressRef.current = Math.max(0, Math.min(totalPanels - 1, next));
     };
 
-    // ── WHEEL — acumulación con snap ──────────────────────────────────────
+    // ── Transición direccional entre fases ───────────────────────────────
+    const PHASE_ORDER: Phase[] = ["header", "manifesto", "carousel", "filters"];
+
+    const goNext = () => {
+      const idx = PHASE_ORDER.indexOf(phaseRef.current);
+      const next = PHASE_ORDER[Math.min(PHASE_ORDER.length - 1, idx + 1)];
+      if (next === "filters") targetProgressRef.current = 0;
+      if (next !== "header") targetHeader = 1;
+      setPhase(next);
+    };
+
+    const goPrev = () => {
+      const idx = PHASE_ORDER.indexOf(phaseRef.current);
+      const next = PHASE_ORDER[Math.max(0, idx - 1)];
+      if (next === "header") targetHeader = 0;
+      setPhase(next);
+    };
+
+    // ── WHEEL — snap acumulado ──────────────────────────────────────────
     let wheelAccum = 0;
     let wheelTimer: ReturnType<typeof setTimeout> | null = null;
-    const WHEEL_SNAP = 300; // px acumulados para cambiar sección
+    const WHEEL_SNAP = 300;
 
     const handleWheel = (e: WheelEvent) => {
       e.preventDefault();
       const now = Date.now();
       if (now - lastPhaseChange < PHASE_COOLDOWN) return;
 
+      // En header, scroll progresivo hasta el final
       if (phaseRef.current === "header") {
         targetHeader = Math.max(0, Math.min(1, targetHeader + e.deltaY * 0.002));
         if (targetHeader >= 1) {
           targetHeader = 1;
           lastPhaseChange = now;
-          setPhase("carousel");
+          setPhase("manifesto");
         }
         return;
+      }
+
+      // En filters, manejar paneles internos primero
+      if (phaseRef.current === "filters" && e.deltaY < 0 && targetProgressRef.current > 0) {
+        return; // dejar que FilterPanels gestione paneles internos
       }
 
       wheelAccum += e.deltaY;
@@ -128,24 +151,11 @@ export function useHomeScroll({ headerRef, filtersRef, carouselRef, panelRefs, t
         const dir = wheelAccum > 0 ? 1 : -1;
         wheelAccum = 0;
         lastPhaseChange = now;
-
-        if (phaseRef.current === "carousel") {
-          if (dir > 0) {
-            setPhase("filters");
-            targetProgressRef.current = 0;
-          } else {
-            setPhase("header");
-            targetHeader = 0.5;
-          }
-        } else if (phaseRef.current === "filters") {
-          if (dir < 0 && targetProgressRef.current <= 0) {
-            setPhase("carousel");
-          }
-        }
+        if (dir > 0) goNext(); else goPrev();
       }
     };
 
-    // ── TOUCH — snap por gesto completo ──────────────────────────────────
+    // ── TOUCH — snap por gesto completo ─────────────────────────────────
     let touchStartY = 0;
     let touchStartTime = 0;
 
@@ -160,35 +170,18 @@ export function useHomeScroll({ headerRef, filtersRef, carouselRef, panelRefs, t
 
       const deltaY = touchStartY - e.changedTouches[0].clientY;
       const elapsed = now - touchStartTime;
-      const velocity = Math.abs(deltaY) / elapsed; // px/ms
+      const velocity = Math.abs(deltaY) / elapsed;
 
-      // Umbral: distancia mínima 60px O velocidad rápida > 0.3px/ms
       const isSwipeDown = deltaY > 60 || (deltaY > 30 && velocity > 0.3);
       const isSwipeUp   = deltaY < -60 || (deltaY < -30 && velocity > 0.3);
 
       if (!isSwipeDown && !isSwipeUp) return;
 
       lastPhaseChange = now;
-
-      if (phaseRef.current === "header" && isSwipeDown) {
-        targetHeader = 1;
-        setPhase("carousel");
-      } else if (phaseRef.current === "carousel") {
-        if (isSwipeDown) {
-          setPhase("filters");
-          targetProgressRef.current = 0;
-        } else if (isSwipeUp) {
-          setPhase("header");
-          targetHeader = 0;   // reset completo — header vuelve opaco
-        }
-      } else if (phaseRef.current === "filters") {
-        if (isSwipeUp && targetProgressRef.current <= 0) {
-          setPhase("carousel");
-        }
-      }
+      if (isSwipeDown) goNext();
+      else if (isSwipeUp) goPrev();
     };
 
-    // touchmove solo para prevenir scroll nativo
     const handleTouchMove = (e: TouchEvent) => { e.preventDefault(); };
 
     window.addEventListener("wheel", handleWheel, { passive: false });
@@ -205,5 +198,5 @@ export function useHomeScroll({ headerRef, filtersRef, carouselRef, panelRefs, t
       document.body.style.overflow = "";
       document.documentElement.style.overflow = "";
     };
-  }, [headerRef, filtersRef, carouselRef, panelRefs, totalPanels]);
+  }, [headerRef, manifestoRef, filtersRef, carouselRef, panelRefs, totalPanels]);
 }

@@ -4,17 +4,19 @@ import PropertyCarousel from "./PropertyCarousel";
 import { useHomeScroll } from "./useHomeScroll";
 import SkyHeader from "./SkyHeader";
 import FilterPanels from "./FilterPanels";
+import Manifesto from "./Manifesto";
 
 interface Props { locale: string; }
 const TOTAL_PANELS = 3;
 
 export default function HomeExperience({ locale }: Props) {
-  const headerRef = useRef<HTMLDivElement>(null);
-  const filtersRef = useRef<HTMLDivElement>(null);
-  const carouselRef = useRef<HTMLDivElement>(null);
-  const panelRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const headerRef    = useRef<HTMLDivElement>(null);
+  const manifestoRef = useRef<HTMLDivElement>(null);
+  const filtersRef   = useRef<HTMLDivElement>(null);
+  const carouselRef  = useRef<HTMLDivElement>(null);
+  const panelRefs    = useRef<(HTMLDivElement | null)[]>([]);
 
-  useHomeScroll({ headerRef, filtersRef, carouselRef, panelRefs, totalPanels: TOTAL_PANELS });
+  useHomeScroll({ headerRef, manifestoRef, filtersRef, carouselRef, panelRefs, totalPanels: TOTAL_PANELS });
 
   return (
     <div style={{position:"fixed",inset:0,width:"100%",height:"100vh",overflow:"hidden",background:"transparent"}}>
@@ -27,6 +29,9 @@ export default function HomeExperience({ locale }: Props) {
       }}>
         <SkyHeader locale={locale} />
       </div>
+
+      {/* Manifesto */}
+      <Manifesto ref={manifestoRef} locale={locale} />
 
       {/* Carrusel */}
       <div ref={carouselRef} style={{
