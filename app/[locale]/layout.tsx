@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import SkyBackground from "@/components/SkyBackground";
 import CookieBanner from "@/components/CookieBanner";
 import LegalFooter from "@/components/LegalFooter";
+import WhatsAppButton from "@/components/WhatsAppButton";
 import { notFound } from "next/navigation";
 
 const locales = ["en", "es", "fr", "ru"];
@@ -74,7 +75,7 @@ export default async function LocaleLayout({
           "priceRange": "€€€€€",
           "address": { "@type": "PostalAddress", "addressRegion": "Andalucía", "addressCountry": "ES" }
         })}} />
-        <SkyBackground />{children}<CookieBanner /><LegalFooter /></body>
+        <SkyBackground />{children}<CookieBanner /><LegalFooter /><WhatsAppButton /></body>
     </html>
   );
 }
