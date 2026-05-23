@@ -154,6 +154,7 @@ const INP: React.CSSProperties = {
 
 const Captacion = forwardRef<HTMLDivElement, Props>(({ locale }, ref) => {
   const t = TRANSLATIONS[locale] || TRANSLATIONS["es"];
+  const [tab, setTab] = useState<"servicios"|"contacto">("servicios");
   const [form, setForm] = useState({ name:"", email:"", phone:"", ubicacion:"", precio_estimado:"", mensaje:"" });
   const [status, setStatus] = useState<"idle"|"sending"|"sent"|"error">("idle");
 
@@ -196,123 +197,114 @@ const Captacion = forwardRef<HTMLDivElement, Props>(({ locale }, ref) => {
         {/* Línea dorada superior */}
         <div style={{ position:"absolute", top:0, left:"10%", right:"10%", height:"1px", background:"linear-gradient(90deg,transparent,rgba(201,169,110,0.8),transparent)" }}/>
 
-        {/* Columna izquierda — Propuesta de valor */}
-        <div style={{ display:"flex", flexDirection:"column", gap:"2rem" }}>
-          <div>
-            <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.5rem", color:"rgba(201,169,110,0.7)", letterSpacing:"0.5em", textTransform:"uppercase", margin:"0 0 1rem" }}>{t.eyebrow}</p>
-            <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(2.2rem,3.5vw,3.5rem)", fontWeight:600, color:"white", lineHeight:1.1, margin:"0 0 1rem", fontStyle:"italic" }}>{t.title}</h2>
-            <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(0.9rem,1.2vw,1.1rem)", color:"rgba(255,255,255,0.85)", lineHeight:1.7, margin:0, fontStyle:"italic" }}>{t.subtitle}</p>
-          </div>
+        {/* Header */}
+        <div>
+          <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.5rem", color:"rgba(201,169,110,0.7)", letterSpacing:"0.5em", textTransform:"uppercase", margin:"0 0 0.6rem" }}>{t.eyebrow}</p>
+          <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(2rem,3vw,3rem)", fontWeight:600, color:"white", lineHeight:1.1, margin:"0 0 0.6rem", fontStyle:"italic" }}>{t.title}</h2>
+          <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(0.9rem,1.1vw,1rem)", color:"rgba(255,255,255,0.7)", lineHeight:1.6, margin:0, fontStyle:"italic" }}>{t.subtitle}</p>
+        </div>
 
-          <div style={{ width:"2rem", height:"1px", background:"rgba(201,169,110,0.4)" }}/>
+        {/* Tabs */}
+        <div style={{ display:"flex", gap:0, borderBottom:"1px solid rgba(201,169,110,0.15)" }}>
+          {(["servicios","contacto"] as const).map(tabId => (
+            <button key={tabId} onClick={() => setTab(tabId)} style={{
+              fontFamily:"'Montserrat',sans-serif", fontSize:"0.5rem",
+              letterSpacing:"0.3em", textTransform:"uppercase",
+              color: tab === tabId ? "#c9a96e" : "rgba(255,255,255,0.35)",
+              background:"transparent", border:"none",
+              borderBottom: tab === tabId ? "1px solid #c9a96e" : "1px solid transparent",
+              padding:"0.6rem 1.5rem 0.8rem", cursor:"pointer",
+              transition:"all 0.3s", marginBottom:"-1px",
+            }}>
+              {tabId === "servicios" ? (locale === "fr" ? "Services" : locale === "ru" ? "Услуги" : locale === "en" ? "Services" : "Servicios") : t.formTitle}
+            </button>
+          ))}
+        </div>
 
-          {/* Servicios — 2 columnas × 3 filas */}
+        {/* Tab: Servicios */}
+        {tab === "servicios" && (
           <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"1.2rem 2.5rem" }}>
             {SERVICES(locale).map((s, i) => (
-              <div key={i} style={{ display:"flex", flexDirection:"column", gap:"0.4rem" }}>
-                <div style={{ display:"flex", alignItems:"center", gap:"0.6rem", marginBottom:"0.2rem" }}>
-                  <span style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"0.75rem", color:"rgba(201,169,110,0.5)", fontWeight:300, flexShrink:0, minWidth:"1.2rem" }}>
+              <div key={i} style={{ display:"flex", flexDirection:"column", gap:"0.35rem" }}>
+                <div style={{ display:"flex", alignItems:"center", gap:"0.6rem" }}>
+                  <span style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"0.7rem", color:"rgba(201,169,110,0.5)", fontWeight:300, flexShrink:0 }}>
                     {String(i+1).padStart(2,"0")}
                   </span>
                   <div style={{ flex:1, height:"1px", background:"linear-gradient(90deg,rgba(201,169,110,0.4),transparent)" }}/>
                 </div>
-                <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.7rem", color:"rgba(201,169,110,1)", letterSpacing:"0.2em", textTransform:"uppercase", margin:0, lineHeight:1.4 }}>{s.title}</p>
-                <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1rem,1.2vw,1.15rem)", color:"rgba(255,255,255,0.85)", lineHeight:1.6, margin:0 }}>{s.desc}</p>
+                <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.55rem", color:"#c9a96e", letterSpacing:"0.2em", textTransform:"uppercase", margin:0, lineHeight:1.3 }}>{s.title}</p>
+                <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(0.9rem,1.1vw,1rem)", color:"rgba(255,255,255,0.8)", lineHeight:1.55, margin:0 }}>{s.desc}</p>
               </div>
             ))}
           </div>
-        </div>
+        )}
 
-        {/* Formulario */}
-        <div style={{ display:"flex", flexDirection:"column", gap:"1rem", borderTop:"1px solid rgba(201,169,110,0.15)", paddingTop:"clamp(1.5rem,2vw,2rem)" }}>
-          <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.6rem", color:"rgba(201,169,110,0.9)", letterSpacing:"0.4em", textTransform:"uppercase", margin:"0 0 0.5rem" }}>{t.formTitle}</p>
-
-          {status === "sent" ? (
-            <div style={{ flex:1, display:"flex", alignItems:"center", justifyContent:"center" }}>
-              <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1.2rem", color:"#c9a96e", textAlign:"center", fontStyle:"italic", lineHeight:1.6 }}>{t.sent}</p>
-            </div>
-          ) : (
-            <>
-              <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"0.8rem" }}>
-                {[
-                  { key:"name",      label:t.name,      type:"text" },
-                  { key:"email",     label:t.email,     type:"email" },
-                  { key:"phone",     label:t.phone,     type:"tel" },
-                  { key:"ubicacion", label:t.ubicacion, type:"text" },
-                ].map(f => (
-                  <input
-                    key={f.key}
-                    type={f.type}
-                    placeholder={f.label}
-                    value={(form as any)[f.key]}
-                    onChange={e => setForm(p => ({...p, [f.key]: e.target.value}))}
-                    style={INP}
-                    onFocus={e => e.target.style.borderColor = "rgba(201,169,110,0.6)"}
-                    onBlur={e => e.target.style.borderColor = "rgba(201,169,110,0.2)"}
-                  />
-                ))}
-              </div>
-
-              {/* Precio estimado — selector visual */}
-              <div style={{ display:"flex", gap:"0.4rem", flexWrap:"wrap" }}>
-                {PRICES.map((p: string) => (
-                  <button key={p} onClick={() => setForm(f => ({...f, precio_estimado: p}))}
-                    style={{
-                      fontFamily:"'Montserrat',sans-serif", fontSize:"0.38rem",
-                      letterSpacing:"0.2em", padding:"0.4rem 0.7rem",
-                      border:`1px solid rgba(201,169,110,${form.precio_estimado === p ? 0.8 : 0.2})`,
-                      background: form.precio_estimado === p ? "rgba(201,169,110,0.12)" : "transparent",
-                      color: form.precio_estimado === p ? "#c9a96e" : "rgba(255,255,255,0.4)",
-                      cursor:"pointer", transition:"all 0.2s",
-                    }}>
-                    {p}
-                  </button>
-                ))}
-              </div>
-
-              <textarea
-                placeholder={t.mensaje}
-                value={form.mensaje}
-                onChange={e => setForm(p => ({...p, mensaje: e.target.value}))}
-                rows={3}
-                style={{...INP, resize:"none"}}
-                onFocus={e => e.target.style.borderColor = "rgba(201,169,110,0.6)"}
-                onBlur={e => e.target.style.borderColor = "rgba(201,169,110,0.2)"}
-              />
-
-              {status === "error" && (
-                <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.4rem", color:"rgba(255,100,100,0.8)", letterSpacing:"0.2em" }}>{t.error}</p>
-              )}
-
-              <button
-                onClick={handleSubmit}
-                disabled={status === "sending"}
-                style={{
-                  fontFamily:"'Montserrat',sans-serif", fontSize:"0.6rem",
-                  letterSpacing:"0.45em", textTransform:"uppercase",
-                  color:"rgba(201,169,110,0.9)", background:"transparent",
-                  border:"1px solid rgba(201,169,110,0.4)",
-                  padding:"1rem", cursor:"pointer",
-                  transition:"all 0.3s", marginTop:"0.5rem",
-                  opacity: status === "sending" ? 0.6 : 1,
-                }}
-                onMouseEnter={e => {
-                  e.currentTarget.style.background = "rgba(201,169,110,0.08)";
-                  e.currentTarget.style.borderColor = "rgba(201,169,110,0.8)";
-                }}
-                onMouseLeave={e => {
-                  e.currentTarget.style.background = "transparent";
-                  e.currentTarget.style.borderColor = "rgba(201,169,110,0.4)";
-                }}
-              >
-                {status === "sending" ? t.sending : t.send}
-              </button>
-            </>
-          )}
-        </div>
+        {/* Tab: Contacto */}
+        {tab === "contacto" && (
+          <div style={{ display:"flex", flexDirection:"column", gap:"0.8rem" }}>
+            {status === "sent" ? (
+              <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1.3rem", color:"#c9a96e", textAlign:"center", fontStyle:"italic", lineHeight:1.6, padding:"2rem 0" }}>{t.sent}</p>
+            ) : (
+              <>
+                <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"0.7rem" }}>
+                  {[
+                    { key:"name",      label:t.name,      type:"text" },
+                    { key:"email",     label:t.email,     type:"email" },
+                    { key:"phone",     label:t.phone,     type:"tel" },
+                    { key:"ubicacion", label:t.ubicacion, type:"text" },
+                  ].map(f => (
+                    <input key={f.key} type={f.type} placeholder={f.label}
+                      value={(form as any)[f.key]}
+                      onChange={e => setForm(p => ({...p, [f.key]: e.target.value}))}
+                      style={INP}
+                      onFocus={e => e.target.style.borderColor = "rgba(201,169,110,0.6)"}
+                      onBlur={e => e.target.style.borderColor = "rgba(201,169,110,0.2)"}
+                    />
+                  ))}
+                </div>
+                <div style={{ display:"flex", gap:"0.4rem", flexWrap:"wrap" }}>
+                  {PRICES.map((p: string) => (
+                    <button key={p} onClick={() => setForm(f => ({...f, precio_estimado: p}))}
+                      style={{
+                        fontFamily:"'Montserrat',sans-serif", fontSize:"0.45rem",
+                        letterSpacing:"0.15em", padding:"0.45rem 0.8rem",
+                        border:`1px solid rgba(201,169,110,${form.precio_estimado === p ? 0.8 : 0.2})`,
+                        background: form.precio_estimado === p ? "rgba(201,169,110,0.12)" : "transparent",
+                        color: form.precio_estimado === p ? "#c9a96e" : "rgba(255,255,255,0.4)",
+                        cursor:"pointer", transition:"all 0.2s",
+                      }}>
+                      {p}
+                    </button>
+                  ))}
+                </div>
+                <textarea placeholder={t.mensaje} value={form.mensaje}
+                  onChange={e => setForm(p => ({...p, mensaje: e.target.value}))}
+                  rows={3} style={{...INP, resize:"none"}}
+                  onFocus={e => e.target.style.borderColor = "rgba(201,169,110,0.6)"}
+                  onBlur={e => e.target.style.borderColor = "rgba(201,169,110,0.2)"}
+                />
+                {status === "error" && <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.4rem", color:"rgba(255,100,100,0.8)" }}>{t.error}</p>}
+                <button onClick={handleSubmit} disabled={status === "sending"}
+                  style={{
+                    fontFamily:"'Montserrat',sans-serif", fontSize:"0.6rem",
+                    letterSpacing:"0.45em", textTransform:"uppercase",
+                    color:"rgba(201,169,110,0.9)", background:"transparent",
+                    border:"1px solid rgba(201,169,110,0.4)",
+                    padding:"1rem", cursor:"pointer", transition:"all 0.3s",
+                    opacity: status === "sending" ? 0.6 : 1,
+                  }}
+                  onMouseEnter={e => { e.currentTarget.style.background="rgba(201,169,110,0.08)"; e.currentTarget.style.borderColor="rgba(201,169,110,0.8)"; }}
+                  onMouseLeave={e => { e.currentTarget.style.background="transparent"; e.currentTarget.style.borderColor="rgba(201,169,110,0.4)"; }}
+                >
+                  {status === "sending" ? t.sending : t.send}
+                </button>
+              </>
+            )}
+          </div>
+        )}
 
         {/* Línea dorada inferior */}
-        <div style={{ position:"absolute", bottom:0, left:"10%", right:"10%", height:"1px", background:"linear-gradient(90deg,transparent,rgba(201,169,110,0.4),transparent)", gridColumn:"1/-1" }}/>
+        <div style={{ position:"absolute", bottom:0, left:"10%", right:"10%", height:"1px", background:"linear-gradient(90deg,transparent,rgba(201,169,110,0.4),transparent)" }}/>
       </div>
     </div>
   );
