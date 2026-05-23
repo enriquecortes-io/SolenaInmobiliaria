@@ -183,15 +183,17 @@ const Captacion = forwardRef<HTMLDivElement, Props>(({ locale }, ref) => {
       willChange:"opacity",
     }}>
       <div style={{
-        width:"100%", maxWidth:"900px",
+        width:"100%", maxWidth:"1000px",
+        maxHeight:"88vh",
         display:"flex", flexDirection:"column",
-        gap:"clamp(2rem,3vw,3rem)",
+        gap:"clamp(1.5rem,2.5vw,2.5rem)",
         background:"rgba(6,4,2,0.6)",
         border:"1px solid rgba(201,169,110,0.25)",
         backdropFilter:"blur(30px)",
-        padding:"clamp(2rem,4vw,4rem)",
+        padding:"clamp(1.5rem,3vw,3rem)",
         boxSizing:"border-box",
         position:"relative",
+        overflowY:"auto",
       }}>
         {/* Línea dorada superior */}
         <div style={{ position:"absolute", top:0, left:"10%", right:"10%", height:"1px", background:"linear-gradient(90deg,transparent,rgba(201,169,110,0.8),transparent)" }}/>
@@ -207,7 +209,7 @@ const Captacion = forwardRef<HTMLDivElement, Props>(({ locale }, ref) => {
           <div style={{ width:"2rem", height:"1px", background:"rgba(201,169,110,0.4)" }}/>
 
           {/* Servicios — 2 columnas × 3 filas */}
-          <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"1.5rem 2rem" }}>
+          <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"1.2rem 2.5rem" }}>
             {SERVICES(locale).map((s, i) => (
               <div key={i} style={{ display:"flex", flexDirection:"column", gap:"0.4rem" }}>
                 <div style={{ display:"flex", alignItems:"center", gap:"0.6rem", marginBottom:"0.2rem" }}>
@@ -216,8 +218,8 @@ const Captacion = forwardRef<HTMLDivElement, Props>(({ locale }, ref) => {
                   </span>
                   <div style={{ flex:1, height:"1px", background:"linear-gradient(90deg,rgba(201,169,110,0.4),transparent)" }}/>
                 </div>
-                <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.45rem", color:"rgba(201,169,110,1)", letterSpacing:"0.25em", textTransform:"uppercase", margin:0, lineHeight:1.4 }}>{s.title}</p>
-                <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(0.8rem,1vw,0.95rem)", color:"rgba(255,255,255,0.75)", lineHeight:1.6, margin:0 }}>{s.desc}</p>
+                <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.6rem", color:"rgba(201,169,110,1)", letterSpacing:"0.2em", textTransform:"uppercase", margin:0, lineHeight:1.4 }}>{s.title}</p>
+                <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(0.95rem,1.1vw,1.05rem)", color:"rgba(255,255,255,0.85)", lineHeight:1.6, margin:0 }}>{s.desc}</p>
               </div>
             ))}
           </div>
