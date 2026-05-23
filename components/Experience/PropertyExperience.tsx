@@ -149,10 +149,11 @@ export default function PropertyExperience({ property, locale }: Props) {
                   { label:"Hab.", value: property.habitaciones || null },
                   { label:"Baños", value: property.banos || null },
                   { label:"Precio", value: property.precio ? `€${(property.precio/1000000).toFixed(1)}M` : null, gold:true },
+                  { label:"Ref.", value: ref || null, mono:true },
                 ].filter(d => d.value).map((d,i,arr) => (
                   <div key={d.label} style={{ flex:"1 1 80px", padding:"0.5rem 1rem 0.5rem 0", borderRight: i < arr.length-1 ? "1px solid rgba(255,255,255,0.07)" : "none", marginRight: i < arr.length-1 ? "1rem" : "0" }}>
                     <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.38rem", color:"rgba(201,169,110,0.55)", letterSpacing:"0.35em", textTransform:"uppercase", margin:"0 0 0.2rem" }}>{d.label}</p>
-                    <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1rem,1.8vw,1.4rem)", color:(d as any).gold ? "#c9a96e" : "white", fontWeight:300, margin:0, lineHeight:1 }}>{String(d.value)}</p>
+                    <p style={{ fontFamily:(d as any).mono ? "'Courier New',monospace" : "'Cormorant Garamond',serif", fontSize:(d as any).mono ? "clamp(0.7rem,1.2vw,0.9rem)" : "clamp(1rem,1.8vw,1.4rem)", color:(d as any).gold ? "#c9a96e" : (d as any).mono ? "rgba(201,169,110,0.7)" : "white", fontWeight:300, margin:0, lineHeight:1, letterSpacing:(d as any).mono ? "0.1em" : "normal" }}>{String(d.value)}</p>
                   </div>
                 ))}
               </div>
