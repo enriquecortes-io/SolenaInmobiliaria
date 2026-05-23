@@ -206,15 +206,18 @@ const Captacion = forwardRef<HTMLDivElement, Props>(({ locale }, ref) => {
 
           <div style={{ width:"2rem", height:"1px", background:"rgba(201,169,110,0.4)" }}/>
 
-          {/* Servicios */}
-          <div style={{ display:"flex", flexDirection:"column", gap:"1.5rem" }}>
+          {/* Servicios — 2 columnas × 3 filas */}
+          <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"1.5rem 2rem" }}>
             {SERVICES(locale).map((s, i) => (
-              <div key={i} style={{ display:"flex", gap:"1rem", alignItems:"flex-start" }}>
-                <span style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1.2rem", color:"rgba(201,169,110,0.6)", flexShrink:0, marginTop:"0.1rem" }}>{s.icon}</span>
-                <div>
-                  <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.6rem", color:"rgba(201,169,110,1)", letterSpacing:"0.3em", textTransform:"uppercase", margin:"0 0 0.3rem" }}>{s.title}</p>
-                  <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(0.9rem,1.1vw,1.05rem)", color:"rgba(255,255,255,0.8)", lineHeight:1.6, margin:0 }}>{s.desc}</p>
+              <div key={i} style={{ display:"flex", flexDirection:"column", gap:"0.4rem" }}>
+                <div style={{ display:"flex", alignItems:"center", gap:"0.6rem", marginBottom:"0.2rem" }}>
+                  <span style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"0.75rem", color:"rgba(201,169,110,0.5)", fontWeight:300, flexShrink:0, minWidth:"1.2rem" }}>
+                    {String(i+1).padStart(2,"0")}
+                  </span>
+                  <div style={{ flex:1, height:"1px", background:"linear-gradient(90deg,rgba(201,169,110,0.4),transparent)" }}/>
                 </div>
+                <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.45rem", color:"rgba(201,169,110,1)", letterSpacing:"0.25em", textTransform:"uppercase", margin:0, lineHeight:1.4 }}>{s.title}</p>
+                <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(0.8rem,1vw,0.95rem)", color:"rgba(255,255,255,0.75)", lineHeight:1.6, margin:0 }}>{s.desc}</p>
               </div>
             ))}
           </div>
