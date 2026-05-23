@@ -6,22 +6,46 @@ import { notFound } from "next/navigation";
 
 const locales = ["en", "es", "fr", "ru"];
 
-export const metadata: Metadata = {
-  title: "Edit Marbella | Ultra-Luxury Properties",
-  description: "Exclusive ultra-luxury properties in Marbella, Estepona, Sotogrande and the Costa del Sol. Private viewings by appointment.",
-  openGraph: {
-    title: "Edit Marbella",
-    description: "Exclusive ultra-luxury properties on the Costa del Sol.",
-    images: [{ url:"https://mdlm-xi.vercel.app/og-default.jpg", width:1200, height:630 }],
-    type: "website",
-    siteName: "Edit Marbella",
+const META: Record<string, { title: string; description: string }> = {
+  es: {
+    title: "The Edit Marbella | Propiedades Ultra-Exclusivas",
+    description: "Propiedades ultra-exclusivas en Marbella, Estepona, Sotogrande y la Costa del Sol. Visitas privadas con cita previa.",
   },
-  twitter: {
-    card: "summary_large_image",
-    title: "Edit Marbella",
-    description: "Exclusive ultra-luxury properties on the Costa del Sol.",
+  en: {
+    title: "The Edit Marbella | Ultra-Luxury Properties",
+    description: "Exclusive ultra-luxury properties in Marbella, Estepona, Sotogrande and the Costa del Sol. Private viewings by appointment.",
+  },
+  fr: {
+    title: "The Edit Marbella | Propriétés Ultra-Luxe",
+    description: "Propriétés ultra-luxe exclusives à Marbella, Estepona, Sotogrande et la Costa del Sol. Visites privées sur rendez-vous.",
+  },
+  ru: {
+    title: "The Edit Marbella | Элитная Недвижимость",
+    description: "Эксклюзивная элитная недвижимость в Марбелье, Эстепоне, Сотогранде и на Коста-дель-Соль. Частные показы по записи.",
   },
 };
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+  const { locale } = await params;
+  const m = META[locale] || META["en"];
+  return {
+    title: m.title,
+    description: m.description,
+    openGraph: {
+      title: "The Edit Marbella",
+      description: m.description,
+      images: [{ url:"https://mdlm-xi.vercel.app/og-default.jpg", width:1200, height:630 }],
+      type: "website",
+      siteName: "The Edit Marbella",
+      locale,
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "The Edit Marbella",
+      description: m.description,
+    },
+  };
+}
 
 export default async function LocaleLayout({
   children,
