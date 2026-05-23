@@ -1,4 +1,5 @@
 "use client";
+import { convertGDriveUrl } from "@/lib/gdrive";
 import { useState, useEffect, useRef } from "react";
 import Link from "next/link";
 import CarouselScrollIndicator from "./CarouselScrollIndicator";
