@@ -3,7 +3,7 @@ import { forwardRef, useState } from "react";
 
 interface Props { locale: string; }
 
-const TRANSLATIONS: Record<string, Record<string, string | string[]>> = {
+const TRANSLATIONS: Record<string, Record<string, string>> = {
   es: {
     eyebrow: "Propietarios",
     title: "Confíanos tu Legado",
@@ -27,7 +27,6 @@ const TRANSLATIONS: Record<string, Record<string, string | string[]>> = {
     sending: "Enviando...",
     sent: "Solicitud recibida. Le contactaremos en 24h.",
     error: "Error al enviar. Inténtelo de nuevo.",
-    prices: ["< 1M €", "1M – 3M €", "3M – 7M €", "7M – 15M €", "+ 15M €"],
   },
   en: {
     eyebrow: "Property Owners",
@@ -52,7 +51,6 @@ const TRANSLATIONS: Record<string, Record<string, string | string[]>> = {
     sending: "Sending...",
     sent: "Request received. We will contact you within 24h.",
     error: "Error sending. Please try again.",
-    prices: ["< 1M €", "1M – 3M €", "3M – 7M €", "7M – 15M €", "+ 15M €"],
   },
   fr: {
     eyebrow: "Propriétaires",
@@ -77,7 +75,6 @@ const TRANSLATIONS: Record<string, Record<string, string | string[]>> = {
     sending: "Envoi...",
     sent: "Demande reçue. Nous vous contacterons sous 24h.",
     error: "Erreur d'envoi. Veuillez réessayer.",
-    prices: ["< 1M €", "1M – 3M €", "3M – 7M €", "7M – 15M €", "+ 15M €"],
   },
   ru: {
     eyebrow: "Владельцам",
@@ -106,7 +103,7 @@ const TRANSLATIONS: Record<string, Record<string, string | string[]>> = {
   },
 };
 
-const SERVICES = (t: Record<string, string | string[]>) => [
+const SERVICES = (t: Record<string, string>) => [
   { icon:"◆", title:t.s1, desc:t.s1d },
   { icon:"◈", title:t.s2, desc:t.s2d },
   { icon:"◉", title:t.s3, desc:t.s3d },
@@ -221,7 +218,7 @@ const Captacion = forwardRef<HTMLDivElement, Props>(({ locale }, ref) => {
 
               {/* Precio estimado — selector visual */}
               <div style={{ display:"flex", gap:"0.4rem", flexWrap:"wrap" }}>
-                {t.prices.map((p: string) => (
+                {PRICES.map((p: string) => (
                   <button key={p} onClick={() => setForm(f => ({...f, precio_estimado: p}))}
                     style={{
                       fontFamily:"'Montserrat',sans-serif", fontSize:"0.38rem",
