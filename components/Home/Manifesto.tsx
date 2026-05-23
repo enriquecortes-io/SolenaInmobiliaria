@@ -46,23 +46,19 @@ const Manifesto = forwardRef<HTMLDivElement, Props>(({ locale }, ref) => {
       `}</style>
 
       <div style={{
-        width:"100%", maxWidth:"1100px",
+        width:"100%", maxWidth:"900px",
         background:"rgba(6,4,2,0.55)",
-        border:"1px solid rgba(201,169,110,0.18)",
+        border:"1px solid rgba(201,169,110,0.35)",
         backdropFilter:"blur(20px)",
         boxShadow:"0 0 0 1px rgba(255,255,255,0.04), 0 30px 80px rgba(0,0,0,0.6)",
-        padding:"clamp(2rem,5vw,4.5rem)",
+        padding:"clamp(1.5rem,4vw,3rem)",
         position:"relative",
         boxSizing:"border-box",
       }}>
         {/* Línea dorada superior */}
         <div style={{ position:"absolute", top:0, left:"15%", right:"15%", height:"1px", background:"linear-gradient(90deg,transparent,rgba(201,169,110,0.8),transparent)" }}/>
 
-        <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.6rem", color:"rgba(201,169,110,0.9)", letterSpacing:"0.5em", textTransform:"uppercase", textAlign:"center", margin:"0 0 1rem" }}>{m.subtitle}</p>
-
-        <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(2.5rem,5vw,4.5rem)", fontWeight:600, color:"white", textAlign:"center", margin:"0 0 0.5rem", lineHeight:1, fontStyle:"italic" }}>{m.title}</h2>
-
-        <div style={{ width:"3rem", height:"1px", background:"rgba(201,169,110,0.5)", margin:"1.5rem auto 2.5rem" }}/>
+        <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.45rem", color:"rgba(201,169,110,0.6)", letterSpacing:"0.6em", textTransform:"uppercase", textAlign:"center", margin:"0 0 2rem" }}>{m.title}</p>
 
         <div className="manifesto-columns" style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1.1rem,1.4vw,1.35rem)", lineHeight:1.75, color:"rgba(255,255,255,0.82)", fontWeight:300 }}>
           <p>{m.paragraph1}</p>
