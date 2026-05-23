@@ -137,7 +137,7 @@ export default function PropertyCarousel({ locale = "es" }: { locale?: string })
           {/* Imagen saliente — se queda estática */}
           {properties[prevActive]?.galeria_urls?.[0] && slideDir && (
             <img
-              src={convertGDriveThumb(properties[prevActive].galeria_urls[0])}
+              src={convertGDriveUrl(properties[prevActive].galeria_urls[0])}
               alt=""
               style={{ position:"absolute", inset:0, width:"100%", height:"100%", objectFit:"cover", zIndex:1 }}
             />
