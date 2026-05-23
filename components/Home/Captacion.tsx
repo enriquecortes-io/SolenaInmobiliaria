@@ -104,12 +104,44 @@ const TRANSLATIONS: Record<string, Record<string, string>> = {
 
 const PRICES = ["< 1M €", "1M – 3M €", "3M – 7M €", "7M – 15M €", "+ 15M €"];
 
-const SERVICES = (t: Record<string, string>) => [
-  { icon:"◆", title:t.s1, desc:t.s1d },
-  { icon:"◈", title:t.s2, desc:t.s2d },
-  { icon:"◉", title:t.s3, desc:t.s3d },
-  { icon:"◎", title:t.s4, desc:t.s4d },
+const SERVICES_ES = [
+  { icon:"◆", title:"Valoración por Inteligencia de Mercado", desc:"Precio de salida calculado con datos transaccionales en tiempo real, no con estimaciones. Tu propiedad entra al mercado posicionada, no tanteando." },
+  { icon:"◈", title:"Compradores Precalificados, No Visitas", desc:"Nuestra cartera activa de compradores identificados acorta el ciclo de venta de meses a semanas. Cada visita es una conversación real, no un reconocimiento." },
+  { icon:"◉", title:"Visibilidad Total, Privacidad Absoluta", desc:"Exposición selectiva o máxima — tú decides. Acceso a redes privadas internacionales sin comprometer la discreción que una operación de este nivel exige." },
+  { icon:"◎", title:"Documentación Sin Fricción", desc:"Nota simple, certificación energética, contratos de arras, coordinación notarial. Todo gestionado. Tu única decisión es cuándo firmar." },
+  { icon:"◐", title:"Producción Editorial", desc:"Cada propiedad recibe un tratamiento visual cinematográfico. Porque la primera impresión de un comprador global se forma a 10.000 kilómetros de distancia, antes de coger el avión." },
+  { icon:"◑", title:"Reporting Mensual", desc:"Panel de control con datos de impresiones, conversión a contactos y feedback estructurado post-visita. Sabes exactamente dónde está tu operación en cada momento." },
 ];
+
+const SERVICES_EN = [
+  { icon:"◆", title:"Market Intelligence Valuation", desc:"Launch price calculated with real-time transactional data, not estimates. Your property enters the market positioned, not guessing." },
+  { icon:"◈", title:"Pre-Qualified Buyers, Not Visits", desc:"Our active portfolio of identified buyers shortens the sales cycle from months to weeks. Every visit is a real conversation, not a reconnaissance." },
+  { icon:"◉", title:"Total Visibility, Absolute Privacy", desc:"Selective or maximum exposure — you decide. Access to international private networks without compromising the discretion an operation of this level demands." },
+  { icon:"◎", title:"Frictionless Documentation", desc:"Title search, energy certificate, deposit contracts, notarial coordination. All managed. Your only decision is when to sign." },
+  { icon:"◐", title:"Editorial Production", desc:"Each property receives cinematic visual treatment. Because a global buyer's first impression is formed 10,000 kilometres away, before boarding the plane." },
+  { icon:"◑", title:"Monthly Reporting", desc:"Dashboard with impression data, contact conversion and structured post-visit feedback. You know exactly where your operation stands at every moment." },
+];
+
+const SERVICES_FR = [
+  { icon:"◆", title:"Évaluation par Intelligence de Marché", desc:"Prix de lancement calculé avec des données transactionnelles en temps réel, non des estimations. Votre bien entre sur le marché positionné, pas en tâtonnant." },
+  { icon:"◈", title:"Acheteurs Précalifiés, Pas des Visites", desc:"Notre portefeuille actif d'acheteurs identifiés raccourcit le cycle de vente de mois à semaines. Chaque visite est une vraie conversation, pas une reconnaissance." },
+  { icon:"◉", title:"Visibilité Totale, Confidentialité Absolue", desc:"Exposition sélective ou maximale — vous décidez. Accès aux réseaux privés internationaux sans compromettre la discrétion qu'une opération de ce niveau exige." },
+  { icon:"◎", title:"Documentation Sans Friction", desc:"Note simple, certification énergétique, contrats d'arrhes, coordination notariale. Tout géré. Votre seule décision est quand signer." },
+  { icon:"◐", title:"Production Éditoriale", desc:"Chaque propriété reçoit un traitement visuel cinématographique. Car la première impression d'un acheteur mondial se forme à 10 000 kilomètres, avant de prendre l'avion." },
+  { icon:"◑", title:"Reporting Mensuel", desc:"Tableau de bord avec données d'impressions, conversion en contacts et feedback structuré post-visite. Vous savez exactement où en est votre opération à chaque instant." },
+];
+
+const SERVICES_RU = [
+  { icon:"◆", title:"Оценка через Рыночную Аналитику", desc:"Стартовая цена рассчитывается по транзакционным данным в реальном времени, а не по оценкам. Ваш объект выходит на рынок позиционированным, а не наощупь." },
+  { icon:"◈", title:"Прекvalифицированные Покупатели, Не Визиты", desc:"Наш активный портфель идентифицированных покупателей сокращает цикл продажи с месяцев до недель. Каждый визит — настоящий разговор, а не разведка." },
+  { icon:"◉", title:"Полная Видимость, Абсолютная Конфиденциальность", desc:"Избирательная или максимальная экспозиция — вы решаете. Доступ к международным частным сетям без ущерба для дискретности, которой требует операция такого уровня." },
+  { icon:"◎", title:"Документация Без Трений", desc:"Выписка из реестра, энергетический сертификат, договоры задатка, нотариальная координация. Всё под управлением. Ваше единственное решение — когда подписывать." },
+  { icon:"◐", title:"Редакционное Производство", desc:"Каждый объект получает кинематографическую визуальную обработку. Потому что первое впечатление глобального покупателя формируется в 10 000 километрах, до посадки в самолёт." },
+  { icon:"◑", title:"Ежемесячная Отчётность", desc:"Панель управления с данными по показам, конверсии в контакты и структурированной обратной связью после визитов. Вы точно знаете, где находится ваша сделка в каждый момент." },
+];
+
+const SERVICES_MAP: Record<string, typeof SERVICES_ES> = { es:SERVICES_ES, en:SERVICES_EN, fr:SERVICES_FR, ru:SERVICES_RU };
+const SERVICES = (locale: string) => SERVICES_MAP[locale] || SERVICES_EN;
 
 const INP: React.CSSProperties = {
   width:"100%", background:"rgba(255,255,255,0.04)",
@@ -176,7 +208,7 @@ const Captacion = forwardRef<HTMLDivElement, Props>(({ locale }, ref) => {
 
           {/* Servicios */}
           <div style={{ display:"flex", flexDirection:"column", gap:"1.5rem" }}>
-            {SERVICES(t).map((s, i) => (
+            {SERVICES(locale).map((s, i) => (
               <div key={i} style={{ display:"flex", gap:"1rem", alignItems:"flex-start" }}>
                 <span style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1.2rem", color:"rgba(201,169,110,0.6)", flexShrink:0, marginTop:"0.1rem" }}>{s.icon}</span>
                 <div>
