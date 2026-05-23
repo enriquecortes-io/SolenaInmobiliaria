@@ -118,12 +118,23 @@ export default async function PropertyPage({ params }: Props) {
 
   const jsonLd = buildJsonLd(property, titulo, desc, locale, slug);
 
+ const breadcrumbLd = {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+     { "@type": "ListItem", "position": 1, "name": "The Edit Marbella", "item": `https://mdlm-xi.vercel.app/${locale}` },
+     { "@type": "ListItem", "position": 2, "name": locale === "es" ? "Propiedades" : locale === "fr" ? "Propriétés" : locale === "ru" ? "Объекты" : "Properties", "item": `https://mdlm-xi.vercel.app/${locale}/propiedades` },
+     { "@type": "ListItem", "position": 3, "name": titulo, "item": `https://mdlm-xi.vercel.app/${locale}/propiedades/${slug}` },
+   ]
+ };
+
   return (
     <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}/>
       <PropertyExperience property={property} locale={locale} />
     </>
   );
