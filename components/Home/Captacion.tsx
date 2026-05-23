@@ -99,7 +99,6 @@ const TRANSLATIONS: Record<string, Record<string, string>> = {
     sending: "Отправка...",
     sent: "Запрос получен. Свяжемся с вами в течение 24ч.",
     error: "Ошибка отправки. Попробуйте снова.",
-    prices: ["< 1M €", "1M – 3M €", "3M – 7M €", "7M – 15M €", "+ 15M €"],
   },
 };
 
