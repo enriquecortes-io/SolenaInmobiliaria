@@ -207,7 +207,11 @@ export function useHomeScroll({ headerRef, manifestoRef, filtersRef, carouselRef
       else if (isSwipeUp) goPrev();
     };
 
-    const handleTouchMove = (e: TouchEvent) => { e.preventDefault(); };
+    const handleTouchMove = (e: TouchEvent) => {
+      // En captacion permitir scroll interno
+      if (phaseRef.current === "captacion") return;
+      e.preventDefault();
+    };
 
     window.addEventListener("wheel", handleWheel, { passive: false });
     window.addEventListener("touchstart", handleTouchStart, { passive: false });
