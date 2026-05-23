@@ -102,6 +102,8 @@ const TRANSLATIONS: Record<string, Record<string, string>> = {
   },
 };
 
+const PRICES = ["< 1M €", "1M – 3M €", "3M – 7M €", "7M – 15M €", "+ 15M €"];
+
 const SERVICES = (t: Record<string, string>) => [
   { icon:"◆", title:t.s1, desc:t.s1d },
   { icon:"◈", title:t.s2, desc:t.s2d },
