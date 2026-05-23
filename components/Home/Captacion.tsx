@@ -183,9 +183,9 @@ const Captacion = forwardRef<HTMLDivElement, Props>(({ locale }, ref) => {
       willChange:"opacity",
     }}>
       <div style={{
-        width:"100%", maxWidth:"1200px",
-        display:"grid", gridTemplateColumns:"1fr 1fr",
-        gap:"clamp(2rem,4vw,4rem)",
+        width:"100%", maxWidth:"900px",
+        display:"flex", flexDirection:"column",
+        gap:"clamp(2rem,3vw,3rem)",
         background:"rgba(6,4,2,0.6)",
         border:"1px solid rgba(201,169,110,0.25)",
         backdropFilter:"blur(30px)",
@@ -223,8 +223,8 @@ const Captacion = forwardRef<HTMLDivElement, Props>(({ locale }, ref) => {
           </div>
         </div>
 
-        {/* Columna derecha — Formulario */}
-        <div style={{ display:"flex", flexDirection:"column", gap:"1rem", borderLeft:"1px solid rgba(201,169,110,0.1)", paddingLeft:"clamp(1.5rem,3vw,3rem)" }}>
+        {/* Formulario */}
+        <div style={{ display:"flex", flexDirection:"column", gap:"1rem", borderTop:"1px solid rgba(201,169,110,0.15)", paddingTop:"clamp(1.5rem,2vw,2rem)" }}>
           <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.6rem", color:"rgba(201,169,110,0.9)", letterSpacing:"0.4em", textTransform:"uppercase", margin:"0 0 0.5rem" }}>{t.formTitle}</p>
 
           {status === "sent" ? (
@@ -233,14 +233,15 @@ const Captacion = forwardRef<HTMLDivElement, Props>(({ locale }, ref) => {
             </div>
           ) : (
             <>
-              {[
-                { key:"name",      label:t.name,      type:"text" },
-                { key:"email",     label:t.email,     type:"email" },
-                { key:"phone",     label:t.phone,     type:"tel" },
-                { key:"ubicacion", label:t.ubicacion, type:"text" },
-              ].map(f => (
-                <div key={f.key}>
+              <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"0.8rem" }}>
+                {[
+                  { key:"name",      label:t.name,      type:"text" },
+                  { key:"email",     label:t.email,     type:"email" },
+                  { key:"phone",     label:t.phone,     type:"tel" },
+                  { key:"ubicacion", label:t.ubicacion, type:"text" },
+                ].map(f => (
                   <input
+                    key={f.key}
                     type={f.type}
                     placeholder={f.label}
                     value={(form as any)[f.key]}
@@ -249,8 +250,8 @@ const Captacion = forwardRef<HTMLDivElement, Props>(({ locale }, ref) => {
                     onFocus={e => e.target.style.borderColor = "rgba(201,169,110,0.6)"}
                     onBlur={e => e.target.style.borderColor = "rgba(201,169,110,0.2)"}
                   />
-                </div>
-              ))}
+                ))}
+              </div>
 
               {/* Precio estimado — selector visual */}
               <div style={{ display:"flex", gap:"0.4rem", flexWrap:"wrap" }}>
