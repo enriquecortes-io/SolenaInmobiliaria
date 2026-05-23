@@ -106,7 +106,7 @@ const TRANSLATIONS: Record<string, Record<string, string | string[]>> = {
   },
 };
 
-const SERVICES = (t: Record<string,string>) => [
+const SERVICES = (t: Record<string, string | string[]>) => [
   { icon:"◆", title:t.s1, desc:t.s1d },
   { icon:"◈", title:t.s2, desc:t.s2d },
   { icon:"◉", title:t.s3, desc:t.s3d },
