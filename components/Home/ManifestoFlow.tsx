@@ -66,7 +66,7 @@ export default function ManifestoFlow({ locale }: { locale: string }) {
     <div style={{ position:'relative', width:'100%', height:'100%', overflow:'hidden', background:'#070503' }}>
 
       {/* S1 */}
-      <div ref={refs.manifesto1} style={{ position:'absolute', inset:0, display:'flex', flexDirection:'column', justifyContent:'space-between', padding:'clamp(1.2rem,3vw,3rem) clamp(2rem,5vw,4rem)', boxSizing:'border-box', transformOrigin:'bottom left' }}>
+      <div ref={refs.manifesto1} style={{ position:'absolute', inset:0, display:'flex', flexDirection:'column', justifyContent:'flex-start', gap:'clamp(0.6rem,1.5vw,1rem)', padding:'clamp(4rem,8vw,5rem) clamp(2rem,5vw,4rem) clamp(1.5rem,3vw,2rem)', boxSizing:'border-box', transformOrigin:'bottom left' }}>
         <p style={TAG_S}>{c.s1.tag}</p>
         <hr style={HR_S}/>
         <div>{c.s1.h.map((l:string,i:number)=><h2 key={i} style={{...H_S,color:i===2?GOLD:WHITE}}>{l}</h2>)}</div>
@@ -75,7 +75,7 @@ export default function ManifestoFlow({ locale }: { locale: string }) {
       </div>
 
       {/* S2 */}
-      <div ref={refs.manifesto2} style={{ position:'absolute', inset:0, display:'flex', flexDirection:'column', justifyContent:'space-between', padding:'clamp(1.2rem,3vw,3rem) clamp(2rem,5vw,4rem)', boxSizing:'border-box', transformOrigin:'bottom left', opacity:0 }}>
+      <div ref={refs.manifesto2} style={{ position:'absolute', inset:0, display:'flex', flexDirection:'column', justifyContent:'flex-start', gap:'clamp(0.6rem,1.5vw,1rem)', padding:'clamp(4rem,8vw,5rem) clamp(2rem,5vw,4rem) clamp(1.5rem,3vw,2rem)', boxSizing:'border-box', transformOrigin:'bottom left', opacity:0 }}>
         <p style={TAG_S}>{c.s2.tag}</p>
         <hr style={HR_S}/>
         <div>{c.s2.h.map((l:string,i:number)=><h2 key={i} style={{...H_S,color:i===2?GOLD:WHITE}}>{l}</h2>)}</div>
@@ -93,12 +93,12 @@ export default function ManifestoFlow({ locale }: { locale: string }) {
       </div>
 
       {/* S3 */}
-      <div ref={refs.manifesto3} style={{ position:'absolute', inset:0, display:'flex', flexDirection:'column', justifyContent:'space-between', padding:'clamp(1.2rem,3vw,3rem) clamp(2rem,5vw,4rem)', boxSizing:'border-box', transformOrigin:'bottom left', opacity:0 }}>
+      <div ref={refs.manifesto3} style={{ position:'absolute', inset:0, display:'flex', flexDirection:'column', justifyContent:'flex-start', gap:'clamp(0.6rem,1.5vw,1rem)', padding:'clamp(4rem,8vw,5rem) clamp(2rem,5vw,4rem) clamp(1.5rem,3vw,2rem)', boxSizing:'border-box', transformOrigin:'bottom left', opacity:0 }}>
         <p style={TAG_S}>{c.s3.tag}</p>
         <hr style={HR_S}/>
         <div>{c.s3.h.map((l:string,i:number)=><h2 key={i} style={{...H_S,color:i===2?GOLD:WHITE}}>{l}</h2>)}</div>
         <hr style={HR_S}/>
-        <p style={{...BODY_S,marginTop:'auto'}}>{c.s3.body}</p>
+        <p style={BODY_S}>{c.s3.body}</p>
       </div>
 
     </div>
