@@ -289,8 +289,8 @@ export default function PropertyExperience({ property, locale }: Props) {
           position:"fixed", inset:0, zIndex:200,
           background:"linear-gradient(135deg, #0d0a08 0%, #1a1008 40%, #0a0d1a 100%)",
           backdropFilter:"blur(4px)",
-          display:"flex", alignItems:"center", justifyContent:"center",
-          padding:"2rem",
+          display:"flex", alignItems:"flex-start", justifyContent:"center",
+          padding:"1rem",
           overflowY:"auto",
         }}
           onClick={e => { if(e.target===e.currentTarget) setShowForm(false); }}
@@ -301,7 +301,7 @@ export default function PropertyExperience({ property, locale }: Props) {
             border:"1px solid rgba(201,169,110,0.2)",
             padding:"clamp(2rem,5vw,4rem)",
             position:"relative",
-            maxHeight:"90vh", overflowY:"auto",
+            maxHeight:"calc(100vh - 2rem)", overflowY:"auto", WebkitOverflowScrolling:"touch" as any,
           }}>
             <button
               onClick={() => setShowForm(false)}
