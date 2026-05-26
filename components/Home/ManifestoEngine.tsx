@@ -71,7 +71,7 @@ export default function ManifestoEngine({ locale }: Props) {
     const PAD = 8;
 
     // Preparar texto
-    let prepared: ReturnType<typeof prepare> | null = null;
+    let prepared: ReturnType<typeof prepareWithSegments> | null = null;
     try {
       prepared = prepareWithSegments(text, `300 16px 'Cormorant Garamond', serif`);
     } catch { return; }
