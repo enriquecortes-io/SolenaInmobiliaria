@@ -275,8 +275,8 @@ export default function MasonrySection({ locale = "es" }: { locale?: string }) {
         {filtered.map((p, idx) => {
           const img = p.galeria_urls?.[0] ? convertGDriveUrl(p.galeria_urls[0]) : "";
           const title = getTitle(p, locale);
-          const heights = ["220px","280px","240px","260px","200px","300px"];
-          const h = heights[idx % heights.length];
+          const h = "260px";
+
           return (
             <div
               key={p.slug}
