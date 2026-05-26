@@ -199,13 +199,13 @@ export default function MasonrySection({ locale = "es" }: { locale?: string }) {
       <div style={{
         flexShrink:0,
         padding:"clamp(3.5rem,6vw,4.5rem) clamp(1rem,3vw,2rem) 0.8rem",
-        display:"flex", alignItems:"center", gap:"0.5rem",
-        flexWrap:"wrap",
+        display:"flex", flexDirection:"column", gap:"0.6rem",
         borderBottom:"1px solid rgba(201,169,110,0.1)",
       }}>
-        <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.5rem", letterSpacing:"0.4em", textTransform:"uppercase", color:GOLD_DIM, margin:0, marginRight:"auto", whiteSpace:"nowrap" }}>
+        <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.5rem", letterSpacing:"0.4em", textTransform:"uppercase", color:GOLD_DIM, margin:0, whiteSpace:"nowrap" }}>
           SELECCIÓN · {filtered.length} {filtered.length === 1 ? "propiedad" : "propiedades"}
         </p>
+        <div style={{ display:"flex", alignItems:"center", gap:"0.5rem", flexWrap:"wrap" }}>
 
         {FILTERS_DEF.map(f => (
           <div key={f.id} style={{ position:"relative" }}>
@@ -248,15 +248,16 @@ export default function MasonrySection({ locale = "es" }: { locale?: string }) {
           </div>
         ))}
 
-        {Object.values(filters).some(Boolean) && (
-          <button onClick={() => setFilters({})} style={{
-            background:"none", border:"none", cursor:"pointer",
-            fontFamily:"'Montserrat',sans-serif", fontSize:"0.45rem",
-            letterSpacing:"0.3em", textTransform:"uppercase", color:WHITE_DIM,
-          }}>
-            LIMPIAR ✕
-          </button>
-        )}
+          {Object.values(filters).some(Boolean) && (
+            <button onClick={() => setFilters({})} style={{
+              background:"none", border:"none", cursor:"pointer",
+              fontFamily:"'Montserrat',sans-serif", fontSize:"0.45rem",
+              letterSpacing:"0.3em", textTransform:"uppercase", color:WHITE_DIM,
+            }}>
+              LIMPIAR ✕
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Grid masonry */}
