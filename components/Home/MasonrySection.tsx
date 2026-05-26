@@ -68,7 +68,7 @@ function PropertyPreview({ property: p, locale, onClose }: PreviewProps) {
   const t = T[locale] || T.es;
   const title = getTitle(p, locale);
   const desc = getDesc(p, locale);
-  const imgs = (p.galeria_urls || []).map(convertGDriveUrl);
+  const imgs = (p.galeria_urls || []).map(url => convertGDriveUrl(url));
 
   useEffect(() => {
     const handler = (e: KeyboardEvent) => { if (e.key === "Escape") onClose(); };
@@ -273,7 +273,7 @@ export default function MasonrySection({ locale = "es" }: { locale?: string }) {
         alignContent:"start",
       }}>
         {filtered.map((p, idx) => {
-          const img = convertGDriveUrl(p.galeria_urls?.[0] || "");
+          const img = p.galeria_urls?.[0] ? convertGDriveUrl(p.galeria_urls[0]) : "";
           const title = getTitle(p, locale);
           const heights = ["220px","280px","240px","260px","200px","300px"];
           const h = heights[idx % heights.length];
