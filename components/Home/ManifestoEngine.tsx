@@ -89,7 +89,7 @@ export default function ManifestoEngine({ locale }: Props) {
       el.style.cssText = `position:absolute;border-radius:50%;pointer-events:none;transition:opacity .3s;`;
       el.style.background = `radial-gradient(circle at 35% 35%, rgba(${d.color.join(",")},0.25), rgba(${d.color.join(",")},0.08) 55%, transparent 72%)`;
       el.style.boxShadow = `0 0 60px 20px rgba(${d.color.join(",")},0.15)`;
-      stage.appendChild(el);
+      stage!.appendChild(el);
       return el;
     });
 
@@ -99,7 +99,7 @@ export default function ManifestoEngine({ locale }: Props) {
       if (!linePool[index]) {
         const el = document.createElement("span");
         el.style.cssText = `position:absolute;white-space:nowrap;font:${BODY_FONT};color:rgba(255,255,255,0.85);line-height:${LINE_H}px;`;
-        stage.appendChild(el);
+        stage!.appendChild(el);
         linePool.push(el);
       }
       return linePool[index]!;
