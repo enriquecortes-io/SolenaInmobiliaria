@@ -115,8 +115,8 @@ export default function PrivateAccessForm({ locale, propertyTitle, propertySlug 
   } as React.CSSProperties);
 
   return (
-<div style={{ width:"100%", maxHeight:"100vh", overflowY:"auto", WebkitOverflowScrolling:"touch" } as React.CSSProperties}>
-      <div style={{ maxWidth:"680px", width:"100%", padding:"0 0 4rem" }}>
+<div style={{ width:"100%", } as React.CSSProperties}>
+      <div style={{ maxWidth:"680px", width:"100%", padding:"0 0 6rem" }}>
 
         {/* Label */}
         <p style={{

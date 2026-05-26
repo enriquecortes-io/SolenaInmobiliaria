@@ -301,7 +301,7 @@ export default function PropertyExperience({ property, locale }: Props) {
             border:"1px solid rgba(201,169,110,0.2)",
             padding:"clamp(2rem,5vw,4rem)",
             position:"relative",
-            maxHeight:"calc(100vh - 2rem)", overflowY:"auto", WebkitOverflowScrolling:"touch" as any,
+            maxHeight:"100vh", overflowY:"scroll",
           }}>
             <button
               onClick={() => setShowForm(false)}
