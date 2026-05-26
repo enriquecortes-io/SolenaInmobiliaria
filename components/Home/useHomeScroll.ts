@@ -165,9 +165,7 @@ export function useHomeScroll({ headerRef, manifestoRef, filtersRef, carouselRef
 
     let touchStartY = 0;
     let touchStartTime = 0;
-
     const handleTouchStart = (e: TouchEvent) => { touchStartY = e.touches[0].clientY; touchStartTime = Date.now(); };
-
     const handleTouchEnd = (e: TouchEvent) => {
       const now = Date.now();
       if (now - lastPhaseChange < PHASE_COOLDOWN) return;
@@ -180,7 +178,6 @@ export function useHomeScroll({ headerRef, manifestoRef, filtersRef, carouselRef
       lastPhaseChange = now;
       if (isSwipeDown) goNext(); else goPrev();
     };
-
     const handleTouchMove = (e: TouchEvent) => { if (phaseRef.current !== "captacion") e.preventDefault(); };
 
     let touchMovePassive = false;
