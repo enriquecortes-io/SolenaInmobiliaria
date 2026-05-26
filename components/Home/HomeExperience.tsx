@@ -3,8 +3,7 @@ import { useRef } from "react";
 import dynamic from "next/dynamic";
 import { useHomeScroll } from "./useHomeScroll";
 import SkyHeader from "./SkyHeader";
-const PropertyCarousel = dynamic(() => import("./PropertyCarousel"), { ssr: false });
-const FilterPanels     = dynamic(() => import("./FilterPanels"),     { ssr: false });
+const MasonrySection   = dynamic(() => import("./MasonrySection"),   { ssr: false });
 const Manifesto        = dynamic(() => import("./Manifesto"),        { ssr: false });
 const Captacion        = dynamic(() => import("./Captacion"),        { ssr: false }) as any;
 
@@ -14,7 +13,6 @@ const TOTAL_PANELS = 3;
 export default function HomeExperience({ locale }: Props) {
   const headerRef    = useRef<HTMLDivElement>(null);
   const manifestoRef = useRef<HTMLDivElement>(null);
-  
   const masonryRef   = useRef<HTMLDivElement>(null);
   const captacionRef = useRef<HTMLDivElement>(null);
   const panelRefs    = useRef<(HTMLDivElement | null)[]>([]);
@@ -42,8 +40,6 @@ export default function HomeExperience({ locale }: Props) {
         opacity:0, pointerEvents:"none",
       }}>
         <MasonrySection locale={locale} />
-      </div>
-
       </div>
 
       {/* Captación */}
