@@ -9,6 +9,7 @@ import ScrollIndicator from "./ScrollIndicator";
 import VideoSection from "./VideoSection";
 import GallerySection from "./GallerySection";
 import PrivateAccessForm from "./PrivateAccessForm";
+import { createPortal } from "react-dom";
 
 interface Props {
   property: Property;
