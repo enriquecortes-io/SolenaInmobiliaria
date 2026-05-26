@@ -74,23 +74,24 @@ export default function ManifestoFlow({ locale }: { locale: string }) {
         <p style={BODY_S}>{c.s1.body}</p>
       </div>
 
-      {/* S2 */}
-      <div ref={refs.manifesto2} style={{ position:'absolute', inset:0, display:'flex', flexDirection:'column', justifyContent:'flex-start', gap:'clamp(0.6rem,1.5vw,1rem)', padding:'clamp(4rem,8vw,5rem) clamp(2rem,5vw,4rem) clamp(1.5rem,3vw,2rem)', boxSizing:'border-box', transformOrigin:'bottom left', opacity:0 }}>
-        <p style={TAG_S}>{c.s2.tag}</p>
-        <hr style={HR_S}/>
-        <div>{c.s2.h.map((l:string,i:number)=><h2 key={i} style={{...H_S,color:i===2?GOLD:WHITE}}>{l}</h2>)}</div>
-        <hr style={HR_S}/>
-        <p style={BODY_S}>{c.s2.body}</p>
-        <hr style={HR_S}/>
-        <div style={{display:'flex',flexWrap:'wrap',gap:'clamp(1rem,3vw,2rem)'}}>
-          {c.s2.cols.map((col:any,i:number)=>(
-            <div key={i} style={{flex:'1 1 160px'}}>
-              <p style={{...TAG_S,color:GOLD,marginBottom:'0.4rem'}}>{col.t}</p>
-              <p style={{...BODY_S,fontSize:'clamp(1rem,1.6vw,1.2rem)',maxWidth:'none'}}>{col.d}</p>
-            </div>
-          ))}
-        </div>
-      </div>
+      {/* S2 — grid: título izquierda / contenido derecha */}
+     <div ref={refs.manifesto2} style={{ position:'absolute', inset:0, display:'grid', gridTemplateColumns:'1fr 1fr', gap:'0 clamp(2rem,4vw,4rem)', padding:'clamp(4rem,8vw,5rem) clamp(2rem,5vw,4rem) clamp(1.5rem,3vw,2rem)', boxSizing:'border-box', transformOrigin:'bottom left', opacity:0, alignContent:'start' }}>
+       <div style={{display:'flex',flexDirection:'column',gap:'clamp(0.4rem,1vw,0.6rem)'}}>
+         <p style={TAG_S}>{c.s2.tag}</p>
+         <hr style={HR_S}/>
+         <div>{c.s2.h.map((l:string,i:number)=><h2 key={i} style={{...H_S,color:i===2?GOLD:WHITE}}>{l}</h2>)}</div>
+       </div>
+       <div style={{display:'flex',flexDirection:'column',gap:'clamp(0.6rem,1.2vw,1rem)',justifyContent:'center'}}>
+         <p style={BODY_S}>{c.s2.body}</p>
+         <hr style={HR_S}/>
+         {c.s2.cols.map((col:any,i:number)=>(
+           <div key={i}>
+             <p style={{...TAG_S,color:GOLD,marginBottom:'0.3rem'}}>{col.t}</p>
+             <p style={{...BODY_S,fontSize:'clamp(0.9rem,1.3vw,1.1rem)',maxWidth:'none'}}>{col.d}</p>
+           </div>
+         ))}
+       </div>
+     </div>
 
       {/* S3 */}
       <div ref={refs.manifesto3} style={{ position:'absolute', inset:0, display:'flex', flexDirection:'column', justifyContent:'flex-start', gap:'clamp(0.6rem,1.5vw,1rem)', padding:'clamp(4rem,8vw,5rem) clamp(2rem,5vw,4rem) clamp(1.5rem,3vw,2rem)', boxSizing:'border-box', transformOrigin:'bottom left', opacity:0 }}>
