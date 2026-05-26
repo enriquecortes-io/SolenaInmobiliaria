@@ -137,7 +137,7 @@ export default function ManifestoEngine({ locale }: Props) {
       let lineY = topY;
 
       // Reset cursor
-      let cursor: any = prepareWithSegments ? { segmentIndex: 0, graphemeIndex: 0 } : { segmentIndex: 0, graphemeIndex: 0 };
+      let cursor: any = { segmentIndex: 0, graphemeIndex: 0 };
       let exhausted = false;
 
       while (lineY + LINE_H <= H - PAD * 2 && !exhausted) {
