@@ -1,4 +1,5 @@
 "use client";
+import ManifestoEngine from "./ManifestoEngine";
 import { forwardRef } from "react";
 import { getT } from "@/lib/i18n";
 
@@ -10,18 +11,14 @@ const Manifesto = forwardRef<HTMLDivElement, Props>(({ locale }, ref) => {
 
   return (
     <div ref={ref} style={{
-      position:"absolute", inset:0, zIndex:22,
+      position:"absolute", inset:0, zIndex:12,
       opacity:0, pointerEvents:"none",
-      display:"flex", alignItems:"center", justifyContent:"center",
-      padding:"clamp(2rem,5vw,4rem)",
-      willChange:"opacity, transform",
+      willChange:"opacity",
     }}>
-      <style>{`
-        .manifesto-columns {
-          columns: 2;
-          column-gap: clamp(2rem, 4vw, 4rem);
-          column-rule: 1px solid rgba(201,169,110,0.15);
-        }
+      <ManifestoEngine locale={locale} />
+    </div>
+  );
+}
         .manifesto-columns p { break-inside: avoid; margin: 0 0 1rem; }
         .manifesto-columns p:first-child::first-letter {
           font-family: 'Cormorant Garamond', serif;
