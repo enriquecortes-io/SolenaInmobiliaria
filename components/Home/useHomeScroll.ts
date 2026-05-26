@@ -139,7 +139,7 @@ export function useHomeScroll({ headerRef, manifestoRef, filtersRef, carouselRef
         if (targetHeader >= 1) { targetHeader = 1; lastPhaseChange = now; setPhase("manifesto1"); }
         return;
       }
-      if (phaseRef.current === "filters" && e.deltaY < 0 && targetProgressRef.current > 0) return;
+      if (phaseRef.current === "masonry" && e.deltaY < 0 && targetProgressRef.current > 0) return;
       wheelAccum += e.deltaY;
       if (wheelTimer) clearTimeout(wheelTimer);
       wheelTimer = setTimeout(() => { wheelAccum = 0; }, 300);
