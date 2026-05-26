@@ -197,7 +197,10 @@ export default function MasonrySection({ locale = "es" }: { locale?: string }) {
   };
 
   return (
-    <div style={{ position:"absolute", inset:0, display:"flex", flexDirection:"column", overflow:"hidden", background:BG }}>
+    <div style={{ position:"absolute", inset:0, display:"flex", flexDirection:"column", overflow:"hidden", background:"rgba(4,3,2,0.55)",
+      backdropFilter:"blur(20px)",
+      WebkitBackdropFilter:"blur(20px)",
+    }}>
 
       {/* Barra filtros */}
       <div style={{

@@ -63,7 +63,7 @@ export default function ManifestoFlow({ locale }: { locale: string }) {
   }, [active]);
 
   return (
-    <div style={{ position:'relative', width:'100%', height:'100%', overflow:'hidden', background:'#070503' }}>
+    <div style={{ position:'relative', width:'100%', height:'100%', overflow:'hidden', background:'rgba(4,3,2,0.0)' }}>
 
       {/* S1 */}
       <div ref={refs.manifesto1} style={{ position:'absolute', inset:0, display:'flex', flexDirection:'column', justifyContent:'flex-start', gap:'clamp(0.6rem,1.5vw,1rem)', padding:'clamp(4rem,8vw,5rem) clamp(2rem,5vw,4rem) clamp(1.5rem,3vw,2rem)', boxSizing:'border-box', transformOrigin:'bottom left' }}>
