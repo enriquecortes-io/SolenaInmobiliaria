@@ -1,6 +1,6 @@
 "use client";
 import { useEffect, useRef } from "react";
-import { prepare, layoutNextLine } from "@chenglou/pretext";
+import { prepareWithSegments, layoutNextLine } from "@chenglou/pretext";
 
 const BODY_TEXT_ES = `Rechazamos lo que casi lo logra. Cada residencia que cruza este umbral ha sido contemplada, medida y comprendida en su totalidad. Lo bueno es enemigo de lo extraordinario.
 
@@ -73,7 +73,7 @@ export default function ManifestoEngine({ locale }: Props) {
     // Preparar texto
     let prepared: ReturnType<typeof prepare> | null = null;
     try {
-      prepared = prepare(text, `300 16px 'Cormorant Garamond', serif`);
+      prepared = prepareWithSegments(text, `300 16px 'Cormorant Garamond', serif`);
     } catch { return; }
 
     // Estado orbes
