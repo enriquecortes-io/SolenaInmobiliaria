@@ -287,6 +287,8 @@ export default function PropertyExperience({ property, locale }: Props) {
       {showForm && (
         <div
           onClick={e => { if(e.target===e.currentTarget) setShowForm(false); }}
+          onWheel={e => e.stopPropagation()}
+          onTouchMove={e => e.stopPropagation()}
           style={{
             position:"fixed", inset:0, zIndex:200,
             background:"linear-gradient(135deg, #0d0a08 0%, #1a1008 40%, #0a0d1a 100%)",
