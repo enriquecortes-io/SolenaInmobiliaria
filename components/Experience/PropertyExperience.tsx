@@ -284,7 +284,7 @@ export default function PropertyExperience({ property, locale }: Props) {
       )}
 
       {/* Modal formulario */}
-      {showForm && (
+      {showForm && typeof document !== "undefined" && createPortal(
         <div
           onClick={e => { if(e.target===e.currentTarget) setShowForm(false); }}
           onWheel={e => e.stopPropagation()}
@@ -325,7 +325,7 @@ export default function PropertyExperience({ property, locale }: Props) {
             />
           </div>
         </div>
-      )}
+      , document.body)}
     </div>
   );
 }
