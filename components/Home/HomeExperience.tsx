@@ -3,7 +3,7 @@ import { useRef } from "react";
 import dynamic from "next/dynamic";
 import { useHomeScroll } from "./useHomeScroll";
 import SkyHeader from "./SkyHeader";
-import GradientWave from "./GradientWave";
+import HeroWave from "./HeroWave";
 const MasonrySection   = dynamic(() => import("./MasonrySection"),   { ssr: false });
 const Manifesto        = dynamic(() => import("./Manifesto"),        { ssr: false });
 const Captacion        = dynamic(() => import("./Captacion"),        { ssr: false }) as any;
@@ -22,7 +22,7 @@ export default function HomeExperience({ locale }: Props) {
 
   return (
     <div style={{position:"fixed",inset:0,width:"100%",height:"100vh",overflow:"hidden",background:"#050308"}}>
-      <GradientWave />
+      <HeroWave />
 
       {/* Header */}
       <div ref={headerRef} style={{
