@@ -1,4 +1,5 @@
 "use client";
+import NeonButton from "@/components/ui/NeonButton";
 import { useState } from "react";
 import { useRouter, usePathname } from "next/navigation";
 import Link from "next/link";
@@ -92,32 +93,9 @@ export default function Navbar({ locale = "es", onPrivateAccess }: Props) {
 
         {/* Private Access — solo si hay callback */}
         {onPrivateAccess && (
-          <button
-            onClick={onPrivateAccess}
-            style={{
-              background:"none",
-              border:"none",
-              color:"#c9a96e",
-              fontFamily:"'Montserrat','Helvetica Neue',sans-serif",
-              fontSize:"0.6rem", letterSpacing:"0.3em",
-              textTransform:"uppercase", cursor:"pointer",
-              transition:"all 0.3s ease",
-              padding:"0.5rem 1.2rem",
-
-            }}
-            onMouseEnter={e=>{
-              e.currentTarget.style.color="#c9a96e";
-              e.currentTarget.style.textShadow="0 0 10px rgba(201,169,110,0.9), 0 0 20px rgba(201,169,110,0.5)";
-              e.currentTarget.style.background="rgba(201,169,110,0.08)";
-            }}
-            onMouseLeave={e=>{
-              e.currentTarget.style.color="#c9a96e";
-              e.currentTarget.style.background="none";
-            }}
-            className="neon-btn"
-          >
+          <NeonButton onClick={onPrivateAccess}>
             {PRIVATE_VIEWING[locale as keyof typeof PRIVATE_VIEWING] || "Private Viewing"}
-          </button>
+          </NeonButton>
         )}
 
         {/* Selector de idioma desplegable */}
