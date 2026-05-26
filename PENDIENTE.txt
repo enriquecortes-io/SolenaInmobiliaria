@@ -28,3 +28,4 @@ NEGOCIO (PRIORIDAD ALTA)
 
 =============================================
 Score PageSpeed: 98 Rendimiento / 100 Accesibilidad / 100 SEO
+HACER AGENT FRIENDLY
