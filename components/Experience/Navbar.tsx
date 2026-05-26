@@ -93,9 +93,17 @@ export default function Navbar({ locale = "es", onPrivateAccess }: Props) {
 
         {/* Private Access — solo si hay callback */}
         {onPrivateAccess && (
-          <NeonButton onClick={onPrivateAccess}>
-            {PRIVATE_VIEWING[locale as keyof typeof PRIVATE_VIEWING] || "Private Viewing"}
-          </NeonButton>
+          <>
+            <span onClick={onPrivateAccess} className="private-mobile" style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.5rem", letterSpacing:"0.3em", textTransform:"uppercase", cursor:"pointer", color:"#c9a96e", textShadow:"0 0 10px rgba(201,169,110,0.9), 0 0 20px rgba(201,169,110,0.5)" }}>
+              {PRIVATE_VIEWING[locale as keyof typeof PRIVATE_VIEWING] || "Private Viewing"}
+            </span>
+            <span className="private-desktop">
+              <NeonButton onClick={onPrivateAccess}>
+                {PRIVATE_VIEWING[locale as keyof typeof PRIVATE_VIEWING] || "Private Viewing"}
+              </NeonButton>
+            </span>
+            <style>{`.private-mobile{display:none}.private-desktop{display:inline}@media(max-width:768px){.private-mobile{display:inline!important}.private-desktop{display:none!important}}`}</style>
+          </>
         )}
 
         {/* Selector de idioma desplegable */}
