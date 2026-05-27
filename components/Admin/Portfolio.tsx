@@ -57,11 +57,23 @@ export default function Portfolio({ password, onEdit }: Props) {
     setTitulo(t);
     setDescripcion(d);
     setEditFields({
+      slug: p.slug,
+      referencia: p.referencia,
       precio: p.precio, habitaciones: p.habitaciones, banos: p.banos,
       m2_construidos: p.m2_construidos, m2_parcela: p.m2_parcela,
       ubicacion: p.ubicacion, zona: p.zona, tipo: p.tipo,
       video_url: p.video_url, galeria_urls: (p.galeria_urls||[]).join("\n"),
       activa: p.activa, destacada: p.destacada,
+      estado: p.estado || "",
+      orientacion: p.orientacion || "",
+      amueblado: p.amueblado || "no",
+      certificado_energetico: p.certificado_energetico || "",
+      amenidades: p.amenidades || [],
+      ano_construccion: p.ano_construccion || "",
+      garajes: p.garajes || 0,
+      trasteros: p.trasteros || 0,
+      planta: p.planta || "",
+      google_maps_url: p.google_maps_url || "",
     });
     setStatus("");
   };
