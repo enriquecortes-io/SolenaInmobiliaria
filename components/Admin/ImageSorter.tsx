@@ -14,7 +14,7 @@ export default function ImageSorter({ urls, onChange, onSave }: Props) {
   const [saving, setSaving] = useState(false);
   const saveTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  const images = urls.filter(Boolean).map(convertGDriveUrl);
+  const images = urls.filter(Boolean).map(url => convertGDriveUrl(url));
 
   const autoSave = (newUrls: string[]) => {
     onChange(newUrls);
