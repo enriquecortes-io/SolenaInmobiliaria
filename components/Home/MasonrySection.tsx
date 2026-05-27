@@ -214,8 +214,8 @@ export default function MasonrySection({ locale = "es" }: { locale?: string }) {
         display:"flex", flexDirection:"column", gap:"0.6rem",
         borderBottom:"1px solid rgba(201,169,110,0.1)",
       }}>
-        <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.5rem", letterSpacing:"0.4em", textTransform:"uppercase", color:GOLD_DIM, margin:0, whiteSpace:"nowrap" }}>
-          SELECCIÓN · {filtered.length} {filtered.length === 1 ? "propiedad" : "propiedades"}
+        <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.85rem", letterSpacing:"0.4em", textTransform:"uppercase", color:GOLD, margin:0, whiteSpace:"nowrap", textShadow:"0 0 10px rgba(201,169,110,0.9), 0 0 25px rgba(201,169,110,0.5)" }}>
+          THE EDITS · {filtered.length}
         </p>
         <div style={{ display:"flex", alignItems:"center", gap:"0.8rem", flexWrap:"wrap" }}>
 
