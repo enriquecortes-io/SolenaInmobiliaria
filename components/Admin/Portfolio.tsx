@@ -8,6 +8,10 @@ interface Property {
   ubicacion: string; tipo: string; zona: string;
   activa: boolean; destacada: boolean; video_url: string; galeria_urls: string[];
   referencia?: string;
+  estado?: string; orientacion?: string; amueblado?: string;
+  certificado_energetico?: string; amenidades?: string[];
+  ano_construccion?: number; garajes?: number; trasteros?: number;
+  planta?: number; google_maps_url?: string;
 }
 
 interface Props { password: string; onEdit: (slug: string) => void; }
