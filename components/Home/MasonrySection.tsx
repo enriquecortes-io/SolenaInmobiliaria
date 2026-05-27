@@ -225,7 +225,7 @@ export default function MasonrySection({ locale = "es" }: { locale?: string }) {
               onClick={() => setActiveFilter(activeFilter === f.id ? null : f.id)}
               style={{
                 background:"none", border:"1px solid rgba(201,169,110,0.2)",
-                padding:"0.4rem 1rem", cursor:"pointer",
+                padding:"0.7rem 1.4rem", cursor:"pointer",
                 fontFamily:"'Montserrat',sans-serif", fontSize:"0.6rem",
                 letterSpacing:"0.2em", textTransform:"uppercase",
                 color: filters[f.id] ? GOLD : WHITE_DIM,
@@ -249,7 +249,7 @@ export default function MasonrySection({ locale = "es" }: { locale?: string }) {
                     display:"block", width:"100%", textAlign:"left",
                     background: filters[f.id] === opt ? "rgba(201,169,110,0.1)" : "none",
                     border:"none", borderBottom:"1px solid rgba(201,169,110,0.08)",
-                    padding:"0.6rem 1rem", cursor:"pointer",
+                    padding:"0.8rem 1.2rem", cursor:"pointer",
                     fontFamily:"'Montserrat',sans-serif", fontSize:"0.6rem",
                     letterSpacing:"0.15em", textTransform:"uppercase",
                     color: filters[f.id] === opt ? GOLD : WHITE_DIM,
@@ -265,7 +265,7 @@ export default function MasonrySection({ locale = "es" }: { locale?: string }) {
           {Object.values(filters).some(Boolean) && (
             <button onClick={() => setFilters({})} style={{
               background:"none", border:"none", cursor:"pointer",
-              fontFamily:"'Montserrat',sans-serif", fontSize:"0.45rem",
+              fontFamily:"'Montserrat',sans-serif", fontSize:"0.6rem",
               letterSpacing:"0.3em", textTransform:"uppercase", color:WHITE_DIM,
             }}>
               LIMPIAR ✕
