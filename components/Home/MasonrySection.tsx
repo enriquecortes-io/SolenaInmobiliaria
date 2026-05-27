@@ -21,7 +21,7 @@ interface Property {
 const FILTERS_DEF = [
   { id:"zona",        label:"ZONA",        options:["marbella","estepona","mijas","benahavis","sotogrande"] },
   { id:"ubicacion",   label:"UBICACIÓN",   options:["golden mile","nueva andalucia","puerto banus","sierra blanca","la zagaleta","los monteros","el madroñal"] },
-  { id:"tipo",        label:"TIPO",        options:["villa","apartment","townhouse","plot"] },
+  { id:"tipo",        label:"TIPO",        options:["villa","apartment","penthouse","townhouse","plot"] },
   { id:"habitaciones",label:"HAB.",        options:["2","3","4","5","6+"] },
   { id:"precio",      label:"PRECIO",      options:["500k-1m","1m-2m","2m-5m","5m+"] },
 ];

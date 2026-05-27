@@ -339,6 +339,7 @@ export default function Portfolio({ password, onEdit }: Props) {
                   <option value="">— Seleccionar —</option>
                   <option value="villa">Villa</option>
                   <option value="apartment">Apartment</option>
+                  <option value="penthouse">Penthouse</option>
                   <option value="townhouse">Townhouse</option>
                   <option value="plot">Plot</option>
                 </select>
