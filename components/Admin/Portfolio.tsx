@@ -448,6 +448,11 @@ export default function Portfolio({ password, onEdit }: Props) {
             <label style={L}>URLs Galería (una por línea)</label>
             <textarea value={editFields.galeria_urls||""} onChange={e=>setEditFields((p:any)=>({...p,galeria_urls:e.target.value}))}
               rows={4} style={{...INP,resize:"vertical"}}/>
+            <ImageSorter
+             urls={(editFields.galeria_urls||"").split("\n").map((s:string)=>s.trim()).filter(Boolean)}
+             onChange={urls => setEditFields((p:any)=>({...p, galeria_urls: urls.join("\n")}))}
+             onSave={handleSave}
+           />
 
             <div style={{ display:"flex", gap:"16px", marginBottom:"24px" }}>
               <label style={{ display:"flex", alignItems:"center", gap:"8px", fontSize:"14px", cursor:"pointer" }}>
