@@ -451,7 +451,7 @@ export default function Portfolio({ password, onEdit }: Props) {
             <ImageSorter
              urls={(editFields.galeria_urls||"").split("\n").map((s:string)=>s.trim()).filter(Boolean)}
              onChange={urls => setEditFields((p:any)=>({...p, galeria_urls: urls.join("\n")}))}
-             onSave={handleSave}
+             onSave={handleSaveEdit}
            />
 
             <div style={{ display:"flex", gap:"16px", marginBottom:"24px" }}>
