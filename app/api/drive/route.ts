@@ -2,14 +2,18 @@ import { NextRequest, NextResponse } from "next/server";
 import { google } from "googleapis";
 
 function getAuth() {
+  const json = process.env.GOOGLE_SERVICE_ACCOUNT_JSON;
+  if (json) {
+    return new google.auth.GoogleAuth({
+      credentials: JSON.parse(json),
+      scopes: ["https://www.googleapis.com/auth/drive.readonly"],
+    });
+  }
   return new google.auth.GoogleAuth({
     credentials: {
       type: "service_account",
-      project_id: process.env.GOOGLE_DRIVE_PROJECT_ID,
-      private_key_id: process.env.GOOGLE_DRIVE_PRIVATE_KEY_ID,
       private_key: (process.env.GOOGLE_DRIVE_PRIVATE_KEY || "").replace(/\\n/g, "\n"),
       client_email: process.env.GOOGLE_DRIVE_CLIENT_EMAIL,
-      client_id: process.env.GOOGLE_DRIVE_CLIENT_ID,
     },
     scopes: ["https://www.googleapis.com/auth/drive.readonly"],
   });
