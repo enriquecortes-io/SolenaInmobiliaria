@@ -13,6 +13,7 @@ interface Property {
   certificado_energetico?: string; amenidades?: string[];
   ano_construccion?: number; garajes?: number; trasteros?: number;
   planta?: number; google_maps_url?: string;
+  contacto_nombre?: string; contacto_telefono?: string; contacto_email?: string;
 }
 
 interface Props { password: string; onEdit: (slug: string) => void; }
