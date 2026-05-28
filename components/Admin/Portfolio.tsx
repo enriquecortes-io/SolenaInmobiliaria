@@ -79,6 +79,9 @@ export default function Portfolio({ password, onEdit }: Props) {
       trasteros: p.trasteros || 0,
       planta: p.planta || "",
       google_maps_url: p.google_maps_url || "",
+      contacto_nombre: p.contacto_nombre || "",
+      contacto_telefono: p.contacto_telefono || "",
+      contacto_email: p.contacto_email || "",
     });
     setStatus("");
   };
