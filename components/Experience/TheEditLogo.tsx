@@ -7,7 +7,7 @@ interface Props {
 
 export default function TheEditLogo({ width = 180, height = 56 }: Props) {
   return (
-    <div style={{ display:"flex", flexDirection:"column", alignItems:"flex-start", gap:"2px" }}>
+    <div style={{ display:"flex", flexDirection:"column", alignItems:"center", gap:"2px" }}>
       <span style={{
         fontFamily:"'Cormorant Garamond', 'Didot', 'Bodoni MT', Georgia, serif",
         fontWeight:700,
