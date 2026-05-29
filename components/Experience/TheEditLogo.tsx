@@ -7,29 +7,25 @@ interface Props {
 
 export default function TheEditLogo({ width = 180, height = 56 }: Props) {
   return (
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 80" width={width} height={height}>
-      <defs>
-        <style>{`
-          @import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,700&family=Montserrat:wght@300&display=swap');
-          .te-main {
-            font-family: 'Bodoni Moda', 'Didot', 'Bodoni MT', serif;
-            font-weight: 700;
-            font-size: 44px;
-            fill: #FFFFFF;
-            letter-spacing: -0.5px;
-          }
-          .te-sub {
-            font-family: 'Montserrat', 'Helvetica Neue', sans-serif;
-            font-weight: 300;
-            font-size: 9px;
-            fill: #C5A880;
-            letter-spacing: 10px;
-            text-transform: uppercase;
-          }
-        `}</style>
-      </defs>
-      <text textAnchor="middle" x="180" y="48" className="te-main">The Edit</text>
-      <text textAnchor="middle" x="185" y="68" className="te-sub">Marbella</text>
-    </svg>
+    <div style={{ display:"flex", flexDirection:"column", alignItems:"flex-start", gap:"2px" }}>
+      <span style={{
+        fontFamily:"'Cormorant Garamond', 'Didot', 'Bodoni MT', Georgia, serif",
+        fontWeight:700,
+        fontSize:"clamp(1.4rem,3vw,2rem)",
+        color:"#ffffff",
+        letterSpacing:"-0.02em",
+        lineHeight:1,
+        whiteSpace:"nowrap",
+      }}>The Edit</span>
+      <span style={{
+        fontFamily:"'Montserrat', 'Helvetica Neue', sans-serif",
+        fontWeight:300,
+        fontSize:"clamp(0.45rem,0.8vw,0.55rem)",
+        color:"#C5A880",
+        letterSpacing:"0.45em",
+        textTransform:"uppercase",
+        whiteSpace:"nowrap",
+      }}>Marbella</span>
+    </div>
   );
 }
