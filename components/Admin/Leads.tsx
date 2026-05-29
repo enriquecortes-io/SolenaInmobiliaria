@@ -24,6 +24,9 @@ export default function Leads({ password }: Props) {
   const [notaText, setNotaText] = useState("");
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
+  const [filtroPropiedad, setFiltroPropiedad] = useState("");
+  const [sort, setSort] = useState<{field:string|null,dir:"asc"|"desc"}>({field:null,dir:"asc"});
+  const toggleSort = (field:string) => setSort(p=>({field,dir:p.field===field&&p.dir==="asc"?"desc":"asc"}));
 
   useEffect(() => {
     // Cargar leads
@@ -88,7 +91,15 @@ ${newEntry}`
     setLeads(prev => prev.map(l => l.id === id ? {...l, agente} : l));
   };
 
-  const filtered = leads.filter(l =>
+  const propiedades = [...new Set(leads.map(l=>l.property_slug).filter(Boolean))];
+  const sorted = [...leads].sort((a,b)=>{
+    if(!sort.field) return 0;
+    const f=sort.field as keyof typeof a;
+    const av=a[f],bv=b[f];
+    if(typeof av==="number"&&typeof bv==="number") return sort.dir==="asc"?av-bv:bv-av;
+    return sort.dir==="asc"?String(av||"").localeCompare(String(bv||"")):String(bv||"").localeCompare(String(av||""));
+  });
+  const filtered = sorted.filter(l =>
     !search ||
     l.name?.toLowerCase().includes(search.toLowerCase()) ||
     l.email?.toLowerCase().includes(search.toLowerCase()) ||
@@ -117,6 +128,20 @@ ${newEntry}`
           style={{ ...S, width:"100%", boxSizing:"border-box" }}
         />
       </div>
+
+     {/* Filtros por propiedad */}
+     {propiedades.length > 0 && (
+       <div style={{ display:"flex", gap:"0.5rem", flexWrap:"wrap", marginBottom:"1rem" }}>
+         <button onClick={()=>setFiltroPropiedad("")} style={{ padding:"5px 12px", borderRadius:"20px", border:"2px solid", borderColor:filtroPropiedad===""?"#111827":"#e5e7eb", background:filtroPropiedad===""?"#111827":"white", color:filtroPropiedad===""?"white":"#374151", fontSize:"12px", fontWeight:600, cursor:"pointer" }}>
+           Todas
+         </button>
+         {propiedades.map(p => (
+           <button key={p} onClick={()=>setFiltroPropiedad(filtroPropiedad===p?"":p)} style={{ padding:"5px 12px", borderRadius:"20px", border:"2px solid", borderColor:filtroPropiedad===p?"#2563eb":"#e5e7eb", background:filtroPropiedad===p?"#2563eb":"white", color:filtroPropiedad===p?"white":"#374151", fontSize:"12px", fontWeight:600, cursor:"pointer" }}>
+             {p}
+           </button>
+         ))}
+       </div>
+     )}
 
       {loading ? (
         <div style={{ textAlign:"center", padding:"60px", color:"#6b7280" }}>Cargando...</div>
