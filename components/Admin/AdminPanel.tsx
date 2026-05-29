@@ -9,7 +9,7 @@ import FeedsPanel from "./FeedsPanel";
 import Users from "./Users";
 import Dashboard from "./Dashboard";
 
-type Section = "dashboard" | "portfolio" | "new" | "leads" | "cruce" | "feeds" | "users";
+type Section = "dashboard" | "portfolio" | "new" | "leads" | "contactos" | "cruce" | "feeds" | "users";
 
 export default function AdminPanel() {
   const [password, setPassword] = useState("");
@@ -91,6 +91,7 @@ export default function AdminPanel() {
     { id:"new",       icon:"➕", label:"Nueva Propiedad", green:true },
     { id:"portfolio", icon:"🏠", label:"Portfolio" },
     { id:"leads",     icon:"👥", label:"Leads" },
+    { id:"contactos", icon:"📋", label:"Contactos" },
     { id:"cruce",     icon:"🔗", label:"Cruce de Ventas" },
     { id:"feeds",     icon:"📡", label:"Portales / Feeds" },
     { id:"users",     icon:"👤", label:"Usuarios" },
@@ -147,6 +148,7 @@ export default function AdminPanel() {
         {section === "portfolio" && <Portfolio password={password} onEdit={()=>setSection("new")} />}
         {section === "new" && <NewProperty password={password} />}
         {section === "leads" && <Leads password={password} />}
+        {section === "contactos" && <Contactos password={password} />}
         {section === "cruce" && <CruceVentas password={password} />}
         {section === "dashboard" && <Dashboard password={password} />}
         {section === "feeds" && <FeedsPanel />}
