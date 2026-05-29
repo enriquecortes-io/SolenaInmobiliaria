@@ -3,6 +3,7 @@ import { useState, useEffect } from "react";
 import NewProperty from "./NewProperty";
 import Portfolio from "./Portfolio";
 import Leads from "./Leads";
+import Contactos from "./Contactos";
 import CruceVentas from "./CruceVentas";
 import FeedsPanel from "./FeedsPanel";
 import Users from "./Users";
