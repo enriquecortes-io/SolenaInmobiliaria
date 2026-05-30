@@ -329,7 +329,7 @@ export default function MasonrySection({ locale = "es" }: { locale?: string }) {
         flex:1, overflowY:"auto",
         padding:"clamp(1.5rem,3vw,2rem) clamp(1.5rem,4vw,3rem)",
         display:"grid",
-        gridTemplateColumns:"repeat(auto-fill, minmax(min(320px,100%), 1fr))",
+        gridTemplateColumns:"repeat(auto-fill, minmax(min(300px,100%), 1fr))",
         gap:"clamp(1rem,2vw,1.5rem)",
         alignContent:"start",
       }}>
@@ -354,7 +354,7 @@ export default function MasonrySection({ locale = "es" }: { locale?: string }) {
               }}
             >
               {/* Imagen */}
-              <div style={{ position:"relative", overflow:"hidden", height:"240px" }}>
+              <div style={{ position:"relative", overflow:"hidden", height:"clamp(180px,25vw,240px)" }}>
                 {img ? (
                   <img src={img} alt={title} style={{
                     width:"100%", height:"100%", objectFit:"cover", display:"block",
@@ -381,7 +381,7 @@ export default function MasonrySection({ locale = "es" }: { locale?: string }) {
               </div>
 
               {/* Info — siempre visible */}
-              <div style={{ padding:"1rem 1.2rem 1.2rem" }}>
+              <div style={{ padding:"0.8rem 1rem 1rem" }}>
                 {/* Ubicación */}
                 <p style={{
                   fontFamily:"'Montserrat',sans-serif",
@@ -397,7 +397,7 @@ export default function MasonrySection({ locale = "es" }: { locale?: string }) {
                   fontFamily:"'Cormorant Garamond',serif",
                   fontSize:"clamp(1.1rem,1.8vw,1.4rem)",
                   fontWeight:600, color:TEXT,
-                  margin:"0 0 0.6rem", lineHeight:1.2,
+                  margin:"0 0 0.4rem", lineHeight:1.2,
                 }}>
                   {title}
                 </h3>
