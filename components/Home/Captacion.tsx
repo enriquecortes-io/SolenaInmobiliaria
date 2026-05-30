@@ -285,7 +285,7 @@ const Captacion = forwardRef<HTMLDivElement, Props>(({ locale }, ref) => {
                   onBlur={e => e.target.style.borderColor = "rgba(45,74,62,0.2)"}
                 />
                 {status === "error" && <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.4rem", color:"rgba(255,100,100,0.8)" }}>{t.error}</p>}
-                <NeonButton onClick={handleSubmit} disabled={status === "sending"} variant="solid" size="lg" style={{width:"100%",marginTop:"0.5rem"}}>
+                <NeonButton onClick={handleSubmit} disabled={status === "sending"} variant="solid" size="lg" style={{width:"100%",marginTop:"0.5rem",color:"#FAFAF7",backgroundColor:"#2D4A3E"}}>
                   {"Solicitar valoración"}
                 </NeonButton>
               </>
