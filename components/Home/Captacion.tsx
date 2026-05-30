@@ -211,9 +211,9 @@ const Captacion = forwardRef<HTMLDivElement, Props>(({ locale }, ref) => {
             <button key={tabId} onClick={() => setTab(tabId)} style={{
               fontFamily:"'Montserrat',sans-serif", fontSize:"0.5rem",
               letterSpacing:"0.3em", textTransform:"uppercase",
-              color: tab === tabId ? "#2D4A3E" : "rgba(255,255,255,0.35)",
+              color: tab === tabId ? "#2D4A3E" : "rgba(45,74,62,0.4)",
               background:"transparent", border:"none",
-              borderBottom: tab === tabId ? "1px solid #c9a96e" : "1px solid transparent",
+              borderBottom: tab === tabId ? "1px solid #2D4A3E" : "1px solid transparent",
               padding:"0.6rem 1.5rem 0.8rem", cursor:"pointer",
               transition:"all 0.3s", marginBottom:"-1px",
             }}>
