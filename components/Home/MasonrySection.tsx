@@ -326,8 +326,8 @@ export default function MasonrySection({ locale = "es" }: { locale?: string }) {
 
       {/* Grid Masonry */}
       <div style={{
-        flex:1, overflowY:"auto",
-        padding:"clamp(1.5rem,3vw,2rem) clamp(1.5rem,4vw,3rem)",
+        flex:1, overflowY:"scroll", WebkitOverflowScrolling:"touch",
+        padding:"clamp(1.5rem,3vw,2rem) clamp(1.5rem,4vw,3rem) 4rem",
         display:"grid",
         gridTemplateColumns:"repeat(auto-fill, minmax(min(300px,100%), 1fr))",
         gap:"clamp(1rem,2vw,1.5rem)",
