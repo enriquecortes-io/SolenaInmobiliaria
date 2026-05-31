@@ -53,7 +53,7 @@ export default function SkyHeader({ locale }: Props) {
 
   // ── GSAP entrada inicial ─────────────────────────────────────────
   useEffect(() => {
-    try { const ctx = gsap.context(() => {
+    const ctx = gsap.context(() => {
       const tl = gsap.timeline();
       if (wordRef.current)
         tl.fromTo(wordRef.current,
@@ -68,7 +68,7 @@ export default function SkyHeader({ locale }: Props) {
           0.8
         );
     });
-    return () => ctx.revert(); } catch(e) { console.warn("GSAP entry:", e); }
+    return () => ctx.revert();
   }, []);
 
   // ── GSAP transición entre escenas ────────────────────────────────
