@@ -382,7 +382,7 @@ export default function MasonrySection({ locale = "es" }: { locale?: string }) {
                 border:`1px solid ${BORDER}`,
                 transition:"border-color 0.3s, box-shadow 0.3s",
                 boxShadow:`0 1px 4px rgba(26,23,20,0.06)`,
-                overflow:"hidden",
+                
               }}
             >
               {/* Imagen */}
