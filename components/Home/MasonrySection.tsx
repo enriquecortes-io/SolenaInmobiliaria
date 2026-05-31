@@ -90,10 +90,20 @@ function PropertyPreview({ property: p, locale, onClose }: PreviewProps) {
         width:"100%", maxWidth:"1100px", maxHeight:"90vh",
         background:BG,
         border:`1px solid ${BORDER}`,
-        display:"grid", gridTemplateColumns:"1fr 1fr",
+        className:"modal-inner",
+        display:"grid",
+        gridTemplateColumns:"clamp(0px,50vw,560px) 1fr",
+        gridTemplateRows:"auto",
         overflow:"hidden", position:"relative",
         boxShadow:"0 32px 80px rgba(26,23,20,0.2)",
       }} onClick={e => e.stopPropagation()}>
+      <style>{`
+        @media (max-width: 640px) {
+          .modal-inner { grid-template-columns: 1fr !important; grid-template-rows: 260px 1fr !important; max-height: 92vh !important; }
+          .modal-img   { height: 260px !important; min-height: unset !important; }
+          .modal-info  { overflow-y: auto !important; }
+        }
+      `}</style>
 
         {/* Close */}
         <button onClick={onClose} style={{
@@ -104,7 +114,7 @@ function PropertyPreview({ property: p, locale, onClose }: PreviewProps) {
         }}>✕</button>
 
         {/* Imagen */}
-        <div style={{ position:"relative", overflow:"hidden", minHeight:"420px" }}>
+        <div className="modal-img" style={{ position:"relative", overflow:"hidden", minHeight:"420px" }}>
           {imgs[imgIdx] && (
             <img src={imgs[imgIdx]} alt={title}
               style={{ width:"100%", height:"100%", objectFit:"cover", display:"block" }}/>
@@ -129,7 +139,7 @@ function PropertyPreview({ property: p, locale, onClose }: PreviewProps) {
         </div>
 
         {/* Info */}
-        <div style={{
+        <div className="modal-info" style={{
           padding:"clamp(1.5rem,3vw,2.5rem)",
           display:"flex", flexDirection:"column", gap:"1rem",
           overflowY:"auto", background:BG,
