@@ -30,17 +30,15 @@ export default function SkyHeader({ locale = "es" }: { locale?: string }) {
   const [sceneIdx, setSceneIdx] = useState(0);
   const [animKey, setAnimKey]   = useState(0);
 
-  // Timer de 5 segundos
+  // Timer fijo 5s por escena — 6 escenas = 30s ciclo completo
   useEffect(() => {
-    timerRef.current = setInterval(() => {
-      setSceneIdx(prev => {
-        const next = (prev + 1) % SCENES.length;
-        setAnimKey(k => k + 1);
-        return next;
-      });
-    }, SCENE_DURATION);
+    const tick = () => {
+      setSceneIdx(prev => (prev + 1) % SCENES.length);
+      setAnimKey(k => k + 1);
+    };
+    timerRef.current = setInterval(tick, SCENE_DURATION);
     return () => { if (timerRef.current) clearInterval(timerRef.current); };
-  }, [SCENES.length]);
+  }, []);
 
   // Animación entrada inicial
   useEffect(() => {
