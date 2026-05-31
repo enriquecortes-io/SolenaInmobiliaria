@@ -107,7 +107,7 @@ export default function SkyHeader({ locale = "es" }: { locale?: string }) {
       {/* Vídeo */}
       <video ref={videoRef} autoPlay muted loop playsInline preload="metadata"
         style={{ position:"absolute", inset:0, width:"100%", height:"100%", objectFit:"cover" }}>
-        <source src="/api/drive?id=1ja-BvtRM9FMAQtt66-prJbzSWDChoM9g" type="video/mp4"/>
+        <source src="/videos/HeroHeader.mp4" type="video/mp4"/>
       </video>
 
       {/* Overlay verde botella sutil */}
