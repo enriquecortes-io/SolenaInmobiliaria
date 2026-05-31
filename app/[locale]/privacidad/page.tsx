@@ -19,7 +19,7 @@ export default async function PrivacidadPage({ params }: { params: Promise<{loca
 
         <section style={S}>
           <h2 style={H2}>1. Responsable del tratamiento</h2>
-          <p style={P}>Enrique Cortés Gómez, con domicilio en Marbella, Málaga, España. Email: enriquecortesgomez@gmail.com</p>
+          <p style={P}>Enrique Cortés Gómez, con domicilio en Marbella, Málaga, España. Email: info@theeditmarbella.com</p>
         </section>
 
         <section style={S}>
@@ -44,7 +44,7 @@ export default async function PrivacidadPage({ params }: { params: Promise<{loca
 
         <section style={S}>
           <h2 style={H2}>6. Sus derechos</h2>
-          <p style={P}>Tiene derecho a acceder, rectificar, suprimir, limitar el tratamiento y portabilidad de sus datos. Puede ejercer estos derechos enviando un email a enriquecortesgomez@gmail.com. También tiene derecho a presentar una reclamación ante la Agencia Española de Protección de Datos (aepd.es).</p>
+          <p style={P}>Tiene derecho a acceder, rectificar, suprimir, limitar el tratamiento y portabilidad de sus datos. Puede ejercer estos derechos enviando un email a info@theeditmarbella.com. También tiene derecho a presentar una reclamación ante la Agencia Española de Protección de Datos (aepd.es).</p>
         </section>
 
         <div style={{ borderTop:"1px solid #DDD8D0", paddingTop:"2rem", marginTop:"4rem" }}>

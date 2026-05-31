@@ -24,7 +24,7 @@ export default async function LegalPage({ params }: { params: Promise<{locale:st
             <li><strong style={{color:"#1A1714"}}>Titular:</strong> Enrique Cortés Gómez</li>
             <li><strong style={{color:"#1A1714"}}>Actividad:</strong> Agente inmobiliario independiente</li>
             <li><strong style={{color:"#1A1714"}}>Domicilio:</strong> Marbella, Málaga, España</li>
-            <li><strong style={{color:"#1A1714"}}>Email:</strong> enriquecortesgomez@gmail.com</li>
+            <li><strong style={{color:"#1A1714"}}>Email:</strong> info@theeditmarbella.com</li>
             <li><strong style={{color:"#1A1714"}}>Web:</strong> editmarbella.com</li>
           </ul>
         </section>
