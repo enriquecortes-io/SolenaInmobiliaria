@@ -10,6 +10,7 @@ const SCENE_CONFIG = [
   { align:"right" },
   { align:"left" },
   { align:"right" },
+  { align:"left" },
   { align:"center" },
 ];
 
@@ -116,7 +117,7 @@ export default function SkyHeader({ locale = "es" }: { locale?: string }) {
   // Palabras largas — split en 2 líneas
   const splitWord = (word: string) => {
     const splits: Record<string,string[]> = {
-      "CONDUCE":["CON","DUCE"], "CONDUISEZ":["CON","DUISEZ"],
+      "CONDUCE":["CON","DUCE"], "CONDUISEZ":["CON","DUISEZ"], "POSSÉDEZ":["POS","SÉDEZ"], "ВЛАДЕЙТЕ":["ВЛА","ДЕЙТЕ"], "УЖИНАЙТЕ":["УЖИ","НАЙТЕ"], "ИГРАЙТЕ":["ИГ","РАЙТЕ"],
       "MARBELLA":["MAR","BELLA"], "MÁRBELYA":["MÁR","BELYA"],
       "PRIVILE":["PRIVI","LEGE"], "DESCUBRE":["DES","CUBRE"],
       "DÎNEZ":["DÎ","NEZ"], "УЖИНАЙТЕ":["УЖИ","НАЙТЕ"],
