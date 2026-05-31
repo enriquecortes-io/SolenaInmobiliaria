@@ -237,8 +237,8 @@ const ManifestoFlow = React.forwardRef<HTMLDivElement, { locale: string }>(({ lo
               src="/enrique-cortes.jpg"
               alt="Enrique Cortés"
               style={{
-                width:"clamp(160px,80%,280px)",
-                maxHeight:"clamp(240px,45vh,380px)",
+                width:"100%",
+                maxHeight:"clamp(180px,35vw,300px)",
                 objectFit:"cover",
                 objectPosition:"center top",
                 filter:"grayscale(100%)",
