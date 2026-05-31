@@ -36,13 +36,13 @@ export default function LegalFooter() {
         <Link key={href} href={href} style={{
           fontFamily:"'Montserrat',sans-serif",
           fontSize:"0.4rem", fontWeight:300,
-          color:"rgba(255,255,255,0.25)",
+          color:"rgba(26,23,20,0.35)",
           letterSpacing:"0.3em", textTransform:"uppercase",
           textDecoration:"none",
           transition:"color 0.3s",
         }}
-        onMouseEnter={e=>{e.currentTarget.style.color="rgba(201,169,110,0.6)";}}
-        onMouseLeave={e=>{e.currentTarget.style.color="rgba(255,255,255,0.25)";}}>
+        onMouseEnter={e=>{e.currentTarget.style.color="#2D4A3E";}}
+        onMouseLeave={e=>{e.currentTarget.style.color="rgba(26,23,20,0.35)";}}>
           {label}
         </Link>
       ))}
