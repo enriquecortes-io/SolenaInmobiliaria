@@ -117,12 +117,17 @@ export default function SkyHeader({ locale = "es" }: { locale?: string }) {
   // Palabras largas — split en 2 líneas
   const splitWord = (word: string) => {
     const splits: Record<string,string[]> = {
-      "CONDUCE":["CON","DUCE"], "CONDUISEZ":["CON","DUISEZ"], "POSSÉDEZ":["POS","SÉDEZ"], "ВЛАДЕЙТЕ":["ВЛА","ДЕЙТЕ"], "УЖИНАЙТЕ":["УЖИ","НАЙТЕ"], "ИГРАЙТЕ":["ИГ","РАЙТЕ"],
-      "MARBELLA":["MAR","BELLA"], "MÁRBELYA":["MÁR","BELYA"],
-      "PRIVILE":["PRIVI","LEGE"], "DESCUBRE":["DES","CUBRE"],
-      "DÎNEZ":["DÎ","NEZ"], "УЖИНАЙТЕ":["УЖИ","НАЙТЕ"],
-      "ИГРАЙТЕ":["ИГ","РАЙТЕ"], "МАРБЕЛЬЯ":["МАР","БЕЛЬЯ"],
-      "ЖИВИТЕ":["ЖИ","ВИТЕ"],
+      "CONDUCE":   ["CON","DUCE"],
+      "CONDUISEZ": ["CON","DUISEZ"],
+      "POSSÉDEZ":  ["POS","SÉDEZ"],
+      "ВЛАДЕЙТЕ":  ["ВЛА","ДЕЙТЕ"],
+      "УЖИНАЙТЕ":  ["УЖИ","НАЙТЕ"],
+      "ИГРАЙТЕ":   ["ИГ","РАЙТЕ"],
+      "ЖИВИТЕ":    ["ЖИ","ВИТЕ"],
+      "МАРБЕЛЬЯ":  ["МАР","БЕЛЬЯ"],
+      "MARBELLA":  ["MAR","BELLA"],
+      "DESCUBRE":  ["DES","CUBRE"],
+      "DÎNEZ":     ["DÎ","NEZ"],
     };
     return splits[word] || null;
   };
