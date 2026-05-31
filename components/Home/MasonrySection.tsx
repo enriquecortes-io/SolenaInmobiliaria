@@ -416,5 +416,17 @@ export default function MasonrySection({ locale = "es" }: { locale?: string }) {
                 )}
               </div>
             </div>
+          );
+        })}
+
+        {filtered.length === 0 && (
+          <div style={{ gridColumn:"1/-1", textAlign:"center", padding:"4rem", color:MUTED, fontFamily:"'Montserrat',sans-serif", fontSize:"0.6rem", letterSpacing:"0.3em", textTransform:"uppercase" }}>
+            Sin propiedades con estos filtros
+          </div>
+        )}
+      </div>
+
+      {preview && <PropertyPreview property={preview} locale={locale} onClose={() => setPreview(null)} />}
+    </div>
   );
 }
