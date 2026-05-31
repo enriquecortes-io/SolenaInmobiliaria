@@ -222,7 +222,7 @@ const ManifestoFlow = React.forwardRef<HTMLDivElement, { locale: string }>(({ lo
               {c.s3.carta}
             </p>
             <img
-              src="/firma-enrique.jpg"
+              <FirmaEnrique width="clamp(160px,20vw,280px)" />
               alt="Firma Enrique Cortés"
               style={{
                 width:"clamp(140px,16vw,200px)",
