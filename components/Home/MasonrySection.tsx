@@ -1,6 +1,9 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
 import { gsap } from "gsap";
+import { Flip } from "gsap/Flip";
+
+gsap.registerPlugin(Flip);
 import { convertGDriveUrl } from "@/lib/gdrive";
 import NeonButton from "@/components/ui/NeonButton";
 
@@ -344,14 +347,40 @@ export default function MasonrySection({ locale = "es" }: { locale?: string }) {
               key={p.slug}
               onClick={() => setPreview(p)}
               onMouseEnter={e => {
-                const el = e.currentTarget;
-                gsap.to(el, { scale:1.02, boxShadow:"0 16px 48px rgba(45,74,62,0.18)", borderColor:ACCENT, duration:0.4, ease:"power2.out" });
-                gsap.to(el.querySelector("img"), { scale:1.06, duration:0.6, ease:"power2.out" });
+                const el = e.currentTarget as HTMLElement;
+                const state = Flip.getState(el);
+                // Guardar posición original
+                const rect = el.getBoundingClientRect();
+                el.dataset.origWidth  = String(rect.width);
+                el.dataset.origHeight = String(rect.height);
+                el.dataset.origTop    = String(rect.top + window.scrollY);
+                el.dataset.origLeft   = String(rect.left);
+                // Mover al centro expandido
+                el.style.position   = "fixed";
+                el.style.zIndex     = "500";
+                el.style.width      = "min(520px, 90vw)";
+                el.style.height     = "auto";
+                el.style.top        = "50%";
+                el.style.left       = "50%";
+                el.style.transform  = "translate(-50%, -50%)";
+                el.style.margin     = "0";
+                Flip.from(state, { duration:0.5, ease:"power3.out", absolute:true });
+                gsap.to(el, { boxShadow:"0 32px 80px rgba(26,23,20,0.25)", duration:0.4 });
               }}
               onMouseLeave={e => {
-                const el = e.currentTarget;
-                gsap.to(el, { scale:1, boxShadow:"0 1px 4px rgba(26,23,20,0.06)", borderColor:BORDER, duration:0.4, ease:"power2.out" });
-                gsap.to(el.querySelector("img"), { scale:1, duration:0.6, ease:"power2.out" });
+                const el = e.currentTarget as HTMLElement;
+                const state = Flip.getState(el);
+                // Restaurar posición original
+                el.style.position  = "";
+                el.style.zIndex    = "";
+                el.style.width     = "";
+                el.style.height    = "";
+                el.style.top       = "";
+                el.style.left      = "";
+                el.style.transform = "";
+                el.style.margin    = "";
+                Flip.from(state, { duration:0.5, ease:"power3.inOut", absolute:true });
+                gsap.to(el, { boxShadow:"0 1px 4px rgba(26,23,20,0.06)", duration:0.4 });
               }}
               style={{
                 cursor:"pointer",
