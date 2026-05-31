@@ -28,7 +28,7 @@ export default function WhatsAppButton() {
         .wa-btn:hover { transform: scale(1.08) !important; border-color: rgba(201,169,110,0.7) !important; }
       `}</style>
       <a
-        href={`https://wa.me/34676070508?text=${message}`}
+        href={`https://wa.me/34610589716?text=${message}`}
         target="_blank"
         rel="noopener noreferrer"
         className="wa-btn"
