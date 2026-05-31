@@ -220,7 +220,10 @@ const ManifestoFlow = React.forwardRef<HTMLDivElement, { locale: string }>(({ lo
             }}>
               {c.s3.carta}
             </p>
-            <FirmaEnrique width="clamp(120px,14vw,180px)" />
+            <>
+              <style>{`@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');`}</style>
+              <p style={{ fontFamily:"'Great Vibes', cursive", fontSize:"clamp(2rem,4vw,3.5rem)", color:WHITE, margin:"0 0 0.25rem", lineHeight:1, opacity:0.9, letterSpacing:"0.02em" }}>Enrique Cortés</p>
+            </>
             <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"clamp(0.38rem,0.5vw,0.48rem)", letterSpacing:"0.3em", textTransform:"uppercase", color:WHITE_DIM, margin:0, opacity:0.5 }}>
               Enrique Cortés · Fundador, The Edit Marbella
             </p>
