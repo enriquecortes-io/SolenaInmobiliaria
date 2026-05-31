@@ -346,20 +346,13 @@ export default function MasonrySection({ locale = "es" }: { locale?: string }) {
               onClick={() => setPreview(p)}
               onMouseEnter={e => {
                 const el = e.currentTarget as HTMLElement;
-                if (el.dataset.expanded === "1") return; // ya expandida, no reiniciar
+                if (el.dataset.expanded === "1") return;
                 el.dataset.expanded = "1";
-                el.style.position = "relative";
-                el.style.zIndex   = "9999";
-                // Medir ANTES de cualquier transform
-                gsap.set(el, { x:0, y:0, scale:1 });
-                const rect = el.getBoundingClientRect();
-                const dx = window.innerWidth  / 2 - (rect.left + rect.width  / 2);
-                const dy = window.innerHeight / 2 - (rect.top  + rect.height / 2);
+                el.style.zIndex = "9999";
                 gsap.to(el, {
-                  x: dx, y: dy,
-                  scale: 1.45,
-                  boxShadow: "0 40px 100px rgba(26,23,20,0.3)",
-                  duration: 0.45,
+                  scale: 1.06,
+                  boxShadow: "0 24px 64px rgba(26,23,20,0.22)",
+                  duration: 0.4,
                   ease: "power2.out",
                 });
               }}
@@ -367,15 +360,11 @@ export default function MasonrySection({ locale = "es" }: { locale?: string }) {
                 const el = e.currentTarget as HTMLElement;
                 el.dataset.expanded = "0";
                 gsap.to(el, {
-                  x: 0, y: 0,
                   scale: 1,
                   boxShadow: "0 1px 4px rgba(26,23,20,0.06)",
                   duration: 0.4,
                   ease: "power2.inOut",
-                  onComplete: () => {
-                    el.style.position = "";
-                    el.style.zIndex   = "";
-                  }
+                  onComplete: () => { el.style.zIndex = ""; }
                 });
               }}
               style={{
