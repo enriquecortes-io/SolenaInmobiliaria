@@ -49,6 +49,22 @@ export default function SkyHeader({ locale = "es" }: { locale?: string }) {
     };
   }, []);
 
+  // Sync con video — 6 escenas x 5s = 30s ciclo
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    const handleTime = () => {
+      const t = video.currentTime + 0.5;
+      const idx = Math.min(SCENES.length - 1, Math.floor(t / SCENE_DURATION_S));
+      setSceneIdx(prev => {
+        if (prev !== idx) setAnimKey(k => k + 1);
+        return idx;
+      });
+    };
+    video.addEventListener("timeupdate", handleTime);
+    return () => video.removeEventListener("timeupdate", handleTime);
+  }, [SCENES.length]);
+
   // Animación entrada inicial
   useEffect(() => {
     const ctx = gsap.context(() => {
