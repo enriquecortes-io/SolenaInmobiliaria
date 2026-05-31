@@ -53,22 +53,22 @@ export default function SkyHeader({ locale }: Props) {
 
   // ── GSAP entrada inicial ─────────────────────────────────────────
   useEffect(() => {
-    const ctx = gsap.context(() => {
+    try { const ctx = gsap.context(() => {
       const tl = gsap.timeline();
       if (wordRef.current)
         tl.fromTo(wordRef.current,
-          { autoAlpha:0, y:80, scaleY:2.5, scaleX:0.8, filter:"blur(28px)", transformOrigin:"bottom center" },
-          { autoAlpha:1, y:0,  scaleY:1,   scaleX:1,   filter:"blur(0px)",  duration:1.1, ease:"expo.out" },
+          { autoAlpha:0, y:80, scaleY:2.5, scaleX:0.8, transformOrigin:"bottom center" },
+          { autoAlpha:1, y:0,  scaleY:1,   scaleX:1,   duration:1.1, ease:"expo.out" },
           0.1
         );
       if (phraseRef.current)
         tl.fromTo(phraseRef.current,
-          { autoAlpha:0, x:-40, filter:"blur(8px)" },
-          { autoAlpha:1, x:0,   filter:"blur(0px)", duration:0.9, ease:"power4.out" },
+          { autoAlpha:0, x:-40 },
+          { autoAlpha:1, x:0, duration:0.9, ease:"power4.out" },
           0.8
         );
     });
-    return () => ctx.revert();
+    return () => ctx.revert(); } catch(e) { console.warn("GSAP entry:", e); }
   }, []);
 
   // ── GSAP transición entre escenas ────────────────────────────────
@@ -87,14 +87,14 @@ export default function SkyHeader({ locale }: Props) {
       // Entrada
       if (wordRef.current)
         tl.fromTo(wordRef.current,
-          { autoAlpha:0, y:80, scaleY:2.5, scaleX:0.8, filter:"blur(28px)", transformOrigin:"bottom center" },
-          { autoAlpha:1, y:0,  scaleY:1,   scaleX:1,   filter:"blur(0px)",  duration:1.0, ease:"expo.out" },
+          { autoAlpha:0, y:80, scaleY:2.5, scaleX:0.8, transformOrigin:"bottom center" },
+          { autoAlpha:1, y:0,  scaleY:1,   scaleX:1,   duration:1.0, ease:"expo.out" },
           0.3
         );
       if (phraseRef.current)
         tl.fromTo(phraseRef.current,
-          { autoAlpha:0, x:-40, filter:"blur(8px)" },
-          { autoAlpha:1, x:0,   filter:"blur(0px)", duration:0.8, ease:"power4.out" },
+          { autoAlpha:0, x:-40 },
+          { autoAlpha:1, x:0, duration:0.8, ease:"power4.out" },
           0.85
         );
     });
