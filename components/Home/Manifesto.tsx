@@ -197,11 +197,18 @@ const ManifestoFlow = React.forwardRef<HTMLDivElement, { locale: string }>(({ lo
       {/* ── S3 ── */}
       <div ref={refs.manifesto3} style={{ ...PAD, opacity:0, padding:"clamp(1rem,2vw,1.5rem) clamp(2rem,5vw,4rem) clamp(0.5rem,1vw,1rem)" }}>
 
-        {/* Layout 2 columnas: izquierda título+carta+firma, derecha foto */}
-        <div style={{ display:"grid", gridTemplateColumns:"1fr clamp(180px,28%,320px)", gap:"clamp(1.5rem,4vw,4rem)", alignItems:"start", height:"100%" }}>
+        <style>{`
+          @media (max-width:640px) {
+            .s3-wrap { display:flex !important; flex-direction:column !important; }
+            .s3-foto { order:1 !important; width:100% !important; max-height:260px !important; padding:0 !important; }
+            .s3-foto img { width:100% !important; max-height:260px !important; margin:0 !important; }
+            .s3-left { order:2 !important; }
+          }
+        `}</style>
+        <div className="s3-wrap" style={{ display:"grid", gridTemplateColumns:"1fr clamp(180px,28%,320px)", gap:"clamp(1.5rem,4vw,4rem)", alignItems:"start" }}>
 
           {/* Columna izquierda */}
-          <div style={{ display:"flex", flexDirection:"column", gap:"clamp(0.4rem,0.8vw,0.6rem)" }}>
+          <div className="s3-left" style={{ display:"flex", flexDirection:"column", gap:"clamp(0.4rem,0.8vw,0.6rem)" }}>
             <p data-anim="tag" style={TAG_S}>{c.s3.tag}</p>
             <hr data-anim="hr1" style={HR_S} />
             <div>
@@ -221,7 +228,7 @@ const ManifestoFlow = React.forwardRef<HTMLDivElement, { locale: string }>(({ lo
             }}>
               {c.s3.carta}
             </p>
-              <FirmaEnrique width="clamp(160px,20vw,280px)" />
+            <FirmaEnrique width="clamp(160px,20vw,280px)" />
             <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"clamp(0.38rem,0.5vw,0.48rem)", letterSpacing:"0.3em", textTransform:"uppercase", color:WHITE_DIM, margin:0, opacity:0.5 }}>
               Enrique Cortés · Fundador, The Edit Marbella
             </p>
