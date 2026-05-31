@@ -146,7 +146,6 @@ const ManifestoFlow = React.forwardRef<HTMLDivElement, { locale: string }>(({ lo
 
       {/* ── S1 ── */}
       <div ref={refs.manifesto1} style={{ ...PAD, opacity: 0 }}>
-        <p data-anim="tag" style={TAG_S}>{c.s1.tag}</p>
         <hr data-anim="hr1" style={HR_S} />
         <div>
           {c.s1.h.map((l: string, i: number) => (
@@ -170,8 +169,7 @@ const ManifestoFlow = React.forwardRef<HTMLDivElement, { locale: string }>(({ lo
       }}>
         {/* Columna izquierda: tag + hr + headline */}
         <div style={{ display:'flex', flexDirection:'column', gap:'clamp(0.4rem,1vw,0.6rem)' }}>
-          <p data-anim="tag" style={TAG_S}>{c.s2.tag}</p>
-          <hr data-anim="hr1" style={HR_S} />
+            <hr data-anim="hr1" style={HR_S} />
           <div>
             {c.s2.h.map((l: string, i: number) => (
               <LineReveal key={i}>
@@ -209,7 +207,6 @@ const ManifestoFlow = React.forwardRef<HTMLDivElement, { locale: string }>(({ lo
 
           {/* Columna izquierda */}
           <div className="s3-left" style={{ display:"flex", flexDirection:"column", gap:"clamp(0.4rem,0.8vw,0.6rem)" }}>
-            <p data-anim="tag" style={TAG_S}>{c.s3.tag}</p>
             <hr data-anim="hr1" style={HR_S} />
             <div>
               {c.s3.h.map((l: string, i: number) => (
