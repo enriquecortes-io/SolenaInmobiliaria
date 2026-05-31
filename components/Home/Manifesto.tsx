@@ -194,31 +194,50 @@ const ManifestoFlow = React.forwardRef<HTMLDivElement, { locale: string }>(({ lo
       </div>
 
       {/* ── S3 ── */}
-      <div ref={refs.manifesto3} style={{ ...PAD, opacity:0, padding:"clamp(1.5rem,3vw,2.5rem) clamp(2rem,5vw,4rem)" }}>
-        <p data-anim="tag" style={TAG_S}>{c.s3.tag}</p>
-        <hr data-anim="hr1" style={HR_S} />
-        <div>
-          {c.s3.h.map((l: string, i: number) => (
-            <LineReveal key={i}>
-              <h2 data-anim="line" style={{ ...H_S, color: i === 2 ? GOLD : WHITE }}>{l}</h2>
-            </LineReveal>
-          ))}
-        </div>
-        <hr data-anim="hr2" style={HR_S} />
-        <p data-anim="body" style={BODY_S}>{c.s3.body}</p>
+      <div ref={refs.manifesto3} style={{ ...PAD, opacity:0, padding:"clamp(1rem,2vw,1.5rem) clamp(2rem,5vw,4rem) clamp(0.5rem,1vw,1rem)" }}>
 
-        <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"clamp(2rem,5vw,4rem)", marginTop:"clamp(2rem,4vw,3rem)", alignItems:"start" }}>
-          <div>
-            <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(0.95rem,1.3vw,1.15rem)", color:WHITE_DIM, lineHeight:1.9, margin:"0 0 2rem", fontStyle:"italic" }}>
+        {/* Layout 2 columnas: izquierda título+carta+firma, derecha foto */}
+        <div style={{ display:"grid", gridTemplateColumns:"1fr clamp(180px,28%,320px)", gap:"clamp(1.5rem,4vw,4rem)", alignItems:"start", height:"100%" }}>
+
+          {/* Columna izquierda */}
+          <div style={{ display:"flex", flexDirection:"column", gap:"clamp(0.4rem,0.8vw,0.6rem)" }}>
+            <p data-anim="tag" style={TAG_S}>{c.s3.tag}</p>
+            <hr data-anim="hr1" style={HR_S} />
+            <div>
+              {c.s3.h.map((l: string, i: number) => (
+                <LineReveal key={i}>
+                  <h2 data-anim="line" style={{ ...H_S, color: i === 2 ? GOLD : WHITE }}>{l}</h2>
+                </LineReveal>
+              ))}
+            </div>
+            <hr data-anim="hr2" style={HR_S} />
+            <p style={{
+              fontFamily:"'Cormorant Garamond',serif",
+              fontSize:"clamp(0.85rem,1.1vw,1.05rem)",
+              color:WHITE_DIM, lineHeight:1.8,
+              margin:"0 0 clamp(0.8rem,1.5vw,1.2rem)",
+              fontStyle:"italic",
+            }}>
               {c.s3.carta}
             </p>
-            <img src="/firma-enrique.jpg" alt="Firma Enrique Cortés" style={{ width:"clamp(120px,15vw,180px)", filter:"invert(1) brightness(0.65)", opacity:0.8, display:"block", marginBottom:"0.5rem" }} />
-            <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"clamp(0.42rem,0.6vw,0.55rem)", letterSpacing:"0.3em", textTransform:"uppercase", color:WHITE_DIM, margin:0, opacity:0.6 }}>
+            <img
+              src="/firma-enrique.jpg"
+              alt="Firma Enrique Cortés"
+              style={{ width:"clamp(100px,12vw,160px)", filter:"invert(1) brightness(0.6)", opacity:0.8, display:"block", marginBottom:"0.4rem" }}
+            />
+            <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"clamp(0.38rem,0.5vw,0.48rem)", letterSpacing:"0.3em", textTransform:"uppercase", color:WHITE_DIM, margin:0, opacity:0.5 }}>
               Enrique Cortés · Fundador, The Edit Marbella
             </p>
           </div>
-          <div>
-            <img src="/enrique-cortes.jpg" alt="Enrique Cortés" style={{ width:"100%", maxWidth:"360px", aspectRatio:"3/4", objectFit:"cover", objectPosition:"top", filter:"grayscale(100%)", display:"block" }} />
+
+          {/* Columna derecha — foto */}
+          <div style={{ position:"relative", overflow:"hidden" }}>
+            <img
+              src="/enrique-cortes.jpg"
+              alt="Enrique Cortés"
+              style={{ width:"100%", height:"100%", maxHeight:"clamp(280px,55vh,480px)", objectFit:"cover", objectPosition:"center top", filter:"grayscale(100%)", display:"block" }}
+            />
+            <div style={{ position:"absolute", inset:0, background:"linear-gradient(to top, rgba(26,23,20,0.5) 0%, transparent 60%)" }}/>
           </div>
         </div>
       </div>
