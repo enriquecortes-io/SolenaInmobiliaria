@@ -86,11 +86,10 @@ function PropertyPreview({ property: p, locale, onClose }: PreviewProps) {
       padding:"clamp(1rem,3vw,2rem)",
       backdropFilter:"blur(8px)",
     }} onClick={onClose}>
-      <div style={{
+      <div className="modal-inner" style={{
         width:"100%", maxWidth:"1100px", maxHeight:"90vh",
         background:BG,
         border:`1px solid ${BORDER}`,
-        className:"modal-inner",
         display:"grid",
         gridTemplateColumns:"clamp(0px,50vw,560px) 1fr",
         gridTemplateRows:"auto",
