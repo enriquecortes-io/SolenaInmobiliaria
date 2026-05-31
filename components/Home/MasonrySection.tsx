@@ -1,4 +1,6 @@
 "use client";
+import { useEffect, useRef } from "react";
+import { gsap } from "gsap";
 import { useState, useEffect } from "react";
 import { convertGDriveUrl } from "@/lib/gdrive";
 import NeonButton from "@/components/ui/NeonButton";
@@ -342,14 +344,22 @@ export default function MasonrySection({ locale = "es" }: { locale?: string }) {
             <div
               key={p.slug}
               onClick={() => setPreview(p)}
-              onMouseEnter={() => setHoveredCard(p.slug)}
-              onMouseLeave={() => setHoveredCard(null)}
+              onMouseEnter={e => {
+                const el = e.currentTarget;
+                gsap.to(el, { scale:1.02, boxShadow:"0 16px 48px rgba(45,74,62,0.18)", borderColor:ACCENT, duration:0.4, ease:"power2.out" });
+                gsap.to(el.querySelector("img"), { scale:1.06, duration:0.6, ease:"power2.out" });
+              }}
+              onMouseLeave={e => {
+                const el = e.currentTarget;
+                gsap.to(el, { scale:1, boxShadow:"0 1px 4px rgba(26,23,20,0.06)", borderColor:BORDER, duration:0.4, ease:"power2.out" });
+                gsap.to(el.querySelector("img"), { scale:1, duration:0.6, ease:"power2.out" });
+              }}
               style={{
                 cursor:"pointer",
                 background:"#FFFFFF",
-                border:`1px solid ${isHovered ? ACCENT : BORDER}`,
+                border:`1px solid ${BORDER}`,
                 transition:"border-color 0.3s, box-shadow 0.3s",
-                boxShadow: isHovered ? `0 8px 32px rgba(45,74,62,0.1)` : `0 1px 4px rgba(26,23,20,0.06)`,
+                boxShadow:`0 1px 4px rgba(26,23,20,0.06)`,
                 overflow:"hidden",
               }}
             >
@@ -358,8 +368,8 @@ export default function MasonrySection({ locale = "es" }: { locale?: string }) {
                 {img ? (
                   <img src={img} alt={title} style={{
                     width:"100%", height:"100%", objectFit:"cover", display:"block",
-                    transform: isHovered ? "scale(1.04)" : "scale(1)",
-                    transition:"transform 0.6s ease",
+                    transform:"scale(1)",
+                    
                   }}/>
                 ) : (
                   <div style={{ width:"100%", height:"220px", background:BG_SOFT }}/>
