@@ -32,7 +32,7 @@ const CONTENT: Record<string, any> = {
 
 // Estilos
 const TAG_S: React.CSSProperties = { fontFamily:"'Montserrat',sans-serif", fontSize:'0.65rem', fontWeight:600, letterSpacing:'0.3em', textTransform:'uppercase', color:GOLD_DIM, margin:0 };
-const HR_S: React.CSSProperties = { border:'none', borderTop:'1px solid #DDD8D0', margin:'clamp(0.5rem,1.2vw,0.8rem) 0' };
+const HR_S: React.CSSProperties = { border:'none', borderTop:'1px solid #DDD8D0', margin:'clamp(0.3rem,0.8vw,0.5rem) 0' };
 const H_S: React.CSSProperties = { fontFamily:"'Cormorant Garamond',serif", fontSize:'clamp(2rem,7vw,8rem)', fontWeight:600, lineHeight:0.88, textTransform:'uppercase', color:WHITE, margin:0 };
 const BODY_S: React.CSSProperties = { fontFamily:"'Cormorant Garamond',serif", fontSize:'clamp(1.1rem,2vw,1.4rem)', fontWeight:300, lineHeight:1.8, color:WHITE_DIM, maxWidth:'52ch', margin:0 };
 
@@ -134,7 +134,7 @@ const ManifestoFlow = React.forwardRef<HTMLDivElement, { locale: string }>(({ lo
     position: 'absolute', inset: 0,
     display: 'flex', flexDirection: 'column',
     justifyContent: 'flex-start',
-    gap: 'clamp(0.6rem,1.5vw,1rem)',
+    gap: 'clamp(0.3rem,0.8vw,0.6rem)',
     padding: 'clamp(4rem,8vw,5rem) clamp(2rem,5vw,4rem) clamp(1.5rem,3vw,2rem)',
     boxSizing: 'border-box',
     transformOrigin: 'bottom left',
@@ -194,7 +194,7 @@ const ManifestoFlow = React.forwardRef<HTMLDivElement, { locale: string }>(({ lo
       </div>
 
       {/* ── S3 ── */}
-      <div ref={refs.manifesto3} style={{ ...PAD, opacity: 0 }}>
+      <div ref={refs.manifesto3} style={{ ...PAD, opacity:0, padding:"clamp(1.5rem,3vw,2.5rem) clamp(2rem,5vw,4rem)" }}>
         <p data-anim="tag" style={TAG_S}>{c.s3.tag}</p>
         <hr data-anim="hr1" style={HR_S} />
         <div>
