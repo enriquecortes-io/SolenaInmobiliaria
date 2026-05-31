@@ -171,7 +171,7 @@ const ManifestoFlow = React.forwardRef<HTMLDivElement, { locale: string }>(({ lo
         display: 'grid',
         gridTemplateColumns: '1fr 1fr',
         gap: '0 clamp(2rem,4vw,4rem)',
-        alignItems: 'center',
+        alignItems: 'start',
         opacity: 0,
       }}>
         {/* Columna izquierda: tag + hr + headline */}
