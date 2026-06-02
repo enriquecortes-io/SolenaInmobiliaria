@@ -88,23 +88,28 @@ function PropertyPreview({ property: p, locale, onClose }: PreviewProps) {
   }, [onClose]);
 
   return (
+  return (
     <div style={{
       position:"fixed", inset:0, zIndex:100,
       background:"rgba(26,23,20,0.7)",
-      display:"flex", alignItems:"center", justifyContent:"center",
-      padding:"clamp(1rem,3vw,2rem)",
+      display:"flex",
+      alignItems: isMobile ? "flex-end" : "center",
+      justifyContent:"center",
+      padding: isMobile ? "0" : "clamp(1rem,3vw,2rem)",
       backdropFilter:"blur(8px)",
     }} onClick={onClose}>
-      <div className="modal-inner" style={{
-        width:"75vw", height:"75vh",
+      <div style={{
+        width: isMobile ? "100vw" : "75vw",
+        height: isMobile ? "90vh" : "75vh",
         background:BG,
         border:`1px solid ${BORDER}`,
         display:"grid",
-        gridTemplateColumns:"1fr 1fr",
+        gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
+        gridTemplateRows: isMobile ? "48vw 1fr" : "auto",
         overflow:"hidden", position:"relative",
+        borderRadius: isMobile ? "16px 16px 0 0" : "0",
         boxShadow:"0 32px 80px rgba(26,23,20,0.2)",
       }} onClick={e => e.stopPropagation()}>
-      
         {/* Close */}
         <button onClick={onClose} style={{
           position:"absolute", top:"0.75rem", right:"0.75rem", zIndex:10,
