@@ -398,7 +398,7 @@ export default function MasonrySection({ locale = "es" }: { locale?: string }) {
                 transition:"border-color 0.3s, box-shadow 0.3s",
                 boxShadow:`0 1px 4px rgba(26,23,20,0.06)`,
                 overflow:"visible",
-                
+                display:"flex", flexDirection:"column",
               }}
             >
               {/* Imagen */}
@@ -427,42 +427,47 @@ export default function MasonrySection({ locale = "es" }: { locale?: string }) {
                 )}
               </div>
 
-              {/* Info — fuera de la imagen, fondo blanco */}
-              <div style={{ padding:"0.5rem 0.6rem 0.7rem", background:BG }}>
-                {/* Título */}
-                <h3 style={{
-                  fontFamily:"'Cormorant Garamond',serif",
-                  fontSize:"1.1rem", fontWeight:600,
-                  letterSpacing:"0.02em",
-                  color:TEXT, margin:"0 0 0.2rem", lineHeight:1.2,
-                }}>
-                  {title}
-                </h3>
-                {/* Ubicación */}
-                <p style={{
-                  fontFamily:"'Montserrat',sans-serif",
-                  fontSize:"0.42rem", letterSpacing:"0.12em",
-                  color:MUTED, margin:"0 0 0.5rem", fontWeight:300,
-                  textTransform:"uppercase",
-                }}>
-                  {p.ubicacion}
-                </p>
-                {/* Precio */}
-                <p style={{
-                  fontFamily:"'Cormorant Garamond',serif",
-                  fontSize:"1.2rem", fontWeight:500,
-                  color:ACCENT, margin:"0 0 0.35rem", lineHeight:1,
-                }}>
-                  €{p.precio?.toLocaleString()}
-                </p>
-                {/* Stats */}
-                {(p.m2_construidos > 0 || p.habitaciones > 0) && (
-                  <div style={{ display:"flex", gap:"0.8rem", borderTop:`1px solid ${BORDER}`, paddingTop:"0.4rem", marginTop:"0.4rem" }}>
-                    {p.m2_construidos > 0 && <span style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.42rem", letterSpacing:"0.1em", color:MUTED }}>{p.m2_construidos} m²</span>}
-                    {p.habitaciones > 0 && <span style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.42rem", letterSpacing:"0.1em", color:MUTED }}>{p.habitaciones} {t.bedrooms}</span>}
-                    {p.banos > 0 && <span style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.42rem", letterSpacing:"0.1em", color:MUTED }}>{p.banos} {t.bathrooms}</span>}
-                  </div>
-                )}
+              {/* Info — anclada al fondo del card */}
+              <div style={{
+                padding:"0.5rem 0.6rem 0.7rem", background:BG,
+                display:"flex", flexDirection:"column", flex:1,
+              }}>
+                {/* Título + Ubicación — crecen para empujar precio/stats abajo */}
+                <div style={{ flex:1 }}>
+                  <h3 style={{
+                    fontFamily:"'Cormorant Garamond',serif",
+                    fontSize:"1.1rem", fontWeight:600,
+                    letterSpacing:"0.02em",
+                    color:TEXT, margin:"0 0 0.2rem", lineHeight:1.2,
+                  }}>
+                    {title}
+                  </h3>
+                  <p style={{
+                    fontFamily:"'Montserrat',sans-serif",
+                    fontSize:"0.42rem", letterSpacing:"0.12em",
+                    color:MUTED, margin:0, fontWeight:300,
+                    textTransform:"uppercase",
+                  }}>
+                    {p.ubicacion}
+                  </p>
+                </div>
+                {/* Precio + Stats — siempre al fondo */}
+                <div style={{ marginTop:"0.5rem" }}>
+                  <p style={{
+                    fontFamily:"'Cormorant Garamond',serif",
+                    fontSize:"1.2rem", fontWeight:500,
+                    color:ACCENT, margin:"0 0 0.35rem", lineHeight:1,
+                  }}>
+                    €{p.precio?.toLocaleString()}
+                  </p>
+                  {(p.m2_construidos > 0 || p.habitaciones > 0) && (
+                    <div style={{ display:"flex", gap:"0.8rem", borderTop:`1px solid ${BORDER}`, paddingTop:"0.4rem" }}>
+                      {p.m2_construidos > 0 && <span style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.42rem", letterSpacing:"0.1em", color:MUTED }}>{p.m2_construidos} m²</span>}
+                      {p.habitaciones > 0 && <span style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.42rem", letterSpacing:"0.1em", color:MUTED }}>{p.habitaciones} {t.bedrooms}</span>}
+                      {p.banos > 0 && <span style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.42rem", letterSpacing:"0.1em", color:MUTED }}>{p.banos} {t.bathrooms}</span>}
+                    </div>
+                  )}
+                </div>
               </div>
             </div>
           );
