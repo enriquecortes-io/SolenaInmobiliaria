@@ -1,7 +1,7 @@
 import { Metadata } from "next";
 import { createClient } from "@supabase/supabase-js";
 import { notFound } from "next/navigation";
-import PropertyPage from "@/components/Property/PropertyPage";
+import PropertyExperience from "@/components/Experience/PropertyExperience";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
@@ -50,5 +50,5 @@ export default async function Page({ params }: Props) {
 
   if (!property) notFound();
 
-  return <PropertyPage property={property} locale={locale} />;
+  return <PropertyExperience property={property} locale={locale} />;
 }
