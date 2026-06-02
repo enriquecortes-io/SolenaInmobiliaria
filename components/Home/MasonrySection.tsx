@@ -242,9 +242,10 @@ export default function MasonrySection({ locale = "es" }: { locale?: string }) {
         borderBottom:`1px solid ${BORDER}`,
         background:BG,
       }}>
-        {/* THE EDITS + Filtros — misma fila */}
-        <div style={{ display:"flex", alignItems:"center", gap:"0", flexWrap:"wrap", marginBottom:"0", paddingBottom:"0" }}>
+        {/* THE EDITS + Filtros */}
+        <div style={{ display:"flex", flexDirection:"column", gap:"0.6rem", marginBottom:"0", paddingBottom:"0" }}>
 
+          {/* Label centrado en móvil, izquierda en desktop */}
           <span style={{
             fontFamily:"'Montserrat',sans-serif",
             fontSize:"0.85rem",
@@ -253,11 +254,16 @@ export default function MasonrySection({ locale = "es" }: { locale?: string }) {
             color:ACCENT,
             whiteSpace:"nowrap",
             flexShrink:0,
-            paddingRight:"1.8rem",
+            textAlign:"center",
+            display:"block",
+            paddingTop:"clamp(0.8rem,2vw,1.2rem)",
             textShadow:`0 0 20px rgba(45,74,62,0.2)`,
           }}>
             THE EDITS · {filtered.length}
           </span>
+
+          {/* Filtros en fila ordenada */}
+          <div style={{ display:"flex", alignItems:"center", justifyContent:"center", gap:"0", flexWrap:"wrap" }}>
           {FILTERS_DEF.map((f, idx) => {
             const active = !!filters[f.id];
             return (
@@ -339,6 +345,7 @@ export default function MasonrySection({ locale = "es" }: { locale?: string }) {
               Limpiar ×
             </button>
           )}
+          </div>
         </div>
       </div>
 
