@@ -87,19 +87,18 @@ function PropertyPreview({ property: p, locale, onClose }: PreviewProps) {
       backdropFilter:"blur(8px)",
     }} onClick={onClose}>
       <div className="modal-inner" style={{
-        width:"100%", maxWidth:"1100px", maxHeight:"90vh",
+        width:"75vw", height:"75vh",
         background:BG,
         border:`1px solid ${BORDER}`,
         display:"grid",
-        gridTemplateColumns:"clamp(0px,50vw,560px) 1fr",
-        gridTemplateRows:"auto",
+        gridTemplateColumns:"1fr 1fr",
         overflow:"hidden", position:"relative",
         boxShadow:"0 32px 80px rgba(26,23,20,0.2)",
       }} onClick={e => e.stopPropagation()}>
       <style>{`
         @media (max-width: 640px) {
-          .modal-inner { grid-template-columns: 1fr !important; grid-template-rows: 260px 1fr !important; max-height: 92vh !important; }
-          .modal-img   { height: 260px !important; min-height: unset !important; }
+          .modal-inner { grid-template-columns: 1fr !important; grid-template-rows: 40vw 1fr !important; width:92vw !important; height:85vh !important; }
+          .modal-img   { height: 40vw !important; min-height: unset !important; }
           .modal-info  { overflow-y: auto !important; }
         }
       `}</style>
@@ -113,7 +112,7 @@ function PropertyPreview({ property: p, locale, onClose }: PreviewProps) {
         }}>✕</button>
 
         {/* Imagen */}
-        <div className="modal-img" style={{ position:"relative", overflow:"hidden", minHeight:"420px" }}>
+        <div className="modal-img" style={{ position:"relative", overflow:"hidden", height:"100%" }}>
           {imgs[imgIdx] && (
             <img src={imgs[imgIdx]} alt={title}
               style={{ width:"100%", height:"100%", objectFit:"cover", display:"block" }}/>
@@ -143,13 +142,13 @@ function PropertyPreview({ property: p, locale, onClose }: PreviewProps) {
           display:"flex", flexDirection:"column", gap:"1rem",
           overflowY:"auto", background:BG,
         }}>
-          <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.55rem", letterSpacing:"0.35em", textTransform:"uppercase", color:ACCENT, margin:0 }}>
+          <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.65rem", letterSpacing:"0.35em", textTransform:"uppercase", color:ACCENT, margin:0 }}>
             {p.ubicacion}
           </p>
-          <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1.6rem,3vw,2.4rem)", fontWeight:600, color:TEXT, margin:0, lineHeight:1.1 }}>
+          <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(2rem,3.5vw,3rem)", fontWeight:600, color:TEXT, margin:0, lineHeight:1.1 }}>
             {title}
           </h2>
-          <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(0.95rem,1.4vw,1.1rem)", color:TEXT2, lineHeight:1.7, margin:0 }}>
+          <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1.05rem,1.5vw,1.25rem)", color:TEXT2, lineHeight:1.8, margin:0 }}>
             {desc}
           </p>
           <hr style={{ border:"none", borderTop:`1px solid ${BORDER}`, margin:"0.25rem 0" }}/>
@@ -161,8 +160,8 @@ function PropertyPreview({ property: p, locale, onClose }: PreviewProps) {
               { l:t.price, v:`€${p.precio?.toLocaleString()}` },
             ].map(s => (
               <div key={s.l}>
-                <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.45rem", letterSpacing:"0.3em", textTransform:"uppercase", color:MUTED, margin:"0 0 0.2rem" }}>{s.l}</p>
-                <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1.15rem", color:TEXT, margin:0, fontWeight:500 }}>{s.v}</p>
+                <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.55rem", letterSpacing:"0.3em", textTransform:"uppercase", color:MUTED, margin:"0 0 0.3rem" }}>{s.l}</p>
+                <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1.5rem", color:TEXT, margin:0, fontWeight:500 }}>{s.v}</p>
               </div>
             ))}
           </div>
