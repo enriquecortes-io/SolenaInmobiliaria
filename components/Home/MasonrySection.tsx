@@ -68,7 +68,15 @@ interface PreviewProps { property: Property; locale: string; onClose: () => void
 
 function PropertyPreview({ property: p, locale, onClose }: PreviewProps) {
   const [imgIdx, setImgIdx] = useState(0);
+  const [isMobile, setIsMobile] = useState(false);
   const t = T[locale] || T.es;
+
+  useEffect(() => {
+    const check = () => setIsMobile(window.innerWidth < 768);
+    check();
+    window.addEventListener("resize", check);
+    return () => window.removeEventListener("resize", check);
+  }, []);
   const title = getTitle(p, locale);
   const desc = getDesc(p, locale);
   const imgs = (p.galeria_urls || []).map(url => convertGDriveUrl(url));
