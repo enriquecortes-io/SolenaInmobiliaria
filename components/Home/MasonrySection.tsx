@@ -98,9 +98,15 @@ function PropertyPreview({ property: p, locale, onClose }: PreviewProps) {
       }} onClick={e => e.stopPropagation()}>
       <style>{`
         @media (max-width: 640px) {
-          .modal-inner { grid-template-columns: 1fr !important; grid-template-rows: 40vw 1fr !important; width:92vw !important; height:85vh !important; }
-          .modal-img   { height: 40vw !important; min-height: unset !important; }
-          .modal-info  { overflow-y: auto !important; }
+          .modal-inner {
+            grid-template-columns: 1fr !important;
+            grid-template-rows: 45vw 1fr !important;
+            width: 96vw !important;
+            height: 88vh !important;
+            max-height: 88vh !important;
+          }
+          .modal-img { height: 45vw !important; min-height: unset !important; flex-shrink: 0; }
+          .modal-info { overflow-y: auto !important; flex: 1; min-height: 0; }
         }
       `}</style>
 
@@ -139,9 +145,9 @@ function PropertyPreview({ property: p, locale, onClose }: PreviewProps) {
 
         {/* Info */}
         <div className="modal-info" style={{
-          padding:"clamp(1.5rem,3vw,2.5rem)",
-          display:"flex", flexDirection:"column", gap:"1rem",
-          overflowY:"auto", background:BG,
+          padding:"clamp(1.2rem,3vw,2.5rem)",
+          display:"flex", flexDirection:"column", gap:"0.8rem",
+          overflowY:"auto", background:BG, flex:1, minHeight:0,
         }}>
           <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.65rem", letterSpacing:"0.35em", textTransform:"uppercase", color:ACCENT, margin:0 }}>
             {p.ubicacion}
