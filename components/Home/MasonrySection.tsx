@@ -94,7 +94,7 @@ function PropertyPreview({ property: p, locale, onClose }: PreviewProps) {
       display:"flex",
       alignItems: isMobile ? "flex-end" : "center",
       justifyContent:"center",
-      padding: isMobile ? "0" : "clamp(1rem,3vw,2rem)",
+      padding: isMobile ? "5rem 0 0 0" : "clamp(1rem,3vw,2rem)",
       backdropFilter:"blur(8px)",
     }} onClick={onClose}>
       <div style={{
