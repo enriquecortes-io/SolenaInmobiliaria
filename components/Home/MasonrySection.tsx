@@ -242,22 +242,22 @@ export default function MasonrySection({ locale = "es" }: { locale?: string }) {
         borderBottom:`1px solid ${BORDER}`,
         background:BG,
       }}>
-        {/* THE EDITS */}
-        <p style={{
-          fontFamily:"'Montserrat',sans-serif",
-          fontSize:"0.85rem",
-          letterSpacing:"0.5em",
-          textTransform:"uppercase",
-          color:ACCENT,
-          margin:"0 0 1rem",
-          paddingTop:"clamp(1rem,3vw,1.5rem)",
-          textShadow:`0 0 20px rgba(45,74,62,0.2)`,
-        }}>
-          THE EDITS · {filtered.length}
-        </p>
-
-        {/* Filtros */}
+        {/* THE EDITS + Filtros — misma fila */}
         <div style={{ display:"flex", alignItems:"center", gap:"0", flexWrap:"wrap", marginBottom:"0", paddingBottom:"0" }}>
+
+          <span style={{
+            fontFamily:"'Montserrat',sans-serif",
+            fontSize:"0.85rem",
+            letterSpacing:"0.5em",
+            textTransform:"uppercase",
+            color:ACCENT,
+            whiteSpace:"nowrap",
+            flexShrink:0,
+            paddingRight:"1.8rem",
+            textShadow:`0 0 20px rgba(45,74,62,0.2)`,
+          }}>
+            THE EDITS · {filtered.length}
+          </span>
           {FILTERS_DEF.map((f, idx) => {
             const active = !!filters[f.id];
             return (
