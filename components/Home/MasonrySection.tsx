@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect, useRef } from "react";
+import { createPortal } from "react-dom";
 import { gsap } from "gsap";
 import { convertGDriveUrl } from "@/lib/gdrive";
 import NeonButton from "@/components/ui/NeonButton";
@@ -459,7 +460,10 @@ export default function MasonrySection({ locale = "es" }: { locale?: string }) {
         )}
       </div>
 
-      {preview && <PropertyPreview property={preview} locale={locale} onClose={() => setPreview(null)} />}
+      {preview && typeof document !== "undefined" && createPortal(
+        <PropertyPreview property={preview} locale={locale} onClose={() => setPreview(null)} />,
+        document.body
+      )}
     </div>
   );
 }
