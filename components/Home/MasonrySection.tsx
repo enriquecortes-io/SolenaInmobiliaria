@@ -96,33 +96,19 @@ function PropertyPreview({ property: p, locale, onClose }: PreviewProps) {
         overflow:"hidden", position:"relative",
         boxShadow:"0 32px 80px rgba(26,23,20,0.2)",
       }} onClick={e => e.stopPropagation()}>
-      <style>{`
-        @media (max-width: 768px) {
-          .modal-backdrop { padding: 0 !important; align-items: flex-end !important; }
-          .modal-inner {
-            grid-template-columns: 1fr !important;
-            grid-template-rows: 50vw 1fr !important;
-            width: 100vw !important;
-            height: 92vh !important;
-            max-height: 92vh !important;
-            border-radius: 12px 12px 0 0 !important;
-          }
-          .modal-img { height: 50vw !important; min-height: unset !important; flex-shrink: 0; }
-          .modal-info { overflow-y: auto !important; flex: 1 !important; min-height: 0 !important; padding: 1.2rem !important; }
-          .modal-close { top: 0.6rem !important; right: 0.8rem !important; font-size: 1.4rem !important; background: rgba(250,248,244,0.95) !important; border-radius: 50% !important; width: 2.2rem !important; height: 2.2rem !important; display: flex !important; align-items: center !important; justify-content: center !important; }
-        }
-      `}</style>
-
+      
         {/* Close */}
-        <button className="modal-close" onClick={onClose} style={{
-          position:"absolute", top:"1rem", right:"1rem", zIndex:10,
-          background:"none", border:"none", cursor:"pointer",
-          color:MUTED, fontSize:"1rem", lineHeight:1,
-          fontFamily:"'Montserrat',sans-serif", letterSpacing:"0.1em",
+        <button onClick={onClose} style={{
+          position:"absolute", top:"0.75rem", right:"0.75rem", zIndex:10,
+          background:"rgba(250,248,244,0.95)", border:"none", cursor:"pointer",
+          color:TEXT, fontSize:"1rem", lineHeight:1,
+          width:"2.2rem", height:"2.2rem", borderRadius:"50%",
+          display:"flex", alignItems:"center", justifyContent:"center",
+          boxShadow:"0 2px 8px rgba(26,23,20,0.15)",
         }}>✕</button>
 
         {/* Imagen */}
-        <div className="modal-img" style={{ position:"relative", overflow:"hidden", height:"100%" }}>
+        <div style={{ position:"relative", overflow:"hidden", height:"100%" }}>
           {imgs[imgIdx] && (
             <img src={imgs[imgIdx]} alt={title}
               style={{ width:"100%", height:"100%", objectFit:"cover", display:"block" }}/>
@@ -147,8 +133,8 @@ function PropertyPreview({ property: p, locale, onClose }: PreviewProps) {
         </div>
 
         {/* Info */}
-        <div className="modal-info" style={{
-          padding:"clamp(1.2rem,3vw,2.5rem)",
+        <div style={{
+          padding:"clamp(1rem,3vw,2rem)",
           display:"flex", flexDirection:"column", gap:"0.8rem",
           overflowY:"auto", background:BG, flex:1, minHeight:0,
         }}>
