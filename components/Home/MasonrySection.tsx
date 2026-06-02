@@ -88,7 +88,6 @@ function PropertyPreview({ property: p, locale, onClose }: PreviewProps) {
   }, [onClose]);
 
   return (
-  return (
     <div style={{
       position:"fixed", inset:0, zIndex:100,
       background:"rgba(26,23,20,0.7)",
