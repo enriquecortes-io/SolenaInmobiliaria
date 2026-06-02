@@ -163,7 +163,14 @@ export default function SkyHeader({ locale }: Props) {
                  "CONDUIRE": ["CON","DUIRE"],
                };
                const parts = breaks[scene?.word || ""];
-               if (parts) return <>{parts.map((p,i)=><span key={i} style={{display:"block"}}>{p}</span>)}</>;
+               if (parts) return <>{parts.map((p,i)=>(
+                 <span key={i} style={{display:"block"}}>
+                   {p}
+                   {scene?.word === "MARBELLA" && i === parts.length - 1 && (
+                     <span style={{ marginLeft:"0.15em", fontSize:"0.75em", verticalAlign:"middle", display:"inline-block" }}>♥</span>
+                   )}
+                 </span>
+               ))}</>;
                return <>{scene?.word}</>;
              })()}
            </h1>
