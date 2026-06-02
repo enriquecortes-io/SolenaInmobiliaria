@@ -1,23 +1,29 @@
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
+import bcrypt from "bcryptjs";
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 );
 
+async function verifySuperadmin(password: string): Promise<boolean> {
+  const { data: users } = await supabase.from("admin_users").select("password, role");
+  if (!users?.length) return false;
+  for (const u of users) {
+    if (await bcrypt.compare(password, u.password) && u.role === "superadmin") return true;
+  }
+  return false;
+}
+
 export async function POST(req: NextRequest) {
   try {
     const { password, action, user } = await req.json();
+    if (!password || typeof password !== "string") {
+      return NextResponse.json({ error: "No autorizado" }, { status: 401 });
+    }
 
-    // Verificar que el que llama es superadmin
-    const { data: caller } = await supabase
-      .from("admin_users")
-      .select("role")
-      .eq("password", password)
-      .single();
-
-    if (!caller || caller.role !== "superadmin") {
+    if (!await verifySuperadmin(password)) {
       return NextResponse.json({ error: "No autorizado" }, { status: 401 });
     }
 
@@ -27,13 +33,17 @@ export async function POST(req: NextRequest) {
     }
 
     if (action === "create") {
-      const { data, error } = await supabase.from("admin_users").insert(user).select().single();
+      if (!user?.password) return NextResponse.json({ error: "Password requerido" }, { status: 400 });
+      const hashed = await bcrypt.hash(user.password, 12);
+      const { data, error } = await supabase.from("admin_users").insert({ ...user, password: hashed }).select("id,name,role,created_at").single();
       if (error) throw error;
       return NextResponse.json({ ok: true, user: data });
     }
 
     if (action === "update") {
-      const { data, error } = await supabase.from("admin_users").update(user).eq("id", user.id).select().single();
+      const updates = { ...user };
+      if (updates.password) updates.password = await bcrypt.hash(updates.password, 12);
+      const { data, error } = await supabase.from("admin_users").update(updates).eq("id", user.id).select("id,name,role,created_at").single();
       if (error) throw error;
       return NextResponse.json({ ok: true, user: data });
     }
@@ -44,7 +54,7 @@ export async function POST(req: NextRequest) {
     }
 
     return NextResponse.json({ error: "Acción desconocida" }, { status: 400 });
-  } catch (e: any) {
-    return NextResponse.json({ error: e.message }, { status: 500 });
+  } catch {
+    return NextResponse.json({ error: "Error interno" }, { status: 500 });
   }
 }
