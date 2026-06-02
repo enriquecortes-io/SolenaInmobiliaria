@@ -94,19 +94,21 @@ function PropertyPreview({ property: p, locale, onClose }: PreviewProps) {
       display:"flex",
       alignItems: isMobile ? "flex-end" : "center",
       justifyContent:"center",
-      padding: isMobile ? "5rem 0 0 0" : "clamp(1rem,3vw,2rem)",
+      padding: isMobile ? "0" : "clamp(1rem,3vw,2rem)",
+      paddingTop: isMobile ? "env(safe-area-inset-top, 0px)" : undefined,
       backdropFilter:"blur(8px)",
     }} onClick={onClose}>
       <div style={{
         width: isMobile ? "100vw" : "75vw",
-        height: isMobile ? "90vh" : "75vh",
+        height: isMobile ? "calc(100dvh - 4rem)" : "75vh",
+        marginTop: isMobile ? "4rem" : "0",
         background:BG,
         border:`1px solid ${BORDER}`,
         display:"grid",
         gridTemplateColumns: isMobile ? "1fr" : "1fr 1fr",
         gridTemplateRows: isMobile ? "48vw 1fr" : "auto",
         overflow:"hidden", position:"relative",
-        borderRadius: isMobile ? "16px 16px 0 0" : "0",
+        borderRadius: isMobile ? "0" : "0",
         boxShadow:"0 32px 80px rgba(26,23,20,0.2)",
       }} onClick={e => e.stopPropagation()}>
         {/* Close */}
