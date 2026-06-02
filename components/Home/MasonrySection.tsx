@@ -385,7 +385,7 @@ export default function MasonrySection({ locale = "es" }: { locale?: string }) {
               }}
               style={{
                 cursor:"pointer",
-                background:"#FFFFFF",
+                background:BG,
                 border:`1px solid ${BORDER}`,
                 transition:"border-color 0.3s, box-shadow 0.3s",
                 boxShadow:`0 1px 4px rgba(26,23,20,0.06)`,
@@ -407,12 +407,12 @@ export default function MasonrySection({ locale = "es" }: { locale?: string }) {
                 {p.tipo && (
                   <div style={{
                     position:"absolute", top:"0.6rem", left:"0.6rem",
-                    background:"rgba(250,248,244,0.95)",
-                    padding:"0.2rem 0.5rem",
+                    background:ACCENT,
+                    padding:"0.25rem 0.6rem",
                     fontFamily:"'Montserrat',sans-serif",
-                    fontSize:"0.38rem", letterSpacing:"0.2em",
-                    textTransform:"uppercase", color:ACCENT,
-                    fontWeight:600,
+                    fontSize:"0.35rem", letterSpacing:"0.2em",
+                    textTransform:"uppercase", color:"#FAF8F4",
+                    fontWeight:500,
                   }}>
                     {p.tipo}
                   </div>
@@ -420,29 +420,30 @@ export default function MasonrySection({ locale = "es" }: { locale?: string }) {
               </div>
 
               {/* Info — fuera de la imagen, fondo blanco */}
-              <div style={{ padding:"0.5rem 0.6rem 0.7rem", background:"#FFFFFF" }}>
+              <div style={{ padding:"0.5rem 0.6rem 0.7rem", background:BG }}>
                 {/* Título */}
                 <h3 style={{
-                  fontFamily:"'Montserrat',sans-serif",
-                  fontSize:"0.65rem", fontWeight:600,
-                  letterSpacing:"0.08em", textTransform:"uppercase",
-                  color:TEXT, margin:"0 0 0.3rem", lineHeight:1.3,
+                  fontFamily:"'Cormorant Garamond',serif",
+                  fontSize:"1.1rem", fontWeight:600,
+                  letterSpacing:"0.02em",
+                  color:TEXT, margin:"0 0 0.2rem", lineHeight:1.2,
                 }}>
                   {title}
                 </h3>
                 {/* Ubicación */}
                 <p style={{
                   fontFamily:"'Montserrat',sans-serif",
-                  fontSize:"0.55rem", letterSpacing:"0.05em",
-                  color:TEXT2, margin:"0 0 0.6rem", fontWeight:300,
+                  fontSize:"0.42rem", letterSpacing:"0.12em",
+                  color:MUTED, margin:"0 0 0.5rem", fontWeight:300,
+                  textTransform:"uppercase",
                 }}>
                   {p.ubicacion}
                 </p>
                 {/* Precio */}
                 <p style={{
                   fontFamily:"'Cormorant Garamond',serif",
-                  fontSize:"1.3rem", fontWeight:700,
-                  color:TEXT, margin:"0 0 0.4rem", lineHeight:1,
+                  fontSize:"1.2rem", fontWeight:500,
+                  color:ACCENT, margin:"0 0 0.35rem", lineHeight:1,
                 }}>
                   €{p.precio?.toLocaleString()}
                 </p>
