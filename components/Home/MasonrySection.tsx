@@ -97,21 +97,24 @@ function PropertyPreview({ property: p, locale, onClose }: PreviewProps) {
         boxShadow:"0 32px 80px rgba(26,23,20,0.2)",
       }} onClick={e => e.stopPropagation()}>
       <style>{`
-        @media (max-width: 640px) {
+        @media (max-width: 768px) {
+          .modal-backdrop { padding: 0 !important; align-items: flex-end !important; }
           .modal-inner {
             grid-template-columns: 1fr !important;
-            grid-template-rows: 45vw 1fr !important;
-            width: 96vw !important;
-            height: 88vh !important;
-            max-height: 88vh !important;
+            grid-template-rows: 50vw 1fr !important;
+            width: 100vw !important;
+            height: 92vh !important;
+            max-height: 92vh !important;
+            border-radius: 12px 12px 0 0 !important;
           }
-          .modal-img { height: 45vw !important; min-height: unset !important; flex-shrink: 0; }
-          .modal-info { overflow-y: auto !important; flex: 1; min-height: 0; }
+          .modal-img { height: 50vw !important; min-height: unset !important; flex-shrink: 0; }
+          .modal-info { overflow-y: auto !important; flex: 1 !important; min-height: 0 !important; padding: 1.2rem !important; }
+          .modal-close { top: 0.6rem !important; right: 0.8rem !important; font-size: 1.4rem !important; background: rgba(250,248,244,0.95) !important; border-radius: 50% !important; width: 2.2rem !important; height: 2.2rem !important; display: flex !important; align-items: center !important; justify-content: center !important; }
         }
       `}</style>
 
         {/* Close */}
-        <button onClick={onClose} style={{
+        <button className="modal-close" onClick={onClose} style={{
           position:"absolute", top:"1rem", right:"1rem", zIndex:10,
           background:"none", border:"none", cursor:"pointer",
           color:MUTED, fontSize:"1rem", lineHeight:1,
