@@ -2,9 +2,10 @@ import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 import bcrypt from "bcryptjs";
 
+// SERVICE ROLE — acceso total, solo usar en server-side
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
+  process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
 export async function POST(req: NextRequest) {
@@ -28,7 +29,7 @@ export async function POST(req: NextRequest) {
     }
 
     if (!matched) {
-      await bcrypt.hash("dummy", 12); // timing attack prevention
+      await bcrypt.hash("dummy", 12);
       return NextResponse.json({ error: "Credenciales incorrectas" }, { status: 401 });
     }
 
