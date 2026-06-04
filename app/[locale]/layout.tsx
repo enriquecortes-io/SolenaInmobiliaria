@@ -9,20 +9,20 @@ const locales = ["en", "es", "fr", "ru"];
 
 const META: Record<string, { title: string; description: string }> = {
   es: {
-    title: "The Edit Marbella | Propiedades Ultra-Exclusivas",
-    description: "Propiedades ultra-exclusivas en Marbella, Estepona, Sotogrande y la Costa del Sol. Visitas privadas con cita previa.",
+    title: "The Edit Marbella — Real Estate Curators | Marbella",
+    description: "Selección privada de propiedades ultra-exclusivas en Marbella y la Costa del Sol. Real Estate Curators.",
   },
   en: {
-    title: "The Edit Marbella | Ultra-Luxury Properties",
-    description: "Exclusive ultra-luxury properties in Marbella, Estepona, Sotogrande and the Costa del Sol. Private viewings by appointment.",
+    title: "The Edit Marbella — Real Estate Curators | Marbella",
+    description: "A private selection of ultra-luxury properties in Marbella and the Costa del Sol. Real Estate Curators.",
   },
   fr: {
-    title: "The Edit Marbella | Propriétés Ultra-Luxe",
-    description: "Propriétés ultra-luxe exclusives à Marbella, Estepona, Sotogrande et la Costa del Sol. Visites privées sur rendez-vous.",
+    title: "The Edit Marbella — Real Estate Curators | Marbella",
+    description: "Une sélection privée de propriétés ultra-luxe à Marbella et la Costa del Sol. Real Estate Curators.",
   },
   ru: {
-    title: "The Edit Marbella | Элитная Недвижимость",
-    description: "Эксклюзивная элитная недвижимость в Марбелье, Эстепоне, Сотогранде и на Коста-дель-Соль. Частные показы по записи.",
+    title: "The Edit Marbella — Real Estate Curators | Marbella",
+    description: "Частная подборка элитной недвижимости в Марбелье и Коста-дель-Соль. Real Estate Curators.",
   },
 };
 
@@ -70,7 +70,7 @@ export default async function LocaleLayout({
           "@context": "https://schema.org",
           "@type": "RealEstateAgent",
           "name": "The Edit Marbella",
-          "description": "Exclusive ultra-luxury properties on the Costa del Sol.",
+          "description": "A private selection of ultra-luxury properties in Marbella. Real Estate Curators.",
           "url": "https://mdlm-xi.vercel.app",
           "areaServed": ["Marbella", "Estepona", "Sotogrande", "Costa del Sol"],
           "priceRange": "€€€€€",
