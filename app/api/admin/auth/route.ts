@@ -1,43 +1,34 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
 import bcrypt from "bcryptjs";
-
-// SERVICE ROLE — acceso total, solo usar en server-side
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+import { getSupabaseAdmin } from "@/lib/supabase";
 
 export async function POST(req: NextRequest) {
   try {
     const { password } = await req.json();
-    if (!password || typeof password !== "string") {
+    if (!password) {
       return NextResponse.json({ error: "Credenciales incorrectas" }, { status: 401 });
     }
 
-    const { data: users, error } = await supabase
+    const { data, error } = await getSupabaseAdmin()
       .from("admin_users")
-      .select("id, name, role, password");
+      .select("id, name, role, password_hash")
+      .limit(1)
+      .single();
 
-    if (error || !users?.length) {
+    if (error || !data) {
       return NextResponse.json({ error: "Credenciales incorrectas" }, { status: 401 });
     }
 
-    let matched = null;
-    for (const u of users) {
-      if (await bcrypt.compare(password, u.password)) { matched = u; break; }
-    }
-
-    if (!matched) {
-      await bcrypt.hash("dummy", 12);
+    const valid = await bcrypt.compare(password, data.password_hash);
+    if (!valid) {
       return NextResponse.json({ error: "Credenciales incorrectas" }, { status: 401 });
     }
 
     return NextResponse.json({
       ok: true,
-      user: { id: matched.id, name: matched.name, role: matched.role },
+      user: { id: data.id, name: data.name, role: data.role },
     });
-  } catch {
-    return NextResponse.json({ error: "Error interno" }, { status: 500 });
+  } catch (e: any) {
+    return NextResponse.json({ error: e.message }, { status: 500 });
   }
 }
