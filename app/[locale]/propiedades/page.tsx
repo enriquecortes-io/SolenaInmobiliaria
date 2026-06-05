@@ -1,8 +1,43 @@
 import { createClient } from "@supabase/supabase-js";
 export const dynamic = "force-dynamic";
 import { headers } from "next/headers";
+import { Metadata } from "next";
 import { Property } from "@/types/property";
 import PropertiesExperience from "@/components/Properties/PropertiesExperience";
+
+const BASE_URL = "https://theeditmarbella.vercel.app";
+
+const META: Record<string, { title: string; description: string }> = {
+ es: { title: "Propiedades Ultra-Exclusivas en Marbella | The Edit Marbella", description: "Selección curada de villas, penthouses y propiedades de lujo en Marbella, Golden Mile y Costa del Sol." },
+ en: { title: "Ultra-Luxury Properties in Marbella | The Edit Marbella", description: "A curated selection of luxury villas, penthouses and properties in Marbella, Golden Mile and Costa del Sol." },
+ fr: { title: "Propriétés Ultra-Luxe à Marbella | The Edit Marbella", description: "Une sélection de villas, penthouses et propriétés de luxe à Marbella, Golden Mile et Costa del Sol." },
+ ru: { title: "Элитная Недвижимость в Марбелье | The Edit Marbella", description: "Подборка вилл, пентхаусов и элитной недвижимости в Марбелье, Голден Майл и Коста-дель-Соль." },
+};
+
+export async function generateMetadata({ params }: { params: Promise<{ locale: string }> }): Promise<Metadata> {
+ const { locale } = await params;
+ const m = META[locale] || META["en"];
+ return {
+   title: m.title,
+   description: m.description,
+   openGraph: {
+     title: m.title,
+     description: m.description,
+     images: [{ url: `${BASE_URL}/og-default.jpg`, width: 1200, height: 630 }],
+     type: "website",
+     siteName: "The Edit Marbella",
+   },
+   alternates: {
+     canonical: `${BASE_URL}/${locale}/propiedades`,
+     languages: {
+       "es": `${BASE_URL}/es/propiedades`,
+       "en": `${BASE_URL}/en/propiedades`,
+       "fr": `${BASE_URL}/fr/propiedades`,
+       "ru": `${BASE_URL}/ru/propiedades`,
+     },
+   },
+ };
+}
 
 const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
