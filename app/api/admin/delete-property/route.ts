@@ -1,7 +1,18 @@
+import bcrypt from "bcryptjs";
 import { NextRequest, NextResponse } from "next/server";
 import { createClient } from "@supabase/supabase-js";
 
 const supabase = createClient(
+
+async function verifyCaller(password: string): Promise<boolean> {
+  const { data: users } = await supabase.from("admin_users").select("password, role");
+  if (!users?.length) return false;
+  for (const u of users) {
+    const ok = await bcrypt.compare(password, u.password);
+    if (ok) return true;
+  }
+  return false;
+}
   process.env.NEXT_PUBLIC_SUPABASE_URL!,
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
@@ -9,7 +20,7 @@ const supabase = createClient(
 export async function POST(req: NextRequest) {
   try {
     const { password, slug } = await req.json();
-    if (password !== process.env.ADMIN_PASSWORD) {
+    if (!await verifyCaller(password)) {
       return NextResponse.json({ error:"Unauthorized" }, { status:401 });
     }
     const { error } = await supabase.from("properties").delete().eq("slug", slug);
