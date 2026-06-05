@@ -64,7 +64,7 @@ export default async function PropertiesPage({ params, searchParams }: Props) {
   // Construir query Supabase con filtros
   let query = supabase
     .from("properties")
-    .select("slug,titulo,precio,ubicacion,tipo,zona,m2_construidos,m2_parcela,habitaciones,banos,galeria_urls,destacada")
+    .select("slug,titulo,precio,ubicacion,tipo,zona,m2_construidos,m2_parcela,habitaciones,banos,galeria_urls,destacada,id,descripcion,video_url,infografias,activa")
     .eq("activa", true);
 
   // Filtro zona — usa columna zona exacta
