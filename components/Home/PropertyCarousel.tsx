@@ -47,14 +47,20 @@ export default function PropertyCarousel({ locale = "es" }: { locale?: string })
   }, []);
 
   useEffect(() => {
-    fetch("/api/properties")
+    const controller = new AbortController();
+
+    fetch("/api/properties", { signal: controller.signal })
       .then(r => r.json())
       .then(data => {
         const props = (data.properties || []).slice(0, 5);
         setProperties(props);
         setActive(isMobile ? 0 : 2);
       })
-      .catch(() => {});
+      .catch(err => {
+        if (err.name !== "AbortError") console.error(err);
+      });
+
+    return () => controller.abort();
   }, []);
 
   const getTitle = (p: Property) =>
