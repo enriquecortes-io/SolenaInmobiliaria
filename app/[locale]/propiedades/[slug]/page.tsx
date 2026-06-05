@@ -54,9 +54,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const precio  = p.precio ? `€${Number(p.precio).toLocaleString("es-ES")}` : "";
   const ogImage = resolveOgImage(p.galeria_urls?.[0]);
 
-  const title       = `${titulo} — ${p.ubicacion || "Marbella"} | The Edit Marbella`;
-  // Máx 155 chars
-  const description = (desc.slice(0, 120) || `${p.tipo} en ${p.ubicacion} · ${precio}`).slice(0, 155);
+  const title = `${titulo} — ${p.ubicacion || "Marbella"} | The Edit Marbella`;
+  // Usar seo_description generada por IA si existe, sino fallback editorial
+  const description = (
+    p.seo_description?.[locale] ||
+    p.seo_description?.es ||
+    desc.slice(0, 120) ||
+    `${p.tipo} en ${p.ubicacion} · ${precio}`
+  ).slice(0, 155);
 
   const jsonLd = {
     "@context": "https://schema.org",
