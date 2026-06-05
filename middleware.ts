@@ -46,19 +46,16 @@ function getErrorMessage(pathname: string): string {
 // Con Cloudflare (cuando tengas dominio) será CF-IPCountry
 // ============================================
 const GEO_LOCALE: Record<string, string> = {
- // Inglés
- GB: "en", US: "en", AU: "en", CA: "en", IE: "en", NZ: "en",
- ZA: "en", SG: "en", AE: "en", QA: "en", KW: "en", BH: "en",
- // Ruso
- RU: "ru", UA: "ru", BY: "ru", KZ: "ru", UZ: "ru", AZ: "ru",
- // Francés
- FR: "fr", BE: "fr", CH: "fr", LU: "fr", MC: "fr", SN: "fr",
- // Español (default también)
- ES: "es", MX: "es", AR: "es", CO: "es", CL: "es", PE: "es",
+  // Ruso — idioma muy específico, siempre redirigir
+  RU: "ru", BY: "ru", KZ: "ru", UZ: "ru", AZ: "ru", TJ: "ru", TM: "ru",
+  // Francés — idioma específico, siempre redirigir
+  FR: "fr", MC: "fr",
+  // Resto → inglés por defecto (incluyendo ES, UK, US, UAE, etc.)
+  // España ignorada intencionalmente: muchos residentes extranjeros
 };
 
 const locales = ["en", "es", "fr", "ru"];
-const defaultLocale = "en"; // internacional → inglés por defecto
+const defaultLocale = "en"; // inglés para todo lo no mapeado
 
 function detectLocale(req: NextRequest): string {
  // 1. Respetar preferencia guardada en cookie
