@@ -43,7 +43,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale, slug } = await params;
   const { data: p } = await supabase
     .from("properties")
-    .select("titulo, ubicacion, precio, tipo, descripcion, galeria_urls, m2_construidos, habitaciones, banos")
+    .select("titulo, ubicacion, precio, tipo, descripcion, seo_description, galeria_urls, m2_construidos, habitaciones, banos")
     .eq("slug", slug)
     .single();
 
