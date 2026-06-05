@@ -6,6 +6,7 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import { notFound } from "next/navigation";
 
 const locales = ["en", "es", "fr", "ru"];
+const BASE_URL = "https://theeditmarbella.vercel.app";
 
 const META: Record<string, { title: string; description: string }> = {
   es: {
@@ -33,20 +34,69 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
     title: m.title,
     description: m.description,
     openGraph: {
-      title: "The Edit Marbella",
+      title: "The Edit Marbella — Real Estate Curators",
       description: m.description,
-      images: [{ url:"https://mdlm-xi.vercel.app/og-default.jpg", width:1200, height:630 }],
+      images: [{ url: `${BASE_URL}/og-default.jpg`, width: 1200, height: 630 }],
       type: "website",
       siteName: "The Edit Marbella",
       locale,
     },
     twitter: {
       card: "summary_large_image",
-      title: "The Edit Marbella",
+      title: "The Edit Marbella — Real Estate Curators",
       description: m.description,
+    },
+    alternates: {
+      canonical: `${BASE_URL}/${locale}`,
+      languages: {
+        "es": `${BASE_URL}/es`,
+        "en": `${BASE_URL}/en`,
+        "fr": `${BASE_URL}/fr`,
+        "ru": `${BASE_URL}/ru`,
+      },
     },
   };
 }
+
+const localBusinessSchema = {
+  "@context": "https://schema.org",
+  "@type": "RealEstateAgent",
+  "name": "The Edit Marbella",
+  "alternateName": "The Edit Marbella — Real Estate Curators",
+  "description": "A private selection of ultra-luxury properties in Marbella and the Costa del Sol. Real Estate Curators.",
+  "url": BASE_URL,
+  "logo": `${BASE_URL}/og-default.jpg`,
+  "image": `${BASE_URL}/og-default.jpg`,
+  "priceRange": "€€€€€",
+  "areaServed": [
+    { "@type": "City", "name": "Marbella" },
+    { "@type": "City", "name": "Estepona" },
+    { "@type": "City", "name": "Benahavís" },
+    { "@type": "City", "name": "Sotogrande" },
+  ],
+  "serviceArea": {
+    "@type": "GeoCircle",
+    "geoMidpoint": {
+      "@type": "GeoCoordinates",
+      "latitude": 36.5100,
+      "longitude": -4.8825,
+    },
+    "geoRadius": "50000",
+  },
+  "address": {
+    "@type": "PostalAddress",
+    "addressLocality": "Marbella",
+    "addressRegion": "Andalucía",
+    "addressCountry": "ES",
+    "postalCode": "29660",
+  },
+  "geo": {
+    "@type": "GeoCoordinates",
+    "latitude": 36.5100,
+    "longitude": -4.8825,
+  },
+  "sameAs": [],
+};
 
 export default async function LocaleLayout({
   children,
@@ -60,23 +110,24 @@ export default async function LocaleLayout({
 
   return (
     <html lang={locale}>
-      
-      <link rel="preload" href="/fonts/cormorant-600.woff2" as="font" type="font/woff2" crossOrigin="anonymous"/>
-      <link rel="preload" href="/fonts/montserrat-300.woff2" as="font" type="font/woff2" crossOrigin="anonymous"/>
-      <link rel="stylesheet" href="/fonts/fonts.css"/>
+      <head>
+        <link rel="preload" href="/fonts/cormorant-600.woff2" as="font" type="font/woff2" crossOrigin="anonymous"/>
+        <link rel="preload" href="/fonts/montserrat-300.woff2" as="font" type="font/woff2" crossOrigin="anonymous"/>
+        <link rel="stylesheet" href="/fonts/fonts.css"/>
+      </head>
       <body style={{ background: "#FAFAF7", margin: 0 }}>
+        {/* Microsoft Clarity */}
         <script type="text/javascript" dangerouslySetInnerHTML={{ __html: `(function(c,l,a,r,i,t,y){c[a]=c[a]||function(){(c[a].q=c[a].q||[]).push(arguments)};t=l.createElement(r);t.async=1;t.src="https://www.clarity.ms/tag/"+i;y=l.getElementsByTagName(r)[0];y.parentNode.insertBefore(t,y);})(window, document, "clarity", "script", "wvt1b8ox5g");` }}/>
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify({
-          "@context": "https://schema.org",
-          "@type": "RealEstateAgent",
-          "name": "The Edit Marbella",
-          "description": "A private selection of ultra-luxury properties in Marbella. Real Estate Curators.",
-          "url": "https://mdlm-xi.vercel.app",
-          "areaServed": ["Marbella", "Estepona", "Sotogrande", "Costa del Sol"],
-          "priceRange": "€€€€€",
-          "address": { "@type": "PostalAddress", "addressRegion": "Andalucía", "addressCountry": "ES" }
-        })}} />
-        {children}<CookieBanner /><LegalFooter /><WhatsAppButton /></body>
+        {/* LocalBusiness Schema con coordenadas Marbella */}
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
+        />
+        {children}
+        <CookieBanner />
+        <LegalFooter />
+        <WhatsAppButton />
+      </body>
     </html>
   );
 }
