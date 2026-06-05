@@ -146,6 +146,8 @@ export default function PropertyCarousel({ locale = "es" }: { locale?: string })
             <img
               src={convertGDriveUrl(properties[prevActive].galeria_urls[0])}
               alt=""
+              loading="lazy"
+              decoding="async"
               style={{ position:"absolute", inset:0, width:"100%", height:"100%", objectFit:"cover", zIndex:1 }}
             />
           )}
@@ -154,6 +156,8 @@ export default function PropertyCarousel({ locale = "es" }: { locale?: string })
             key={active}
             src={convertGDriveUrl(properties[active]?.galeria_urls?.[0] || "")}
             alt={getTitle(p)}
+            fetchPriority="high"
+            decoding="async"
             style={{
               position:"absolute", inset:0,
               width:"100%", height:"100%", objectFit:"cover",
@@ -290,7 +294,7 @@ export default function PropertyCarousel({ locale = "es" }: { locale?: string })
                   <div style={{ width:"100%", height:"100%", background:"rgba(6,4,2,0.8)", border:`1px solid rgba(201,169,110,${i === active ? 0.5 : 0.15})`, boxShadow: i === active ? "0 20px 60px rgba(0,0,0,0.8)" : "0 10px 30px rgba(0,0,0,0.5)", overflow:"hidden", position:"relative" }}>
                     <div style={{ position:"absolute", top:0, left:"10%", right:"10%", height:"1px", background:`linear-gradient(90deg,transparent,rgba(201,169,110,${i === active ? 0.8 : 0.2}),transparent)` }}/>
                     {prop.galeria_urls?.[0]
-                      ? <img src={convertGDriveUrl(prop.galeria_urls[0], 400, 75)} alt={getTitle(prop)} style={{ width:"100%", height:"100%", objectFit:"cover" }}/>
+                      ? <img src={convertGDriveUrl(prop.galeria_urls[0], 400, 75)} alt={getTitle(prop)} loading="lazy" decoding="async" style={{ width:"100%", height:"100%", objectFit:"cover" }}/>
                       : <div style={{ width:"100%", height:"100%", background:"#111" }}/>
                     }
                     <div style={{ position:"absolute", inset:0, background:"linear-gradient(to bottom, transparent 40%, rgba(6,4,2,0.95) 100%)" }}/>
