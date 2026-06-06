@@ -6,7 +6,7 @@ import WhatsAppButton from "@/components/WhatsAppButton";
 import { notFound } from "next/navigation";
 
 const locales = ["en", "es", "fr", "ru"];
-const BASE_URL = "https://theeditmarbella.vercel.app";
+import { BASE_URL } from "@/lib/config";
 
 const META: Record<string, { title: string; description: string }> = {
   es: {

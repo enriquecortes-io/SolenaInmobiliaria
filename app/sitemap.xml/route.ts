@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 const supabase = getSupabase();
 
-const BASE_URL = "https://theeditmarbella.vercel.app";
+import { BASE_URL } from "@/lib/config";
 const LOCALES  = ["es", "en", "fr", "ru"];
 
 export async function GET() {

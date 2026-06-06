@@ -6,7 +6,7 @@ import PropertyExperience from "@/components/Experience/PropertyExperience";
 // Service role — server only
 const supabase = getSupabase();
 
-const BASE_URL = "https://theeditmarbella.vercel.app";
+import { BASE_URL } from "@/lib/config";
 
 interface Props {
   params: Promise<{ locale: string; slug: string }>;

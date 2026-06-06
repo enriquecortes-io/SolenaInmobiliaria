@@ -5,7 +5,7 @@ import { Metadata } from "next";
 import { Property } from "@/types/property";
 import PropertiesExperience from "@/components/Properties/PropertiesExperience";
 
-const BASE_URL = "https://theeditmarbella.vercel.app";
+import { BASE_URL } from "@/lib/config";
 
 const META: Record<string, { title: string; description: string }> = {
  es: { title: "Propiedades Ultra-Exclusivas en Marbella | The Edit Marbella", description: "Selección curada de villas, penthouses y propiedades de lujo en Marbella, Golden Mile y Costa del Sol." },
