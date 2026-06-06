@@ -62,7 +62,7 @@ export async function POST(req: NextRequest) {
             </table>
           </div>
           <div style="margin-top:32px;padding-top:24px;border-top:1px solid rgba(255,255,255,0.08)">
-            <a href="https://theeditmarbella.vercel.app/${locale}/propiedades/${propertySlug}"
+            <a href="https://www.theeditmarbella.com/${locale}/propiedades/${propertySlug}"
               style="color:#c9a96e;font-size:12px;letter-spacing:0.3em;text-transform:uppercase;text-decoration:none">
               Ver propiedad →
             </a>
