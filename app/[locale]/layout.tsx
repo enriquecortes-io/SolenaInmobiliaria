@@ -87,6 +87,7 @@ const localBusinessSchema = {
   "address": {
     "@type": "PostalAddress",
     "addressLocality": "Marbella",
+    "streetAddress": "Marbella, Málaga",
     "addressRegion": "Andalucía",
     "addressCountry": "ES",
     "postalCode": "29660",
