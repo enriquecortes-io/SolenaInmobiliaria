@@ -34,7 +34,13 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
        "en": `${BASE_URL}/en/propiedades`,
        "fr": `${BASE_URL}/fr/propiedades`,
        "ru": `${BASE_URL}/ru/propiedades`,
+       "x-default": `${BASE_URL}/en/propiedades`,
      },
+   },
+   twitter: {
+     card: "summary_large_image",
+     title: m.title,
+     description: m.description,
    },
  };
 }

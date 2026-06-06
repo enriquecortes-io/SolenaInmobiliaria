@@ -39,7 +39,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       images: [{ url: `${BASE_URL}/og-default.jpg`, width: 1200, height: 630 }],
       type: "website",
       siteName: "The Edit Marbella",
-      locale,
+      locale: locale === "es" ? "es_ES" : locale === "fr" ? "fr_FR" : locale === "ru" ? "ru_RU" : "en_GB",
     },
     twitter: {
       card: "summary_large_image",
@@ -53,6 +53,7 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
         "en": `${BASE_URL}/en`,
         "fr": `${BASE_URL}/fr`,
         "ru": `${BASE_URL}/ru`,
+        "x-default": `${BASE_URL}/en`,
       },
     },
   };

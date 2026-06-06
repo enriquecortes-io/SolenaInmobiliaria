@@ -62,7 +62,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
   const jsonLd = {
     "@context": "https://schema.org",
-    "@type": "RealEstateListing",          // ← correcto para inmobiliario
+    "@type": "Residence",          // ← correcto para inmobiliario
     "name": titulo,
     "description": description,
     "url": `${BASE_URL}/${locale}/propiedades/${slug}`,
@@ -120,6 +120,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         "en": `${BASE_URL}/en/propiedades/${slug}`,
         "fr": `${BASE_URL}/fr/propiedades/${slug}`,
         "ru": `${BASE_URL}/ru/propiedades/${slug}`,
+        "x-default": `${BASE_URL}/en/propiedades/${slug}`,
       },
     },
     other: {
