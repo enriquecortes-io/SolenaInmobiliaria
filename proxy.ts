@@ -4,6 +4,16 @@ const MAINTENANCE = true; // Cambia a false para desactivar
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
+  const host = request.headers.get("host") || "";
+
+  // Redirección 301 del dominio antiguo al nuevo
+  if (host.includes("vercel.app")) {
+    const url = request.nextUrl.clone();
+    url.host = "www.theeditmarbella.com";
+    url.protocol = "https:";
+    return NextResponse.redirect(url, { status: 301 });
+  }
+
 
   // Permitir acceso al admin y assets
   if (
