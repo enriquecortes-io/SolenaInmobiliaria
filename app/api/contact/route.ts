@@ -66,7 +66,7 @@ export async function POST(req: NextRequest) {
 
     return NextResponse.json({ ok: true });
   } catch (e) {
-    console.error(e);
+    console.error("[contact]", e instanceof Error ? e.message : "Unknown error");
     return NextResponse.json({ ok: false }, { status: 500 });
   }
 }

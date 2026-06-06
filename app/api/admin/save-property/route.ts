@@ -142,11 +142,11 @@ export async function POST(req: NextRequest) {
         : Object.values(property.descripcion).some((v: any) => v?.length > 50));
 
     if (hasDescription && !property.seo_description?.es) {
-      console.log("Generando SEO descriptions con NVIDIA...");
+      // SEO generation triggered
       const seoDesc = await generateSeoDescriptions(property);
       if (Object.keys(seoDesc).length > 0) {
         property.seo_description = seoDesc;
-        console.log("✅ SEO descriptions generadas:", seoDesc);
+        // SEO descriptions ready
       }
     }
 

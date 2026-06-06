@@ -50,7 +50,7 @@ export async function GET(req: NextRequest) {
    });
 
  } catch (e: any) {
-   console.error(e);
-   return new NextResponse("Error: " + e.message, { status: 500 });
+   console.error("[image]", e instanceof Error ? e.message : "Unknown error");
+   return new NextResponse("Internal Server Error", { status: 500 });
  }
 }
