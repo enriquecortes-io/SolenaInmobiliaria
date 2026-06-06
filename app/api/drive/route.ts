@@ -1,6 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
 import { google } from "googleapis";
-import sharp from "sharp";
 
 function getAuth() {
   const json = process.env.GOOGLE_SERVICE_ACCOUNT_JSON;
@@ -20,91 +19,53 @@ function getAuth() {
   });
 }
 
-function streamToBuffer(stream: any): Promise<Buffer> {
-  return new Promise((resolve, reject) => {
-    const chunks: Buffer[] = [];
-    stream.on("data", (chunk: Buffer) => chunks.push(chunk));
-    stream.on("end", () => resolve(Buffer.concat(chunks)));
-    stream.on("error", reject);
-  });
-}
-
 export async function GET(req: NextRequest) {
   try {
-    const { searchParams } = req.nextUrl;
-    const id = searchParams.get("id");
+    const id = req.nextUrl.searchParams.get("id");
     if (!id) return new NextResponse("Missing id", { status: 400 });
-
-    const w = Math.min(parseInt(searchParams.get("w") || "1200"), 2400);
-    const q = Math.min(parseInt(searchParams.get("q") || "80"), 90);
 
     const auth = getAuth();
     const drive = google.drive({ version: "v3", auth });
 
     const meta = await drive.files.get({ fileId: id, fields: "mimeType,size" });
     const mimeType = meta.data.mimeType || "application/octet-stream";
-    const isImage = mimeType.startsWith("image/");
+    const fileSize = parseInt(meta.data.size || "0");
 
-    // Para videos o no-imágenes — streaming directo sin procesar
-    if (!isImage) {
-      const fileSize = parseInt(meta.data.size || "0");
-      const rangeHeader = req.headers.get("range");
+    const rangeHeader = req.headers.get("range");
 
-      if (rangeHeader && fileSize > 0) {
-        const parts = rangeHeader.replace(/bytes=/, "").split("-");
-        const start = parseInt(parts[0]);
-        const end = parts[1] ? parseInt(parts[1]) : fileSize - 1;
-        const chunkSize = end - start + 1;
-
-        const response = await drive.files.get(
-          { fileId: id, alt: "media" },
-          { responseType: "stream", headers: { Range: `bytes=${start}-${end}` } }
-        );
-
-        return new NextResponse(response.data as any, {
-          status: 206,
-          headers: {
-            "Content-Type": mimeType,
-            "Content-Range": `bytes ${start}-${end}/${fileSize}`,
-            "Accept-Ranges": "bytes",
-            "Content-Length": String(chunkSize),
-            "Cache-Control": "public, max-age=86400",
-          },
-        });
-      }
+    if (rangeHeader && fileSize > 0) {
+      const parts = rangeHeader.replace(/bytes=/, "").split("-");
+      const start = parseInt(parts[0]);
+      const end = parts[1] ? parseInt(parts[1]) : fileSize - 1;
+      const chunkSize = end - start + 1;
 
       const response = await drive.files.get(
         { fileId: id, alt: "media" },
-        { responseType: "stream" }
+        { responseType: "stream", headers: { Range: `bytes=${start}-${end}` } }
       );
 
       return new NextResponse(response.data as any, {
+        status: 206,
         headers: {
           "Content-Type": mimeType,
+          "Content-Range": `bytes ${start}-${end}/${fileSize}`,
           "Accept-Ranges": "bytes",
+          "Content-Length": String(chunkSize),
           "Cache-Control": "public, max-age=86400",
         },
       });
     }
 
-    // Para imágenes — procesar con sharp
     const response = await drive.files.get(
       { fileId: id, alt: "media" },
       { responseType: "stream" }
     );
 
-    const buffer = await streamToBuffer(response.data);
-
-    const webp = await sharp(buffer)
-      .resize(w, null, { withoutEnlargement: true, fit: "inside" })
-      .webp({ quality: q })
-      .toBuffer();
-
-    return new NextResponse(new Uint8Array(webp), {
+    return new NextResponse(response.data as any, {
       headers: {
-        "Content-Type": "image/webp",
-        "Cache-Control": "public, max-age=86400, stale-while-revalidate=604800",
-        "Vary": "Accept",
+        "Content-Type": mimeType,
+        "Accept-Ranges": "bytes",
+        "Cache-Control": "public, max-age=86400",
       },
     });
 
