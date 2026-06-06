@@ -100,7 +100,7 @@ export async function GET(req: NextRequest) {
       .webp({ quality: q })
       .toBuffer();
 
-    return new NextResponse(webp, {
+    return new NextResponse(new Uint8Array(webp), {
       headers: {
         "Content-Type": "image/webp",
         "Cache-Control": "public, max-age=86400, stale-while-revalidate=604800",
