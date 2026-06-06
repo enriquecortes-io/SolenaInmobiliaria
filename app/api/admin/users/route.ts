@@ -5,10 +5,10 @@ import bcrypt from "bcryptjs";
 const supabase = getSupabaseAdmin();
 
 async function verifySuperadmin(password: string): Promise<boolean> {
-  const { data: users } = await supabase.from("admin_users").select("password, role");
+  const { data: users } = await supabase.from("admin_users").select("password_hash, role");
   if (!users?.length) return false;
   for (const u of users) {
-    if (await bcrypt.compare(password, u.password) && u.role === "superadmin") return true;
+    if (await bcrypt.compare(password, u.password_hash) && u.role === "superadmin") return true;
   }
   return false;
 }
@@ -32,14 +32,14 @@ export async function POST(req: NextRequest) {
     if (action === "create") {
       if (!user?.password) return NextResponse.json({ error: "Password requerido" }, { status: 400 });
       const hashed = await bcrypt.hash(user.password, 12);
-      const { data, error } = await supabase.from("admin_users").insert({ ...user, password: hashed }).select("id,name,role,created_at").single();
+      const { data, error } = await supabase.from("admin_users").insert({ ...user, password_hash: hashed }).select("id,name,role,created_at").single();
       if (error) throw error;
       return NextResponse.json({ ok: true, user: data });
     }
 
     if (action === "update") {
       const updates = { ...user };
-      if (updates.password) updates.password = await bcrypt.hash(updates.password, 12);
+      if (updates.password) { updates.password_hash = await bcrypt.hash(updates.password, 12); delete updates.password; }
       const { data, error } = await supabase.from("admin_users").update(updates).eq("id", user.id).select("id,name,role,created_at").single();
       if (error) throw error;
       return NextResponse.json({ ok: true, user: data });
