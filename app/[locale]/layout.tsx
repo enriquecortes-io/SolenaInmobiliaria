@@ -96,6 +96,7 @@ const localBusinessSchema = {
     "latitude": 36.5100,
     "longitude": -4.8825,
   },
+  "telephone": "+34 610 589 716",
   "sameAs": [],
 };
 
