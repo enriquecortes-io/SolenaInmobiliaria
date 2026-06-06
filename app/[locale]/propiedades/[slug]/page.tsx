@@ -123,10 +123,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
         "x-default": `${BASE_URL}/en/propiedades/${slug}`,
       },
     },
-    other: {
-      "script:ld+json": JSON.stringify(jsonLd),
-      "script:ld+json:breadcrumb": JSON.stringify(breadcrumbLd),
-    },
   };
 }
 
@@ -142,5 +138,45 @@ export default async function Page({ params }: Props) {
 
   if (!property) notFound();
 
-  return <PropertyExperience property={property} locale={locale} />;
+  const { data: meta } = await supabase
+   .from("properties")
+   .select("titulo, descripcion, seo_description, galeria_urls, precio, tipo, ubicacion, m2_construidos, habitaciones, banos")
+   .eq("slug", slug)
+   .single();
+
+ const titulo = meta?.titulo?.[locale] || meta?.titulo?.es || "Propiedad";
+ const desc = (meta?.seo_description?.[locale] || meta?.seo_description?.es || meta?.descripcion?.[locale] || meta?.descripcion?.es || "").slice(0, 155);
+ const ogImage = resolveOgImage(meta?.galeria_urls?.[0]);
+
+ const jsonLd = {
+   "@context": "https://schema.org",
+   "@type": "Residence",
+   "name": titulo,
+   "description": desc,
+   "url": `${BASE_URL}/${locale}/propiedades/${slug}`,
+   "image": meta?.galeria_urls?.map(resolveOgImage) || [ogImage],
+   "offers": { "@type": "Offer", "price": meta?.precio, "priceCurrency": "EUR", "availability": "https://schema.org/InStock" },
+   "floorSize": { "@type": "QuantitativeValue", "value": meta?.m2_construidos, "unitCode": "MTK" },
+   "numberOfRooms": meta?.habitaciones,
+   "numberOfBathroomsTotal": meta?.banos,
+   "address": { "@type": "PostalAddress", "addressLocality": meta?.ubicacion, "addressRegion": "Andalucía", "addressCountry": "ES" },
+ };
+
+ const breadcrumbLd = {
+   "@context": "https://schema.org",
+   "@type": "BreadcrumbList",
+   "itemListElement": [
+     { "@type": "ListItem", "position": 1, "name": "The Edit Marbella", "item": `${BASE_URL}/${locale}` },
+     { "@type": "ListItem", "position": 2, "name": locale === "fr" ? "Propriétés" : locale === "ru" ? "Недвижимость" : "Propiedades", "item": `${BASE_URL}/${locale}/propiedades` },
+     { "@type": "ListItem", "position": 3, "name": titulo, "item": `${BASE_URL}/${locale}/propiedades/${slug}` },
+   ],
+ };
+
+ return (
+   <>
+     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
+     <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }} />
+     <PropertyExperience property={property} locale={locale} />
+   </>
+ );
 }
