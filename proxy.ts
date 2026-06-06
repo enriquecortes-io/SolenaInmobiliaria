@@ -1,10 +1,28 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const locales = ["en", "es", "fr", "ru"];
-const defaultLocale = "es";
+const MAINTENANCE = true; // Cambia a false para desactivar
 
 export function proxy(request: NextRequest) {
   const { pathname } = request.nextUrl;
+
+  // Permitir acceso al admin y assets
+  if (
+    pathname.startsWith("/api/admin") ||
+    pathname.startsWith("/_next") ||
+    pathname.startsWith("/maintenance") ||
+    pathname.includes(".")
+  ) {
+    return NextResponse.next();
+  }
+
+  if (MAINTENANCE) {
+    const url = request.nextUrl.clone();
+    url.pathname = "/maintenance";
+    return NextResponse.rewrite(url);
+  }
+
+  const locales = ["en", "es", "fr", "ru"];
+  const defaultLocale = "es";
 
   if (pathname.startsWith("/api/admin")) {
     const origin = request.headers.get("origin") || "";
