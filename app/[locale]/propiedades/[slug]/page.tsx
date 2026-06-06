@@ -1,13 +1,10 @@
 import { Metadata } from "next";
-import { createClient } from "@supabase/supabase-js";
+import { getSupabase } from "@/lib/supabase";
 import { notFound } from "next/navigation";
 import PropertyExperience from "@/components/Experience/PropertyExperience";
 
 // Service role — server only
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
+const supabase = getSupabase();
 
 const BASE_URL = "https://theeditmarbella.vercel.app";
 
