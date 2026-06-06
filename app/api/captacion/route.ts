@@ -1,17 +1,31 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
+import { getSupabase } from "@/lib/supabase";
 import { Resend } from "resend";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+const supabase = getSupabase();
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
+function sanitize(str: unknown, max = 500): string {
+  if (typeof str !== "string") return "";
+  return str.replace(/[<>&"']/g, "").slice(0, max).trim();
+}
+
 export async function POST(req: NextRequest) {
   try {
-    const { name, email, phone, ubicacion, precio_estimado, mensaje, locale } = await req.json();
+    const body = await req.json();
+
+    const name = sanitize(body.name, 100);
+    const email = sanitize(body.email, 200);
+    const phone = sanitize(body.phone, 30);
+    const ubicacion = sanitize(body.ubicacion, 200);
+    const precio_estimado = sanitize(body.precio_estimado, 100);
+    const mensaje = sanitize(body.mensaje, 2000);
+    const locale = sanitize(body.locale, 5);
+
+    if (!name || !email || !email.includes("@")) {
+      return NextResponse.json({ error: "Datos inválidos" }, { status: 400 });
+    }
 
     await supabase.from("captacion_leads").insert({
       name, email, phone, ubicacion, precio_estimado, mensaje, locale,

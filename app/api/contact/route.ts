@@ -1,18 +1,25 @@
 import { NextRequest, NextResponse } from "next/server";
-import { createClient } from "@supabase/supabase-js";
+import { getSupabase } from "@/lib/supabase";
 import { Resend } from "resend";
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
-);
+const supabase = getSupabase();
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { name, email, phone, horizon, propertyTitle, propertySlug, locale } = body;
+    const name = typeof body.name === "string" ? body.name.replace(/[<>&"']/g, "").slice(0, 100).trim() : "";
+    const email = typeof body.email === "string" ? body.email.replace(/[<>&"']/g, "").slice(0, 200).trim() : "";
+    const phone = typeof body.phone === "string" ? body.phone.replace(/[<>&"']/g, "").slice(0, 30).trim() : "";
+    const horizon = typeof body.horizon === "string" ? body.horizon.replace(/[<>&"']/g, "").slice(0, 100).trim() : "";
+    const propertyTitle = typeof body.propertyTitle === "string" ? body.propertyTitle.replace(/[<>&"']/g, "").slice(0, 200).trim() : "";
+    const propertySlug = typeof body.propertySlug === "string" ? body.propertySlug.replace(/[<>&"']/g, "").slice(0, 200).trim() : "";
+    const locale = typeof body.locale === "string" ? body.locale.replace(/[<>&"']/g, "").slice(0, 5).trim() : "";
+
+    if (!name || !email || !email.includes("@")) {
+      return NextResponse.json({ error: "Datos inválidos" }, { status: 400 });
+    }
 
     // Guardar en Supabase
     await supabase.from("leads").insert({
