@@ -34,7 +34,7 @@ export async function POST(req: NextRequest) {
     // Enviar email de notificación
     await resend.emails.send({
       from: "MDLM <onboarding@resend.dev>",
-      to: "enriquecortesgomez@gmail.com",
+      to: "info@theeditmarbella.com",
       subject: `Nueva solicitud de visita privada — ${propertyTitle}`,
       html: `
         <div style="font-family:'Helvetica Neue',sans-serif;max-width:600px;margin:0 auto;padding:40px;background:#0a0805;color:white;">
