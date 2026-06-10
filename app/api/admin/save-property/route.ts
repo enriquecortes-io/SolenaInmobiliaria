@@ -2,7 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseAdmin } from "@/lib/supabase";
 import bcrypt from "bcryptjs";
 
-const supabase = getSupabaseAdmin();
+let _supabase: ReturnType<typeof getSupabaseAdmin> | null = null;
+function getClient() {
+  if (!_supabase) _supabase = getSupabaseAdmin();
+  return _supabase;
+}
 
 const TIPO_PREFIX: Record<string, string> = {
   "villa":      "VILLA",
@@ -14,7 +18,7 @@ const TIPO_PREFIX: Record<string, string> = {
 
 async function generateRef(tipo: string): Promise<string> {
   const prefix = TIPO_PREFIX[tipo] || "PRO";
-  const { count } = await supabase
+  const { count } = await getClient()
     .from("properties")
     .select("id", { count: "exact", head: true })
     .like("referencia", `${prefix}-%`);
@@ -23,7 +27,7 @@ async function generateRef(tipo: string): Promise<string> {
 }
 
 async function verifyCaller(password: string): Promise<boolean> {
-  const { data: users } = await supabase
+  const { data: users } = await getClient()
     .from("admin_users")
     .select("password_hash, role");
   if (!users?.length) return false;
@@ -149,7 +153,7 @@ export async function POST(req: NextRequest) {
       }
     }
 
-    const { data, error } = await supabase
+    const { data, error } = await getClient()
       .from("properties")
       .upsert(property, { onConflict: "slug" })
       .select();
