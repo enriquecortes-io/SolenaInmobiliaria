@@ -25,10 +25,10 @@ async function generateRef(tipo: string): Promise<string> {
 async function verifyCaller(password: string): Promise<boolean> {
   const { data: users } = await supabase
     .from("admin_users")
-    .select("password, role");
+    .select("password_hash, role");
   if (!users?.length) return false;
   for (const u of users) {
-    const ok = await bcrypt.compare(password, u.password);
+    const ok = await bcrypt.compare(password, u.password_hash);
     if (ok && (u.role === "superadmin" || u.role === "agente")) return true;
   }
   return false;
