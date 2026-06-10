@@ -18,6 +18,7 @@ export function proxy(request: NextRequest) {
   // Permitir acceso al admin y assets
   if (
     pathname.startsWith("/api/admin") ||
+    pathname.startsWith("/admin") ||
     pathname.startsWith("/_next") ||
     pathname.startsWith("/maintenance") ||
     pathname.includes(".")
