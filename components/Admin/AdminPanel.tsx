@@ -24,8 +24,9 @@ export default function AdminPanel() {
     if (saved) {
       try {
         const u = JSON.parse(saved);
+        const savedPw = localStorage.getItem("mdlm_admin_pw") || "";
         setAuth(true);
-        setPassword(u.password);
+        setPassword(savedPw);
         setUser(u);
       } catch {}
     }
