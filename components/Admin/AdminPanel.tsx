@@ -17,6 +17,7 @@ export default function AdminPanel() {
   const [auth, setAuth] = useState(false);
   const [user, setUser] = useState<{name:string,role:string,password:string}|null>(null);
   const [authError, setAuthError] = useState("");
+  const [username, setUsername] = useState("");
   const [section, setSection] = useState<Section>("dashboard");
 
   useEffect(() => {
@@ -37,13 +38,14 @@ export default function AdminPanel() {
       const res = await fetch("/api/admin/auth", {
         method:"POST",
         headers:{"Content-Type":"application/json"},
-        body: JSON.stringify({ password }),
+        body: JSON.stringify({ password, username }),
       });
       const data = await res.json();
       if (data.ok) {
         setAuth(true);
         setUser(data.user);
         localStorage.setItem("mdlm_admin_user", JSON.stringify(data.user));
+        localStorage.setItem("mdlm_admin_pw", password);
       } else {
         setAuthError("Contraseña incorrecta");
       }
@@ -59,24 +61,29 @@ export default function AdminPanel() {
           Edit Marbella
         </h2>
         <p style={{ fontSize:"13px", color:"#4A4540", marginBottom:"24px", fontFamily:"system-ui" }}>Panel de Administración</p>
-        <label style={{ display:"block", fontSize:"11px", fontWeight:600, color:"#4A4540", textTransform:"uppercase", letterSpacing:"0.08em", marginBottom:"4px", fontFamily:"system-ui" }}>
-          Contraseña
-        </label>
         <form onSubmit={e=>{e.preventDefault();handleAuth();}} method="post" action="">
+          <label style={{ display:"block", fontSize:"11px", fontWeight:600, color:"#4A4540", textTransform:"uppercase", letterSpacing:"0.08em", marginBottom:"4px", fontFamily:"system-ui" }}>
+            Usuario
+          </label>
           <input
-            type="text" name="username"
+            type="text"
+            name="username"
             autoComplete="username"
-            value="admin"
-            readOnly
-            style={{ display:"none" }}
+            value={username}
+            onChange={e=>setUsername(e.target.value)}
+            style={{ width:"100%", padding:"10px 12px", border:"1px solid #d1d5db", borderRadius:"6px", fontSize:"14px", fontFamily:"system-ui", outline:"none", boxSizing:"border-box", marginBottom:"16px" }}
+            placeholder="Tu nombre de usuario"
           />
+          <label style={{ display:"block", fontSize:"11px", fontWeight:600, color:"#4A4540", textTransform:"uppercase", letterSpacing:"0.08em", marginBottom:"4px", fontFamily:"system-ui" }}>
+            Contraseña
+          </label>
           <input
             type="password"
             name="password"
             autoComplete="current-password"
             value={password}
             onChange={e=>setPassword(e.target.value)}
-            style={{ width:"100%", padding:"10px 12px", border:"1px solid #d1d5db", borderRadius:"6px", fontSize:"14px", fontFamily:"system-ui", outline:"none", boxSizing:"border-box", marginBottom:"12px" }}
+            style={{ width:"100%", padding:"10px 12px", border:"1px solid #d1d5db", borderRadius:"6px", fontSize:"14px", fontFamily:"system-ui", outline:"none", boxSizing:"border-box", marginBottom:"20px" }}
             placeholder="••••••••"
           />
           <button type="submit" style={{ width:"100%", padding:"10px", background:"#111", color:"white", border:"none", borderRadius:"6px", fontSize:"14px", fontWeight:600, cursor:"pointer", fontFamily:"system-ui" }}>
