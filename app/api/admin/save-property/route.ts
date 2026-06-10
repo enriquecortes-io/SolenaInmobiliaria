@@ -27,14 +27,16 @@ async function generateRef(tipo: string): Promise<string> {
 }
 
 async function verifyCaller(password: string): Promise<boolean> {
-  const { data: users } = await getClient()
+  const { data: users, error } = await getClient()
     .from("admin_users")
     .select("password_hash, role");
+  console.log("[vc] error:", error, "users:", users?.length, "first:", JSON.stringify(users?.[0])?.slice(0, 80));
   if (!users?.length) return false;
   for (const u of users) {
-    const hash = (u as any).password_hash || (u as any).password;
-    if (!hash) continue;
-    const ok = await bcrypt.compare(password, hash);
+    const hash = (u as any).password_hash;
+    console.log("[vc] hash type:", typeof hash, "len:", String(hash).length);
+    if (!hash || typeof hash !== "string") continue;
+    const ok = await bcrypt.compare(String(password), String(hash));
     if (ok && (u.role === "superadmin" || u.role === "agente")) return true;
   }
   return false;
