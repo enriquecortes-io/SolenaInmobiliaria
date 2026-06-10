@@ -27,6 +27,7 @@ async function verifyCaller(password: string): Promise<boolean> {
     .from("admin_users")
     .select("password_hash, role");
   if (!users?.length) return false;
+  console.log("[verifyCaller] users:", JSON.stringify(users));
   for (const u of users) {
     if (!u.password_hash) continue;
     const ok = await bcrypt.compare(password, u.password_hash);
