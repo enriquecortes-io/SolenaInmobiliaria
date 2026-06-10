@@ -27,10 +27,10 @@ async function verifyCaller(password: string): Promise<boolean> {
     .from("admin_users")
     .select("password_hash, role");
   if (!users?.length) return false;
-  console.log("[verifyCaller] first user keys:", JSON.stringify(Object.keys(users[0] || {})));
   for (const u of users) {
-    if (!u.password_hash) continue;
-    const ok = await bcrypt.compare(password, u.password_hash);
+    const hash = (u as any).password_hash || (u as any).password;
+    if (!hash) continue;
+    const ok = await bcrypt.compare(password, hash);
     if (ok && (u.role === "superadmin" || u.role === "agente")) return true;
   }
   return false;
