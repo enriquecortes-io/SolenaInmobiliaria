@@ -105,10 +105,18 @@ export default function AdminPanel() {
 
       {/* Sidebar */}
       <div style={{ width:"220px", background:"#111", minHeight:"100vh", display:"flex", flexDirection:"column", flexShrink:0 }}>
-        <div style={{ padding:"24px 20px 16px" }}>
-          <p style={{ fontSize:"10px", color:"rgba(255,255,255,0.4)", textTransform:"uppercase", letterSpacing:"0.12em", margin:"0 0 4px" }}>MDLM</p>
-          <p style={{ fontSize:"14px", color:"white", fontWeight:600, margin:0 }}>Admin Panel</p>
-          {user && <p style={{ fontSize:"11px", color:"rgba(255,255,255,0.4)", margin:"4px 0 0" }}>{user.name} · {user.role}</p>}
+        <div style={{ padding:"24px 20px 20px" }}>
+          <p style={{ fontSize:"9px", color:"rgba(255,255,255,0.3)", textTransform:"uppercase", letterSpacing:"0.2em", margin:"0 0 8px" }}>THE EDIT MARBELLA</p>
+          {user && (
+            <>
+              <p style={{ fontSize:"18px", color:"white", fontWeight:700, margin:"0 0 2px", letterSpacing:"-0.01em" }}>{user.name}</p>
+              <p style={{ fontSize:"11px", color:"#c9a96e", margin:"0 0 12px", textTransform:"uppercase", letterSpacing:"0.15em" }}>{user.role}</p>
+              <button onClick={()=>{ localStorage.removeItem("mdlm_admin_user"); localStorage.removeItem("mdlm_admin_pw"); setAuth(false); setUser(null); setPassword(""); }}
+                style={{ background:"rgba(255,255,255,0.06)", border:"1px solid rgba(255,255,255,0.1)", borderRadius:"6px", color:"rgba(255,255,255,0.5)", fontSize:"11px", cursor:"pointer", padding:"6px 12px", width:"100%", textAlign:"left" }}>
+                Cerrar sesión →
+              </button>
+            </>
+          )}
         </div>
 
         <div style={{ height:"1px", background:"rgba(250,248,244,0.08)", margin:"0 20px 16px" }}/>
