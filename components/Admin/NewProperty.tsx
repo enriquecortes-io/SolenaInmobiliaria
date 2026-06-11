@@ -35,10 +35,8 @@ export default function NewProperty({ password }: Props) {
       .replace(/[^a-z0-9\s-]/g,"")
       .trim().replace(/\s+/g,"-");
 
-  const handleTranslate = async (field: "titulo"|"descripcion") => {
-    if (!form[field]) return;
-    setStatus("Iniciando...");
-    setTimeout(() => setStatus("OK sin crash"), 100);
+  const handleTranslate = (field: "titulo"|"descripcion") => {
+    setStatus("OK sincrono");
   };
 
   const handleSave = async (publish = false) => {
