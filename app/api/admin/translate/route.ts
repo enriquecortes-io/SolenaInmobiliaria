@@ -23,6 +23,7 @@ export async function POST(req: NextRequest) {
     const body = await req.json();
     const { password, text, sourceLang } = body;
 
+    console.log("[translate] password received:", password ? `len:${password.length}` : "EMPTY");
     if (!password || !await verifyCaller(password)) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
