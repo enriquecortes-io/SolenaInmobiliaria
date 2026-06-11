@@ -18,12 +18,35 @@ async function verifyCaller(password: string): Promise<boolean> {
   return false;
 }
 
+async function gtranslate(text: string, source: string, target: string): Promise<string> {
+  const chunks: string[] = [];
+  const size = 1000;
+  for (let i = 0; i < text.length; i += size) {
+    chunks.push(text.slice(i, i + size));
+  }
+  const results: string[] = [];
+  for (const chunk of chunks) {
+    const url = "https://translate.googleapis.com/translate_a/single?client=gtx&sl=" + source + "&tl=" + target + "&dt=t&q=" + encodeURIComponent(chunk);
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), 10000);
+    try {
+      const res = await fetch(url, { signal: controller.signal });
+      const data = await res.json();
+      results.push(data[0].map((item: any) => item[0]).join(""));
+    } catch {
+      results.push(chunk);
+    } finally {
+      clearTimeout(timer);
+    }
+  }
+  return results.join("");
+}
+
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
     const { password, text, sourceLang } = body;
 
-    console.log("[translate] password received:", password ? `len:${password.length}` : "EMPTY");
     if (!password || !await verifyCaller(password)) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
@@ -40,23 +63,11 @@ export async function POST(req: NextRequest) {
     const translations: Record<string, string> = { [sourceLang]: text };
 
     for (const target of targets) {
-      const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${sourceLang}&tl=${target}&dt=t&q=${encodeURIComponent(text)}`;
-      const controller = new AbortController();
-      const timeout = setTimeout(() => controller.abort(), 8000);
-      try {
-        const res = await fetch(url, { signal: controller.signal });
-        const data = await res.json();
-        const translated = data[0].map((item: any) => item[0]).join("");
-        translations[target] = translated;
-      } catch {
-        translations[target] = text;
-      } finally {
-        clearTimeout(timeout);
-      }
+      translations[target] = await gtranslate(text, sourceLang, target);
     }
 
     return NextResponse.json({ translations });
-  } catch (e) {
+  } catch {
     return NextResponse.json({ error: "Translation failed" }, { status: 500 });
   }
 }
