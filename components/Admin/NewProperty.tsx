@@ -37,6 +37,7 @@ export default function NewProperty({ password }: Props) {
 
   const handleTranslate = async (field: "titulo"|"descripcion") => {
     if (!form[field]) return;
+    console.log("[translate] password prop length:", password?.length, "value:", password?.slice(0,3));
     setTranslating(true);
     setStatus(`Traduciendo ${field}...`);
     try {
