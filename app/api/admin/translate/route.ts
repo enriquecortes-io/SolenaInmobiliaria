@@ -41,10 +41,18 @@ export async function POST(req: NextRequest) {
 
     for (const target of targets) {
       const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${sourceLang}&tl=${target}&dt=t&q=${encodeURIComponent(text)}`;
-      const res = await fetch(url);
-      const data = await res.json();
-      const translated = data[0].map((item: any) => item[0]).join("");
-      translations[target] = translated;
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 8000);
+      try {
+        const res = await fetch(url, { signal: controller.signal });
+        const data = await res.json();
+        const translated = data[0].map((item: any) => item[0]).join("");
+        translations[target] = translated;
+      } catch {
+        translations[target] = text;
+      } finally {
+        clearTimeout(timeout);
+      }
     }
 
     return NextResponse.json({ translations });
