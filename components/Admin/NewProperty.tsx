@@ -45,6 +45,11 @@ export default function NewProperty({ password }: Props) {
         body: JSON.stringify({ text:form[field], sourceLang:form.sourceLang, password }),
       });
       const data = await res.json();
+      if (!res.ok || !data.translations) {
+        setStatus(`❌ ${data.error || "Error al traducir"}`);
+        setTranslating(false);
+        return;
+      }
       setTranslated(prev => ({...prev, [field]:data.translations}));
       setStatus(`✅ ${field} traducido en 4 idiomas`);
     } catch { setStatus("❌ Error al traducir"); }
