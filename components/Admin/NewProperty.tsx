@@ -169,17 +169,9 @@ export default function NewProperty({ password }: Props) {
           <input value={form.titulo}
             onChange={e=>setForm(p=>({...p,titulo:e.target.value,slug:generateSlug(e.target.value)}))}
             placeholder="Villa Annabel" style={{...F,marginBottom:0,flex:1}}/>
-          <button onClick={()=>handleTranslate("titulo")} disabled={translating} style={BTN("#7c3aed")}>
-            {translating?"...":"Traducir"}
-          </button>
+
         </div>
-        {translated.titulo && (
-          <div style={{ background:"#f5f3ff", border:"1px solid #ddd6fe", borderRadius:"6px", padding:"12px", marginBottom:"16px", fontSize:"13px" }}>
-            {Object.entries(translated.titulo).map(([lang,txt])=>(
-              <div key={lang}><strong style={{color:"#7c3aed"}}>{lang.toUpperCase()}:</strong> {txt}</div>
-            ))}
-          </div>
-        )}
+
 
         {/* Slug */}
         <label style={L}>Slug (URL)</label>
@@ -192,18 +184,9 @@ export default function NewProperty({ password }: Props) {
           <textarea value={form.descripcion} onChange={e=>setForm(p=>({...p,descripcion:e.target.value}))}
             placeholder="Descripción..." rows={5}
             style={{...F,marginBottom:0,flex:1,resize:"vertical"}}/>
-          <button onClick={()=>handleTranslate("descripcion")} disabled={translating}
-            style={{...BTN("#7c3aed"),alignSelf:"flex-start"}}>
-            {translating?"...":"Traducir"}
-          </button>
+
         </div>
-        {translated.descripcion && (
-          <div style={{ background:"#f5f3ff", border:"1px solid #ddd6fe", borderRadius:"6px", padding:"12px", marginBottom:"16px", fontSize:"13px" }}>
-            {Object.entries(translated.descripcion).map(([lang,txt])=>(
-              <div key={lang} style={{marginBottom:"6px"}}><strong style={{color:"#7c3aed"}}>{lang.toUpperCase()}:</strong> {txt}</div>
-            ))}
-          </div>
-        )}
+
 
         {/* Campos numéricos */}
         <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr 1fr", gap:"16px" }}>

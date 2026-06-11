@@ -155,6 +155,36 @@ export async function POST(req: NextRequest) {
       }
     }
 
+    // Traducir título y descripción automáticamente si están en texto plano
+    const LANGS = ["es", "en", "fr", "ru"];
+    const sourceLang = property.sourceLang || "es";
+
+    async function translateText(text: string, source: string): Promise<Record<string, string>> {
+      const translations: Record<string, string> = { [source]: text };
+      const targets = LANGS.filter(l => l !== source);
+      await Promise.all(targets.map(async (target) => {
+        try {
+          const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${source}&tl=${target}&dt=t&q=${encodeURIComponent(text.slice(0, 3000))}`;
+          const controller = new AbortController();
+          const timeout = setTimeout(() => controller.abort(), 8000);
+          const res = await fetch(url, { signal: controller.signal });
+          clearTimeout(timeout);
+          const data = await res.json();
+          translations[target] = data[0].map((item: any) => item[0]).join("");
+        } catch {
+          translations[target] = text;
+        }
+      }));
+      return translations;
+    }
+
+    if (typeof property.titulo === "string" && property.titulo) {
+      property.titulo = await translateText(property.titulo, sourceLang);
+    }
+    if (typeof property.descripcion === "string" && property.descripcion) {
+      property.descripcion = await translateText(property.descripcion, sourceLang);
+    }
+
     const { data, error } = await getClient()
       .from("properties")
       .upsert(property, { onConflict: "slug" })
