@@ -37,21 +37,18 @@ export default function NewProperty({ password }: Props) {
 
   const handleTranslate = async (field: "titulo"|"descripcion") => {
     if (!form[field]) return;
-    const pw = password || localStorage.getItem("mdlm_admin_pw") || "";
     setTranslating(true);
     setStatus(`Traduciendo ${field}...`);
+    const targets = ["es", "en", "fr", "ru"].filter(l => l !== form.sourceLang);
+    const translations: Record<string, string> = { [form.sourceLang]: form[field] };
     try {
-      const res = await fetch("/api/admin/translate", {
-        method:"POST", headers:{"Content-Type":"application/json"},
-        body: JSON.stringify({ text:form[field], sourceLang:form.sourceLang, password: pw }),
-      });
-      const data = await res.json();
-      if (!res.ok || !data.translations) {
-        setStatus(`❌ ${data.error || "Error al traducir"}`);
-        setTranslating(false);
-        return;
-      }
-      setTranslated(prev => ({...prev, [field]:data.translations}));
+      await Promise.all(targets.map(async (target) => {
+        const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${form.sourceLang}&tl=${target}&dt=t&q=${encodeURIComponent(form[field])}`;
+        const res = await fetch(url);
+        const data = await res.json();
+        translations[target] = data[0].map((item: any) => item[0]).join("");
+      }));
+      setTranslated(prev => ({...prev, [field]:translations}));
       setStatus(`✅ ${field} traducido en 4 idiomas`);
     } catch { setStatus("❌ Error al traducir"); }
     setTranslating(false);
