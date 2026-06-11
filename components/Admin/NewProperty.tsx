@@ -43,10 +43,10 @@ export default function NewProperty({ password }: Props) {
     const translations: Record<string, string> = { [form.sourceLang]: form[field] };
     try {
       await Promise.all(targets.map(async (target) => {
-        const url = `https://translate.googleapis.com/translate_a/single?client=gtx&sl=${form.sourceLang}&tl=${target}&dt=t&q=${encodeURIComponent(form[field])}`;
+        const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(form[field])}&langpair=${form.sourceLang}|${target}`;
         const res = await fetch(url);
         const data = await res.json();
-        translations[target] = data[0].map((item: any) => item[0]).join("");
+        translations[target] = data.responseData?.translatedText || form[field];
       }));
       setTranslated(prev => ({...prev, [field]:translations}));
       setStatus(`✅ ${field} traducido en 4 idiomas`);
