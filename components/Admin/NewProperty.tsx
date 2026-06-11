@@ -148,9 +148,9 @@ export default function NewProperty({ password }: Props) {
           <input value={form.titulo}
             onChange={e=>setForm(p=>({...p,titulo:e.target.value,slug:generateSlug(e.target.value)}))}
             placeholder="Villa Annabel" style={{...F,marginBottom:0,flex:1}}/>
-          <div onClick={()=>handleTranslate("titulo")} style={{...BTN("#7c3aed"), display:"inline-block"}}>
+          <button onClick={()=>handleTranslate("titulo")} disabled={translating} style={BTN("#7c3aed")}>
             {translating?"...":"Traducir"}
-          </div>
+          </button>
         </div>
         {translated.titulo && (
           <div style={{ background:"#f5f3ff", border:"1px solid #ddd6fe", borderRadius:"6px", padding:"12px", marginBottom:"16px", fontSize:"13px" }}>
@@ -174,7 +174,7 @@ export default function NewProperty({ password }: Props) {
           <button onClick={()=>handleTranslate("descripcion")} disabled={translating}
             style={{...BTN("#7c3aed"),alignSelf:"flex-start"}}>
             {translating?"...":"Traducir"}
-          </div>
+          </button>
         </div>
         {translated.descripcion && (
           <div style={{ background:"#f5f3ff", border:"1px solid #ddd6fe", borderRadius:"6px", padding:"12px", marginBottom:"16px", fontSize:"13px" }}>
