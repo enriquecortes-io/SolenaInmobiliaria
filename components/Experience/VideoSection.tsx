@@ -110,7 +110,7 @@ export default function VideoSection({
                     {({"es":"Precio","en":"Price","fr":"Prix","ru":"Цена"} as Record<string,string>)[locale] || "Price"}
                   </span>
                   <span style={{ color:"#c9a96e", fontSize:"clamp(1rem,2.2vw,1.6rem)", fontWeight:200, fontFamily:"'Montserrat','Helvetica Neue',sans-serif" }}>
-                    €{(precio/1000000).toFixed(1)}M
+                    €{precio/1000000 % 1 === 0 ? (precio/1000000).toFixed(0) : (precio/1000000).toFixed(3).replace(/\.?0+$/, "")}M
                   </span>
                 </div>
               )}
