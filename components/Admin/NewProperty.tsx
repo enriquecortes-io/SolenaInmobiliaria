@@ -35,8 +35,29 @@ export default function NewProperty({ password }: Props) {
       .replace(/[^a-z0-9\s-]/g,"")
       .trim().replace(/\s+/g,"-");
 
-  const handleTranslate = (field: "titulo"|"descripcion") => {
-    setStatus("OK sincrono");
+  const handleTranslate = async (field: "titulo"|"descripcion") => {
+    if (!form[field]) return;
+    setStatus("Traduciendo...");
+    setTranslating(true);
+    try {
+      const pw = password || localStorage.getItem("mdlm_admin_pw") || "";
+      const text = form[field].slice(0, 3000);
+      const res = await fetch("/api/admin/translate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text, sourceLang: form.sourceLang, password: pw }),
+      });
+      const data = await res.json();
+      if (data.translations) {
+        setTranslated(prev => ({...prev, [field]: data.translations}));
+        setStatus("Traducido en 4 idiomas");
+      } else {
+        setStatus("Error: " + (data.error || "desconocido"));
+      }
+    } catch (e: any) {
+      setStatus("Error: " + (e?.message || "desconocido"));
+    }
+    setTranslating(false);
   };
 
   const handleSave = async (publish = false) => {
