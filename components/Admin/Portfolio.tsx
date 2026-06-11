@@ -521,5 +521,47 @@ export default function Portfolio({ password, role, onEdit }: Props) {
         </div>
       )}
     </div>
+
+     {/* Modal eliminar propiedad */}
+     {deleteModal && (
+       <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.5)", zIndex:2000, display:"flex", alignItems:"center", justifyContent:"center", padding:"20px" }}>
+         <div style={{ background:"white", borderRadius:"12px", padding:"32px", width:"100%", maxWidth:"480px", boxShadow:"0 20px 60px rgba(0,0,0,0.3)" }}>
+           <h3 style={{ fontSize:"18px", fontWeight:700, color:"#111", marginBottom:"8px" }}>Eliminar propiedad</h3>
+           <p style={{ fontSize:"14px", color:"#4A4540", marginBottom:"24px" }}>
+             <strong>{deleteModal.nombre}</strong> — Esta acción es irreversible. Indica el motivo:
+           </p>
+           <div style={{ display:"flex", flexDirection:"column", gap:"10px", marginBottom:"20px" }}>
+             {[
+               { value:"venta-solitario", label:"Venta en solitario" },
+               { value:"venta-compartida", label:"Venta compartida con otra agencia" },
+               { value:"venta-dueno", label:"Vendida directamente por el dueño" },
+               { value:"otra-agencia", label:"Vendida por otra agencia" },
+               { value:"desestimada", label:"Desestimada / Retirada del mercado" },
+               { value:"otra", label:"Otra razón" },
+             ].map(opt => (
+               <label key={opt.value} style={{ display:"flex", alignItems:"center", gap:"10px", cursor:"pointer", padding:"10px 14px", border:`2px solid ${deleteMotivo===opt.value?"#111":"#e5e7eb"}`, borderRadius:"8px", background:deleteMotivo===opt.value?"#f9f9f9":"white" }}>
+                 <input type="radio" name="motivo" value={opt.value} checked={deleteMotivo===opt.value} onChange={()=>setDeleteMotivo(opt.value)} style={{ accentColor:"#111" }} />
+                 <span style={{ fontSize:"13px", color:"#111" }}>{opt.label}</span>
+               </label>
+             ))}
+           </div>
+           {deleteMotivo === "otra" && (
+             <textarea value={deleteOtro} onChange={e=>setDeleteOtro(e.target.value)}
+               placeholder="Describe el motivo..." rows={3}
+               style={{ width:"100%", padding:"10px 12px", border:"1px solid #d1d5db", borderRadius:"6px", fontSize:"13px", marginBottom:"20px", boxSizing:"border-box", resize:"vertical" }} />
+           )}
+           <div style={{ display:"flex", gap:"12px" }}>
+             <button onClick={()=>{ setDeleteModal(null); setDeleteMotivo(""); setDeleteOtro(""); }}
+               style={{ flex:1, padding:"10px", background:"#f3f4f6", border:"none", borderRadius:"6px", fontSize:"14px", cursor:"pointer", color:"#111" }}>
+               Cancelar
+             </button>
+             <button onClick={handleDeleteConfirm} disabled={!deleteMotivo || (deleteMotivo==="otra" && !deleteOtro)}
+               style={{ flex:1, padding:"10px", background:deleteMotivo?"#dc2626":"#d1d5db", border:"none", borderRadius:"6px", fontSize:"14px", fontWeight:600, cursor:deleteMotivo?"pointer":"not-allowed", color:"white" }}>
+               Confirmar eliminación
+             </button>
+           </div>
+         </div>
+       </div>
+     )}
   );
 }
