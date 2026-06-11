@@ -35,10 +35,16 @@ export default function AdminPanel() {
 
   const handleAuth = async () => {
     try {
+      const pwInput = document.querySelector('input[name="password"]') as HTMLInputElement;
+      const unInput = document.querySelector('input[name="username"]') as HTMLInputElement;
+      const pw = password || pwInput?.value || "";
+      const un = username || unInput?.value || "";
+      if (pw) setPassword(pw);
+      if (un) setUsername(un);
       const res = await fetch("/api/admin/auth", {
         method:"POST",
         headers:{"Content-Type":"application/json"},
-        body: JSON.stringify({ password, username }),
+        body: JSON.stringify({ password: pw, username: un }),
       });
       const data = await res.json();
       if (data.ok) {
@@ -69,8 +75,9 @@ export default function AdminPanel() {
             type="text"
             name="username"
             autoComplete="username"
-            value={username}
+            defaultValue=""
             onChange={e=>setUsername(e.target.value)}
+            onInput={e=>setUsername((e.target as HTMLInputElement).value)}
             style={{ width:"100%", padding:"10px 12px", border:"1px solid #d1d5db", borderRadius:"6px", fontSize:"14px", fontFamily:"system-ui", outline:"none", boxSizing:"border-box", marginBottom:"16px" }}
             placeholder="Tu nombre de usuario"
           />
@@ -81,8 +88,9 @@ export default function AdminPanel() {
             type="password"
             name="password"
             autoComplete="current-password"
-            value={password}
+            defaultValue=""
             onChange={e=>setPassword(e.target.value)}
+            onInput={e=>setPassword((e.target as HTMLInputElement).value)}
             style={{ width:"100%", padding:"10px 12px", border:"1px solid #d1d5db", borderRadius:"6px", fontSize:"14px", fontFamily:"system-ui", outline:"none", boxSizing:"border-box", marginBottom:"20px" }}
             placeholder="••••••••"
           />
