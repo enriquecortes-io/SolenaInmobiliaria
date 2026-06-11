@@ -267,7 +267,7 @@ export default function Portfolio({ password, onEdit }: Props) {
                     <td style={{ padding:"14px 16px", fontSize:"13px", color:"#1A1714" }}>{p.tipo||"—"}</td>
                     <td style={{ padding:"14px 16px", fontSize:"13px", color:"#1A1714", textTransform:"capitalize" }}>{p.zona||"—"}</td>
                     <td style={{ padding:"14px 16px", fontSize:"13px", color:"#1A1714" }}>{p.ubicacion||"—"}</td>
-                    <td style={{ padding:"14px 16px", fontSize:"13px", fontWeight:600, color:"#111" }}>{p.precio?`€${(p.precio/1000000).toFixed(1)}M`:"—"}</td>
+                    <td style={{ padding:"14px 16px", fontSize:"13px", fontWeight:600, color:"#111" }}>{p.precio?`€${(p.precio/1000000 % 1 === 0 ? (p.precio/1000000).toFixed(0) : (p.precio/1000000).toFixed(3).replace(/\.?0+$/, ''))}M`:"—"}</td>
                     <td style={{ padding:"14px 16px" }}>
                       <button onClick={()=>handleToggle(p.slug,"activa",p.activa)}
                         style={{ padding:"4px 10px", borderRadius:"20px", fontSize:"11px", fontWeight:600, border:"none", cursor:"pointer", background:p.activa?"#dcfce7":"#F2EDE4", color:p.activa?"#166534":"#4A4540" }}>

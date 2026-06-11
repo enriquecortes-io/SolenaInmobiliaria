@@ -149,7 +149,7 @@ export default function PropertyExperience({ property, locale }: Props) {
                   { label:"Parcela", value: property.m2_parcela ? `${property.m2_parcela} m²` : null },
                   { label:"Hab.", value: property.habitaciones || null },
                   { label:"Baños", value: property.banos || null },
-                  { label:"Precio", value: property.precio ? `€${(property.precio/1000000).toFixed(1)}M` : null, gold:true },
+                  { label:"Precio", value: property.precio ? `€${property.precio/1000000 % 1 === 0 ? (property.precio/1000000).toFixed(0) : (property.precio/1000000).toFixed(3).replace(/\.?0+$/, "")}M` : null, gold:true },
                   { label:"Ref.", value: ref || null, mono:true },
                 ].filter(d => d.value).map((d,i,arr) => (
                   <div key={d.label} style={{ flex:"1 1 80px", padding:"0.5rem 1rem 0.5rem 0", borderRight: i < arr.length-1 ? "1px solid rgba(255,255,255,0.07)" : "none", marginRight: i < arr.length-1 ? "1rem" : "0" }}>

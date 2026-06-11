@@ -115,7 +115,7 @@ export default function MobileCarousel({ properties, locale, tp }: Props) {
                 <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.38rem", color:"rgba(201,169,110,0.8)", letterSpacing:"0.35em", textTransform:"uppercase", margin:"0 0 0.35rem" }}>{p.ubicacion}</p>
                 <h3 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1rem,4vw,1.3rem)", color:"white", margin:"0 0 0.5rem", fontWeight:600, lineHeight:1.1 }}>{getTitle(p)}</h3>
                 <div style={{ display:"flex", gap:"1rem", alignItems:"baseline" }}>
-                  {p.precio && <span style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1.3rem", color:"#c9a96e", fontWeight:300 }}>€{(p.precio/1000000).toFixed(1)}M</span>}
+                  {p.precio && <span style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1.3rem", color:"#c9a96e", fontWeight:300 }}>€{(p.precio/1000000 % 1 === 0 ? (p.precio/1000000).toFixed(0) : (p.precio/1000000).toFixed(3).replace(/\.?0+$/, ''))}M</span>}
                   {p.m2_construidos && <span style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.35rem", color:"rgba(255,255,255,0.5)", letterSpacing:"0.2em" }}>{p.m2_construidos}m²</span>}
                   {p.habitaciones && <span style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.35rem", color:"rgba(255,255,255,0.5)", letterSpacing:"0.2em" }}>{p.habitaciones} {tp.bed}</span>}
                 </div>

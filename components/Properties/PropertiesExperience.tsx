@@ -297,7 +297,7 @@ export default function PropertiesExperience({ properties, locale, filters, isMo
                   <div style={{ display:"flex", alignItems:"baseline", gap:"0.4rem" }}>
                     <span style={{ fontFamily:"'Montserrat','Helvetica Neue',sans-serif", fontSize:"1rem", fontWeight:200, color:"#c9a96e" }}>€</span>
                     <span style={{ fontFamily:"'Montserrat','Helvetica Neue',sans-serif", fontSize:"clamp(1.4rem,2.5vw,2rem)", fontWeight:100, color:"white", letterSpacing:"0.05em" }}>
-                      {(property.precio/1000000).toFixed(1)}<span style={{color:"#c9a96e",fontSize:"0.7em"}}>M</span>
+                      {(property.precio/1000000 % 1 === 0 ? (property.precio/1000000).toFixed(0) : property.precio >= 100000 ? (property.precio/1000000).toFixed(3).replace(/\.?0+$/, '') : (property.precio/1000000).toFixed(1))}<span style={{color:"#c9a96e",fontSize:"0.7em"}}>M</span>
                     </span>
                   </div>
                   <div style={{ display:"flex", gap:"2rem" }}>
