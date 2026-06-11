@@ -42,7 +42,7 @@ export default function NewProperty({ password }: Props) {
     try {
       const res = await fetch("/api/admin/translate", {
         method:"POST", headers:{"Content-Type":"application/json"},
-        body: JSON.stringify({ text:form[field], sourceLang:form.sourceLang }),
+        body: JSON.stringify({ text:form[field], sourceLang:form.sourceLang, password }),
       });
       const data = await res.json();
       setTranslated(prev => ({...prev, [field]:data.translations}));
