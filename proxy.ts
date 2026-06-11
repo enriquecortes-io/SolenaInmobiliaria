@@ -27,10 +27,13 @@ export function proxy(request: NextRequest) {
   }
 
   if (MAINTENANCE) {
-    const url = request.nextUrl.clone();
-    url.pathname = "/maintenance";
-    return NextResponse.rewrite(url);
-  }
+   const isHome = pathname === "/" || pathname === "/es" || pathname === "/en" || pathname === "/fr" || pathname === "/ru" || pathname === "/es/" || pathname === "/en/" || pathname === "/fr/" || pathname === "/ru/";
+   if (isHome) {
+     const url = request.nextUrl.clone();
+     url.pathname = "/maintenance";
+     return NextResponse.rewrite(url);
+   }
+ }
 
   const locales = ["en", "es", "fr", "ru"];
   const defaultLocale = "es";
