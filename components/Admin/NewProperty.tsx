@@ -50,7 +50,10 @@ export default function NewProperty({ password }: Props) {
       }));
       setTranslated(prev => ({...prev, [field]:translations}));
       setStatus(`✅ ${field} traducido en 4 idiomas`);
-    } catch { setStatus("❌ Error al traducir"); }
+    } catch (e: any) { 
+      setStatus("❌ Error: " + (e?.message || "desconocido"));
+      setTranslating(false);
+    }
     setTranslating(false);
   };
 
