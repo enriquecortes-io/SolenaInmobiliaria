@@ -16,7 +16,7 @@ interface Property {
   contacto_nombre?: string; contacto_telefono?: string; contacto_email?: string;
 }
 
-interface Props { password: string; onEdit: (slug: string) => void; }
+interface Props { password: string; role: string; onEdit: (slug: string) => void; }
 
 const L: React.CSSProperties = { display:"block", fontSize:"11px", fontWeight:600, color:"#4A4540", textTransform:"uppercase", letterSpacing:"0.08em", marginBottom:"4px" };
 const S: React.CSSProperties = { padding:"8px 12px", border:"1px solid #d1d5db", borderRadius:"6px", fontSize:"13px", fontFamily:"system-ui", outline:"none", background:"white", color:"#111" };
@@ -28,8 +28,11 @@ const toLangObj = (val: any, fallbackLang = "en") => {
   return { es:"", en:"", fr:"", ru:"", ...val };
 };
 
-export default function Portfolio({ password, onEdit }: Props) {
+export default function Portfolio({ password, role, onEdit }: Props) {
   const [properties, setProperties] = useState<Property[]>([]);
+  const [deleteModal, setDeleteModal] = useState<{slug:string, nombre:string}|null>(null);
+  const [deleteMotivo, setDeleteMotivo] = useState("");
+  const [deleteOtro, setDeleteOtro] = useState("");
   const [loading, setLoading] = useState(true);
   const [status, setStatus] = useState("");
   const [filters, setFilters] = useState({ tipo:"", zona:"", activa:"", search:"" });
@@ -137,16 +140,22 @@ export default function Portfolio({ password, onEdit }: Props) {
     } catch {}
   };
 
-  const handleDelete = async (slug: string) => {
-    if (!confirm(`¿Eliminar ${slug}?`)) return;
+  const handleDeleteConfirm = async () => {
+    if (!deleteModal || !deleteMotivo) return;
+    const motivo = deleteMotivo === "otra" ? deleteOtro : deleteMotivo;
     try {
       const res = await fetch("/api/admin/delete-property", {
         method:"POST", headers:{"Content-Type":"application/json"},
-        body: JSON.stringify({ password, slug }),
+        body: JSON.stringify({ password, slug: deleteModal.slug, motivo }),
       });
       const data = await res.json();
-      if (data.ok) { setStatus("✅ Eliminada"); fetchProperties(); }
-      else setStatus(`❌ ${data.error}`);
+      if (data.ok) {
+        setStatus("Propiedad eliminada");
+        setDeleteModal(null);
+        setDeleteMotivo("");
+        setDeleteOtro("");
+        fetchProperties();
+      } else setStatus(`Error: ${data.error}`);
     } catch {}
   };
 
@@ -286,8 +295,12 @@ export default function Portfolio({ password, onEdit }: Props) {
                           style={{ padding:"6px 10px", background:"#F2EDE4", border:"none", borderRadius:"6px", fontSize:"12px", cursor:"pointer", color:"#1A1714", textDecoration:"none" }}>Ver →</a>
                         <button onClick={()=>handleEdit(p)}
                           style={{ padding:"6px 10px", background:"#eff6ff", border:"none", borderRadius:"6px", fontSize:"12px", cursor:"pointer", color:"#1d4ed8" }}>Editar</button>
-                        <button onClick={()=>handleDelete(p.slug)}
-                          style={{ padding:"6px 10px", background:"#fef2f2", border:"none", borderRadius:"6px", fontSize:"12px", cursor:"pointer", color:"#991b1b" }}>Eliminar</button>
+                        {role === "superadmin" && (
+                          <button onClick={()=>setDeleteModal({slug:p.slug, nombre:typeof p.titulo==="object"?(p.titulo as any).es||p.slug:p.slug})}
+                            style={{ padding:"6px 10px", background:"#fef2f2", border:"1px solid #fecaca", borderRadius:"6px", fontSize:"12px", cursor:"pointer", color:"#991b1b" }}>
+                            Eliminar
+                          </button>
+                        )}
                       </div>
                     </td>
                   </tr>

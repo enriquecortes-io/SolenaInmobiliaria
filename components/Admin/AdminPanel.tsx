@@ -171,7 +171,7 @@ export default function AdminPanel() {
 
       {/* Main */}
       <div style={{ flex:1, overflow:"auto" }}>
-        {section === "portfolio" && <Portfolio password={password} onEdit={()=>setSection("new")} />}
+        {section === "portfolio" && <Portfolio password={password} role={user?.role||""} onEdit={()=>setSection("new")} />}
         {section === "new" && <NewProperty password={password} />}
         {section === "leads" && <Leads password={password} />}
         {section === "captacion" && <LeadsCaptacion password={password} />}

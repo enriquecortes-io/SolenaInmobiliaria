@@ -2,27 +2,50 @@ import bcrypt from "bcryptjs";
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseAdmin } from "@/lib/supabase";
 
-const supabase = getSupabaseAdmin();
-
 async function verifyCaller(password: string): Promise<boolean> {
-  const { data: users } = await supabase
+  const { data: users } = await getSupabaseAdmin()
     .from("admin_users")
     .select("password_hash, role");
   if (!users?.length) return false;
   for (const u of users) {
-    const ok = await bcrypt.compare(password, u.password_hash);
-    if (ok) return true;
+    const hash = (u as any).password_hash;
+    if (!hash || typeof hash !== "string") continue;
+    const ok = await bcrypt.compare(String(password), hash);
+    if (ok && u.role === "superadmin") return true;
   }
   return false;
 }
 
 export async function POST(req: NextRequest) {
   try {
-    const { password, slug } = await req.json();
+    const { password, slug, motivo } = await req.json();
     if (!await verifyCaller(password)) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
-    const { error } = await supabase.from("properties").delete().eq("slug", slug);
+    if (!slug || !motivo) {
+      return NextResponse.json({ error: "Faltan datos" }, { status: 400 });
+    }
+
+    // Guardar datos antes de borrar
+    const { data: prop } = await getSupabaseAdmin()
+      .from("properties")
+      .select("slug, titulo, precio, tipo, zona, referencia")
+      .eq("slug", slug)
+      .single();
+
+    if (prop) {
+      await getSupabaseAdmin().from("property_bajas").insert({
+        slug: prop.slug,
+        titulo: prop.titulo,
+        precio: prop.precio,
+        tipo: prop.tipo,
+        zona: prop.zona,
+        referencia: prop.referencia,
+        motivo,
+      });
+    }
+
+    const { error } = await getSupabaseAdmin().from("properties").delete().eq("slug", slug);
     if (error) throw error;
     return NextResponse.json({ ok: true });
   } catch (e: any) {
