@@ -316,9 +316,9 @@ export default function NewProperty({ password }: Props) {
         {/* Status */}
         {status && (
           <div style={{ padding:"12px 16px", borderRadius:"8px", marginTop:"16px",
-            background: status.startsWith("✅")?"#f0fdf4":status.startsWith("⏳")?"#eff6ff":"#fef2f2",
-            border:`1px solid ${status.startsWith("✅")?"#86efac":status.startsWith("⏳")?"#93c5fd":"#fca5a5"}`,
-            color: status.startsWith("✅")?"#166534":status.startsWith("⏳")?"#1e40af":"#991b1b",
+            background: status.includes("traducido")?"#f0fdf4":status.includes("Traduciendo")?"#eff6ff":"#fef2f2",
+            border:`1px solid ${status.includes("traducido")?"#86efac":status.includes("Traduciendo")?"#93c5fd":"#fca5a5"}`,
+            color: status.includes("traducido")?"#166534":status.includes("Traduciendo")?"#1e40af":"#991b1b",
             fontSize:"14px" }}>
             {status}
           </div>
