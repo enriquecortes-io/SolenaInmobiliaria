@@ -178,11 +178,26 @@ export async function POST(req: NextRequest) {
       return translations;
     }
 
-    if (typeof property.titulo === "string" && property.titulo) {
-      property.titulo = await translateText(property.titulo, sourceLang);
+    const needsTranslation = (val: any) => {
+      if (typeof val === "string") return !!val;
+      if (typeof val === "object" && val !== null) {
+        const values = Object.values(val) as string[];
+        const unique = new Set(values.filter(Boolean));
+        return unique.size === 1;
+      }
+      return false;
+    };
+
+    const getSourceText = (val: any) => {
+      if (typeof val === "string") return val;
+      return (val as any)?.[sourceLang] || Object.values(val as any)[0] || "";
+    };
+
+    if (needsTranslation(property.titulo)) {
+      property.titulo = await translateText(getSourceText(property.titulo), sourceLang);
     }
-    if (typeof property.descripcion === "string" && property.descripcion) {
-      property.descripcion = await translateText(property.descripcion, sourceLang);
+    if (needsTranslation(property.descripcion)) {
+      property.descripcion = await translateText(getSourceText(property.descripcion), sourceLang);
     }
 
     const { data, error } = await getClient()
