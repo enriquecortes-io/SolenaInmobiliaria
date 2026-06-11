@@ -28,7 +28,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
     }
 
-    if (typeof text !== "string" || text.length === 0 || text.length > 5000) {
+    if (typeof text !== "string" || text.length === 0 || text.length > 10000) {
       return NextResponse.json({ error: "Texto inválido" }, { status: 400 });
     }
 

@@ -39,20 +39,22 @@ export default function NewProperty({ password }: Props) {
     if (!form[field]) return;
     setTranslating(true);
     setStatus(`Traduciendo ${field}...`);
-    const targets = ["es", "en", "fr", "ru"].filter(l => l !== form.sourceLang);
-    const translations: Record<string, string> = { [form.sourceLang]: form[field] };
     try {
-      await Promise.all(targets.map(async (target) => {
-        const url = `https://api.mymemory.translated.net/get?q=${encodeURIComponent(form[field])}&langpair=${form.sourceLang}|${target}`;
-        const res = await fetch(url);
-        const data = await res.json();
-        translations[target] = data.responseData?.translatedText || form[field];
-      }));
-      setTranslated(prev => ({...prev, [field]:translations}));
-      setStatus(`✅ ${field} traducido en 4 idiomas`);
-    } catch (e: any) { 
+      const pw = password || localStorage.getItem("mdlm_admin_pw") || "";
+      const res = await fetch("/api/admin/translate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ text: form[field], sourceLang: form.sourceLang, password: pw }),
+      });
+      const data = await res.json();
+      if (!res.ok || !data.translations) {
+        setStatus(`❌ ${data.error || "Error al traducir"}`);
+      } else {
+        setTranslated(prev => ({...prev, [field]: data.translations}));
+        setStatus(`✅ ${field} traducido en 4 idiomas`);
+      }
+    } catch (e: any) {
       setStatus("❌ Error: " + (e?.message || "desconocido"));
-      setTranslating(false);
     }
     setTranslating(false);
   };
