@@ -10,7 +10,9 @@ async function verifyCaller(password: string): Promise<boolean> {
     .select("password_hash, role");
   if (!users?.length) return false;
   for (const u of users) {
-    const ok = await bcrypt.compare(password, u.password_hash);
+    const hash = (u as any).password_hash;
+    if (!hash || typeof hash !== "string") continue;
+    const ok = await bcrypt.compare(String(password), hash);
     if (ok) return true;
   }
   return false;
