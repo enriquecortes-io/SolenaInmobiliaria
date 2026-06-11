@@ -37,26 +37,8 @@ export default function NewProperty({ password }: Props) {
 
   const handleTranslate = async (field: "titulo"|"descripcion") => {
     if (!form[field]) return;
-    setTranslating(true);
-    setStatus(`Traduciendo ${field}...`);
-    try {
-      const pw = password || localStorage.getItem("mdlm_admin_pw") || "";
-      const res = await fetch("/api/admin/translate", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ text: form[field], sourceLang: form.sourceLang, password: pw }),
-      });
-      const data = await res.json();
-      if (!res.ok || !data.translations) {
-        setStatus(`❌ ${data.error || "Error al traducir"}`);
-      } else {
-        setTranslated(prev => ({...prev, [field]: data.translations}));
-        setStatus(`✅ ${field} traducido en 4 idiomas`);
-      }
-    } catch (e: any) {
-      setStatus("❌ Error: " + (e?.message || "desconocido"));
-    }
-    setTranslating(false);
+    setStatus("Iniciando...");
+    setTimeout(() => setStatus("OK sin crash"), 100);
   };
 
   const handleSave = async (publish = false) => {
