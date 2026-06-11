@@ -295,12 +295,7 @@ export default function Portfolio({ password, role, onEdit }: Props) {
                           style={{ padding:"6px 10px", background:"#F2EDE4", border:"none", borderRadius:"6px", fontSize:"12px", cursor:"pointer", color:"#1A1714", textDecoration:"none" }}>Ver →</a>
                         <button onClick={()=>handleEdit(p)}
                           style={{ padding:"6px 10px", background:"#eff6ff", border:"none", borderRadius:"6px", fontSize:"12px", cursor:"pointer", color:"#1d4ed8" }}>Editar</button>
-                        {role === "superadmin" && (
-                          <button onClick={()=>setDeleteModal({slug:p.slug, nombre:typeof p.titulo==="object"?(p.titulo as any).es||p.slug:p.slug})}
-                            style={{ padding:"6px 10px", background:"#fef2f2", border:"1px solid #fecaca", borderRadius:"6px", fontSize:"12px", cursor:"pointer", color:"#991b1b" }}>
-                            Eliminar
-                          </button>
-                        )}
+
                       </div>
                     </td>
                   </tr>
@@ -315,7 +310,15 @@ export default function Portfolio({ password, role, onEdit }: Props) {
       {editing && (
         <div onClick={()=>setEditing(null)} style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.5)", zIndex:1000, display:"flex", alignItems:"center", justifyContent:"center", padding:"20px" }}>
           <div onClick={e=>e.stopPropagation()} style={{ background:"white", borderRadius:"12px", padding:"32px", width:"100%", maxWidth:"680px", maxHeight:"90vh", overflowY:"auto" }}>
-            <h2 style={{ fontSize:"18px", fontWeight:700, marginBottom:"24px", color:"#111" }}>Editar — {editing.slug}</h2>
+            <div style={{ display:"flex", justifyContent:"space-between", alignItems:"center", marginBottom:"24px" }}>
+              <h2 style={{ fontSize:"18px", fontWeight:700, color:"#111", margin:0 }}>Editar — {editing.slug}</h2>
+              {role === "superadmin" && (
+                <button onClick={()=>setDeleteModal({slug:editing.slug, nombre:typeof editing.titulo==="object"?(editing.titulo as any).es||editing.slug:editing.slug})}
+                  style={{ padding:"8px 16px", background:"#fef2f2", border:"1px solid #fecaca", borderRadius:"6px", fontSize:"12px", fontWeight:600, cursor:"pointer", color:"#991b1b" }}>
+                  Eliminar propiedad
+                </button>
+              )}
+            </div>
 
             {/* Selector idioma */}
             <label style={L}>Idioma activo</label>
