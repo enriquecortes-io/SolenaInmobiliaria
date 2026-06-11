@@ -56,7 +56,7 @@ export default function Navbar({ locale = "es", onPrivateAccess }: Props) {
       <nav style={{
         position:"fixed", top:0, left:0, right:0,
         height:"4rem",
-        display:"flex", alignItems:"center", justifyContent:"space-between",
+        display:"grid", gridTemplateColumns:"1fr auto 1fr", alignItems:"center",
         padding:"0 2rem",
         zIndex:1000,
         background:"rgba(250,248,244,0.92)",
@@ -71,22 +71,24 @@ export default function Navbar({ locale = "es", onPrivateAccess }: Props) {
         </Link>
 
         {/* Private Access — solo si hay callback */}
-        {onPrivateAccess && (
-          <>
-            <span onClick={onPrivateAccess} className="private-mobile" style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.5rem", letterSpacing:"0.3em", textTransform:"uppercase", cursor:"pointer", color:"#2D4A3E", textShadow:"0 0 8px rgba(255,255,255,0.9), 0 0 20px rgba(255,255,255,0.6), 0 0 40px rgba(201,169,110,0.4)" }}>
-              {PRIVATE_VIEWING[locale as keyof typeof PRIVATE_VIEWING] || "Private Viewing"}
-            </span>
-            <span className="private-desktop">
-              <NeonButton onClick={onPrivateAccess}>
+        <div style={{ display:"flex", justifyContent:"center" }}>
+          {onPrivateAccess && (
+            <>
+              <span onClick={onPrivateAccess} className="private-mobile" style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.5rem", letterSpacing:"0.3em", textTransform:"uppercase", cursor:"pointer", color:"#2D4A3E", textShadow:"0 0 8px rgba(255,255,255,0.9), 0 0 20px rgba(255,255,255,0.6), 0 0 40px rgba(201,169,110,0.4)" }}>
                 {PRIVATE_VIEWING[locale as keyof typeof PRIVATE_VIEWING] || "Private Viewing"}
-              </NeonButton>
-            </span>
-            <style>{`.private-mobile{display:none}.private-desktop{display:inline}@media(max-width:768px){.private-mobile{display:inline!important}.private-desktop{display:none!important}}`}</style>
-          </>
-        )}
+              </span>
+              <span className="private-desktop">
+                <NeonButton onClick={onPrivateAccess}>
+                  {PRIVATE_VIEWING[locale as keyof typeof PRIVATE_VIEWING] || "Private Viewing"}
+                </NeonButton>
+              </span>
+              <style>{`.private-mobile{display:none}.private-desktop{display:inline}@media(max-width:768px){.private-mobile{display:inline!important}.private-desktop{display:none!important}}`}</style>
+            </>
+          )}
+        </div>
 
         {/* Selector de idioma desplegable */}
-        <div style={{ position:"relative" }}>
+        <div style={{ position:"relative", justifySelf:"end" }}>
           <button
             onClick={() => setOpen(p => !p)}
             style={{
