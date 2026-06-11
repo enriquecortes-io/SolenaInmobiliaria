@@ -520,9 +520,8 @@ export default function Portfolio({ password, role, onEdit }: Props) {
           </div>
         </div>
       )}
-    </div>
 
-     {/* Modal eliminar propiedad */}
+      {/* Modal eliminar propiedad */}
      {deleteModal && (
        <div style={{ position:"fixed", inset:0, background:"rgba(0,0,0,0.5)", zIndex:2000, display:"flex", alignItems:"center", justifyContent:"center", padding:"20px" }}>
          <div style={{ background:"white", borderRadius:"12px", padding:"32px", width:"100%", maxWidth:"480px", boxShadow:"0 20px 60px rgba(0,0,0,0.3)" }}>
