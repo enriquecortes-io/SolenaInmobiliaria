@@ -37,13 +37,13 @@ export default function NewProperty({ password }: Props) {
 
   const handleTranslate = async (field: "titulo"|"descripcion") => {
     if (!form[field]) return;
-    console.log("[translate] password prop length:", password?.length, "value:", password?.slice(0,3));
+    const pw = password || localStorage.getItem("mdlm_admin_pw") || "";
     setTranslating(true);
     setStatus(`Traduciendo ${field}...`);
     try {
       const res = await fetch("/api/admin/translate", {
         method:"POST", headers:{"Content-Type":"application/json"},
-        body: JSON.stringify({ text:form[field], sourceLang:form.sourceLang, password }),
+        body: JSON.stringify({ text:form[field], sourceLang:form.sourceLang, password: pw }),
       });
       const data = await res.json();
       if (!res.ok || !data.translations) {
