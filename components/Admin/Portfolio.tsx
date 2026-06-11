@@ -96,7 +96,7 @@ export default function Portfolio({ password, onEdit }: Props) {
     try {
       const res = await fetch("/api/admin/translate", {
         method:"POST", headers:{"Content-Type":"application/json"},
-        body: JSON.stringify({ text, sourceLang: lang }),
+        body: JSON.stringify({ text, sourceLang: lang, password }),
       });
       const data = await res.json();
       if (field === "titulo") setTitulo(data.translations);
