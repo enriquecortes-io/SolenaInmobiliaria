@@ -1,3 +1,4 @@
+import AgentChat from "@/components/AgentChat";
 import type { Metadata } from "next";
 import SkyBackground from "@/components/SkyBackground";
 import CookieBanner from "@/components/CookieBanner";
