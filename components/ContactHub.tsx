@@ -194,11 +194,7 @@ export default function ContactHub() {
         {(expanded || chatOpen) ? (
           <span style={{ color: "#2D4A3E", fontSize: "16px", fontWeight: 300 }}>✕</span>
         ) : (
-          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#2D4A3E" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-            <circle cx="12" cy="12" r="10"/>
-            <circle cx="12" cy="8" r="0.5" fill="#2D4A3E"/>
-            <line x1="12" y1="12" x2="12" y2="16"/>
-          </svg>
+          <span style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"22px", fontWeight:600, color:"#2D4A3E", lineHeight:1, fontStyle:"italic" }}>i</span>
         )}
       </button>
     </>
