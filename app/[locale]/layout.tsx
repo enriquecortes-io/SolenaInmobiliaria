@@ -1,4 +1,4 @@
-import AgentChat from "@/components/AgentChat";
+import ContactHub from "@/components/ContactHub";
 import type { Metadata } from "next";
 import SkyBackground from "@/components/SkyBackground";
 import CookieBanner from "@/components/CookieBanner";
@@ -132,8 +132,8 @@ export default async function LocaleLayout({
         {children}
         <CookieBanner />
         <LegalFooter />
-        <WhatsAppButton />
-        <AgentChat />
+        
+        <ContactHub />
       </body>
     </html>
   );
