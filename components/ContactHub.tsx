@@ -96,7 +96,14 @@ export default function ContactHub() {
                   border: m.role === "user" ? "none" : "1px solid rgba(255,255,255,0.08)",
                   fontFamily: "'Montserrat',sans-serif", fontSize: "12px", lineHeight: 1.6,
                   color: m.role === "user" ? "#111" : "rgba(255,255,255,0.85)", whiteSpace: "pre-wrap",
-                }}>{m.content}</div>
+                }}>
+                  {m.content.split("\n").map((line, li) => {
+                    const linkMatch = line.match(/^🔗\s*(https?:\/\/\S+)/);
+                    if (linkMatch) return <a key={li} href={linkMatch[1]} target="_blank" rel="noopener noreferrer" style={{ display:"block", color:"#c9a96e", fontSize:"11px", wordBreak:"break-all", marginTop:"2px" }}>{linkMatch[1]}</a>;
+                    const parts = line.split(/\*\*([^*]+)\*\*/g);
+                    return <span key={li} style={{ display:"block" }}>{parts.map((p, pi) => pi % 2 === 1 ? <strong key={pi}>{p}</strong> : p)}</span>;
+                  })}
+                </div>
               </div>
             ))}
             {loading && (
