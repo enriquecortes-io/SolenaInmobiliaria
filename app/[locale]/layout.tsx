@@ -132,6 +132,7 @@ export default async function LocaleLayout({
         <CookieBanner />
         <LegalFooter />
         <WhatsAppButton />
+        <AgentChat />
       </body>
     </html>
   );
