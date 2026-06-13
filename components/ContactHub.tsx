@@ -48,7 +48,7 @@ export default function ContactHub() {
         body: JSON.stringify({ messages: newMessages, sessionId }),
       });
       const data = await res.json();
-      const reply = data.response || data.message || data.content || "Lo siento, no he podido procesar su consulta.";
+      const reply = data.message || data.response || data.content || "Lo siento, no he podido procesar su consulta.";
       setMessages(prev => [...prev, { role: "assistant", content: reply }]);
     } catch {
       setMessages(prev => [...prev, { role: "assistant", content: "Error de conexión. Por favor, inténtelo de nuevo." }]);
