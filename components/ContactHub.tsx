@@ -86,7 +86,7 @@ export default function ContactHub() {
             <p style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "18px", color: "white", margin: 0, fontWeight: 600 }}>Harvis</p>
             <p style={{ fontFamily: "'Montserrat',sans-serif", fontSize: "9px", color: "rgba(255,255,255,0.3)", margin: "2px 0 0", letterSpacing: "0.2em", textTransform: "uppercase" }}>Asesor Inmobiliario</p>
           </div>
-          <div style={{ flex: 1, overflowY: "auto", padding: "16px", display: "flex", flexDirection: "column", gap: "12px" }}>
+          <div style={{ flex: 1, overflowY: "auto", overflowX: "hidden", padding: "16px", display: "flex", flexDirection: "column", gap: "12px", minHeight: 0 }}>
             {messages.map((m, i) => (
               <div key={i} style={{ display: "flex", justifyContent: m.role === "user" ? "flex-end" : "flex-start" }}>
                 <div style={{

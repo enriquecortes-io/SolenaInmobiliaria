@@ -1,3 +1,5 @@
+export const revalidate = 60;
+
 import { Metadata } from "next";
 import { getSupabase } from "@/lib/supabase";
 import { notFound } from "next/navigation";
