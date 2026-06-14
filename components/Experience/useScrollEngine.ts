@@ -34,10 +34,10 @@ export function useScrollEngine({
     const video = videoRef.current;
     if (!video) return;
     const start = () => {
-      video.muted = true;
-      video.play().catch(() => {});
-      window.removeEventListener("touchstart", start);
-      window.removeEventListener("wheel", start);
+      const v = videoRef.current;
+      if (!v) return;
+      v.muted = true;
+      v.play().catch(() => {});
     };
     window.addEventListener("touchstart", start, { passive: true, once: true });
     window.addEventListener("wheel", start, { passive: true, once: true });
