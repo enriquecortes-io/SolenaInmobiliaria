@@ -49,7 +49,7 @@ export default function VideoSection({
           ref={videoRef}
           src={videoUrl}
           muted playsInline autoPlay preload="auto"
-          onCanPlay={e => { const el = (e.target as HTMLVideoElement).parentElement?.querySelector(".video-loader") as HTMLElement; if(el) el.style.opacity="0"; }}
+          onCanPlay={e => { const v = e.target as HTMLVideoElement; v.play().catch(()=>{}); const el = v.parentElement?.querySelector(".video-loader") as HTMLElement; if(el) el.style.opacity="0"; }}
           style={{ width:"100%", height:"100%", objectFit:"cover" }}
         />
         <div className="video-loader" style={{ position:"absolute", inset:0, display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", background:"#0a0a0a", transition:"opacity 0.8s ease", pointerEvents:"none", zIndex:2 }}>
