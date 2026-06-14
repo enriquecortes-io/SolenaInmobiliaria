@@ -12,7 +12,7 @@ function getAuth() {
   return new google.auth.GoogleAuth({
     credentials: {
       type: "service_account",
-      private_key: (process.env.GOOGLE_DRIVE_PRIVATE_KEY || "").replace(/\n/g, "\n"),
+      private_key: (process.env.GOOGLE_DRIVE_PRIVATE_KEY || "").replace(/\\n/g, "\n"),
       client_email: process.env.GOOGLE_DRIVE_CLIENT_EMAIL,
     },
     scopes: ["https://www.googleapis.com/auth/drive.readonly"],
@@ -31,12 +31,19 @@ export async function GET(req: NextRequest) {
     const mimeType = meta.data.mimeType || "application/octet-stream";
     const fileSize = parseInt(meta.data.size || "0");
 
+    const isVideo = mimeType.startsWith("video");
     const rangeHeader = req.headers.get("range");
 
-    if (rangeHeader && fileSize > 0) {
-      const parts = rangeHeader.replace(/bytes=/, "").split("-");
-      const start = parseInt(parts[0]);
-      const end = parts[1] ? parseInt(parts[1]) : fileSize - 1;
+    // Para video en iOS Safari: SIEMPRE responder 206 con Range, incluso sin header range
+    if (isVideo && fileSize > 0) {
+      let start = 0;
+      let end = fileSize - 1;
+
+      if (rangeHeader) {
+        const parts = rangeHeader.replace(/bytes=/, "").split("-");
+        start = parseInt(parts[0]) || 0;
+        end = parts[1] ? parseInt(parts[1]) : fileSize - 1;
+      }
       const chunkSize = end - start + 1;
 
       const response = await drive.files.get(
@@ -51,11 +58,12 @@ export async function GET(req: NextRequest) {
           "Content-Range": `bytes ${start}-${end}/${fileSize}`,
           "Accept-Ranges": "bytes",
           "Content-Length": String(chunkSize),
-          "Cache-Control": "public, max-age=86400",
+          "Cache-Control": "public, max-age=2592000",
         },
       });
     }
 
+    // Imágenes y otros archivos
     const response = await drive.files.get(
       { fileId: id, alt: "media" },
       { responseType: "stream" }
@@ -65,7 +73,7 @@ export async function GET(req: NextRequest) {
       headers: {
         "Content-Type": mimeType,
         "Accept-Ranges": "bytes",
-        "Cache-Control": "public, max-age=86400",
+        "Cache-Control": "public, max-age=2592000",
       },
     });
 
