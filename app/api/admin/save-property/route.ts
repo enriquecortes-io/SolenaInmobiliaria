@@ -2,6 +2,13 @@ import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseAdmin } from "@/lib/supabase";
 import bcrypt from "bcryptjs";
 
+function slugify(s: string): string {
+  return s.normalize("NFD").replace(/[\u0300-\u036f]/g, "")
+    .toLowerCase().trim()
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "");
+}
+
 let _supabase: ReturnType<typeof getSupabaseAdmin> | null = null;
 function getClient() {
   if (!_supabase) _supabase = getSupabaseAdmin();
@@ -164,10 +171,30 @@ export async function POST(req: NextRequest) {
       property.descripcion = { es: property.descripcion, en: property.descripcion, fr: property.descripcion, ru: property.descripcion };
     }
 
-    const { data, error } = await getClient()
-      .from("properties")
-      .upsert(property, { onConflict: "slug" })
-      .select();
+    // Sanear: eliminar campos que no son columnas de la tabla
+    const COLUMNS = new Set(["id","slug","titulo","precio","habitaciones","banos","m2_construidos","m2_parcela","ubicacion","descripcion","video_url","galeria_urls","infografias","destacada","activa","tipo","zona","latitud","longitud","codigo_postal","direccion","ano_construccion","estado","orientacion","planta","garajes","trasteros","amueblado","certificado_energetico","amenidades","google_maps_url","referencia","contacto_nombre","contacto_telefono","contacto_email","seo_description"]);
+    for (const k of Object.keys(property)) {
+      if (!COLUMNS.has(k)) delete property[k];
+    }
+
+    // Si viene id, es edición: detectar cambio de slug y crear redirect 301
+    let data, error;
+    if (property.id) {
+      const { data: prev } = await getClient()
+        .from("properties").select("slug").eq("id", property.id).single();
+      if (prev && prev.slug && property.slug && prev.slug !== property.slug) {
+        await getClient().from("slug_redirects")
+          .upsert({ old_slug: prev.slug, new_slug: property.slug }, { onConflict: "old_slug" });
+        // Reapuntar redirects previos que llevaban al slug viejo
+        await getClient().from("slug_redirects")
+          .update({ new_slug: property.slug }).eq("new_slug", prev.slug);
+      }
+      ({ data, error } = await getClient()
+        .from("properties").update(property).eq("id", property.id).select());
+    } else {
+      ({ data, error } = await getClient()
+        .from("properties").upsert(property, { onConflict: "slug" }).select());
+    }
 
     if (error) throw error;
     return NextResponse.json({ ok: true, data });

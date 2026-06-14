@@ -2,7 +2,7 @@ export const revalidate = 60;
 
 import { Metadata } from "next";
 import { getSupabase } from "@/lib/supabase";
-import { notFound } from "next/navigation";
+import { notFound, redirect } from "next/navigation";
 import PropertyExperience from "@/components/Experience/PropertyExperience";
 
 // Service role — server only
@@ -138,7 +138,21 @@ export default async function Page({ params }: Props) {
     .eq("activa", true)
     .single();
 
-  if (!property) notFound();
+  if (!property) {
+    const { data: redir } = await supabase
+      .from("slug_redirects")
+      .select("new_slug")
+      .eq("old_slug", slug)
+      .single();
+    if (redir?.new_slug) redirect(`/${locale}/propiedades/${redir.new_slug}`);
+    const { data: redir } = await supabase
+      .from("slug_redirects")
+      .select("new_slug")
+      .eq("old_slug", slug)
+      .single();
+    if (redir?.new_slug) redirect(`/${locale}/propiedades/${redir.new_slug}`);
+    notFound();
+  }
 
   const { data: meta } = await supabase
    .from("properties")

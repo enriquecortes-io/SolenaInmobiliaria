@@ -3,6 +3,11 @@ import { useState, useEffect } from "react";
 import ImageSorter from "./ImageSorter";
 import { convertGDriveUrl } from "@/lib/gdrive";
 
+function slugify(s: string): string {
+  return (s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"")
+    .toLowerCase().trim().replace(/[^a-z0-9]+/g,"-").replace(/^-+|-+$/g,"");
+}
+
 interface Property {
   id: string; slug: string; titulo: any; descripcion: any; precio: number;
   habitaciones: number; banos: number; m2_construidos: number; m2_parcela: number;
@@ -114,7 +119,8 @@ export default function Portfolio({ password, role, onEdit }: Props) {
     setStatus("Guardando...");
     try {
       const property = {
-        slug: editing.slug,
+        id: editing.id,
+        slug: editFields.slug || editing.slug,
         titulo, descripcion,
         ...editFields,
         galeria_urls: editFields.galeria_urls.split("\n").map((s:string)=>convertGDriveUrl(s.trim())).filter(Boolean),
@@ -341,6 +347,15 @@ export default function Portfolio({ password, role, onEdit }: Props) {
                 {translating?"...":"Traducir →4"}
               </button>
             </div>
+
+            {/* Slug (URL) — autogenerado del título, editable */}
+            <label style={L}>Slug (URL pública)</label>
+            <input value={editFields.slug||""}
+              onChange={e=>setEditFields((f:any)=>({...f, slug: e.target.value}))}
+              style={INP}/>
+            <p style={{ fontSize:"11px", color:"#8A847C", margin:"-8px 0 16px" }}>
+              theeditmarbella.com/es/propiedades/{editFields.slug||"..."}
+            </p>
 
             {/* Descripción */}
             <label style={L}>Descripción ({lang.toUpperCase()})</label>
