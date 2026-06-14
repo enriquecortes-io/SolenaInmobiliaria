@@ -79,7 +79,7 @@ export default function VideoSection({
             <div style={{ display:"flex", flexDirection:"column", gap:"0.9rem" }}>
               {m2Construidos && (
                 <div style={{ display:"flex", justifyContent:"space-between", alignItems:"baseline", borderBottom:"1px solid rgba(255,255,255,0.1)", paddingBottom:"0.6rem" }}>
-                  <span style={{ color:"rgba(255,255,255,0.9)", fontSize:"clamp(0.5rem,1vw,0.65rem)", letterSpacing:"0.25em", textTransform:"uppercase", fontWeight:600, color:"rgba(255,255,255,0.9)" }}>
+                  <span style={{ color:"rgba(255,255,255,0.9)", fontSize:"clamp(0.5rem,1vw,0.65rem)", letterSpacing:"0.25em", textTransform:"uppercase", fontWeight:600 }}>
                     {({"es":"Construido","en":"Built","fr":"Construit","ru":"Построено"} as Record<string,string>)[locale] || "Built"}
                   </span>
                   <span style={{ color:"#1A1714", fontSize:"clamp(1.1rem,2.2vw,1.7rem)", fontWeight:400, fontFamily:"'Montserrat','Helvetica Neue',sans-serif" }}>
