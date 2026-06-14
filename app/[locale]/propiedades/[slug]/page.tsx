@@ -145,12 +145,6 @@ export default async function Page({ params }: Props) {
       .eq("old_slug", slug)
       .single();
     if (redir?.new_slug) redirect(`/${locale}/propiedades/${redir.new_slug}`);
-    const { data: redir } = await supabase
-      .from("slug_redirects")
-      .select("new_slug")
-      .eq("old_slug", slug)
-      .single();
-    if (redir?.new_slug) redirect(`/${locale}/propiedades/${redir.new_slug}`);
     notFound();
   }
 
