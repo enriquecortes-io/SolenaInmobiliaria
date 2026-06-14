@@ -51,6 +51,7 @@ export default function VideoSection({
           muted playsInline autoPlay preload="auto"
           onCanPlay={e => { const el = (e.target as HTMLVideoElement).parentElement?.querySelector(".video-loader") as HTMLElement; if(el) el.style.opacity="0"; }}
           style={{ width:"100%", height:"100%", objectFit:"cover" }}
+        />
         <div className="video-loader" style={{ position:"absolute", inset:0, display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", background:"#0a0a0a", transition:"opacity 0.8s ease", pointerEvents:"none", zIndex:2 }}>
           <style>{`.video-pulse{animation:pulse 1.8s ease-in-out infinite}@keyframes pulse{0%,100%{opacity:0.3;transform:scale(0.95)}50%{opacity:1;transform:scale(1.05)}}`}</style>
           <span className="video-pulse" style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(2rem,4vw,3rem)", color:"#c9a96e", letterSpacing:"0.1em", fontWeight:300 }}>✦</span>
