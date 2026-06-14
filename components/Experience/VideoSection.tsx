@@ -57,7 +57,6 @@ export default function VideoSection({
           <span className="video-pulse" style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(2rem,4vw,3rem)", color:"#c9a96e", letterSpacing:"0.1em", fontWeight:300 }}>✦</span>
           <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"clamp(0.4rem,0.8vw,0.55rem)", color:"rgba(201,169,110,0.6)", letterSpacing:"0.5em", textTransform:"uppercase", marginTop:"1rem" }}>Cargando</p>
         </div>
-        />
 
         {/* INFOGRAFICO 1 — izquierda */}
         <div className="inf-wrapper-1" style={{ position:"absolute", inset:0, display:"flex", alignItems:"center", justifyContent:"flex-start", padding:"0 clamp(1.5rem,8vw,8vw)", pointerEvents:"none" }}>
