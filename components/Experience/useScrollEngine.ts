@@ -29,12 +29,22 @@ export function useScrollEngine({
   const inf2LockedRef = useRef(false);
   const descProgressRef = useRef(0);
 
-  // Autoplay independiente del scroll engine
+  // Arrancar video en primer touch/scroll — necesario para iOS Safari
   useEffect(() => {
     const video = videoRef.current;
     if (!video) return;
-    video.muted = true;
-    video.play().catch(() => {});
+    const start = () => {
+      video.muted = true;
+      video.play().catch(() => {});
+      window.removeEventListener("touchstart", start);
+      window.removeEventListener("wheel", start);
+    };
+    window.addEventListener("touchstart", start, { passive: true, once: true });
+    window.addEventListener("wheel", start, { passive: true, once: true });
+    return () => {
+      window.removeEventListener("touchstart", start);
+      window.removeEventListener("wheel", start);
+    };
   }, []);
 
   useEffect(() => {
