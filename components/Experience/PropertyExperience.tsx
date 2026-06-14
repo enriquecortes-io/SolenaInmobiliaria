@@ -269,11 +269,11 @@ export default function PropertyExperience({ property, locale }: Props) {
               <>
                 <button
                   onClick={e => { e.stopPropagation(); const i = images.indexOf(lightbox); setLightbox(images[(i-1+images.length)%images.length]); }}
-                  style={{ position:"absolute", left:"-3rem", top:"50%", transform:"translateY(-50%)", background:"none", border:"1px solid rgba(255,255,255,0.15)", color:"rgba(26,23,20,0.5)", width:"2.2rem", height:"2.2rem", cursor:"pointer", fontSize:"0.9rem", display:"flex", alignItems:"center", justifyContent:"center" }}
+                  style={{ position:"absolute", left:"-3rem", top:"50%", transform:"translateY(-50%)", background:"none", border:"1px solid rgba(26,23,20,0.2)", color:"rgba(26,23,20,0.5)", width:"2.2rem", height:"2.2rem", cursor:"pointer", fontSize:"0.9rem", display:"flex", alignItems:"center", justifyContent:"center" }}
                 >←</button>
                 <button
                   onClick={e => { e.stopPropagation(); const i = images.indexOf(lightbox); setLightbox(images[(i+1)%images.length]); }}
-                  style={{ position:"absolute", right:"-3rem", top:"50%", transform:"translateY(-50%)", background:"none", border:"1px solid rgba(255,255,255,0.15)", color:"rgba(26,23,20,0.5)", width:"2.2rem", height:"2.2rem", cursor:"pointer", fontSize:"0.9rem", display:"flex", alignItems:"center", justifyContent:"center" }}
+                  style={{ position:"absolute", right:"-3rem", top:"50%", transform:"translateY(-50%)", background:"none", border:"1px solid rgba(26,23,20,0.2)", color:"rgba(26,23,20,0.5)", width:"2.2rem", height:"2.2rem", cursor:"pointer", fontSize:"0.9rem", display:"flex", alignItems:"center", justifyContent:"center" }}
                 >→</button>
               </>
             )}
