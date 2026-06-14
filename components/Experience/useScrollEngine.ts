@@ -29,6 +29,14 @@ export function useScrollEngine({
   const inf2LockedRef = useRef(false);
   const descProgressRef = useRef(0);
 
+  // Autoplay independiente del scroll engine
+  useEffect(() => {
+    const video = videoRef.current;
+    if (!video) return;
+    video.muted = true;
+    video.play().catch(() => {});
+  }, []);
+
   useEffect(() => {
     const video = videoRef.current;
     const stage = stageRef.current;
