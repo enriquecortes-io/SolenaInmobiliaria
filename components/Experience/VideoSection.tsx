@@ -89,7 +89,7 @@ export default function VideoSection({
               )}
               {m2Parcela && m2Parcela > 0 && (
                 <div style={{ display:"flex", justifyContent:"space-between", alignItems:"baseline", borderBottom:"1px solid rgba(255,255,255,0.1)", paddingBottom:"0.6rem" }}>
-                  <span style={{ color:"rgba(255,255,255,0.9)", fontSize:"clamp(0.5rem,1vw,0.65rem)", letterSpacing:"0.25em", textTransform:"uppercase", fontWeight:600, color:"rgba(255,255,255,0.9)" }}>
+                  <span style={{ color:"rgba(255,255,255,0.9)", fontSize:"clamp(0.5rem,1vw,0.65rem)", letterSpacing:"0.25em", textTransform:"uppercase", fontWeight:600 }}>
                     {({"es":"Parcela","en":"Plot","fr":"Terrain","ru":"Участок"} as Record<string,string>)[locale] || "Plot"}
                   </span>
                   <span style={{ color:"#1A1714", fontSize:"clamp(1.1rem,2.2vw,1.7rem)", fontWeight:400, fontFamily:"'Montserrat','Helvetica Neue',sans-serif" }}>
@@ -99,7 +99,7 @@ export default function VideoSection({
               )}
               {habitaciones && (
                 <div style={{ display:"flex", justifyContent:"space-between", alignItems:"baseline", borderBottom:"1px solid rgba(255,255,255,0.1)", paddingBottom:"0.6rem" }}>
-                  <span style={{ color:"rgba(255,255,255,0.9)", fontSize:"clamp(0.5rem,1vw,0.65rem)", letterSpacing:"0.25em", textTransform:"uppercase", fontWeight:600, color:"rgba(255,255,255,0.9)" }}>
+                  <span style={{ color:"rgba(255,255,255,0.9)", fontSize:"clamp(0.5rem,1vw,0.65rem)", letterSpacing:"0.25em", textTransform:"uppercase", fontWeight:600 }}>
                     {({"es":"Dorm / Baños","en":"Bed / Bath","fr":"Ch / SDB","ru":"Сп / Ван"} as Record<string,string>)[locale] || "Bed / Bath"}
                   </span>
                   <span style={{ color:"#1A1714", fontSize:"clamp(1.1rem,2.2vw,1.7rem)", fontWeight:400, fontFamily:"'Montserrat','Helvetica Neue',sans-serif" }}>
@@ -109,7 +109,7 @@ export default function VideoSection({
               )}
               {precio && (
                 <div style={{ display:"flex", justifyContent:"space-between", alignItems:"baseline" }}>
-                  <span style={{ color:"rgba(255,255,255,0.9)", fontSize:"clamp(0.5rem,1vw,0.65rem)", letterSpacing:"0.25em", textTransform:"uppercase", fontWeight:600, color:"rgba(255,255,255,0.9)" }}>
+                  <span style={{ color:"rgba(255,255,255,0.9)", fontSize:"clamp(0.5rem,1vw,0.65rem)", letterSpacing:"0.25em", textTransform:"uppercase", fontWeight:600 }}>
                     {({"es":"Precio","en":"Price","fr":"Prix","ru":"Цена"} as Record<string,string>)[locale] || "Price"}
                   </span>
                   <span style={{ color:"#c9a96e", fontSize:"clamp(1rem,2.2vw,1.6rem)", fontWeight:200, fontFamily:"'Montserrat','Helvetica Neue',sans-serif" }}>
