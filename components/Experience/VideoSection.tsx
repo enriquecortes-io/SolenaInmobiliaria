@@ -48,9 +48,8 @@ export default function VideoSection({
         <video
           ref={videoRef}
           src={videoUrl}
-          muted playsInline autoPlay preload="auto"
-          onLoadStart={() => { setTimeout(() => { videoRef.current?.play().catch(()=>{}); }, 500); }}
-          style={{ width:"100%", height:"100%", objectFit:"cover" }}
+          muted playsInline autoPlay loop preload="auto"
+          style={{ width:"100%", height:"100%", objectFit:"cover", pointerEvents:"none" }}
         />
 
         {/* INFOGRAFICO 1 — izquierda */}
