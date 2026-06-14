@@ -49,6 +49,7 @@ export default function VideoSection({
           ref={videoRef}
           src={videoUrl}
           muted playsInline autoPlay preload="auto"
+          onLoadStart={() => { setTimeout(() => { videoRef.current?.play().catch(()=>{}); }, 500); }}
           style={{ width:"100%", height:"100%", objectFit:"cover" }}
         />
 
