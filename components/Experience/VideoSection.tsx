@@ -48,7 +48,7 @@ export default function VideoSection({
         <video
           ref={videoRef}
           src={videoUrl}
-          muted playsInline preload="auto"
+          muted playsInline autoPlay preload="auto"
           style={{ width:"100%", height:"100%", objectFit:"cover" }}
         />
 
