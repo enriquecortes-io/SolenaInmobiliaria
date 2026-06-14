@@ -51,11 +51,6 @@ export default function VideoSection({
           muted playsInline autoPlay preload="auto"
           style={{ width:"100%", height:"100%", objectFit:"cover" }}
         />
-        <div style={{ position:"absolute", inset:0, display:"flex", flexDirection:"column", alignItems:"center", justifyContent:"center", background:"rgba(10,10,10,0.7)", transition:"opacity 1s ease", pointerEvents:"none", zIndex:2 }} ref={(el) => { if(el) { const v = el.parentElement?.querySelector('video') as HTMLVideoElement; if(v) { v.addEventListener('playing', () => { el.style.opacity='0'; }, {once:true}); }}}}>
-          <style>{`.video-pulse{animation:pulse 1.8s ease-in-out infinite}@keyframes pulse{0%,100%{opacity:0.3;transform:scale(0.95)}50%{opacity:1;transform:scale(1.05)}}`}</style>
-          <span className="video-pulse" style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(2rem,4vw,3rem)", color:"#c9a96e", letterSpacing:"0.1em", fontWeight:300 }}>✦</span>
-          <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"clamp(0.4rem,0.8vw,0.55rem)", color:"rgba(201,169,110,0.6)", letterSpacing:"0.5em", textTransform:"uppercase", marginTop:"1rem" }}>Cargando</p>
-        </div>
 
         {/* INFOGRAFICO 1 — izquierda */}
         <div className="inf-wrapper-1" style={{ position:"absolute", inset:0, display:"flex", alignItems:"center", justifyContent:"flex-start", padding:"0 clamp(1.5rem,8vw,8vw)", pointerEvents:"none" }}>
@@ -84,7 +79,7 @@ export default function VideoSection({
             <div style={{ display:"flex", flexDirection:"column", gap:"0.9rem" }}>
               {m2Construidos && (
                 <div style={{ display:"flex", justifyContent:"space-between", alignItems:"baseline", borderBottom:"1px solid rgba(255,255,255,0.1)", paddingBottom:"0.6rem" }}>
-                  <span style={{ color:"rgba(255,255,255,0.9)", fontSize:"clamp(0.5rem,1vw,0.65rem)", letterSpacing:"0.25em", textTransform:"uppercase", fontWeight:600 }}>
+                  <span style={{ color:"rgba(255,255,255,0.9)", fontSize:"clamp(0.5rem,1vw,0.65rem)", letterSpacing:"0.25em", textTransform:"uppercase", fontWeight:600, color:"rgba(255,255,255,0.9)" }}>
                     {({"es":"Construido","en":"Built","fr":"Construit","ru":"Построено"} as Record<string,string>)[locale] || "Built"}
                   </span>
                   <span style={{ color:"#1A1714", fontSize:"clamp(1.1rem,2.2vw,1.7rem)", fontWeight:400, fontFamily:"'Montserrat','Helvetica Neue',sans-serif" }}>
@@ -94,7 +89,7 @@ export default function VideoSection({
               )}
               {m2Parcela && m2Parcela > 0 && (
                 <div style={{ display:"flex", justifyContent:"space-between", alignItems:"baseline", borderBottom:"1px solid rgba(255,255,255,0.1)", paddingBottom:"0.6rem" }}>
-                  <span style={{ color:"rgba(255,255,255,0.9)", fontSize:"clamp(0.5rem,1vw,0.65rem)", letterSpacing:"0.25em", textTransform:"uppercase", fontWeight:600 }}>
+                  <span style={{ color:"rgba(255,255,255,0.9)", fontSize:"clamp(0.5rem,1vw,0.65rem)", letterSpacing:"0.25em", textTransform:"uppercase", fontWeight:600, color:"rgba(255,255,255,0.9)" }}>
                     {({"es":"Parcela","en":"Plot","fr":"Terrain","ru":"Участок"} as Record<string,string>)[locale] || "Plot"}
                   </span>
                   <span style={{ color:"#1A1714", fontSize:"clamp(1.1rem,2.2vw,1.7rem)", fontWeight:400, fontFamily:"'Montserrat','Helvetica Neue',sans-serif" }}>
@@ -104,7 +99,7 @@ export default function VideoSection({
               )}
               {habitaciones && (
                 <div style={{ display:"flex", justifyContent:"space-between", alignItems:"baseline", borderBottom:"1px solid rgba(255,255,255,0.1)", paddingBottom:"0.6rem" }}>
-                  <span style={{ color:"rgba(255,255,255,0.9)", fontSize:"clamp(0.5rem,1vw,0.65rem)", letterSpacing:"0.25em", textTransform:"uppercase", fontWeight:600 }}>
+                  <span style={{ color:"rgba(255,255,255,0.9)", fontSize:"clamp(0.5rem,1vw,0.65rem)", letterSpacing:"0.25em", textTransform:"uppercase", fontWeight:600, color:"rgba(255,255,255,0.9)" }}>
                     {({"es":"Dorm / Baños","en":"Bed / Bath","fr":"Ch / SDB","ru":"Сп / Ван"} as Record<string,string>)[locale] || "Bed / Bath"}
                   </span>
                   <span style={{ color:"#1A1714", fontSize:"clamp(1.1rem,2.2vw,1.7rem)", fontWeight:400, fontFamily:"'Montserrat','Helvetica Neue',sans-serif" }}>
@@ -114,7 +109,7 @@ export default function VideoSection({
               )}
               {precio && (
                 <div style={{ display:"flex", justifyContent:"space-between", alignItems:"baseline" }}>
-                  <span style={{ color:"rgba(255,255,255,0.9)", fontSize:"clamp(0.5rem,1vw,0.65rem)", letterSpacing:"0.25em", textTransform:"uppercase", fontWeight:600 }}>
+                  <span style={{ color:"rgba(255,255,255,0.9)", fontSize:"clamp(0.5rem,1vw,0.65rem)", letterSpacing:"0.25em", textTransform:"uppercase", fontWeight:600, color:"rgba(255,255,255,0.9)" }}>
                     {({"es":"Precio","en":"Price","fr":"Prix","ru":"Цена"} as Record<string,string>)[locale] || "Price"}
                   </span>
                   <span style={{ color:"#c9a96e", fontSize:"clamp(1rem,2.2vw,1.6rem)", fontWeight:200, fontFamily:"'Montserrat','Helvetica Neue',sans-serif" }}>
