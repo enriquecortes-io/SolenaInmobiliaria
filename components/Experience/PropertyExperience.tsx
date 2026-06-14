@@ -16,7 +16,7 @@ interface Props {
   locale: string;
 }
 
-const descStyles = ".desc-columns{columns:2;column-gap:clamp(1.5rem,3vw,3rem);column-rule:1px solid rgba(255,255,255,0.06)} .desc-columns p::first-letter{font-family:Cormorant Garamond,serif;font-size:3.5rem;font-weight:700;color:#c9a96e;float:left;line-height:0.75;margin-right:0.08em;margin-top:0.05em} @media(max-width:768px){.desc-columns{columns:1}}";
+const descStyles = ".desc-columns{columns:2;column-gap:clamp(1.5rem,3vw,3rem);column-rule:1px solid rgba(26,23,20,0.1)} .desc-columns p::first-letter{font-family:Cormorant Garamond,serif;font-size:3.5rem;font-weight:700;color:#c9a96e;float:left;line-height:0.75;margin-right:0.08em;margin-top:0.05em} @media(max-width:768px){.desc-columns{columns:1}}";
 
 
 export default function PropertyExperience({ property, locale }: Props) {
@@ -85,7 +85,7 @@ export default function PropertyExperience({ property, locale }: Props) {
   });
 
   return (
-    <div style={{ position: "fixed", inset: 0, width: "100%", height: "100vh", overflow: "hidden", background: "#0a0a0a" }}>
+    <div style={{ position: "fixed", inset: 0, width: "100%", height: "100vh", overflow: "hidden", background: "#FAF8F4" }}>
       <Navbar locale={locale} onPrivateAccess={() => setShowForm(true)} />
       <ScrollIndicator />
       <div ref={stageRef} style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100vh", willChange: "height, transform" }}>
@@ -113,7 +113,7 @@ export default function PropertyExperience({ property, locale }: Props) {
           <div style={{
             maxWidth:"1100px", width:"100%",
             border:"1px solid rgba(201,169,110,0.3)",
-            background:"rgba(6,4,2,0.95)",
+            background:"rgba(250,248,244,0.97)",
             backdropFilter:"blur(24px)",
             boxShadow:"0 0 100px rgba(0,0,0,0.8)",
             display:"flex", flexDirection:"column",
@@ -129,7 +129,7 @@ export default function PropertyExperience({ property, locale }: Props) {
                 {property.ubicacion}
               </p>
               <div style={{ width:"2rem", height:"1px", background:"rgba(201,169,110,0.5)" }}/>
-              <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1.6rem,3vw,3rem)", fontWeight:600, color:"white", lineHeight:1.1, margin:0, letterSpacing:"-0.01em" }}>
+              <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1.6rem,3vw,3rem)", fontWeight:600, color:"#1A1714", lineHeight:1.1, margin:0, letterSpacing:"-0.01em" }}>
                 {typeof property.titulo === "object" ? (property.titulo as any)[lang] || (property.titulo as any)["en"] || "" : property.titulo}
               </h2>
             </div>
@@ -177,7 +177,7 @@ export default function PropertyExperience({ property, locale }: Props) {
                         fontSize:"clamp(1.3rem,2vw,1.7rem)",
                         fontStyle:"italic",
                         fontWeight:600,
-                        color:"white",
+                        color:"#1A1714",
                         lineHeight:1.6,
                         margin:"0 0 1.5rem",
                         paddingBottom:"1.5rem",
@@ -193,7 +193,7 @@ export default function PropertyExperience({ property, locale }: Props) {
                           fontFamily:"'Montserrat',sans-serif",
                           fontSize:"clamp(0.85rem,1vw,0.95rem)",
                           fontWeight:300,
-                          color:"rgba(255,255,255,0.9)",
+                          color:"rgba(26,23,20,0.9)",
                           lineHeight:2,
                           margin:0,
                           letterSpacing:"0.01em",
@@ -230,7 +230,7 @@ export default function PropertyExperience({ property, locale }: Props) {
           onClick={() => setLightbox(null)}
           style={{
             position:"fixed", inset:0, zIndex:1000,
-            background:"rgba(0,0,0,0.92)",
+            background:"rgba(250,248,244,0.97)",
             display:"flex", alignItems:"center", justifyContent:"center",
             cursor:"zoom-out",
             backdropFilter:"blur(8px)",
@@ -259,7 +259,7 @@ export default function PropertyExperience({ property, locale }: Props) {
               style={{
                 position:"absolute", top:"-2.5rem", right:0,
                 background:"none", border:"none",
-                color:"rgba(255,255,255,0.5)",
+                color:"rgba(26,23,20,0.5)",
                 fontFamily:"'Montserrat','Helvetica Neue',sans-serif",
                 fontSize:"0.5rem", letterSpacing:"0.4em",
                 textTransform:"uppercase", cursor:"pointer",
@@ -269,15 +269,15 @@ export default function PropertyExperience({ property, locale }: Props) {
               <>
                 <button
                   onClick={e => { e.stopPropagation(); const i = images.indexOf(lightbox); setLightbox(images[(i-1+images.length)%images.length]); }}
-                  style={{ position:"absolute", left:"-3rem", top:"50%", transform:"translateY(-50%)", background:"none", border:"1px solid rgba(255,255,255,0.15)", color:"rgba(255,255,255,0.5)", width:"2.2rem", height:"2.2rem", cursor:"pointer", fontSize:"0.9rem", display:"flex", alignItems:"center", justifyContent:"center" }}
+                  style={{ position:"absolute", left:"-3rem", top:"50%", transform:"translateY(-50%)", background:"none", border:"1px solid rgba(255,255,255,0.15)", color:"rgba(26,23,20,0.5)", width:"2.2rem", height:"2.2rem", cursor:"pointer", fontSize:"0.9rem", display:"flex", alignItems:"center", justifyContent:"center" }}
                 >←</button>
                 <button
                   onClick={e => { e.stopPropagation(); const i = images.indexOf(lightbox); setLightbox(images[(i+1)%images.length]); }}
-                  style={{ position:"absolute", right:"-3rem", top:"50%", transform:"translateY(-50%)", background:"none", border:"1px solid rgba(255,255,255,0.15)", color:"rgba(255,255,255,0.5)", width:"2.2rem", height:"2.2rem", cursor:"pointer", fontSize:"0.9rem", display:"flex", alignItems:"center", justifyContent:"center" }}
+                  style={{ position:"absolute", right:"-3rem", top:"50%", transform:"translateY(-50%)", background:"none", border:"1px solid rgba(255,255,255,0.15)", color:"rgba(26,23,20,0.5)", width:"2.2rem", height:"2.2rem", cursor:"pointer", fontSize:"0.9rem", display:"flex", alignItems:"center", justifyContent:"center" }}
                 >→</button>
               </>
             )}
-            <div style={{ position:"absolute", bottom:"-2rem", left:"50%", transform:"translateX(-50%)", fontFamily:"'Montserrat','Helvetica Neue',sans-serif", fontSize:"0.4rem", color:"rgba(255,255,255,0.3)", letterSpacing:"0.4em" }}>
+            <div style={{ position:"absolute", bottom:"-2rem", left:"50%", transform:"translateX(-50%)", fontFamily:"'Montserrat','Helvetica Neue',sans-serif", fontSize:"0.4rem", color:"rgba(26,23,20,0.3)", letterSpacing:"0.4em" }}>
               {String(images.indexOf(lightbox)+1).padStart(2,"0")} / {String(images.length).padStart(2,"0")}
             </div>
           </div>
@@ -292,7 +292,7 @@ export default function PropertyExperience({ property, locale }: Props) {
           onTouchMove={e => e.stopPropagation()}
           style={{
             position:"fixed", top:0, left:0, right:0, bottom:0, zIndex:9999,
-            background:"#0d0a08",
+            background:"#FAF8F4",
             overflowY:"auto",
             overflowX:"hidden",
             WebkitOverflowScrolling:"touch",
@@ -301,7 +301,7 @@ export default function PropertyExperience({ property, locale }: Props) {
           <div style={{
             width:"100%", maxWidth:"680px",
             margin:"0 auto",
-            background:"rgba(8,6,4,0.95)",
+            background:"rgba(250,248,244,0.97)",
             border:"1px solid rgba(201,169,110,0.2)",
             padding:"clamp(2rem,5vw,4rem)",
             position:"relative",
@@ -313,7 +313,7 @@ export default function PropertyExperience({ property, locale }: Props) {
               style={{
                 position:"absolute", top:"1.5rem", right:"1.5rem",
                 background:"none", border:"none",
-                color:"rgba(255,255,255,0.3)",
+                color:"rgba(26,23,20,0.3)",
                 fontFamily:"'Montserrat','Helvetica Neue',sans-serif",
                 fontSize:"0.45rem", letterSpacing:"0.4em",
                 cursor:"pointer", textTransform:"uppercase",

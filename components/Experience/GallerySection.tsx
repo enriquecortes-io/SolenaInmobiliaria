@@ -22,16 +22,16 @@ export default function GallerySection({ galleryTrackRef, images, titulo, ubicac
     <>
       {/* Lightbox local — solo si no hay onImageClick externo */}
       {lightbox && !onImageClick && (
-        <div onClick={() => setLightbox(null)} style={{ position:"fixed", inset:0, zIndex:1000, background:"rgba(0,0,0,0.92)", display:"flex", alignItems:"center", justifyContent:"center", cursor:"zoom-out", backdropFilter:"blur(8px)" }}>
+        <div onClick={() => setLightbox(null)} style={{ position:"fixed", inset:0, zIndex:1000, background:"rgba(250,248,244,0.97)", display:"flex", alignItems:"center", justifyContent:"center", cursor:"zoom-out", backdropFilter:"blur(8px)" }}>
           <div onClick={e => e.stopPropagation()} style={{ width:"80vw", height:"80vh", position:"relative" }}>
             <img src={lightbox} alt="" style={{ width:"100%", height:"100%", objectFit:"contain" }} />
-            <button onClick={() => setLightbox(null)} style={{ position:"absolute", top:"-2.5rem", right:0, background:"none", border:"none", color:"rgba(255,255,255,0.5)", fontFamily:"'Montserrat','Helvetica Neue',sans-serif", fontSize:"0.5rem", letterSpacing:"0.4em", textTransform:"uppercase", cursor:"pointer" }}>CLOSE ✕</button>
+            <button onClick={() => setLightbox(null)} style={{ position:"absolute", top:"-2.5rem", right:0, background:"none", border:"none", color:"rgba(26,23,20,0.5)", fontFamily:"'Montserrat','Helvetica Neue',sans-serif", fontSize:"0.5rem", letterSpacing:"0.4em", textTransform:"uppercase", cursor:"pointer" }}>CLOSE ✕</button>
           </div>
         </div>
       )}
 
       {/* Galería — estructura ORIGINAL */}
-      <div className="gallery-section" style={{ position:"absolute", top:"300vh", left:0, width:"100%", height:"50vh", overflow:"hidden", background:"linear-gradient(to bottom, #050505, #0a0a0a)", borderTop:"1px solid rgba(201,169,110,0.15)" }}>
+      <div className="gallery-section" style={{ position:"absolute", top:"300vh", left:0, width:"100%", height:"50vh", overflow:"hidden", background:"linear-gradient(to bottom, #FAF8F4, #F0EDE8)", borderTop:"1px solid rgba(201,169,110,0.15)" }}>
         <div ref={galleryTrackRef} style={{ display:"flex", alignItems:"center", height:"100%", width:"max-content", gap:"1.5rem", paddingLeft:"4rem", paddingRight:"4rem", willChange:"transform" }}>
           <div style={{ flexShrink:0, width:"16vw", color:"#c9a96e", fontFamily:"Georgia, serif" }}>
             <p style={{ fontSize:"0.5rem", letterSpacing:"0.45em", opacity:0.4, textTransform:"uppercase", margin:"0 0 0.8rem" }}>
