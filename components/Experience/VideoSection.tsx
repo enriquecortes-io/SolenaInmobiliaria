@@ -71,7 +71,7 @@ export default function VideoSection({
             }}
           >
             {/* Titulo ficha */}
-            <span style={{ color:"rgba(26,23,20,0.6)", textTransform:"uppercase", letterSpacing:"0.45em", fontSize:"clamp(0.4rem,1vw,0.55rem)", display:"block", marginBottom:"1.5rem", fontStyle:"italic" }}>
+            <span style={{ color:"#1A1714", textTransform:"uppercase", letterSpacing:"0.35em", fontSize:"clamp(0.5rem,1vw,0.65rem)", display:"block", marginBottom:"1.5rem", fontStyle:"italic", fontWeight:700 }}>
               {({"es":"Ficha Técnica","en":"Specifications","fr":"Caractéristiques","ru":"Характеристики"} as Record<string,string>)[locale] || "Specifications"}
             </span>
 
@@ -79,37 +79,37 @@ export default function VideoSection({
             <div style={{ display:"flex", flexDirection:"column", gap:"0.9rem" }}>
               {m2Construidos && (
                 <div style={{ display:"flex", justifyContent:"space-between", alignItems:"baseline", borderBottom:"1px solid rgba(255,255,255,0.1)", paddingBottom:"0.6rem" }}>
-                  <span style={{ color:"rgba(26,23,20,0.5)", fontSize:"clamp(0.4rem,0.9vw,0.55rem)", letterSpacing:"0.3em", textTransform:"uppercase" }}>
+                  <span style={{ color:"rgba(26,23,20,0.5)", fontSize:"clamp(0.5rem,1vw,0.65rem)", letterSpacing:"0.25em", textTransform:"uppercase", fontWeight:600 }}>
                     {({"es":"Construido","en":"Built","fr":"Construit","ru":"Построено"} as Record<string,string>)[locale] || "Built"}
                   </span>
-                  <span style={{ color:"#1A1714", fontSize:"clamp(1rem,2vw,1.5rem)", fontWeight:200, fontFamily:"'Montserrat','Helvetica Neue',sans-serif" }}>
+                  <span style={{ color:"#1A1714", fontSize:"clamp(1.1rem,2.2vw,1.7rem)", fontWeight:400, fontFamily:"'Montserrat','Helvetica Neue',sans-serif" }}>
                     {m2Construidos.toLocaleString()} m²
                   </span>
                 </div>
               )}
               {m2Parcela && m2Parcela > 0 && (
                 <div style={{ display:"flex", justifyContent:"space-between", alignItems:"baseline", borderBottom:"1px solid rgba(255,255,255,0.1)", paddingBottom:"0.6rem" }}>
-                  <span style={{ color:"rgba(26,23,20,0.5)", fontSize:"clamp(0.4rem,0.9vw,0.55rem)", letterSpacing:"0.3em", textTransform:"uppercase" }}>
+                  <span style={{ color:"rgba(26,23,20,0.5)", fontSize:"clamp(0.5rem,1vw,0.65rem)", letterSpacing:"0.25em", textTransform:"uppercase", fontWeight:600 }}>
                     {({"es":"Parcela","en":"Plot","fr":"Terrain","ru":"Участок"} as Record<string,string>)[locale] || "Plot"}
                   </span>
-                  <span style={{ color:"#1A1714", fontSize:"clamp(1rem,2vw,1.5rem)", fontWeight:200, fontFamily:"'Montserrat','Helvetica Neue',sans-serif" }}>
+                  <span style={{ color:"#1A1714", fontSize:"clamp(1.1rem,2.2vw,1.7rem)", fontWeight:400, fontFamily:"'Montserrat','Helvetica Neue',sans-serif" }}>
                     {m2Parcela.toLocaleString()} m²
                   </span>
                 </div>
               )}
               {habitaciones && (
                 <div style={{ display:"flex", justifyContent:"space-between", alignItems:"baseline", borderBottom:"1px solid rgba(255,255,255,0.1)", paddingBottom:"0.6rem" }}>
-                  <span style={{ color:"rgba(26,23,20,0.5)", fontSize:"clamp(0.4rem,0.9vw,0.55rem)", letterSpacing:"0.3em", textTransform:"uppercase" }}>
+                  <span style={{ color:"rgba(26,23,20,0.5)", fontSize:"clamp(0.5rem,1vw,0.65rem)", letterSpacing:"0.25em", textTransform:"uppercase", fontWeight:600 }}>
                     {({"es":"Dorm / Baños","en":"Bed / Bath","fr":"Ch / SDB","ru":"Сп / Ван"} as Record<string,string>)[locale] || "Bed / Bath"}
                   </span>
-                  <span style={{ color:"#1A1714", fontSize:"clamp(1rem,2vw,1.5rem)", fontWeight:200, fontFamily:"'Montserrat','Helvetica Neue',sans-serif" }}>
+                  <span style={{ color:"#1A1714", fontSize:"clamp(1.1rem,2.2vw,1.7rem)", fontWeight:400, fontFamily:"'Montserrat','Helvetica Neue',sans-serif" }}>
                     {habitaciones} / {banos}
                   </span>
                 </div>
               )}
               {precio && (
                 <div style={{ display:"flex", justifyContent:"space-between", alignItems:"baseline" }}>
-                  <span style={{ color:"rgba(26,23,20,0.5)", fontSize:"clamp(0.4rem,0.9vw,0.55rem)", letterSpacing:"0.3em", textTransform:"uppercase" }}>
+                  <span style={{ color:"rgba(26,23,20,0.5)", fontSize:"clamp(0.5rem,1vw,0.65rem)", letterSpacing:"0.25em", textTransform:"uppercase", fontWeight:600 }}>
                     {({"es":"Precio","en":"Price","fr":"Prix","ru":"Цена"} as Record<string,string>)[locale] || "Price"}
                   </span>
                   <span style={{ color:"#c9a96e", fontSize:"clamp(1rem,2.2vw,1.6rem)", fontWeight:200, fontFamily:"'Montserrat','Helvetica Neue',sans-serif" }}>
