@@ -185,7 +185,7 @@ function PropertyPreview({ property: p, locale, onClose }: PreviewProps) {
   );
 }
 
-export default function MasonrySection({ locale = "es" }: { locale?: string }) {
+export default function MasonrySection({ locale = "es", onScrollDown }: { locale?: string; onScrollDown?: () => void }) {
   const [properties, setProperties] = useState<Property[]>([]);
   const [filters, setFilters] = useState<Record<string,string>>({});
   const [preview, setPreview] = useState<Property | null>(null);
@@ -482,6 +482,13 @@ export default function MasonrySection({ locale = "es" }: { locale?: string }) {
         )}
       </div>
 
+
+      {onScrollDown && (
+        <button onClick={onScrollDown} style={{ position:"fixed", bottom:"2rem", left:"50%", transform:"translateX(-50%)", background:"none", border:"none", cursor:"pointer", zIndex:50, display:"flex", flexDirection:"column", alignItems:"center", gap:"0.4rem" }}>
+          <span style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.45rem", letterSpacing:"0.35em", textTransform:"uppercase", color:"#8B7355" }}>Contacto</span>
+          <span style={{ fontSize:"1rem", color:"#C9A96E" }}>↓</span>
+        </button>
+      )}
       {preview && typeof document !== "undefined" && createPortal(
         <PropertyPreview property={preview} locale={locale} onClose={() => setPreview(null)} />,
         document.body
