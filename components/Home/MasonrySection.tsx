@@ -261,7 +261,7 @@ export default function MasonrySection({ locale = "es" }: { locale?: string }) {
             paddingTop:"clamp(0.8rem,2vw,1.2rem)",
             textShadow:`0 0 20px rgba(45,74,62,0.2)`,
           }}>
-            THE EDITS · {filtered.length}
+            LISTADOS · {filtered.length}
           </span>
 
           {/* Filtros en fila ordenada */}
