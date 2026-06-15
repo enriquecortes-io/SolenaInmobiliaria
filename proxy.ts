@@ -9,7 +9,7 @@ export function proxy(request: NextRequest) {
   // Redirección 301 del dominio antiguo al nuevo
   if (host.includes("vercel.app")) {
     const url = request.nextUrl.clone();
-    url.host = "www.theeditmarbella.com";
+    url.host = request.nextUrl.host;
     url.protocol = "https:";
     return NextResponse.redirect(url, { status: 301 });
   }
