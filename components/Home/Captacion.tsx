@@ -155,7 +155,6 @@ const INP: React.CSSProperties = {
 
 const Captacion = forwardRef<HTMLDivElement, Props>(({ locale }, ref) => {
   const t = TRANSLATIONS[locale] || TRANSLATIONS["es"];
-  const [tab, setTab] = useState<"servicios"|"contacto">("servicios");
   const [form, setForm] = useState({ name:"", email:"", phone:"", ubicacion:"", precio_estimado:"", mensaje:"" });
   const [status, setStatus] = useState<"idle"|"sending"|"sent"|"error">("idle");
 
@@ -203,93 +202,72 @@ const Captacion = forwardRef<HTMLDivElement, Props>(({ locale }, ref) => {
           <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(0.9rem,1.1vw,1rem)", color:"rgba(17,17,17,0.7)", lineHeight:1.6, margin:0, fontStyle:"italic" }}>{t.subtitle}</p>
         </div>
 
-        {/* Tabs */}
-        <div style={{ display:"flex", gap:0, borderBottom:"1px solid rgba(201,169,110,0.15)" }}>
-          {(["servicios","contacto"] as const).map(tabId => (
-            <button key={tabId} onClick={() => setTab(tabId)} style={{
-              fontFamily:"'Montserrat',sans-serif", fontSize:"0.5rem",
-              letterSpacing:"0.3em", textTransform:"uppercase",
-              color: tab === tabId ? "#2D4A3E" : "rgba(45,74,62,0.4)",
-              background:"transparent", border:"none",
-              borderBottom: tab === tabId ? "1px solid #2D4A3E" : "1px solid transparent",
-              padding:"0.6rem 1.5rem 0.8rem", cursor:"pointer",
-              transition:"all 0.3s", marginBottom:"-1px",
-            }}>
-              {tabId === "servicios" ? (locale === "fr" ? "Services" : locale === "ru" ? "Услуги" : locale === "en" ? "Services" : "Servicios") : t.formTitle}
-            </button>
-          ))}
+        {/* Formulario PRIMERO */}
+        <div style={{ display:"flex", flexDirection:"column", gap:"0.8rem" }}>
+          {status === "sent" ? (
+            <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1.3rem", color:"#2D4A3E", textAlign:"center", fontStyle:"italic", lineHeight:1.6, padding:"2rem 0" }}>{t.sent}</p>
+          ) : (
+            <>
+              <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"0.7rem" }}>
+                {[
+                  { key:"name",      label:t.name,      type:"text" },
+                  { key:"email",     label:t.email,     type:"email" },
+                  { key:"phone",     label:t.phone,     type:"tel" },
+                  { key:"ubicacion", label:t.ubicacion, type:"text" },
+                ].map(f => (
+                  <input key={f.key} type={f.type} placeholder={f.label}
+                    value={(form as any)[f.key]}
+                    onChange={e => setForm(p => ({...p, [f.key]: e.target.value}))}
+                    style={INP}
+                    onFocus={e => e.target.style.borderColor = "rgba(45,74,62,0.6)"}
+                    onBlur={e => e.target.style.borderColor = "rgba(45,74,62,0.2)"}
+                  />
+                ))}
+              </div>
+              <div style={{ display:"flex", gap:"0.4rem", flexWrap:"wrap" }}>
+                {PRICES.map((p: string) => (
+                  <button key={p} onClick={() => setForm(f => ({...f, precio_estimado: p}))}
+                    style={{
+                      fontFamily:"'Montserrat',sans-serif", fontSize:"0.45rem",
+                      letterSpacing:"0.15em", padding:"0.45rem 0.8rem",
+                      border:`1px solid rgba(201,169,110,${form.precio_estimado === p ? 0.8 : 0.2})`,
+                      background: form.precio_estimado === p ? "rgba(45,74,62,0.12)" : "transparent",
+                      color: form.precio_estimado === p ? "#2D4A3E" : "rgba(45,74,62,0.5)",
+                      cursor:"pointer", transition:"all 0.2s",
+                    }}>
+                    {p}
+                  </button>
+                ))}
+              </div>
+              <textarea placeholder={t.mensaje} value={form.mensaje}
+                onChange={e => setForm(p => ({...p, mensaje: e.target.value}))}
+                rows={3} style={{...INP, resize:"none"}}
+                onFocus={e => e.target.style.borderColor = "rgba(45,74,62,0.6)"}
+                onBlur={e => e.target.style.borderColor = "rgba(45,74,62,0.2)"}
+              />
+              {status === "error" && <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.4rem", color:"rgba(255,100,100,0.8)" }}>{t.error}</p>}
+              <NeonButton onClick={handleSubmit} disabled={status === "sending"} variant="solid" size="lg" style={{width:"100%",marginTop:"0.5rem",color:"#FAFAF7",backgroundColor:"#2D4A3E"}}>
+                {"Solicitar valoración"}
+              </NeonButton>
+            </>
+          )}
         </div>
 
-        {/* Tab: Servicios */}
-        {tab === "servicios" && (
-          <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"1.2rem 2.5rem" }}>
-            {SERVICES(locale).map((s, i) => (
-              <div key={i} style={{ display:"flex", flexDirection:"column", gap:"0.35rem" }}>
-                <div style={{ display:"flex", alignItems:"center", gap:"0.6rem" }}>
-                  <span style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"0.7rem", color:"rgba(45,74,62,0.5)", fontWeight:300, flexShrink:0 }}>
-                    {String(i+1).padStart(2,"0")}
-                  </span>
-                  <div style={{ flex:1, height:"1px", background:"linear-gradient(90deg,rgba(201,169,110,0.4),transparent)" }}/>
-                </div>
-                <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.55rem", color:"#2D4A3E", letterSpacing:"0.2em", textTransform:"uppercase", margin:0, lineHeight:1.3 }}>{s.title}</p>
-                <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(0.9rem,1.1vw,1rem)", color:"rgba(17,17,17,0.8)", lineHeight:1.55, margin:0 }}>{s.desc}</p>
+        {/* Servicios DESPUÉS del botón */}
+        <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"1.2rem 2.5rem", marginTop:"1rem" }}>
+          {SERVICES(locale).map((s, i) => (
+            <div key={i} style={{ display:"flex", flexDirection:"column", gap:"0.35rem" }}>
+              <div style={{ display:"flex", alignItems:"center", gap:"0.6rem" }}>
+                <span style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"0.7rem", color:"rgba(45,74,62,0.5)", fontWeight:300, flexShrink:0 }}>
+                  {String(i+1).padStart(2,"0")}
+                </span>
+                <div style={{ flex:1, height:"1px", background:"linear-gradient(90deg,rgba(201,169,110,0.4),transparent)" }}/>
               </div>
-            ))}
-          </div>
-        )}
-
-        {/* Tab: Contacto */}
-        {tab === "contacto" && (
-          <div style={{ display:"flex", flexDirection:"column", gap:"0.8rem" }}>
-            {status === "sent" ? (
-              <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"1.3rem", color:"#2D4A3E", textAlign:"center", fontStyle:"italic", lineHeight:1.6, padding:"2rem 0" }}>{t.sent}</p>
-            ) : (
-              <>
-                <div style={{ display:"grid", gridTemplateColumns:"1fr 1fr", gap:"0.7rem" }}>
-                  {[
-                    { key:"name",      label:t.name,      type:"text" },
-                    { key:"email",     label:t.email,     type:"email" },
-                    { key:"phone",     label:t.phone,     type:"tel" },
-                    { key:"ubicacion", label:t.ubicacion, type:"text" },
-                  ].map(f => (
-                    <input key={f.key} type={f.type} placeholder={f.label}
-                      value={(form as any)[f.key]}
-                      onChange={e => setForm(p => ({...p, [f.key]: e.target.value}))}
-                      style={INP}
-                      onFocus={e => e.target.style.borderColor = "rgba(45,74,62,0.6)"}
-                      onBlur={e => e.target.style.borderColor = "rgba(45,74,62,0.2)"}
-                    />
-                  ))}
-                </div>
-                <div style={{ display:"flex", gap:"0.4rem", flexWrap:"wrap" }}>
-                  {PRICES.map((p: string) => (
-                    <button key={p} onClick={() => setForm(f => ({...f, precio_estimado: p}))}
-                      style={{
-                        fontFamily:"'Montserrat',sans-serif", fontSize:"0.45rem",
-                        letterSpacing:"0.15em", padding:"0.45rem 0.8rem",
-                        border:`1px solid rgba(201,169,110,${form.precio_estimado === p ? 0.8 : 0.2})`,
-                        background: form.precio_estimado === p ? "rgba(45,74,62,0.12)" : "transparent",
-                        color: form.precio_estimado === p ? "#2D4A3E" : "rgba(255,255,255,0.4)",
-                        cursor:"pointer", transition:"all 0.2s",
-                      }}>
-                      {p}
-                    </button>
-                  ))}
-                </div>
-                <textarea placeholder={t.mensaje} value={form.mensaje}
-                  onChange={e => setForm(p => ({...p, mensaje: e.target.value}))}
-                  rows={3} style={{...INP, resize:"none"}}
-                  onFocus={e => e.target.style.borderColor = "rgba(45,74,62,0.6)"}
-                  onBlur={e => e.target.style.borderColor = "rgba(45,74,62,0.2)"}
-                />
-                {status === "error" && <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.4rem", color:"rgba(255,100,100,0.8)" }}>{t.error}</p>}
-                <NeonButton onClick={handleSubmit} disabled={status === "sending"} variant="solid" size="lg" style={{width:"100%",marginTop:"0.5rem",color:"#FAFAF7",backgroundColor:"#2D4A3E"}}>
-                  {"Solicitar valoración"}
-                </NeonButton>
-              </>
-            )}
-          </div>
-        )}
+              <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.55rem", color:"#2D4A3E", letterSpacing:"0.2em", textTransform:"uppercase", margin:0, lineHeight:1.3 }}>{s.title}</p>
+              <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(0.9rem,1.1vw,1rem)", color:"rgba(17,17,17,0.8)", lineHeight:1.55, margin:0 }}>{s.desc}</p>
+            </div>
+          ))}
+        </div>
 
         {/* Línea dorada inferior */}
         <div style={{ position:"absolute", bottom:0, left:"10%", right:"10%", height:"1px", background:"linear-gradient(90deg,transparent,rgba(201,169,110,0.4),transparent)" }}/>
