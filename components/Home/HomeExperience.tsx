@@ -1,5 +1,5 @@
 "use client";
-import { useRef } from "react";
+import { useState } from "react";
 import dynamic from "next/dynamic";
 
 const MasonrySection = dynamic(() => import("./MasonrySection"), { ssr: false });
@@ -8,41 +8,30 @@ const Captacion      = dynamic(() => import("./Captacion"),      { ssr: false })
 interface Props { locale: string; }
 
 export default function HomeExperience({ locale }: Props) {
-  const masonryRef   = useRef<HTMLDivElement>(null);
-  const captacionRef = useRef<HTMLDivElement>(null);
+  const [panel, setPanel] = useState<"masonry" | "captacion">("masonry");
 
   return (
     <div style={{position:"fixed",inset:0,width:"100%",height:"100vh",overflow:"hidden",background:"#FAFAF7"}}>
 
       {/* Masonry */}
-      <div ref={masonryRef} style={{position:"absolute",inset:0,zIndex:25}}>
-        <MasonrySection locale={locale} onScrollDown={() => {
-          if (captacionRef.current) {
-            captacionRef.current.style.opacity = "1";
-            captacionRef.current.style.pointerEvents = "auto";
-            captacionRef.current.style.transform = "translateY(0)";
-            masonryRef.current!.style.opacity = "0";
-            masonryRef.current!.style.pointerEvents = "none";
-          }
-        }} />
+      <div style={{
+        position:"absolute", inset:0, zIndex:25,
+        opacity: panel === "masonry" ? 1 : 0,
+        pointerEvents: panel === "masonry" ? "auto" : "none",
+        transition:"opacity 0.5s ease",
+      }}>
+        <MasonrySection locale={locale} onScrollDown={() => setPanel("captacion")} />
       </div>
 
       {/* Captación */}
-      <div ref={captacionRef} style={{
+      <div style={{
         position:"absolute", inset:0, zIndex:30,
-        opacity:0, pointerEvents:"none",
-        transform:"translateY(100%)",
-        transition:"opacity 0.6s ease, transform 0.6s ease",
+        opacity: panel === "captacion" ? 1 : 0,
+        pointerEvents: panel === "captacion" ? "auto" : "none",
+        transition:"opacity 0.5s ease",
+        background:"#FAFAF7",
       }}>
-        <Captacion locale={locale} onBack={() => {
-          if (captacionRef.current && masonryRef.current) {
-            captacionRef.current.style.opacity = "0";
-            captacionRef.current.style.pointerEvents = "none";
-            captacionRef.current.style.transform = "translateY(100%)";
-            masonryRef.current.style.opacity = "1";
-            masonryRef.current.style.pointerEvents = "auto";
-          }
-        }} />
+        <Captacion locale={locale} onBack={() => setPanel("masonry")} />
       </div>
 
     </div>
