@@ -19,6 +19,8 @@ export default function HomeExperience({ locale }: Props) {
         opacity: panel === "masonry" ? 1 : 0,
         pointerEvents: panel === "masonry" ? "auto" : "none",
         transition:"opacity 0.5s ease",
+        overflow:"hidden",
+        height:"100%",
       }}>
         <MasonrySection locale={locale} onScrollDown={() => setPanel("captacion")} />
       </div>
