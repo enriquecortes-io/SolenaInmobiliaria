@@ -177,12 +177,10 @@ const Captacion = forwardRef<HTMLDivElement, Props>(({ locale }, ref) => {
 
   return (
     <div ref={ref} style={{
-      position:"absolute", inset:0, zIndex:35,
-      opacity:0, pointerEvents:"none",
+      width:"100%", height:"100%",
       display:"flex", alignItems:"flex-start", justifyContent:"center",
       padding:"clamp(1rem,3vw,3rem)",
       overflowY:"auto",
-      willChange:"opacity",
     }}>
       <div style={{
         width:"100%", maxWidth:"1000px",
