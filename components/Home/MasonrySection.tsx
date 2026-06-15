@@ -185,25 +185,13 @@ function PropertyPreview({ property: p, locale, onClose }: PreviewProps) {
   );
 }
 
-export default function MasonrySection({ locale = "es", onScrollDown }: { locale?: string; onScrollDown?: () => void }) {
+export default function MasonrySection({ locale = "es" }: { locale?: string }) {
   const [properties, setProperties] = useState<Property[]>([]);
   const [filters, setFilters] = useState<Record<string,string>>({});
   const [preview, setPreview] = useState<Property | null>(null);
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
-  const gridRef = useRef<HTMLDivElement>(null);
   const t = T[locale] || T.es;
-
-  useEffect(() => {
-    const el = gridRef.current;
-    if (!el || !onScrollDown) return;
-    const handleScroll = () => {
-      const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 40;
-      if (atBottom) onScrollDown();
-    };
-    el.addEventListener("scroll", handleScroll, { passive: true });
-    return () => el.removeEventListener("scroll", handleScroll);
-  }, [onScrollDown]);
 
   useEffect(() => {
     fetch("/api/properties")
@@ -247,7 +235,7 @@ export default function MasonrySection({ locale = "es", onScrollDown }: { locale
   };
 
   return (
-    <div style={{ position:"absolute", inset:0, display:"flex", flexDirection:"column", overflow:"hidden", background:BG, height:"100%" }}>
+    <div style={{ display:"flex", flexDirection:"column", background:BG, minHeight:"100vh" }}>
 
       {/* Header + Filtros */}
       <div style={{
@@ -364,8 +352,7 @@ export default function MasonrySection({ locale = "es", onScrollDown }: { locale
       </div>
 
       {/* Grid Masonry */}
-      <div ref={gridRef} style={{
-        flex:1, overflowY:"auto", WebkitOverflowScrolling:"touch",
+      <div style={{
         padding:"0.5rem 0.5rem 4rem",
         display:"grid",
         gridTemplateColumns:"repeat(3, 1fr)",
@@ -495,12 +482,6 @@ export default function MasonrySection({ locale = "es", onScrollDown }: { locale
       </div>
 
 
-      {onScrollDown && (
-        <button onClick={onScrollDown} style={{ position:"fixed", bottom:"2rem", left:"50%", transform:"translateX(-50%)", background:"none", border:"none", cursor:"pointer", zIndex:50, display:"flex", flexDirection:"column", alignItems:"center", gap:"0.4rem" }}>
-          <span style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.45rem", letterSpacing:"0.35em", textTransform:"uppercase", color:"#8B7355" }}>Contacto</span>
-          <span style={{ fontSize:"1rem", color:"#C9A96E" }}>↓</span>
-        </button>
-      )}
       {preview && typeof document !== "undefined" && createPortal(
         <PropertyPreview property={preview} locale={locale} onClose={() => setPreview(null)} />,
         document.body
