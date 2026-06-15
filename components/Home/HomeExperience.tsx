@@ -1,5 +1,4 @@
 "use client";
-import { useRef } from "react";
 import dynamic from "next/dynamic";
 
 const MasonrySection = dynamic(() => import("./MasonrySection"), { ssr: false });
@@ -8,18 +7,16 @@ const Captacion      = dynamic(() => import("./Captacion"),      { ssr: false })
 interface Props { locale: string; }
 
 export default function HomeExperience({ locale }: Props) {
-  const captacionRef = useRef<HTMLDivElement>(null);
-
   return (
-    <div style={{position:"fixed",inset:0,width:"100%",height:"100vh",overflow:"hidden",background:"#FAFAF7"}}>
+    <div style={{width:"100%",minHeight:"100vh",overflowY:"auto",background:"#FAFAF7"}}>
 
-      {/* Masonry — directo, sin hero ni manifesto */}
-      <div style={{position:"absolute",inset:0,zIndex:25}}>
+      {/* Masonry */}
+      <div style={{minHeight:"100vh"}}>
         <MasonrySection locale={locale} />
       </div>
 
       {/* Captación */}
-      <Captacion ref={captacionRef} locale={locale} />
+      <Captacion locale={locale} />
 
     </div>
   );
