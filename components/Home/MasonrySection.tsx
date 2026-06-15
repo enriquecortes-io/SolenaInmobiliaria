@@ -191,7 +191,19 @@ export default function MasonrySection({ locale = "es", onScrollDown }: { locale
   const [preview, setPreview] = useState<Property | null>(null);
   const [activeFilter, setActiveFilter] = useState<string | null>(null);
   const [hoveredCard, setHoveredCard] = useState<string | null>(null);
+  const gridRef = useRef<HTMLDivElement>(null);
   const t = T[locale] || T.es;
+
+  useEffect(() => {
+    const el = gridRef.current;
+    if (!el || !onScrollDown) return;
+    const handleScroll = () => {
+      const atBottom = el.scrollTop + el.clientHeight >= el.scrollHeight - 40;
+      if (atBottom) onScrollDown();
+    };
+    el.addEventListener("scroll", handleScroll, { passive: true });
+    return () => el.removeEventListener("scroll", handleScroll);
+  }, [onScrollDown]);
 
   useEffect(() => {
     fetch("/api/properties")
@@ -352,7 +364,7 @@ export default function MasonrySection({ locale = "es", onScrollDown }: { locale
       </div>
 
       {/* Grid Masonry */}
-      <div style={{
+      <div ref={gridRef} style={{
         flex:1, overflowY:"auto", WebkitOverflowScrolling:"touch",
         padding:"0.5rem 0.5rem 4rem",
         display:"grid",
