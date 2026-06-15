@@ -235,7 +235,7 @@ export default function MasonrySection({ locale = "es", onScrollDown }: { locale
   };
 
   return (
-    <div style={{ position:"absolute", inset:0, display:"flex", flexDirection:"column", overflow:"hidden", background:BG }}>
+    <div style={{ position:"absolute", inset:0, display:"flex", flexDirection:"column", overflow:"hidden", background:BG, height:"100%" }}>
 
       {/* Header + Filtros */}
       <div style={{
