@@ -177,7 +177,7 @@ const Captacion = forwardRef<HTMLDivElement, Props>(({ locale }, ref) => {
 
   return (
     <div ref={ref} style={{
-      position:"absolute", inset:0, zIndex:23,
+      position:"absolute", inset:0, zIndex:35,
       opacity:0, pointerEvents:"none",
       display:"flex", alignItems:"flex-start", justifyContent:"center",
       padding:"clamp(1rem,3vw,3rem)",
@@ -188,7 +188,7 @@ const Captacion = forwardRef<HTMLDivElement, Props>(({ locale }, ref) => {
         width:"100%", maxWidth:"1000px",
         display:"flex", flexDirection:"column",
         gap:"clamp(1.5rem,2.5vw,2.5rem)",
-        background:"rgba(250,250,247,0.85)",
+        background:"#FAFAF7",
         border:"1px solid rgba(201,169,110,0.25)",
         backdropFilter:"blur(12px)",
         padding:"clamp(1.5rem,3vw,3rem)",
