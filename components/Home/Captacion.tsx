@@ -106,12 +106,12 @@ const TRANSLATIONS: Record<string, Record<string, string>> = {
 const PRICES = ["< 1M €", "1M – 3M €", "3M – 7M €", "7M – 15M €", "+ 15M €"];
 
 const SERVICES_ES = [
-  { icon:"◆", title:"Valoración por Inteligencia de Mercado", desc:"Precio de salida calculado con datos transaccionales en tiempo real, no con estimaciones. Tu propiedad entra al mercado posicionada, no tanteando." },
-  { icon:"◈", title:"Compradores Precalificados, No Visitas", desc:"Nuestra cartera activa de compradores identificados acorta el ciclo de venta de meses a semanas. Cada visita es una conversación real, no un reconocimiento." },
-  { icon:"◉", title:"Visibilidad Total, Privacidad Absoluta", desc:"Exposición selectiva o máxima — tú decides. Acceso a redes privadas internacionales sin comprometer la discreción que una operación de este nivel exige." },
-  { icon:"◎", title:"Documentación Sin Fricción", desc:"Nota simple, certificación energética, contratos de arras, coordinación notarial. Todo gestionado. Tu única decisión es cuándo firmar." },
-  { icon:"◐", title:"Producción Editorial", desc:"Cada propiedad recibe un tratamiento visual cinematográfico. Porque la primera impresión de un comprador global se forma a 10.000 kilómetros de distancia, antes de coger el avión." },
-  { icon:"◑", title:"Reporting Mensual", desc:"Panel de control con datos de impresiones, conversión a contactos y feedback estructurado post-visita. Sabes exactamente dónde está tu operación en cada momento." },
+  { icon:"◆", title:"Ponemos el Precio Justo", desc:"Calculamos el precio de salida con datos reales de ventas, no con suposiciones. Tu casa sale al mercado bien posicionada desde el primer día." },
+  { icon:"◈", title:"Compradores de Verdad, No Curiosos", desc:"Ya tenemos compradores buscando. Eso significa que vendes en semanas, no en meses, y que cada visita es alguien con interés real, no alguien que viene a mirar." },
+  { icon:"◉", title:"Tú Decides Quién se Entera", desc:"¿Quieres máxima difusión o una venta discreta? Tú eliges. Llegamos a compradores internacionales sin renunciar a la privacidad que tu operación merece." },
+  { icon:"◎", title:"El Papeleo lo Llevamos Nosotros", desc:"Nota simple, certificado energético, arras, notaría… nos encargamos de todo. Lo único que tienes que decidir es cuándo firmar." },
+  { icon:"◐", title:"Tu Casa, Como se Merece", desc:"Fotografía y vídeo de cine para cada propiedad. Porque muchos compradores se enamoran de tu casa desde su móvil, a miles de kilómetros, antes de coger un avión." },
+  { icon:"◑", title:"Siempre Sabes Cómo va Todo", desc:"Te damos acceso a un panel con todo: cuánta gente la ve, cuántos contactan y qué opinan tras cada visita. Sin sorpresas, sin tener que preguntar." },
 ];
 
 const SERVICES_EN = [
