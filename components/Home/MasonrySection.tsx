@@ -282,7 +282,7 @@ export default function MasonrySection({ locale = "es" }: { locale?: string }) {
                     padding:"0.6rem 1.2rem 0.5rem",
                     cursor:"pointer",
                     fontFamily:"'Montserrat',sans-serif",
-                    fontSize:"0.55rem",
+                    fontSize:"1.1rem",
                     letterSpacing:"0.25em",
                     textTransform:"uppercase",
                     color: active ? ACCENT : activeFilter === f.id ? TEXT : TEXT2,
