@@ -199,7 +199,7 @@ const Captacion = forwardRef<HTMLDivElement, Props>(({ locale }, ref) => {
         <div>
           <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.5rem", color:"rgba(45,74,62,0.7)", letterSpacing:"0.5em", textTransform:"uppercase", margin:"0 0 0.6rem" }}>{t.eyebrow}</p>
           <h2 style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(2rem,3vw,3rem)", fontWeight:600, color:"#111111", lineHeight:1.1, margin:"0 0 0.6rem", fontStyle:"italic" }}>{t.title}</h2>
-          <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(0.9rem,1.1vw,1rem)", color:"rgba(17,17,17,0.7)", lineHeight:1.6, margin:0, fontStyle:"italic" }}>{t.subtitle}</p>
+          <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1.35rem,2.2vw,2rem)", color:"rgba(17,17,17,0.7)", lineHeight:1.6, margin:0, fontStyle:"italic" }}>{t.subtitle}</p>
         </div>
 
         {/* Formulario PRIMERO */}
@@ -263,8 +263,8 @@ const Captacion = forwardRef<HTMLDivElement, Props>(({ locale }, ref) => {
                 </span>
                 <div style={{ flex:1, height:"1px", background:"linear-gradient(90deg,rgba(201,169,110,0.4),transparent)" }}/>
               </div>
-              <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"0.55rem", color:"#2D4A3E", letterSpacing:"0.2em", textTransform:"uppercase", margin:0, lineHeight:1.3 }}>{s.title}</p>
-              <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(0.9rem,1.1vw,1rem)", color:"rgba(17,17,17,0.8)", lineHeight:1.55, margin:0 }}>{s.desc}</p>
+              <p style={{ fontFamily:"'Montserrat',sans-serif", fontSize:"clamp(0.83rem,1.2vw,1.1rem)", color:"#2D4A3E", letterSpacing:"0.2em", textTransform:"uppercase", margin:0, lineHeight:1.3 }}>{s.title}</p>
+              <p style={{ fontFamily:"'Cormorant Garamond',serif", fontSize:"clamp(1.35rem,2.2vw,2rem)", color:"rgba(17,17,17,0.8)", lineHeight:1.55, margin:0 }}>{s.desc}</p>
             </div>
           ))}
         </div>
