@@ -244,7 +244,7 @@ export default function MasonrySection({ locale = "es" }: { locale?: string }) {
         background:BG,
       }}>
         {/* THE EDITS + Filtros */}
-        <div style={{ display:"flex", flexDirection:"column", gap:"0.6rem", marginBottom:"0", paddingBottom:"0" }}>
+        <div style={{ display:"flex", alignItems:"center", justifyContent:"center", gap:"clamp(1.5rem,3vw,3rem)", flexWrap:"wrap", paddingTop:"clamp(0.8rem,2vw,1.2rem)", marginBottom:"0", paddingBottom:"0" }}>
 
           {/* Label centrado en móvil, izquierda en desktop */}
           <span style={{
@@ -255,10 +255,6 @@ export default function MasonrySection({ locale = "es" }: { locale?: string }) {
             color:ACCENT,
             whiteSpace:"nowrap",
             flexShrink:0,
-            textAlign:"center",
-            display:"block",
-            paddingTop:"clamp(0.8rem,2vw,1.2rem)",
-            textShadow:`0 0 20px rgba(45,74,62,0.2)`,
           }}>
             LISTADOS · {filtered.length}
           </span>
