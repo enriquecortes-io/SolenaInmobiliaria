@@ -32,7 +32,8 @@ export async function POST(req: NextRequest) {
     if (action === "create") {
       if (!user?.password) return NextResponse.json({ error: "Password requerido" }, { status: 400 });
       const hashed = await bcrypt.hash(user.password, 12);
-      const { data, error } = await supabase.from("admin_users").insert({ ...user, password_hash: hashed }).select("id,name,role,created_at").single();
+      const { password: _pw, ...userWithout } = user;
+      const { data, error } = await supabase.from("admin_users").insert({ ...userWithout, password_hash: hashed }).select("id,name,role,created_at").single();
       if (error) throw error;
       return NextResponse.json({ ok: true, user: data });
     }
