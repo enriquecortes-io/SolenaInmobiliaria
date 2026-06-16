@@ -6,9 +6,9 @@ interface Props { locale: string; }
 
 const TRANSLATIONS: Record<string, Record<string, string>> = {
   es: {
-    eyebrow: "Propietarios",
-    title: "Confíanos tu Legado",
-    subtitle: "No vendemos propiedades. Editamos su historia para el comprador correcto.",
+    eyebrow: "¿Quieres vender tu propiedad?",
+    title: "Cuéntanos qué tienes",
+    subtitle: "Sin compromisos. Te decimos lo que vale tu propiedad y cómo podemos ayudarte a venderla.",
     s1: "Valoración Estratégica",
     s1d: "Precio óptimo basado en datos de mercado premium y demanda internacional.",
     s2: "Producción Editorial",
@@ -103,7 +103,7 @@ const TRANSLATIONS: Record<string, Record<string, string>> = {
   },
 };
 
-const PRICES = ["< 1M €", "1M – 3M €", "3M – 7M €", "7M – 15M €", "+ 15M €"];
+const PRICES: string[] = [];
 
 const SERVICES_ES = [
   { icon:"◆", title:"Ponemos el Precio Justo", desc:"Calculamos el precio de salida con datos reales de ventas, no con suposiciones. Tu casa sale al mercado bien posicionada desde el primer día." },
