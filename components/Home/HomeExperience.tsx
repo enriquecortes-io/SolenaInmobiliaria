@@ -1,6 +1,7 @@
 "use client";
 import dynamic from "next/dynamic";
 import Footer from "@/components/Footer";
+import HeroHeader from "@/components/Home/HeroHeader";
 
 const MasonrySection = dynamic(() => import("./MasonrySection"), { ssr: false });
 const Captacion      = dynamic(() => import("./Captacion"),      { ssr: false }) as any;
