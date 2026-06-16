@@ -22,7 +22,6 @@ interface Property {
 
 const FILTERS_DEF = [
   { id:"zona",        label:"Zona",        options:["marbella","estepona","mijas","benahavis","sotogrande"] },
-  { id:"ubicacion",   label:"Ubicación",   options:["golden mile","nueva andalucia","puerto banus","sierra blanca","la zagaleta","los monteros","el madroñal"] },
   { id:"tipo",        label:"Tipo",        options:["villa","apartment","penthouse","townhouse","plot"] },
   { id:"habitaciones",label:"Hab.",        options:["2","3","4","5","6+"] },
   { id:"precio",      label:"Precio",      options:["500k-1m","1m-2m","2m-5m","5m+"] },
@@ -336,7 +335,7 @@ export default function MasonrySection({ locale = "es" }: { locale?: string }) {
           {Object.values(filters).some(Boolean) && (
             <button onClick={() => setFilters({})} style={{
               background:"none", border:"none", cursor:"pointer",
-              fontFamily:"'Montserrat',sans-serif", fontSize:"0.5rem",
+              fontFamily:"'Montserrat',sans-serif", fontSize:"1rem",
               letterSpacing:"0.25em", textTransform:"uppercase",
               color:MUTED, padding:"0.6rem 1rem",
               opacity:0.7, transition:"opacity 0.2s",
