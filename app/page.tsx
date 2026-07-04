@@ -7,7 +7,7 @@ export const metadata: Metadata = {
 
 export default function LandingPage() {
   return (
-    <>
+    <main>
       <style>{`
         @import url('https://fonts.googleapis.com/css2?family=Lato:wght=300;400;700&family=Playfair+Display:ital,wght=0,400;0,600;0,900;1,400;1,600&display=swap');
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -31,6 +31,7 @@ export default function LandingPage() {
             <a href="#contacto" style="background: #6B3F2A; color: #F5F0E8; font-family: 'Lato', sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; padding: 12px 24px; text-decoration: none; display: inline-block;">Valoración gratuita</a>
           </div>
         </nav>
+      `}} />
     </main>
   );
 }
