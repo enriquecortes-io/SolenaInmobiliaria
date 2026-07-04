@@ -367,6 +367,8 @@ export default function LandingPage() {
           </div>
 
           {/* Hero visual */}
+
+<div style="padding:100px; background:red; color:white;">DEBUG: EL RESTO DE LA PÁGINA DEBERÍA ESTAR AQUÍ</div>
           <div style={{ position: 'relative' }}>
             <div
               style={{
