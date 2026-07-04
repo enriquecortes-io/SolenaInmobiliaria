@@ -31,3 +31,6 @@ export default function LandingPage() {
             <a href="#contacto" style="background: #6B3F2A; color: #F5F0E8; font-family: 'Lato', sans-serif; font-weight: 700; font-size: 12px; letter-spacing: 1.5px; text-transform: uppercase; padding: 12px 24px; text-decoration: none; display: inline-block;">Valoración gratuita</a>
           </div>
         </nav>
+    </main>
+  );
+}
