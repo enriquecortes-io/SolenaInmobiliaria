@@ -10,17 +10,17 @@ export default function LandingPage() {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Lato:wght=300;400;700&family=Playfair+Display:ital,wght=0,400;0,600;0,900;1,400;1,600&display=swap');
-        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-        html { scroll-behavior: smooth; }
-        body { background: #F5F0E8; font-family: 'Lato', sans-serif; color: #2A1A10; }
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
-        .fade-up { animation: fadeUp 0.7s ease both; }
-        .fade-up-2 { animation: fadeUp 0.7s 0.15s ease both; }
-        .fade-up-3 { animation: fadeUp 0.7s 0.3s ease both; }
-        input, select, textarea { font-family: 'Lato', sans-serif; }
-        input:focus, select:focus, textarea:focus { outline: none; border-color: #6B3F2A !important; }
-        input::placeholder, textarea::placeholder { color: #B0998A; }
+        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,900;1,400;1,600&display=swap');
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { background: #F5F0E8; font-family: 'Lato', sans-serif; color: #2A1A10; }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
+    .fade-up { animation: fadeUp 0.7s ease both; }
+    .fade-up-2 { animation: fadeUp 0.7s 0.15s ease both; }
+    .fade-up-3 { animation: fadeUp 0.7s 0.3s ease both; }
+    input, select, textarea { font-family: 'Lato', sans-serif; }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: #6B3F2A !important; }
+    input::placeholder, textarea::placeholder { color: #B0998A; }
       `}</style>
 
       <div
@@ -98,7 +98,7 @@ export default function LandingPage() {
         <h3 style="font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #F5F0E8; margin-bottom: 14px; line-height: 1.2;">Precio justo desde el día uno</h3>
         <p style="font-size: 14px; color: rgba(245,240,232,.6); line-height: 1.7;">Valoramos tu propiedad con datos reales del mercado de tu zona. Sin inflar precios que luego no se venden.</p>
       </div>
-      <div style="background: rgba(107,63,42,.07); padding: 44px 36px; border: 1px solid rgba(107,63,42,.1);\">
+      <div style="background: rgba(107,63,42,.07); padding: 44px 36px; border: 1px solid rgba(107,63,42,.1);">
         <div style="font-family: 'Playfair Display', serif; font-size: 48px; font-weight: 900; color: #6B3F2A; line-height: 1; margin-bottom: 20px;">02</div>
         <h3 style="font-family: 'Playfair Display', serif; font-size: 22px; font-weight: 700; color: #2A1A10; margin-bottom: 14px; line-height: 1.2;">Marketing profesional incluido</h3>
         <p style="font-size: 14px; color: #6A4E3E; line-height: 1.7;">Fotos de calidad, publicación en más de 30 portales y gestión diaria. Máxima exposición sin esfuerzo por tu parte.</p>
