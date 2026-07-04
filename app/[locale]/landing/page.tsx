@@ -1217,7 +1217,7 @@ export default function LandingPage() {
               Urb. Alzambra, Centro de Negocios Vasari, Marbella
             </div>
             <div style={{ fontSize: 11, color: 'rgba(245,240,232,.2)', marginTop: 4 }}>
-              © 2026 Solena
+              © 2025 Solena
             </div>
           </div>
         </div>
