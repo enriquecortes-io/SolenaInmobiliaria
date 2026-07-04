@@ -246,7 +246,7 @@ export default function LandingPage() {
             </div>
           </div>
           <a
-            href="#contacto"
+            href="#seccion-contacto"
             style={{
               background: '#6B3F2A',
               color: '#F5F0E8',
@@ -334,7 +334,7 @@ export default function LandingPage() {
               style={{ display: 'flex', gap: 16, flexWrap: 'wrap', alignItems: 'center' }}
             >
               <a
-                href="#contacto"
+                href="#seccion-contacto"
                 style={{
                   background: '#6B3F2A',
                   color: '#F5F0E8',
@@ -775,7 +775,7 @@ export default function LandingPage() {
 
       {/* FORMULARIO */}
       <section
-        id="contacto"
+        id="seccion-contacto"
         style={{ background: '#6B3F2A', padding: 'clamp(80px, 10vw, 120px) clamp(24px, 6vw, 80px)' }}
       >
         <div style={{ maxWidth: 760, margin: '0 auto' }}>
