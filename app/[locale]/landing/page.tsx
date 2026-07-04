@@ -347,3 +347,4 @@ export default function LandingPage() {
     </div>
   );
 }
+// Inyección de seguridad Vercel
