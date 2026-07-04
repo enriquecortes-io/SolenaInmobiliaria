@@ -1,30 +1,22 @@
 'use client';
 
-import { useState } from 'react';
-
-/* 
-  NOTA ESTRATÉGICA:
-  En Next.js App Router, los componentes con 'use client' no pueden exportar 'metadata'.
-  Debes mover este bloque a tu archivo app/layout.tsx o app/[locale]/layout.tsx
-  para mantener el SEO intacto.
-
-  export const metadata = {
-    title: 'Vende tu casa en la Costa del Sol — Solena Inmobiliaria',
-    description: 'Vendemos tu propiedad en Marbella, Benahavís y Costa del Sol en media de 60 días. Valoración gratuita, sin costes anticipados.',
-  };
-*/
+import { useState, useEffect } from 'react';
 
 export default function LandingPage() {
-  // Estado para las FAQ
+  // 1. BLINDAJE DE HIDRATACIÓN
+  const [isMounted, setIsMounted] = useState(false);
+  
   const [openFaq, setOpenFaq] = useState<number | null>(null);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
+
+  useEffect(() => {
+    setIsMounted(true);
+  }, []);
 
   const toggleFaq = (index: number) => {
     setOpenFaq(openFaq === index ? null : index);
   };
-
-  // Estado para el formulario
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitStatus, setSubmitStatus] = useState<'idle' | 'success' | 'error'>('idle');
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -62,13 +54,17 @@ export default function LandingPage() {
     { q: '¿Qué es la exclusiva y por qué importa?', a: 'La exclusiva nos permite invertir al máximo en el marketing de tu propiedad. Una casa publicada por varias agencias a la vez genera desconfianza en el comprador y suele tardar mucho más en venderse.' },
   ];
 
+  // Si el componente no se ha montado en el cliente, no renderizamos nada para evitar colapsos.
+  if (!isMounted) return null;
+
   return (
-    <>
-      <style>{`
+    <div style={{ backgroundColor: '#F5F0E8', minHeight: '100vh', width: '100%' }}>
+      {/* INYECCIÓN SEGURA DEL CSS GLOBAL */}
+      <style dangerouslySetInnerHTML={{ __html: `
         @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,900;1,400;1,600&display=swap');
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
-        body { background: #F5F0E8; font-family: 'Lato', sans-serif; color: #2A1A10; }
+        body { background: #F5F0E8; font-family: 'Lato', sans-serif; color: #2A1A10; margin: 0; padding: 0; }
         @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
         .fade-up { animation: fadeUp 0.7s ease both; }
         .fade-up-2 { animation: fadeUp 0.7s 0.15s ease both; }
@@ -76,7 +72,7 @@ export default function LandingPage() {
         input, select, textarea { font-family: 'Lato', sans-serif; }
         input:focus, select:focus, textarea:focus { outline: none; border-color: #6B3F2A !important; }
         input::placeholder, textarea::placeholder { color: #B0998A; }
-      `}</style>
+      `}} />
 
       {/* NAV */}
       <nav style={{ position: 'sticky', top: 0, zIndex: 100, background: '#F5F0E8', borderBottom: '1px solid rgba(107,63,42,.1)', padding: '0 clamp(24px, 6vw, 80px)' }}>
@@ -101,7 +97,6 @@ export default function LandingPage() {
               <a href="#proceso" style={{ color: '#6B3F2A', fontWeight: 700, fontSize: '13px', letterSpacing: '1px', textDecoration: 'none', borderBottom: '1px solid #6B3F2A', paddingBottom: '2px' }}>Ver cómo funciona</a>
             </div>
           </div>
-          {/* Hero visual */}
           <div style={{ position: 'relative' }}>
             <div style={{ background: '#2A1A10', padding: '48px 44px', position: 'relative', overflow: 'hidden' }}>
               <div style={{ position: 'absolute', top: '-30px', right: '-30px', width: '160px', height: '160px', borderRadius: '50%', border: '40px solid rgba(107,63,42,.2)' }}></div>
@@ -188,7 +183,6 @@ export default function LandingPage() {
             <h2 style={{ fontFamily: "'Playfair Display', serif", fontSize: 'clamp(32px, 4vw, 50px)', fontWeight: 900, color: '#F5F0E8', lineHeight: 1.1 }}>4 pasos para vender<br />tu casa.</h2>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 0, position: 'relative' }}>
-            {/* connector line */}
             <div style={{ position: 'absolute', top: '28px', left: '5%', right: '5%', height: '1px', background: 'rgba(107,63,42,.3)' }}></div>
             <div style={{ padding: '0 20px 0 0', position: 'relative' }}>
               <div style={{ width: '56px', height: '56px', background: '#6B3F2A', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Playfair Display', serif", fontWeight: 900, fontSize: '20px', color: '#F5F0E8', marginBottom: '24px', position: 'relative', zIndex: 1 }}>1</div>
@@ -350,6 +344,6 @@ export default function LandingPage() {
           </div>
         </div>
       </footer>
-    </>
+    </div>
   );
 }
