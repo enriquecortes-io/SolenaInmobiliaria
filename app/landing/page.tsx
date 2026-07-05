@@ -1152,48 +1152,37 @@ export default function LandingPage() {
             gap: 20,
           }}
         >
-          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <div
-              style={{
-                width: 36,
-                height: 36,
-                background: '#6B3F2A',
-                borderRadius: '50%',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontFamily: "'Playfair Display', serif",
-                fontWeight: 700,
-                color: '#F5F0E8',
-                fontSize: 12,
-                letterSpacing: '1px',
-              }}
-            >
-              SL
-            </div>
-            <div>
-              <div
-                style={{
-                  fontFamily: "'Playfair Display', serif",
-                  fontWeight: 700,
-                  fontSize: 16,
-                  color: '#F5F0E8',
-                }}
-              >
-                Solena
-              </div>
-              <div
-                style={{
-                  fontSize: 10,
-                  color: 'rgba(245,240,232,.35)',
-                  letterSpacing: '1px',
-                  textTransform: 'uppercase',
-                  marginTop: 2,
-                }}
-              >
-                Inmobiliaria · Costa del Sol
-              </div>
-            </div>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 1 }}>
+            <span style={{
+              fontFamily: "'Montserrat','Helvetica Neue',sans-serif",
+              fontWeight: 300,
+              fontSize: 'clamp(0.34rem,0.6vw,0.42rem)',
+              color: 'rgba(201,169,110,0.6)',
+              letterSpacing: '0.45em',
+              textTransform: 'uppercase',
+              whiteSpace: 'nowrap',
+            }}>Inmobiliaria</span>
+            <span style={{
+              fontFamily: "'Cormorant Garamond','Didot','Bodoni MT',Georgia,serif",
+              fontWeight: 700,
+              fontSize: 'clamp(1.4rem,3vw,2rem)',
+              background: 'linear-gradient(90deg, #C1694F 0%, #C4956A 40%, #B8976E 70%, #C9A96E 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              letterSpacing: '0.08em',
+              lineHeight: 1,
+              whiteSpace: 'nowrap',
+            }}>SOLENA</span>
+            <span style={{
+              fontFamily: "'Montserrat','Helvetica Neue',sans-serif",
+              fontWeight: 300,
+              fontSize: 'clamp(0.34rem,0.6vw,0.42rem)',
+              color: 'rgba(201,169,110,0.6)',
+              letterSpacing: '0.45em',
+              textTransform: 'uppercase',
+              whiteSpace: 'nowrap',
+            }}>Costa del Sol</span>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 6, textAlign: 'right' }}>
             <a
