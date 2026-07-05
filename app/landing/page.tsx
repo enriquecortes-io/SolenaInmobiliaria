@@ -272,8 +272,8 @@ export default function LandingPage() {
             maxWidth: 1100,
             margin: '0 auto',
             display: 'grid',
-            gridTemplateColumns: '1fr 1fr',
-            gap: 60,
+            gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 480px), 1fr))',
+            gap: 'clamp(32px, 6vw, 60px)',
             alignItems: 'center',
           }}
         >
@@ -448,7 +448,7 @@ export default function LandingPage() {
             maxWidth: 1100,
             margin: '0 auto',
             display: 'grid',
-            gridTemplateColumns: 'repeat(4, 1fr)',
+            gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))',
             gap: 0,
           }}
         >
@@ -522,7 +522,7 @@ export default function LandingPage() {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(3, 1fr)',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))',
               gap: 2,
             }}
           >
@@ -607,7 +607,7 @@ export default function LandingPage() {
           <div
             style={{
               display: 'grid',
-              gridTemplateColumns: 'repeat(4, 1fr)',
+              gridTemplateColumns: 'repeat(auto-fit, minmax(120px, 1fr))',
               gap: 0,
               position: 'relative',
             }}
@@ -816,7 +816,7 @@ export default function LandingPage() {
             <div
               style={{
                 display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 260px), 1fr))',
                 gap: 2,
                 marginBottom: 2,
               }}
@@ -917,7 +917,7 @@ export default function LandingPage() {
             <div
               style={{
                 display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 260px), 1fr))',
                 gap: 2,
                 marginBottom: 2,
               }}
@@ -996,7 +996,7 @@ export default function LandingPage() {
             <div
               style={{
                 display: 'grid',
-                gridTemplateColumns: '1fr 1fr',
+                gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 260px), 1fr))',
                 gap: 2,
                 marginBottom: 2,
               }}
