@@ -1198,7 +1198,7 @@ export default function LandingPage() {
               +34 610 589 716
             </a>
             <div style={{ fontSize: 11, color: 'rgba(245,240,232,.25)', lineHeight: 1.4 }}>
-              Urb. Alzambra, Centro de Negocios Vasari, Marbella
+              Urb. La Alzambra, Centro de Negocios Vasari, Marbella, España
             </div>
             <div style={{ fontSize: 11, color: 'rgba(245,240,232,.2)', marginTop: 4 }}>
               © 2025 Solena
