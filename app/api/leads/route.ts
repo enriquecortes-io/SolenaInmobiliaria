@@ -36,7 +36,7 @@ export async function POST(req: NextRequest) {
       },
       body: JSON.stringify({
         from: 'Solena Leads <onboarding@resend.dev>',
-        to: ['Enriquecortesgomez@gmail.com'],
+        to: ['enriquecortesgomez@gmail.com'],
         subject: `Nuevo lead: ${nombre}`,
         html: `
           <h2>Nuevo lead del landing — Solena</h2>
