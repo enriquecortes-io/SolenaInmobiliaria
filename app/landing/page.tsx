@@ -192,8 +192,8 @@ export default function LandingPage() {
           position: 'sticky',
           top: 0,
           zIndex: 100,
-          background: '#F5F0E8',
-          borderBottom: '1px solid rgba(107,63,42,.1)',
+          background: '#1A0E08',
+          borderBottom: '1px solid rgba(107,63,42,.3)',
           padding: '0 clamp(24px, 6vw, 80px)',
         }}
       >
