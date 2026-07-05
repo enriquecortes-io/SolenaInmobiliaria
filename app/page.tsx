@@ -56,10 +56,10 @@ function Navbar({ locale = "es" }: { locale?: string }) {
         alignItems: "center",
         padding: "0 2rem",
         zIndex: 1000,
-        background: "rgba(250,248,244,0.92)",
+        background: "#1A0E08",
         backdropFilter: "blur(12px)",
         WebkitBackdropFilter: "blur(12px)",
-        borderBottom: "1px solid #DDD8D0",
+        borderBottom: "1px solid rgba(107,63,42,.3)",
       }}>
         {/* Logo */}
         <a href={`/${locale}`} style={{ textDecoration: "none" }}>
@@ -485,7 +485,7 @@ function CaptacionSection() {
     width: "100%",
     background: "none",
     border: "none",
-    borderBottom: "1px solid #DDD8D0",
+    borderBottom: "1px solid rgba(107,63,42,.3)",
     padding: "0.75rem 0",
     fontFamily: "'Cormorant Garamond',serif",
     fontSize: "1rem",
@@ -530,7 +530,7 @@ function CaptacionSection() {
 
   return (
     <section id="contacto" style={{
-      background: "#F5F3EE",
+      background: "#1A0E08",
       padding: "clamp(4rem,8vw,6rem) clamp(1.5rem,4vw,3rem)",
       boxSizing: "border-box",
     }}>
@@ -698,8 +698,8 @@ function Footer() {
   return (
     <footer style={{
       width: "100%",
-      background: "#F5F3EE",
-      borderTop: "1px solid rgba(201,169,110,0.2)",
+      background: "#1A0E08",
+      borderTop: "1px solid rgba(107,63,42,.3)",
       padding: "clamp(2rem,4vw,3.5rem) clamp(1.5rem,4vw,3rem)",
       boxSizing: "border-box",
     }}>
