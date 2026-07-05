@@ -344,7 +344,7 @@ export default function LandingPage() {
 
       {/* HERO — sin bloque 60 días */}
       <section style={{ padding: 'clamp(80px, 12vw, 140px) clamp(24px, 6vw, 80px) clamp(60px, 8vw, 100px)', position: 'relative', overflow: 'hidden' }}>
-        <div style={{ maxWidth: 1100, margin: '0 auto', maxWidth: 700 }}>
+        <div style={{ maxWidth: 700, margin: "0 auto" }}>
           <div className="fade-up" style={{ fontSize: 11, letterSpacing: '3px', textTransform: 'uppercase', color: '#6B3F2A', fontWeight: 700, marginBottom: 20 }}>{t.hero_location}</div>
           <h1 className="fade-up-2" style={{ fontFamily: "'Libre Baskerville', serif", fontSize: 'clamp(40px, 5vw, 68px)', fontWeight: 900, color: '#2A1A10', lineHeight: 1.05, letterSpacing: '-1px', marginBottom: 24 }}>
             {t.hero_h1_1}<br />
