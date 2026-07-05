@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
       },
       body: JSON.stringify({
         from: 'Solena Leads <tu-email-verificado-en-resend@gmail.com>',
-        to: ['Info@solenainmobiliaria.es'],
+        to: ['Enriquecortesgomez@gmail.com'],
         subject: `Nuevo lead: ${nombre}`,
         html: `
           <h2>Nuevo lead del landing — Solena</h2>
