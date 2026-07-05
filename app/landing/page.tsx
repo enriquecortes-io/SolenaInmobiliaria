@@ -21,12 +21,10 @@ const T = {
     why_label: 'Por qué elegirnos',
     why_h2: 'Lo que ganas cuando vendes con Solena.',
     why_cards: [
-      { number: '01', title: 'Precio justo desde el día uno', text: 'Valoramos tu propiedad con datos reales del mercado de tu zona. Sin inflar precios que luego no se venden.' },
-      { number: '02', title: 'Marketing profesional incluido', text: 'Fotos de calidad, publicación en más de 30 portales y gestión diaria. Máxima exposición sin esfuerzo por tu parte.' },
-      { number: '03', title: 'Compradores pre-aprobados', text: 'Trabajamos con compradores que ya tienen financiación aprobada. Sin operaciones que se caen en el último momento.' },
-      { number: '04', title: 'Zero Stress', text: 'Nosotros organizamos y acompañamos cada visita. Recibes un informe diario. Sólo tú decides cuándo decir sí.' },
-      { number: '05', title: 'Acompañamiento legal completo', text: 'Desde la firma del contrato hasta el notario. Te guiamos en cada paso para que la venta sea segura y sin sorpresas.' },
-      { number: '06', title: 'Solo cobramos si vendemos', text: 'Sin costes anticipados. Sin sorpresas. Nuestro éxito depende del tuyo.' },
+      { number: '01', title: 'Red de colaboración', text: 'Tu propiedad en venta, en colaboración con más de 100 agencias en toda la Costa del Sol — Marbella, Benahavís, Estepona, Fuengirola y las urbanizaciones intermedias. Toda la red trabaja para encontrar al comprador adecuado. Más agencias buscando. Más compradores llegando. Menos tiempo esperando.' },
+      { number: '02', title: 'Financiación', text: 'Colaboramos con Bayteca, especialistas en financiación hipotecaria para clientes nacionales e internacionales en la Costa del Sol. Los compradores que visitan tu propiedad ya tienen la hipoteca aprobada. Eso reduce negociaciones largas y operaciones que caen en el último momento.' },
+      { number: '03', title: 'Marketing y tecnología', text: 'Publicamos en los principales portales (Idealista, Fotocasa, Inmuebles24) y gestionamos campañas en Google Ads y Meta dirigidas a compradores en la Costa del Sol. El 30% de nuestra cartera son clientes internacionales. Nuestros sistemas de precalificación seleccionan visitantes con perfil real de compra.' },
+      { number: '04', title: 'Expertos en el sector', text: 'Cuando trabajas con Solena, trabajas con un equipo: comerciales especializados en venta residencial, especialistas en marketing digital inmobiliario, expertos en fotografía de propiedad, gestores de financiación y una red de colaboradores en toda la Costa del Sol. Cada pieza tiene un papel. El resultado es tuyo.' },
     ],
     process_label: 'El proceso',
     process_h2_1: '4 pasos para vender',
@@ -144,12 +142,10 @@ const T = {
     why_label: 'Why choose us',
     why_h2: 'What you gain when you sell with Solena.',
     why_cards: [
-      { number: '01', title: 'Fair price from day one', text: 'We value your property with real market data from your area. No inflated prices that never sell.' },
-      { number: '02', title: 'Professional marketing included', text: 'Quality photos, listing on 30+ portals and daily management. Maximum exposure with no effort on your part.' },
-      { number: '03', title: 'Pre-approved buyers', text: 'We work with buyers who already have approved financing. No deals falling through at the last minute.' },
-      { number: '04', title: 'Zero Stress', text: 'We organize and accompany every visit. You receive a daily report. Only you decide when to say yes.' },
-      { number: '05', title: 'Full legal support', text: 'From signing the contract to the notary. We guide you every step to ensure a safe, surprise-free sale.' },
-      { number: '06', title: 'We only charge if we sell', text: 'No upfront costs. No surprises. Our success depends on yours.' },
+      { number: '01', title: 'Collaboration network', text: 'Your property listed with over 100 partner agencies across the Costa del Sol — Marbella, Benahavís, Estepona, Fuengirola and surrounding urbanizations. The entire network works to find the right buyer. More agencies searching. More buyers arriving. Less time waiting.' },
+      { number: '02', title: 'Financing', text: 'We work with Bayteca, specialists in mortgage financing for national and international clients on the Costa del Sol. Buyers who visit your property already have their mortgage approved. That reduces long negotiations and deals falling through at the last minute.' },
+      { number: '03', title: 'Marketing & technology', text: 'We list on the main portals (Idealista, Fotocasa, Inmuebles24) and run Google Ads and Meta campaigns targeting buyers on the Costa del Sol. 30% of our portfolio are international clients. Our pre-qualification systems select visitors with a genuine buying profile.' },
+      { number: '04', title: 'Sector experts', text: 'When you work with Solena, you work with a team: residential sales specialists, digital real estate marketing experts, property photography specialists, financing managers and a network of collaborators across the Costa del Sol. Every piece has a role. The result is yours.' },
     ],
     process_label: 'The process',
     process_h2_1: '4 steps to sell',
@@ -269,7 +265,7 @@ const whyCardBorder = (variant: string) => {
 const whyTitleColor = (variant: string) => (variant === 'dark' || variant === 'brown') ? '#F5F0E8' : '#2A1A10';
 const whyTextColor = (variant: string) => variant === 'dark' ? 'rgba(245,240,232,.6)' : variant === 'brown' ? 'rgba(245,240,232,.65)' : '#6A4E3E';
 const whyNumberColor = (variant: string) => variant === 'brown' ? 'rgba(245,240,232,.2)' : '#6B3F2A';
-const whyVariants = ['dark', 'tintLight', 'brown', 'tintDark', 'tintDark', 'tintDark'];
+const whyVariants = ['dark', 'brown', 'tintLight', 'tintDark'];
 
 export default function LandingPage() {
   const [lang, setLang] = useState<Lang>('es');
@@ -344,7 +340,7 @@ export default function LandingPage() {
 
       {/* HERO — sin bloque 60 días */}
       <section style={{ padding: 'clamp(80px, 12vw, 140px) clamp(24px, 6vw, 80px) clamp(60px, 8vw, 100px)', position: 'relative', overflow: 'hidden' }}>
-        <div style={{ maxWidth: 700, margin: "0 auto" }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto', maxWidth: 700 }}>
           <div className="fade-up" style={{ fontSize: 11, letterSpacing: '3px', textTransform: 'uppercase', color: '#6B3F2A', fontWeight: 700, marginBottom: 20 }}>{t.hero_location}</div>
           <h1 className="fade-up-2" style={{ fontFamily: "'Libre Baskerville', serif", fontSize: 'clamp(40px, 5vw, 68px)', fontWeight: 900, color: '#2A1A10', lineHeight: 1.05, letterSpacing: '-1px', marginBottom: 24 }}>
             {t.hero_h1_1}<br />
