@@ -29,6 +29,7 @@ export async function POST(req: NextRequest) {
     if (error) throw error;
 
     // Enviar notificación por email
+    console.log("RESEND_API_KEY exists:", !!process.env.RESEND_API_KEY);
     await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
