@@ -5,7 +5,7 @@ import { useState, useRef, useEffect, FormEvent } from 'react';
 const T = {
   es: {
     nav_cta: 'Valoración gratuita',
-    hero_location: 'Costa del Sol — Marbella, Benahavís, Estepona, Fuengirola, Mijas, Benalmádena, Málaga, Torremolinos, Manilva, Sotogrande',
+    hero_location: 'Costa del Sol · Marbella · Benahavís · Estepona · Fuengirola · Mijas · Benalmádena · Málaga · Torremolinos · Manilva · Sotogrande',
     hero_h1_1: 'Vende tu casa.',
     hero_h1_2: 'Sin esperas.',
     hero_h1_3: 'Sin complicaciones.',
@@ -126,7 +126,7 @@ const T = {
   },
   en: {
     nav_cta: 'Free Valuation',
-    hero_location: 'Costa del Sol — Marbella, Benahavís, Estepona, Fuengirola, Mijas, Benalmádena, Málaga, Torremolinos, Manilva, Sotogrande',
+    hero_location: 'Costa del Sol · Marbella · Benahavís · Estepona · Fuengirola · Mijas · Benalmádena · Málaga · Torremolinos · Manilva · Sotogrande',
     hero_h1_1: 'Sell your home.',
     hero_h1_2: 'No waiting.',
     hero_h1_3: 'No complications.',
