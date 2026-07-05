@@ -2,8 +2,6 @@
 
 import { useState, useRef, FormEvent } from 'react';
 
-// ─── Traducciones ─────────────────────────────────────────────────────────────
-
 const T = {
   es: {
     nav_cta: 'Valoración gratuita',
@@ -14,11 +12,6 @@ const T = {
     hero_p: 'Somos locales, conocemos tu mercado y gestionamos todo el proceso. Tú sólo tienes que decir sí.',
     hero_cta: 'Quiero vender mi casa →',
     hero_link: 'Ver cómo funciona',
-    hero_stat_label: 'Media con exclusiva',
-    hero_stat_sub: 'días para vender.',
-    hero_stat_text: 'Frente a más de',
-    hero_stat_text2: '4 meses',
-    hero_stat_text3: 'sin agencia de exclusividad. Cada semana cuenta.',
     stats: [
       { value: '60', label: 'Días media\nde venta' },
       { value: '8K', label: 'Visualizaciones\nprimeros 10 días' },
@@ -31,7 +24,7 @@ const T = {
       { number: '01', title: 'Precio justo desde el día uno', text: 'Valoramos tu propiedad con datos reales del mercado de tu zona. Sin inflar precios que luego no se venden.' },
       { number: '02', title: 'Marketing profesional incluido', text: 'Fotos de calidad, publicación en más de 30 portales y gestión diaria. Máxima exposición sin esfuerzo por tu parte.' },
       { number: '03', title: 'Compradores pre-aprobados', text: 'Trabajamos con compradores que ya tienen financiación aprobada. Sin operaciones que se caen en el último momento.' },
-      { number: '04', title: 'Tú no gestionas nada', text: 'Nosotros organizamos y acompañamos cada visita. Recibes un informe diario. Sólo tú decides cuándo decir sí.' },
+      { number: '04', title: 'Zero Stress', text: 'Nosotros organizamos y acompañamos cada visita. Recibes un informe diario. Sólo tú decides cuándo decir sí.' },
       { number: '05', title: 'Acompañamiento legal completo', text: 'Desde la firma del contrato hasta el notario. Te guiamos en cada paso para que la venta sea segura y sin sorpresas.' },
       { number: '06', title: 'Solo cobramos si vendemos', text: 'Sin costes anticipados. Sin sorpresas. Nuestro éxito depende del tuyo.' },
     ],
@@ -44,6 +37,44 @@ const T = {
       { number: '3', title: 'Visitas gestionadas', text: 'Filtramos compradores serios con financiación aprobada. Tú no tienes que estar presente.' },
       { number: '4', title: 'Cierre y firma', text: 'Acompañamiento legal hasta el notario. Cobras y listo.' },
     ],
+    compare_label: 'Nuestros servicios',
+    compare_h2: 'Elige el servicio que mejor se adapta a ti.',
+    compare_std_badge: 'Servicio estándar',
+    compare_std_title1: 'Venta',
+    compare_std_title2: 'sin exclusiva',
+    compare_std_services_label: 'Servicios incluidos',
+    compare_std_services: [
+      'Valoración de la propiedad',
+      'Nota simple',
+      'Inversiones estratégicas en marketing',
+      'Listados internacionales y nacionales',
+      'Apoyo legal y administrativo',
+      'Fotografía profesional',
+      'Vídeo de alta calidad',
+    ],
+    compare_std_time_label: 'Tiempo medio de venta',
+    compare_std_time: 'Hasta 4 meses',
+    compare_exc_badge: 'Recomendado',
+    compare_exc_service_badge: 'Servicio premium',
+    compare_exc_title1: 'Exclusividad',
+    compare_exc_title2: 'con Solena',
+    compare_exc_services_label: 'Todo lo del estándar, más:',
+    compare_exc_services: [
+      'Tour en 3D de Matterport',
+      'Planos detallados',
+      'Certificación de eficiencia energética',
+      'Seguimiento y trazabilidad del mercado',
+      'Compradores potenciales cualificados',
+    ],
+    compare_exc_time_label: 'Tiempo medio de venta',
+    compare_exc_time: '60 días',
+    compare_footer: 'Solo cobramos si vendemos tu casa. Sin costes anticipados.',
+    stat_box_label: 'Media con exclusiva',
+    stat_box_days: '60',
+    stat_box_sub: 'días para vender.',
+    stat_box_text1: 'Frente a más de',
+    stat_box_bold: '4 meses',
+    stat_box_text2: 'sin agencia de exclusividad. Cada semana cuenta.',
     faq_label: 'Preguntas frecuentes',
     faq_h2_1: 'Lo que nos preguntan',
     faq_h2_2: 'los propietarios.',
@@ -58,15 +89,11 @@ const T = {
     form_h2_1: '¿Vendemos',
     form_h2_2: 'tu casa?',
     form_p: 'Cuéntanos un poco sobre tu propiedad y te contactamos en menos de 24 horas con una valoración sin compromiso.',
-    form_nombre: 'Nombre *',
-    form_nombre_ph: 'Tu nombre completo',
-    form_telefono: 'Teléfono *',
-    form_telefono_ph: '+34 600 000 000',
+    form_nombre: 'Nombre *', form_nombre_ph: 'Tu nombre completo',
+    form_telefono: 'Teléfono *', form_telefono_ph: '+34 600 000 000',
     form_email: 'Email *',
-    form_localizacion: 'Localización',
-    form_localizacion_ph: 'Marbella, Benahavís…',
-    form_tipo: 'Tipo de propiedad',
-    form_tipo_ph: 'Selecciona…',
+    form_localizacion: 'Localización', form_localizacion_ph: 'Marbella, Benahavís…',
+    form_tipo: 'Tipo de propiedad', form_tipo_ph: 'Selecciona…',
     form_tipos: [
       { value: 'piso', label: 'Piso / Apartamento' },
       { value: 'villa', label: 'Villa / Chalet' },
@@ -75,8 +102,7 @@ const T = {
       { value: 'local', label: 'Local comercial' },
       { value: 'otro', label: 'Otro' },
     ],
-    form_precio: 'Precio estimado',
-    form_precio_ph: 'Selecciona…',
+    form_precio: 'Precio estimado', form_precio_ph: 'Selecciona…',
     form_precios: [
       { value: 'menos-200k', label: 'Menos de 200.000 €' },
       { value: '200-350k', label: '200.000 – 350.000 €' },
@@ -84,8 +110,7 @@ const T = {
       { value: '600k-1m', label: '600.000 € – 1M' },
       { value: 'mas-1m', label: 'Más de 1.000.000 €' },
     ],
-    form_plazo: 'Plazo deseado',
-    form_plazo_ph: 'Selecciona…',
+    form_plazo: 'Plazo deseado', form_plazo_ph: 'Selecciona…',
     form_plazos: [
       { value: 'urgente', label: 'Lo antes posible' },
       { value: '3meses', label: 'En 3 meses' },
@@ -110,11 +135,6 @@ const T = {
     hero_p: 'We are locals, we know your market and manage the entire process. You just have to say yes.',
     hero_cta: 'I want to sell my home →',
     hero_link: 'See how it works',
-    hero_stat_label: 'Average with exclusivity',
-    hero_stat_sub: 'days to sell.',
-    hero_stat_text: 'Compared to more than',
-    hero_stat_text2: '4 months',
-    hero_stat_text3: 'without an exclusivity agency. Every week counts.',
     stats: [
       { value: '60', label: 'Average\ndays to sell' },
       { value: '8K', label: 'Views in\nfirst 10 days' },
@@ -140,6 +160,44 @@ const T = {
       { number: '3', title: 'Managed viewings', text: 'We filter serious buyers with approved financing. You don\'t need to be present.' },
       { number: '4', title: 'Closing & signing', text: 'Legal support up to the notary. You get paid and that\'s it.' },
     ],
+    compare_label: 'Our services',
+    compare_h2: 'Choose the service that suits you best.',
+    compare_std_badge: 'Standard service',
+    compare_std_title1: 'Sale',
+    compare_std_title2: 'without exclusivity',
+    compare_std_services_label: 'Services included',
+    compare_std_services: [
+      'Property valuation',
+      'Simple note',
+      'Strategic marketing investments',
+      'International and national listings',
+      'Legal and administrative support',
+      'Professional photography',
+      'High quality video',
+    ],
+    compare_std_time_label: 'Average selling time',
+    compare_std_time: 'Up to 4 months',
+    compare_exc_badge: 'Recommended',
+    compare_exc_service_badge: 'Premium service',
+    compare_exc_title1: 'Exclusivity',
+    compare_exc_title2: 'with Solena',
+    compare_exc_services_label: 'Everything in standard, plus:',
+    compare_exc_services: [
+      'Matterport 3D tour',
+      'Detailed floor plans',
+      'Energy efficiency certification',
+      'Market performance tracking',
+      'Qualified potential buyers',
+    ],
+    compare_exc_time_label: 'Average selling time',
+    compare_exc_time: '60 days',
+    compare_footer: 'We only charge if we sell your home. No upfront costs.',
+    stat_box_label: 'Average with exclusivity',
+    stat_box_days: '60',
+    stat_box_sub: 'days to sell.',
+    stat_box_text1: 'Compared to more than',
+    stat_box_bold: '4 months',
+    stat_box_text2: 'without an exclusivity agency. Every week counts.',
     faq_label: 'Frequently asked questions',
     faq_h2_1: 'What property owners',
     faq_h2_2: 'ask us.',
@@ -154,15 +212,11 @@ const T = {
     form_h2_1: 'Shall we sell',
     form_h2_2: 'your home?',
     form_p: 'Tell us a little about your property and we will contact you within 24 hours with a no-obligation valuation.',
-    form_nombre: 'Name *',
-    form_nombre_ph: 'Your full name',
-    form_telefono: 'Phone *',
-    form_telefono_ph: '+34 600 000 000',
+    form_nombre: 'Name *', form_nombre_ph: 'Your full name',
+    form_telefono: 'Phone *', form_telefono_ph: '+34 600 000 000',
     form_email: 'Email *',
-    form_localizacion: 'Location',
-    form_localizacion_ph: 'Marbella, Benahavís…',
-    form_tipo: 'Property type',
-    form_tipo_ph: 'Select…',
+    form_localizacion: 'Location', form_localizacion_ph: 'Marbella, Benahavís…',
+    form_tipo: 'Property type', form_tipo_ph: 'Select…',
     form_tipos: [
       { value: 'piso', label: 'Apartment / Flat' },
       { value: 'villa', label: 'Villa / Detached house' },
@@ -171,8 +225,7 @@ const T = {
       { value: 'local', label: 'Commercial property' },
       { value: 'otro', label: 'Other' },
     ],
-    form_precio: 'Estimated price',
-    form_precio_ph: 'Select…',
+    form_precio: 'Estimated price', form_precio_ph: 'Select…',
     form_precios: [
       { value: 'menos-200k', label: 'Under €200,000' },
       { value: '200-350k', label: '€200,000 – €350,000' },
@@ -180,8 +233,7 @@ const T = {
       { value: '600k-1m', label: '€600,000 – €1M' },
       { value: 'mas-1m', label: 'Over €1,000,000' },
     ],
-    form_plazo: 'Desired timeline',
-    form_plazo_ph: 'Select…',
+    form_plazo: 'Desired timeline', form_plazo_ph: 'Select…',
     form_plazos: [
       { value: 'urgente', label: 'As soon as possible' },
       { value: '3meses', label: 'Within 3 months' },
@@ -217,7 +269,6 @@ const whyCardBorder = (variant: string) => {
 const whyTitleColor = (variant: string) => (variant === 'dark' || variant === 'brown') ? '#F5F0E8' : '#2A1A10';
 const whyTextColor = (variant: string) => variant === 'dark' ? 'rgba(245,240,232,.6)' : variant === 'brown' ? 'rgba(245,240,232,.65)' : '#6A4E3E';
 const whyNumberColor = (variant: string) => variant === 'brown' ? 'rgba(245,240,232,.2)' : '#6B3F2A';
-
 const whyVariants = ['dark', 'tintLight', 'brown', 'tintDark', 'tintDark', 'tintDark'];
 
 export default function LandingPage() {
@@ -246,23 +297,14 @@ export default function LandingPage() {
   };
 
   const inputStyle: React.CSSProperties = {
-    background: 'rgba(245,240,232,.08)',
-    border: 'none',
-    borderBottom: '2px solid transparent',
-    padding: '10px 20px 18px',
-    fontSize: 15,
-    color: '#F5F0E8',
-    transition: 'border-color 0.2s',
+    background: 'rgba(245,240,232,.08)', border: 'none',
+    borderBottom: '2px solid transparent', padding: '10px 20px 18px',
+    fontSize: 15, color: '#F5F0E8', transition: 'border-color 0.2s',
   };
-
   const labelStyle: React.CSSProperties = {
-    fontSize: 10,
-    letterSpacing: '2px',
-    textTransform: 'uppercase',
-    color: 'rgba(245,240,232,.5)',
-    fontWeight: 700,
-    padding: '16px 20px 0',
-    background: 'rgba(245,240,232,.08)',
+    fontSize: 10, letterSpacing: '2px', textTransform: 'uppercase',
+    color: 'rgba(245,240,232,.5)', fontWeight: 700,
+    padding: '16px 20px 0', background: 'rgba(245,240,232,.08)',
   };
 
   return (
@@ -290,10 +332,7 @@ export default function LandingPage() {
             <span style={{ fontFamily: "'Montserrat','Helvetica Neue',sans-serif", fontWeight: 300, fontSize: 'clamp(0.34rem,0.6vw,0.42rem)', color: 'rgba(201,169,110,0.6)', letterSpacing: '0.45em', textTransform: 'uppercase', whiteSpace: 'nowrap' }}>Costa del Sol</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-            <button
-              onClick={() => setLang(lang === 'es' ? 'en' : 'es')}
-              style={{ background: 'none', border: '1px solid rgba(245,240,232,.2)', color: '#F5F0E8', fontFamily: "'Inter', sans-serif", fontWeight: 600, fontSize: 11, letterSpacing: '1.5px', textTransform: 'uppercase', padding: '8px 16px', cursor: 'pointer', transition: 'border-color 0.2s' }}
-            >
+            <button onClick={() => setLang(lang === 'es' ? 'en' : 'es')} style={{ background: 'none', border: '1px solid rgba(245,240,232,.2)', color: '#F5F0E8', fontFamily: "'Inter', sans-serif", fontWeight: 600, fontSize: 11, letterSpacing: '1.5px', textTransform: 'uppercase', padding: '8px 16px', cursor: 'pointer' }}>
               {lang === 'es' ? 'EN' : 'ES'}
             </button>
             <a href="#contacto" style={{ background: '#6B3F2A', color: '#F5F0E8', fontFamily: "'Inter', sans-serif", fontWeight: 700, fontSize: 12, letterSpacing: '1.5px', textTransform: 'uppercase', padding: '12px 24px', textDecoration: 'none', display: 'inline-block' }}>
@@ -303,41 +342,18 @@ export default function LandingPage() {
         </div>
       </nav>
 
-      {/* HERO */}
+      {/* HERO — sin bloque 60 días */}
       <section style={{ padding: 'clamp(80px, 12vw, 140px) clamp(24px, 6vw, 80px) clamp(60px, 8vw, 100px)', position: 'relative', overflow: 'hidden' }}>
-        <div style={{ maxWidth: 1100, margin: '0 auto', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 480px), 1fr))', gap: 'clamp(32px, 6vw, 60px)', alignItems: 'center' }}>
-          <div>
-            <div className="fade-up" style={{ fontSize: 11, letterSpacing: '3px', textTransform: 'uppercase', color: '#6B3F2A', fontWeight: 700, marginBottom: 20 }}>
-              {t.hero_location}
-            </div>
-            <h1 className="fade-up-2" style={{ fontFamily: "'Libre Baskerville', serif", fontSize: 'clamp(40px, 5vw, 68px)', fontWeight: 900, color: '#2A1A10', lineHeight: 1.05, letterSpacing: '-1px', marginBottom: 24 }}>
-              {t.hero_h1_1}<br />
-              <span style={{ color: '#6B3F2A' }}>{t.hero_h1_2}<br />{t.hero_h1_3}</span>
-            </h1>
-            <p className="fade-up-3" style={{ fontSize: 17, color: '#6A4E3E', lineHeight: 1.75, maxWidth: 440, marginBottom: 36 }}>
-              {t.hero_p}
-            </p>
-            <div className="fade-up-3" style={{ display: 'flex', gap: 16, flexWrap: 'wrap', alignItems: 'center' }}>
-              <a href="#contacto" style={{ background: '#6B3F2A', color: '#F5F0E8', fontWeight: 700, fontSize: 13, letterSpacing: '1.5px', textTransform: 'uppercase', padding: '18px 36px', textDecoration: 'none', display: 'inline-block' }}>
-                {t.hero_cta}
-              </a>
-              <a href="#proceso" style={{ color: '#6B3F2A', fontWeight: 700, fontSize: 13, letterSpacing: '1px', textDecoration: 'none', borderBottom: '1px solid #6B3F2A', paddingBottom: 2 }}>
-                {t.hero_link}
-              </a>
-            </div>
-          </div>
-          <div style={{ position: 'relative' }}>
-            <div style={{ background: '#2A1A10', padding: '48px 44px', position: 'relative', overflow: 'hidden' }}>
-              <div style={{ position: 'absolute', top: -30, right: -30, width: 160, height: 160, borderRadius: '50%', border: '40px solid rgba(107,63,42,.2)' }} />
-              <div style={{ fontFamily: "'Libre Baskerville', serif", fontStyle: 'italic', fontSize: 15, color: 'rgba(245,240,232,.5)', marginBottom: 8 }}>{t.hero_stat_label}</div>
-              <div style={{ fontFamily: "'Libre Baskerville', serif", fontSize: 96, fontWeight: 900, color: '#6B3F2A', lineHeight: 1, letterSpacing: '-3px' }}>60</div>
-              <div style={{ fontFamily: "'Libre Baskerville', serif", fontSize: 22, fontWeight: 700, color: '#F5F0E8', marginTop: 4, marginBottom: 28 }}>{t.hero_stat_sub}</div>
-              <div style={{ width: 40, height: 2, background: '#6B3F2A', marginBottom: 20 }} />
-              <div style={{ fontSize: 13, color: 'rgba(245,240,232,.55)', lineHeight: 1.65 }}>
-                {t.hero_stat_text} <strong style={{ color: 'rgba(245,240,232,.8)' }}>{t.hero_stat_text2}</strong> {t.hero_stat_text3}
-              </div>
-              <div style={{ position: 'absolute', bottom: 24, right: 24, fontFamily: "'Libre Baskerville', serif", fontWeight: 700, fontSize: 14, color: 'rgba(107,63,42,.4)', letterSpacing: '1px' }}>SL</div>
-            </div>
+        <div style={{ maxWidth: 1100, margin: '0 auto', maxWidth: 700 }}>
+          <div className="fade-up" style={{ fontSize: 11, letterSpacing: '3px', textTransform: 'uppercase', color: '#6B3F2A', fontWeight: 700, marginBottom: 20 }}>{t.hero_location}</div>
+          <h1 className="fade-up-2" style={{ fontFamily: "'Libre Baskerville', serif", fontSize: 'clamp(40px, 5vw, 68px)', fontWeight: 900, color: '#2A1A10', lineHeight: 1.05, letterSpacing: '-1px', marginBottom: 24 }}>
+            {t.hero_h1_1}<br />
+            <span style={{ color: '#6B3F2A' }}>{t.hero_h1_2}<br />{t.hero_h1_3}</span>
+          </h1>
+          <p className="fade-up-3" style={{ fontSize: 17, color: '#6A4E3E', lineHeight: 1.75, maxWidth: 500, marginBottom: 36 }}>{t.hero_p}</p>
+          <div className="fade-up-3" style={{ display: 'flex', gap: 16, flexWrap: 'wrap', alignItems: 'center' }}>
+            <a href="#contacto" style={{ background: '#6B3F2A', color: '#F5F0E8', fontWeight: 700, fontSize: 13, letterSpacing: '1.5px', textTransform: 'uppercase', padding: '18px 36px', textDecoration: 'none', display: 'inline-block' }}>{t.hero_cta}</a>
+            <a href="#proceso" style={{ color: '#6B3F2A', fontWeight: 700, fontSize: 13, letterSpacing: '1px', textDecoration: 'none', borderBottom: '1px solid #6B3F2A', paddingBottom: 2 }}>{t.hero_link}</a>
           </div>
         </div>
       </section>
@@ -378,13 +394,11 @@ export default function LandingPage() {
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
           <div style={{ marginBottom: 60 }}>
             <div style={{ fontSize: 11, letterSpacing: '3px', textTransform: 'uppercase', color: '#6B3F2A', fontWeight: 700, marginBottom: 14 }}>{t.process_label}</div>
-            <h2 style={{ fontFamily: "'Libre Baskerville', serif", fontSize: 'clamp(32px, 4vw, 50px)', fontWeight: 900, color: '#F5F0E8', lineHeight: 1.1 }}>
-              {t.process_h2_1}<br />{t.process_h2_2}
-            </h2>
+            <h2 style={{ fontFamily: "'Libre Baskerville', serif", fontSize: 'clamp(32px, 4vw, 50px)', fontWeight: 900, color: '#F5F0E8', lineHeight: 1.1 }}>{t.process_h2_1}<br />{t.process_h2_2}</h2>
           </div>
-          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 'clamp(24px, 4vw, 40px)', position: 'relative' }}>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 'clamp(24px, 4vw, 40px)' }}>
             {t.process_steps.map((step, i) => (
-              <div key={i} style={{ position: 'relative' }}>
+              <div key={i}>
                 <div style={{ width: 56, height: 56, background: '#6B3F2A', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Libre Baskerville', serif", fontWeight: 900, fontSize: 20, color: '#F5F0E8', marginBottom: 24 }}>{step.number}</div>
                 <h3 style={{ fontFamily: "'Libre Baskerville', serif", fontSize: 18, fontWeight: 700, color: '#F5F0E8', marginBottom: 12 }}>{step.title}</h3>
                 <p style={{ fontSize: 13, color: 'rgba(245,240,232,.5)', lineHeight: 1.7 }}>{step.text}</p>
@@ -394,14 +408,87 @@ export default function LandingPage() {
         </div>
       </section>
 
+      {/* COMPARATIVA */}
+      <section style={{ padding: 'clamp(80px, 10vw, 120px) clamp(24px, 6vw, 80px)', background: '#F5F0E8' }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto' }}>
+          <div style={{ marginBottom: 60 }}>
+            <div style={{ fontSize: 11, letterSpacing: '3px', textTransform: 'uppercase', color: '#6B3F2A', fontWeight: 700, marginBottom: 14 }}>{t.compare_label}</div>
+            <h2 style={{ fontFamily: "'Libre Baskerville', serif", fontSize: 'clamp(32px, 4vw, 50px)', fontWeight: 900, color: '#2A1A10', lineHeight: 1.1, maxWidth: 600 }}>{t.compare_h2}</h2>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 400px), 1fr))', gap: 2, background: 'rgba(107,63,42,.1)' }}>
+            {/* Sin exclusiva */}
+            <div style={{ background: '#FAF7F2', padding: '2.5rem 2rem' }}>
+              <p style={{ fontSize: 10, letterSpacing: '2px', textTransform: 'uppercase', color: 'rgba(107,63,42,.5)', fontWeight: 700, marginBottom: 8 }}>{t.compare_std_badge}</p>
+              <h3 style={{ fontFamily: "'Libre Baskerville', serif", fontSize: 28, fontWeight: 700, color: '#2A1A10', marginBottom: '1.5rem', lineHeight: 1.1 }}>{t.compare_std_title1}<br /><em>{t.compare_std_title2}</em></h3>
+              <div style={{ borderTop: '1px solid rgba(107,63,42,.15)', paddingTop: '1.25rem', marginBottom: '1.25rem' }}>
+                <p style={{ fontSize: 11, letterSpacing: '1.5px', textTransform: 'uppercase', color: 'rgba(107,63,42,.5)', fontWeight: 600, marginBottom: 12 }}>{t.compare_std_services_label}</p>
+                <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
+                  {t.compare_std_services.map((s, i) => (
+                    <li key={i} style={{ display: 'flex', gap: 10, alignItems: 'flex-start', fontSize: 14, color: '#2A1A10' }}>
+                      <span style={{ color: '#6B3F2A', flexShrink: 0, marginTop: 1 }}>✓</span>{s}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div style={{ borderTop: '1px solid rgba(107,63,42,.15)', paddingTop: '1.25rem' }}>
+                <p style={{ fontSize: 12, color: 'rgba(107,63,42,.5)', marginBottom: 8 }}>{t.compare_std_time_label}</p>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <div style={{ flex: 1, height: 6, background: 'rgba(107,63,42,.15)', borderRadius: 3 }}>
+                    <div style={{ width: '100%', height: '100%', background: 'rgba(107,63,42,.3)', borderRadius: 3 }} />
+                  </div>
+                  <span style={{ fontSize: 13, fontWeight: 600, color: 'rgba(107,63,42,.6)', whiteSpace: 'nowrap' }}>{t.compare_std_time}</span>
+                </div>
+              </div>
+            </div>
+            {/* Con exclusiva */}
+            <div style={{ background: '#2A1A10', padding: '2.5rem 2rem', position: 'relative' }}>
+              <div style={{ position: 'absolute', top: '1rem', right: '1rem', background: '#6B3F2A', color: '#F5F0E8', fontSize: 10, fontWeight: 700, letterSpacing: '1.5px', textTransform: 'uppercase', padding: '4px 10px' }}>{t.compare_exc_badge}</div>
+              <p style={{ fontSize: 10, letterSpacing: '2px', textTransform: 'uppercase', color: 'rgba(201,169,110,0.6)', fontWeight: 700, marginBottom: 8 }}>{t.compare_exc_service_badge}</p>
+              <h3 style={{ fontFamily: "'Libre Baskerville', serif", fontSize: 28, fontWeight: 700, color: '#F5F0E8', marginBottom: '1.5rem', lineHeight: 1.1 }}><em>{t.compare_exc_title1}</em><br />{t.compare_exc_title2}</h3>
+              <div style={{ borderTop: '1px solid rgba(245,240,232,.15)', paddingTop: '1.25rem', marginBottom: '1.25rem' }}>
+                <p style={{ fontSize: 11, letterSpacing: '1.5px', textTransform: 'uppercase', color: 'rgba(245,240,232,.4)', fontWeight: 600, marginBottom: 12 }}>{t.compare_exc_services_label}</p>
+                <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'flex', flexDirection: 'column', gap: 10 }}>
+                  {t.compare_exc_services.map((s, i) => (
+                    <li key={i} style={{ display: 'flex', gap: 10, alignItems: 'flex-start', fontSize: 14, color: '#F5F0E8' }}>
+                      <span style={{ color: '#C9A96E', flexShrink: 0, marginTop: 1 }}>✓</span>{s}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div style={{ borderTop: '1px solid rgba(245,240,232,.15)', paddingTop: '1.25rem' }}>
+                <p style={{ fontSize: 12, color: 'rgba(245,240,232,.4)', marginBottom: 8 }}>{t.compare_exc_time_label}</p>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                  <div style={{ flex: 1, height: 6, background: 'rgba(245,240,232,.1)', borderRadius: 3 }}>
+                    <div style={{ width: '38%', height: '100%', background: '#C9A96E', borderRadius: 3 }} />
+                  </div>
+                  <span style={{ fontSize: 13, fontWeight: 700, color: '#C9A96E', whiteSpace: 'nowrap' }}>{t.compare_exc_time}</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <p style={{ textAlign: 'center', fontSize: 12, color: 'rgba(107,63,42,.5)', marginTop: '1rem' }}>{t.compare_footer}</p>
+        </div>
+      </section>
+
+      {/* BLOQUE 60 DÍAS */}
+      <section style={{ background: '#2A1A10', padding: 'clamp(60px, 8vw, 100px) clamp(24px, 6vw, 80px)' }}>
+        <div style={{ maxWidth: 600, margin: '0 auto', textAlign: 'center' }}>
+          <div style={{ fontFamily: "'Libre Baskerville', serif", fontStyle: 'italic', fontSize: 15, color: 'rgba(245,240,232,.5)', marginBottom: 8 }}>{t.stat_box_label}</div>
+          <div style={{ fontFamily: "'Libre Baskerville', serif", fontSize: 'clamp(80px, 15vw, 140px)', fontWeight: 900, color: '#6B3F2A', lineHeight: 1, letterSpacing: '-3px' }}>{t.stat_box_days}</div>
+          <div style={{ fontFamily: "'Libre Baskerville', serif", fontSize: 'clamp(20px, 3vw, 28px)', fontWeight: 700, color: '#F5F0E8', marginTop: 8, marginBottom: 28 }}>{t.stat_box_sub}</div>
+          <div style={{ width: 40, height: 2, background: '#6B3F2A', margin: '0 auto 20px' }} />
+          <div style={{ fontSize: 15, color: 'rgba(245,240,232,.55)', lineHeight: 1.75 }}>
+            {t.stat_box_text1} <strong style={{ color: 'rgba(245,240,232,.8)' }}>{t.stat_box_bold}</strong> {t.stat_box_text2}
+          </div>
+        </div>
+      </section>
+
       {/* FAQ */}
       <section style={{ padding: 'clamp(80px, 10vw, 120px) clamp(24px, 6vw, 80px)' }}>
         <div style={{ maxWidth: 760, margin: '0 auto' }}>
           <div style={{ marginBottom: 52 }}>
             <div style={{ fontSize: 11, letterSpacing: '3px', textTransform: 'uppercase', color: '#6B3F2A', fontWeight: 700, marginBottom: 14 }}>{t.faq_label}</div>
-            <h2 style={{ fontFamily: "'Libre Baskerville', serif", fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 900, color: '#2A1A10', lineHeight: 1.1 }}>
-              {t.faq_h2_1}<br />{t.faq_h2_2}
-            </h2>
+            <h2 style={{ fontFamily: "'Libre Baskerville', serif", fontSize: 'clamp(28px, 4vw, 44px)', fontWeight: 900, color: '#2A1A10', lineHeight: 1.1 }}>{t.faq_h2_1}<br />{t.faq_h2_2}</h2>
           </div>
           <div style={{ display: 'flex', flexDirection: 'column', gap: 0 }}>
             {t.faqs.map((item, index) => {
@@ -428,9 +515,7 @@ export default function LandingPage() {
         <div style={{ maxWidth: 760, margin: '0 auto' }}>
           <div style={{ marginBottom: 52 }}>
             <div style={{ fontSize: 11, letterSpacing: '3px', textTransform: 'uppercase', color: 'rgba(245,240,232,.5)', fontWeight: 700, marginBottom: 14 }}>{t.form_label}</div>
-            <h2 style={{ fontFamily: "'Libre Baskerville', serif", fontSize: 'clamp(32px, 4vw, 52px)', fontWeight: 900, color: '#F5F0E8', lineHeight: 1.05, marginBottom: 16 }}>
-              {t.form_h2_1}<br />{t.form_h2_2}
-            </h2>
+            <h2 style={{ fontFamily: "'Libre Baskerville', serif", fontSize: 'clamp(32px, 4vw, 52px)', fontWeight: 900, color: '#F5F0E8', lineHeight: 1.05, marginBottom: 16 }}>{t.form_h2_1}<br />{t.form_h2_2}</h2>
             <p style={{ fontSize: 16, color: 'rgba(245,240,232,.65)', lineHeight: 1.7 }}>{t.form_p}</p>
           </div>
           <form ref={formRef} method="POST" style={{ display: 'flex', flexDirection: 'column', gap: 0 }} onSubmit={handleSubmit}>
