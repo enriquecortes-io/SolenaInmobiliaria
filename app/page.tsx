@@ -546,7 +546,7 @@ function CaptacionSection() {
 
   return (
     <section id="contacto" style={{
-      background: "#1A0E08",
+      background: "#F5F3EE",
       padding: "clamp(4rem,8vw,6rem) clamp(1.5rem,4vw,3rem)",
       boxSizing: "border-box",
     }}>
