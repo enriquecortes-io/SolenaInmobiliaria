@@ -303,6 +303,30 @@ export default function LandingPage() {
             scrollTrigger: { trigger: '.why-card', start: 'top 80%', once: true }
           }
         );
+
+        // Proceso - label y título
+        gsap.fromTo('.process-label',
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out',
+            scrollTrigger: { trigger: '.process-label', start: 'top 85%', once: true }
+          }
+        );
+        gsap.fromTo('.process-title',
+          { opacity: 0, y: 30 },
+          { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out', delay: 0.1,
+            scrollTrigger: { trigger: '.process-title', start: 'top 85%', once: true }
+          }
+        );
+
+        // Proceso - pasos con pausa progresiva
+        document.querySelectorAll('.process-step').forEach((el, i) => {
+          gsap.fromTo(el,
+            { opacity: 0, x: -30 },
+            { opacity: 1, x: 0, duration: 0.8, ease: 'power3.out', delay: i * 0.6,
+              scrollTrigger: { trigger: '.process-step', start: 'top 75%', once: true }
+            }
+          );
+        });
       });
     });
   }, []);
@@ -422,12 +446,12 @@ export default function LandingPage() {
       <section id="proceso" style={{ background: '#2A1A10', padding: 'clamp(80px, 10vw, 120px) clamp(24px, 6vw, 80px)' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
           <div style={{ marginBottom: 60 }}>
-            <div style={{ fontSize: 11, letterSpacing: '3px', textTransform: 'uppercase', color: '#6B3F2A', fontWeight: 700, marginBottom: 14 }}>{t.process_label}</div>
-            <h2 style={{ fontFamily: "'Libre Baskerville', serif", fontSize: 'clamp(32px, 4vw, 50px)', fontWeight: 900, color: '#F5F0E8', lineHeight: 1.1 }}>{t.process_h2_1}<br />{t.process_h2_2}</h2>
+            <div className='process-label' style={{ fontSize: 11, letterSpacing: '3px', textTransform: 'uppercase', color: '#6B3F2A', fontWeight: 700, marginBottom: 14 }}>{t.process_label}</div>
+            <h2 className='process-title' style={{ fontFamily: "'Libre Baskerville', serif", fontSize: 'clamp(32px, 4vw, 50px)', fontWeight: 900, color: '#F5F0E8', lineHeight: 1.1 }}>{t.process_h2_1}<br />{t.process_h2_2}</h2>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(200px, 1fr))', gap: 'clamp(24px, 4vw, 40px)' }}>
             {t.process_steps.map((step, i) => (
-              <div key={i}>
+              <div key={i} className='process-step'>
                 <div style={{ width: 56, height: 56, background: '#6B3F2A', display: 'flex', alignItems: 'center', justifyContent: 'center', fontFamily: "'Libre Baskerville', serif", fontWeight: 900, fontSize: 20, color: '#F5F0E8', marginBottom: 24 }}>{step.number}</div>
                 <h3 style={{ fontFamily: "'Libre Baskerville', serif", fontSize: 18, fontWeight: 700, color: '#F5F0E8', marginBottom: 12 }}>{step.title}</h3>
                 <p style={{ fontSize: 13, color: 'rgba(245,240,232,.5)', lineHeight: 1.7 }}>{step.text}</p>
