@@ -12,7 +12,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <head>
         <meta name="theme-color" content="#1A0E08" />
       </head>
-      <body style={{ margin: 0, background: "#1A0E08" }}>{children}</body>
+      <body style={{ margin: 0 }}>{children}</body>
     </html>
   );
 }
