@@ -173,15 +173,15 @@ export default function LandingPage() {
   return (
     <>
       <style>{`
-        @import url('https://fonts.googleapis.com/css2?family=Lato:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,600;0,900;1,400;1,600&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap');
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
-        body { background: #F5F0E8; font-family: 'Lato', sans-serif; color: #2A1A10; }
+        body { background: #F5F0E8; font-family: 'Inter', sans-serif; color: #2A1A10; }
         @keyframes fadeUp { from { opacity: 0; transform: translateY(24px); } to { opacity: 1; transform: translateY(0); } }
         .fade-up { animation: fadeUp 0.7s ease both; }
         .fade-up-2 { animation: fadeUp 0.7s 0.15s ease both; }
         .fade-up-3 { animation: fadeUp 0.7s 0.3s ease both; }
-        input, select, textarea { font-family: 'Lato', sans-serif; }
+        input, select, textarea { font-family: 'Inter', sans-serif; }
         input:focus, select:focus, textarea:focus { outline: none; border-color: #6B3F2A !important; }
         input::placeholder, textarea::placeholder { color: #B0998A; }
       `}</style>
@@ -244,7 +244,7 @@ export default function LandingPage() {
             style={{
               background: '#6B3F2A',
               color: '#F5F0E8',
-              fontFamily: "'Lato', sans-serif",
+              fontFamily: "'Inter', sans-serif",
               fontWeight: 700,
               fontSize: 12,
               letterSpacing: '1.5px',
@@ -294,7 +294,7 @@ export default function LandingPage() {
             <h1
               className="fade-up-2"
               style={{
-                fontFamily: "'Playfair Display', serif",
+                fontFamily: "'Libre Baskerville', serif",
                 fontSize: 'clamp(40px, 5vw, 68px)',
                 fontWeight: 900,
                 color: '#2A1A10',
@@ -383,7 +383,7 @@ export default function LandingPage() {
               />
               <div
                 style={{
-                  fontFamily: "'Playfair Display', serif",
+                  fontFamily: "'Libre Baskerville', serif",
                   fontStyle: 'italic',
                   fontSize: 15,
                   color: 'rgba(245,240,232,.5)',
@@ -394,7 +394,7 @@ export default function LandingPage() {
               </div>
               <div
                 style={{
-                  fontFamily: "'Playfair Display', serif",
+                  fontFamily: "'Libre Baskerville', serif",
                   fontSize: 96,
                   fontWeight: 900,
                   color: '#6B3F2A',
@@ -406,7 +406,7 @@ export default function LandingPage() {
               </div>
               <div
                 style={{
-                  fontFamily: "'Playfair Display', serif",
+                  fontFamily: "'Libre Baskerville', serif",
                   fontSize: 22,
                   fontWeight: 700,
                   color: '#F5F0E8',
@@ -427,7 +427,7 @@ export default function LandingPage() {
                   position: 'absolute',
                   bottom: 24,
                   right: 24,
-                  fontFamily: "'Playfair Display', serif",
+                  fontFamily: "'Libre Baskerville', serif",
                   fontWeight: 700,
                   fontSize: 14,
                   color: 'rgba(107,63,42,.4)',
@@ -463,7 +463,7 @@ export default function LandingPage() {
             >
               <div
                 style={{
-                  fontFamily: "'Playfair Display', serif",
+                  fontFamily: "'Libre Baskerville', serif",
                   fontSize: 44,
                   fontWeight: 900,
                   color: '#F5F0E8',
@@ -508,7 +508,7 @@ export default function LandingPage() {
             </div>
             <h2
               style={{
-                fontFamily: "'Playfair Display', serif",
+                fontFamily: "'Libre Baskerville', serif",
                 fontSize: 'clamp(32px, 4vw, 50px)',
                 fontWeight: 900,
                 color: '#2A1A10',
@@ -537,7 +537,7 @@ export default function LandingPage() {
               >
                 <div
                   style={{
-                    fontFamily: "'Playfair Display', serif",
+                    fontFamily: "'Libre Baskerville', serif",
                     fontSize: 48,
                     fontWeight: 900,
                     color: whyNumberColor(card.variant),
@@ -549,7 +549,7 @@ export default function LandingPage() {
                 </div>
                 <h3
                   style={{
-                    fontFamily: "'Playfair Display', serif",
+                    fontFamily: "'Libre Baskerville', serif",
                     fontSize: 22,
                     fontWeight: 700,
                     color: whyTitleColor(card.variant),
@@ -592,7 +592,7 @@ export default function LandingPage() {
             </div>
             <h2
               style={{
-                fontFamily: "'Playfair Display', serif",
+                fontFamily: "'Libre Baskerville', serif",
                 fontSize: 'clamp(32px, 4vw, 50px)',
                 fontWeight: 900,
                 color: '#F5F0E8',
@@ -643,7 +643,7 @@ export default function LandingPage() {
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontFamily: "'Playfair Display', serif",
+                    fontFamily: "'Libre Baskerville', serif",
                     fontWeight: 900,
                     fontSize: 20,
                     color: '#F5F0E8',
@@ -655,7 +655,7 @@ export default function LandingPage() {
                 </div>
                 <h3
                   style={{
-                    fontFamily: "'Playfair Display', serif",
+                    fontFamily: "'Libre Baskerville', serif",
                     fontSize: 18,
                     fontWeight: 700,
                     color: '#F5F0E8',
@@ -691,7 +691,7 @@ export default function LandingPage() {
             </div>
             <h2
               style={{
-                fontFamily: "'Playfair Display', serif",
+                fontFamily: "'Libre Baskerville', serif",
                 fontSize: 'clamp(28px, 4vw, 44px)',
                 fontWeight: 900,
                 color: '#2A1A10',
@@ -726,7 +726,7 @@ export default function LandingPage() {
                   >
                     <span
                       style={{
-                        fontFamily: "'Playfair Display', serif",
+                        fontFamily: "'Libre Baskerville', serif",
                         fontSize: 18,
                         fontWeight: 600,
                         color: '#2A1A10',
@@ -788,7 +788,7 @@ export default function LandingPage() {
             </div>
             <h2
               style={{
-                fontFamily: "'Playfair Display', serif",
+                fontFamily: "'Libre Baskerville', serif",
                 fontSize: 'clamp(32px, 4vw, 52px)',
                 fontWeight: 900,
                 color: '#F5F0E8',
@@ -1096,7 +1096,7 @@ export default function LandingPage() {
                   style={{
                     background: '#F5F0E8',
                     color: '#6B3F2A',
-                    fontFamily: "'Lato', sans-serif",
+                    fontFamily: "'Inter', sans-serif",
                     fontWeight: 700,
                     fontSize: 13,
                     letterSpacing: '2px',
@@ -1130,7 +1130,7 @@ export default function LandingPage() {
                   borderLeft: '3px solid rgba(245,240,232,.5)',
                 }}
               >
-                <p style={{ fontFamily: "'Playfair Display', serif", fontSize: 18, color: '#F5F0E8' }}>
+                <p style={{ fontFamily: "'Libre Baskerville', serif", fontSize: 18, color: '#F5F0E8' }}>
                   ¡Gracias! Te contactamos en menos de 24 horas.
                 </p>
               </div>
