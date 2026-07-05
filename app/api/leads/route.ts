@@ -13,8 +13,6 @@ export async function POST(req: NextRequest) {
 
     if (!nombre || !telefono || !email) {
       return NextResponse.json({ error: 'Faltan campos obligatorios' }, { status: 400 });
-    const resendResult = await resendRes.json();
-    console.log("Resend response:", JSON.stringify(resendResult));
     }
 
     const { error } = await supabase.from('leads_landing').insert([{
@@ -30,16 +28,14 @@ export async function POST(req: NextRequest) {
 
     if (error) throw error;
 
-    // Enviar notificación por email
-    console.log("RESEND_API_KEY exists:", !!process.env.RESEND_API_KEY);
-    await fetch('https://api.resend.com/emails', {
+    const resendRes = await fetch('https://api.resend.com/emails', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        from: 'Solena Leads <tu-email-verificado-en-resend@gmail.com>',
+        from: 'Solena Leads <onboarding@resend.dev>',
         to: ['Enriquecortesgomez@gmail.com'],
         subject: `Nuevo lead: ${nombre}`,
         html: `
@@ -54,6 +50,9 @@ export async function POST(req: NextRequest) {
         `,
       }),
     });
+
+    const resendData = await resendRes.json();
+    console.log('Resend response:', JSON.stringify(resendData));
 
     return NextResponse.json({ ok: true }, { status: 200 });
   } catch (err) {
