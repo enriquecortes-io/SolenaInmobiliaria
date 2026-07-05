@@ -45,7 +45,7 @@ function Navbar({ locale = "es" }: { locale?: string }) {
         }
         .lang-dropdown { animation: dropIn 0.25s cubic-bezier(0.16,1,0.3,1) both; }
         .lang-opt { transition: all 0.2s ease; }
-        .lang-opt:hover { background: rgba(45,74,62,0.08) !important; color: #2D4A3E !important; }
+        .lang-opt:hover { background: rgba(45,74,62,0.08) !important; color: #C9A96E !important; }
       `}</style>
 
       <nav style={{
@@ -252,7 +252,7 @@ function HeroHeader() {
             letterSpacing: "0.35em",
             textTransform: "uppercase",
             color: "#FAFAF7",
-            background: "#2D4A3E",
+            background: "#C9A96E",
             border: "none",
             padding: "1rem 2.5rem",
             cursor: "pointer",
@@ -373,7 +373,7 @@ function PropertyCard({ property: p }: { property: Property }) {
           />
           <div style={{
             position: "absolute", top: "0.75rem", left: "0.75rem",
-            background: "#2D4A3E",
+            background: "#C9A96E",
             color: "#FAFAF7",
             fontFamily: "'Montserrat',sans-serif",
             fontSize: "0.4rem",
@@ -415,7 +415,7 @@ function PropertyCard({ property: p }: { property: Property }) {
               fontFamily: "'Cormorant Garamond',serif",
               fontSize: "1.5rem",
               fontWeight: 600,
-              color: "#2D4A3E",
+              color: "#C9A96E",
               margin: 0,
             }}>
               {p.price.toLocaleString("es-ES", { style: "currency", currency: "EUR", maximumFractionDigits: 0 })}
@@ -578,7 +578,7 @@ function CaptacionSection() {
               <p style={{
                 fontFamily: "'Cormorant Garamond',serif",
                 fontSize: "1.5rem",
-                color: "#2D4A3E",
+                color: "#C9A96E",
               }}>¡Mensaje recibido! Te contactamos pronto.</p>
             </div>
           ) : (
@@ -638,7 +638,7 @@ function CaptacionSection() {
                 disabled={status === "sending"}
                 style={{
                   alignSelf: "flex-start",
-                  background: "#2D4A3E",
+                  background: "#C9A96E",
                   color: "#FAFAF7",
                   border: "none",
                   padding: "1rem 2.5rem",
@@ -741,13 +741,13 @@ function Footer() {
             color: "#C9A96E",
             marginBottom: "0.3rem",
           }}>Contacto</span>
-          <span style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1rem", color: "#2D4A3E" }}>
+          <span style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1rem", color: "#C9A96E" }}>
             Marbella, Málaga, España
           </span>
-          <a href="mailto:Info@solenainmobiliaria.es" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1rem", color: "#2D4A3E", textDecoration: "none" }}>
+          <a href="mailto:Info@solenainmobiliaria.es" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1rem", color: "#C9A96E", textDecoration: "none" }}>
             Info@solenainmobiliaria.es
           </a>
-          <a href="tel:+34610589716" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1rem", color: "#2D4A3E", textDecoration: "none" }}>
+          <a href="tel:+34610589716" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1rem", color: "#C9A96E", textDecoration: "none" }}>
             +34 610 589 716
           </a>
         </div>
@@ -770,7 +770,7 @@ function Footer() {
             <a key={l.href} href={l.href} style={{
               fontFamily: "'Cormorant Garamond',serif",
               fontSize: "1rem",
-              color: "#2D4A3E",
+              color: "#C9A96E",
               textDecoration: "none",
               opacity: 0.8,
             }}>{l.label}</a>
@@ -813,7 +813,7 @@ function WhatsAppButton() {
         style={{
           width: "3rem", height: "3rem",
           borderRadius: "50%",
-          background: "#2D4A3E",
+          background: "#C9A96E",
           display: "flex",
           alignItems: "center",
           justifyContent: "center",
