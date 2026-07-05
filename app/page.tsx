@@ -65,7 +65,7 @@ function Navbar({ locale = "es" }: { locale?: string }) {
         <a href={`/${locale}`} style={{ textDecoration: "none" }}>
           <div style={{ display: "flex", flexDirection: "column", alignItems: "center", gap: 1 }}>
             <span style={{
-              fontFamily: "'Montserrat','Helvetica Neue',sans-serif",
+              fontFamily: "'Inter', sans-serif",
               fontWeight: 300,
               fontSize: "clamp(0.34rem,0.6vw,0.42rem)",
               color: "rgba(45,74,62,0.5)",
@@ -74,7 +74,7 @@ function Navbar({ locale = "es" }: { locale?: string }) {
               whiteSpace: "nowrap",
             }}>Inmobiliaria</span>
             <span style={{
-              fontFamily: "'Cormorant Garamond','Didot','Bodoni MT',Georgia,serif",
+              fontFamily: "'Libre Baskerville', Georgia, serif",
               fontWeight: 700,
               fontSize: "clamp(1.4rem,3vw,2rem)",
               background: "linear-gradient(90deg, #C1694F 0%, #C4956A 40%, #B8976E 70%, #C9A96E 100%)",
@@ -86,7 +86,7 @@ function Navbar({ locale = "es" }: { locale?: string }) {
               whiteSpace: "nowrap",
             }}>SOLENA</span>
             <span style={{
-              fontFamily: "'Montserrat','Helvetica Neue',sans-serif",
+              fontFamily: "'Inter', sans-serif",
               fontWeight: 300,
               fontSize: "clamp(0.34rem,0.6vw,0.42rem)",
               color: "rgba(45,74,62,0.5)",
@@ -123,7 +123,7 @@ function Navbar({ locale = "es" }: { locale?: string }) {
               background: "none",
               border: "1px solid #DDD8D0",
               color: "#F5F0E8",
-              fontFamily: "'Montserrat','Helvetica Neue',sans-serif",
+              fontFamily: "'Inter', sans-serif",
               fontSize: "0.55rem",
               fontWeight: 300,
               letterSpacing: "0.35em",
@@ -168,7 +168,7 @@ function Navbar({ locale = "es" }: { locale?: string }) {
                     background: "none",
                     border: "none",
                     padding: "0.6rem 1.2rem",
-                    fontFamily: "'Montserrat',sans-serif",
+                    fontFamily: "'Inter', sans-serif",
                     fontSize: "0.55rem",
                     fontWeight: 300,
                     letterSpacing: "0.35em",
@@ -225,7 +225,7 @@ function HeroHeader() {
         gap: "1.4rem",
       }}>
         <span style={{
-          fontFamily: "'Montserrat',sans-serif",
+          fontFamily: "'Inter', sans-serif",
           fontSize: "clamp(0.5rem,0.8vw,0.65rem)",
           letterSpacing: "0.45em",
           textTransform: "uppercase",
@@ -233,7 +233,7 @@ function HeroHeader() {
         }}>Costa del Sol</span>
 
         <h1 style={{
-          fontFamily: "'Cormorant Garamond',serif",
+          fontFamily: "'Libre Baskerville', serif",
           fontSize: "clamp(2.8rem,6vw,5rem)",
           fontWeight: 600,
           color: "#1A1714",
@@ -245,7 +245,7 @@ function HeroHeader() {
         </h1>
 
         <p style={{
-          fontFamily: "'Cormorant Garamond',serif",
+          fontFamily: "'Libre Baskerville', serif",
           fontSize: "clamp(1.1rem,1.8vw,1.5rem)",
           color: "rgba(45,74,62,0.75)",
           lineHeight: 1.6,
@@ -263,7 +263,7 @@ function HeroHeader() {
           style={{
             alignSelf: "center",
             marginTop: "0.5rem",
-            fontFamily: "'Montserrat',sans-serif",
+            fontFamily: "'Inter', sans-serif",
             fontSize: "clamp(0.5rem,0.8vw,0.65rem)",
             letterSpacing: "0.35em",
             textTransform: "uppercase",
@@ -391,7 +391,7 @@ function PropertyCard({ property: p }: { property: Property }) {
             position: "absolute", top: "0.75rem", left: "0.75rem",
             background: "#C9A96E",
             color: "#FAFAF7",
-            fontFamily: "'Montserrat',sans-serif",
+            fontFamily: "'Inter', sans-serif",
             fontSize: "0.4rem",
             letterSpacing: "0.3em",
             textTransform: "uppercase",
@@ -412,7 +412,7 @@ function PropertyCard({ property: p }: { property: Property }) {
         }}>
           <div>
             <p style={{
-              fontFamily: "'Montserrat',sans-serif",
+              fontFamily: "'Inter', sans-serif",
               fontSize: "0.45rem",
               letterSpacing: "0.3em",
               textTransform: "uppercase",
@@ -420,7 +420,7 @@ function PropertyCard({ property: p }: { property: Property }) {
               margin: "0 0 0.3rem",
             }}>{p.zona}</p>
             <h3 style={{
-              fontFamily: "'Cormorant Garamond',serif",
+              fontFamily: "'Libre Baskerville', serif",
               fontSize: "1.3rem",
               fontWeight: 600,
               color: "#1A1714",
@@ -428,7 +428,7 @@ function PropertyCard({ property: p }: { property: Property }) {
               lineHeight: 1.2,
             }}>{p.title}</h3>
             <p style={{
-              fontFamily: "'Cormorant Garamond',serif",
+              fontFamily: "'Libre Baskerville', serif",
               fontSize: "1.5rem",
               fontWeight: 600,
               color: "#C9A96E",
@@ -451,14 +451,14 @@ function PropertyCard({ property: p }: { property: Property }) {
             ].map(stat => (
               <div key={stat.label} style={{ display: "flex", flexDirection: "column", gap: 2 }}>
                 <span style={{
-                  fontFamily: "'Montserrat',sans-serif",
+                  fontFamily: "'Inter', sans-serif",
                   fontSize: "0.38rem",
                   letterSpacing: "0.25em",
                   textTransform: "uppercase",
                   color: "rgba(45,74,62,0.5)",
                 }}>{stat.label}</span>
                 <span style={{
-                  fontFamily: "'Cormorant Garamond',serif",
+                  fontFamily: "'Libre Baskerville', serif",
                   fontSize: "1rem",
                   color: "#1A1714",
                   fontWeight: 600,
@@ -503,7 +503,7 @@ function CaptacionSection() {
     border: "none",
     borderBottom: "1px solid rgba(107,63,42,.3)",
     padding: "0.75rem 0",
-    fontFamily: "'Cormorant Garamond',serif",
+    fontFamily: "'Libre Baskerville', serif",
     fontSize: "1rem",
     color: "#1A1714",
     outline: "none",
@@ -554,21 +554,21 @@ function CaptacionSection() {
         {/* Encabezado */}
         <div style={{ textAlign: "center", marginBottom: "3rem" }}>
           <span style={{
-            fontFamily: "'Montserrat',sans-serif",
+            fontFamily: "'Inter', sans-serif",
             fontSize: "0.5rem",
             letterSpacing: "0.45em",
             textTransform: "uppercase",
             color: "#C9A96E",
           }}>Hablemos</span>
           <h2 style={{
-            fontFamily: "'Cormorant Garamond',serif",
+            fontFamily: "'Libre Baskerville', serif",
             fontSize: "clamp(2rem,4vw,3.5rem)",
             fontWeight: 600,
             color: "#1A1714",
             margin: "0.5rem 0 1rem",
           }}>¿Tienes una propiedad o buscas una?</h2>
           <p style={{
-            fontFamily: "'Cormorant Garamond',serif",
+            fontFamily: "'Libre Baskerville', serif",
             fontSize: "clamp(1rem,1.5vw,1.3rem)",
             color: "rgba(45,74,62,0.75)",
             fontStyle: "italic",
@@ -592,7 +592,7 @@ function CaptacionSection() {
           {status === "sent" ? (
             <div style={{ textAlign: "center", padding: "2rem 0" }}>
               <p style={{
-                fontFamily: "'Cormorant Garamond',serif",
+                fontFamily: "'Libre Baskerville', serif",
                 fontSize: "1.5rem",
                 color: "#C9A96E",
               }}>¡Mensaje recibido! Te contactamos pronto.</p>
@@ -607,7 +607,7 @@ function CaptacionSection() {
                 <div key={f.key}>
                   <label style={{
                     display: "block",
-                    fontFamily: "'Montserrat',sans-serif",
+                    fontFamily: "'Inter', sans-serif",
                     fontSize: "0.42rem",
                     letterSpacing: "0.3em",
                     textTransform: "uppercase",
@@ -627,7 +627,7 @@ function CaptacionSection() {
               <div>
                 <label style={{
                   display: "block",
-                  fontFamily: "'Montserrat',sans-serif",
+                  fontFamily: "'Inter', sans-serif",
                   fontSize: "0.42rem",
                   letterSpacing: "0.3em",
                   textTransform: "uppercase",
@@ -644,7 +644,7 @@ function CaptacionSection() {
               </div>
 
               {status === "error" && (
-                <p style={{ color: "#C1694F", fontFamily: "'Montserrat',sans-serif", fontSize: "0.55rem" }}>
+                <p style={{ color: "#C1694F", fontFamily: "'Inter', sans-serif", fontSize: "0.55rem" }}>
                   Algo fue mal. Inténtalo de nuevo.
                 </p>
               )}
@@ -658,7 +658,7 @@ function CaptacionSection() {
                   color: "#FAFAF7",
                   border: "none",
                   padding: "1rem 2.5rem",
-                  fontFamily: "'Montserrat',sans-serif",
+                  fontFamily: "'Inter', sans-serif",
                   fontSize: "0.5rem",
                   letterSpacing: "0.35em",
                   textTransform: "uppercase",
@@ -684,7 +684,7 @@ function CaptacionSection() {
               <span style={{ fontSize: "1.5rem", flexShrink: 0 }}>{s.icon}</span>
               <div>
                 <h3 style={{
-                  fontFamily: "'Montserrat',sans-serif",
+                  fontFamily: "'Inter', sans-serif",
                   fontSize: "0.6rem",
                   fontWeight: 600,
                   letterSpacing: "0.2em",
@@ -693,7 +693,7 @@ function CaptacionSection() {
                   margin: "0 0 0.4rem",
                 }}>{s.title}</h3>
                 <p style={{
-                  fontFamily: "'Cormorant Garamond',serif",
+                  fontFamily: "'Libre Baskerville', serif",
                   fontSize: "1rem",
                   color: "rgba(45,74,62,0.75)",
                   lineHeight: 1.6,
@@ -729,7 +729,7 @@ function Footer() {
         {/* Marca */}
         <div style={{ display: "flex", flexDirection: "column", gap: "0.6rem" }}>
           <span style={{
-            fontFamily: "'Cormorant Garamond',serif",
+            fontFamily: "'Libre Baskerville', serif",
             fontSize: "1.6rem",
             fontWeight: 700,
             background: "linear-gradient(90deg, #C1694F 0%, #C4956A 40%, #C9A96E 100%)",
@@ -739,7 +739,7 @@ function Footer() {
             letterSpacing: "0.08em",
           }}>SOLENA</span>
           <span style={{
-            fontFamily: "'Montserrat',sans-serif",
+            fontFamily: "'Inter', sans-serif",
             fontSize: "0.55rem",
             letterSpacing: "0.3em",
             textTransform: "uppercase",
@@ -750,20 +750,20 @@ function Footer() {
         {/* Contacto */}
         <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
           <span style={{
-            fontFamily: "'Montserrat',sans-serif",
+            fontFamily: "'Inter', sans-serif",
             fontSize: "0.5rem",
             letterSpacing: "0.3em",
             textTransform: "uppercase",
             color: "#C9A96E",
             marginBottom: "0.3rem",
           }}>Contacto</span>
-          <span style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1rem", color: "#C9A96E" }}>
+          <span style={{ fontFamily: "'Libre Baskerville', serif", fontSize: "1rem", color: "#C9A96E" }}>
             Urb. La Alzambra, Centro de Negocios Vasari, Marbella, España
           </span>
-          <a href="mailto:Info@solenainmobiliaria.es" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1rem", color: "#C9A96E", textDecoration: "none" }}>
+          <a href="mailto:Info@solenainmobiliaria.es" style={{ fontFamily: "'Libre Baskerville', serif", fontSize: "1rem", color: "#C9A96E", textDecoration: "none" }}>
             Info@solenainmobiliaria.es
           </a>
-          <a href="tel:+34610589716" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1rem", color: "#C9A96E", textDecoration: "none" }}>
+          <a href="tel:+34610589716" style={{ fontFamily: "'Libre Baskerville', serif", fontSize: "1rem", color: "#C9A96E", textDecoration: "none" }}>
             +34 610 589 716
           </a>
         </div>
@@ -771,7 +771,7 @@ function Footer() {
         {/* Legal */}
         <div style={{ display: "flex", flexDirection: "column", gap: "0.5rem" }}>
           <span style={{
-            fontFamily: "'Montserrat',sans-serif",
+            fontFamily: "'Inter', sans-serif",
             fontSize: "0.5rem",
             letterSpacing: "0.3em",
             textTransform: "uppercase",
@@ -784,7 +784,7 @@ function Footer() {
             { label: "Política de Cookies", href: "/es/cookies" },
           ].map(l => (
             <a key={l.href} href={l.href} style={{
-              fontFamily: "'Cormorant Garamond',serif",
+              fontFamily: "'Libre Baskerville', serif",
               fontSize: "1rem",
               color: "#C9A96E",
               textDecoration: "none",
@@ -803,7 +803,7 @@ function Footer() {
         textAlign: "center",
       }}>
         <span style={{
-          fontFamily: "'Montserrat',sans-serif",
+          fontFamily: "'Inter', sans-serif",
           fontSize: "0.42rem",
           letterSpacing: "0.2em",
           color: "rgba(45,74,62,0.5)",
