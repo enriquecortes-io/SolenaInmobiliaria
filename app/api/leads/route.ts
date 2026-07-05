@@ -13,6 +13,8 @@ export async function POST(req: NextRequest) {
 
     if (!nombre || !telefono || !email) {
       return NextResponse.json({ error: 'Faltan campos obligatorios' }, { status: 400 });
+    const resendResult = await resendRes.json();
+    console.log("Resend response:", JSON.stringify(resendResult));
     }
 
     const { error } = await supabase.from('leads_landing').insert([{
