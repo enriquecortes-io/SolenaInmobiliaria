@@ -28,6 +28,30 @@ export async function POST(req: NextRequest) {
 
     if (error) throw error;
 
+    // Enviar notificación por email
+    await fetch('https://api.resend.com/emails', {
+      method: 'POST',
+      headers: {
+        'Authorization': `Bearer ${process.env.RESEND_API_KEY}`,
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        from: 'Solena Leads <onboarding@resend.dev>',
+        to: ['Info@solenainmobiliaria.es'],
+        subject: `Nuevo lead: ${nombre}`,
+        html: `
+          <h2>Nuevo lead del landing — Solena</h2>
+          <p><strong>Nombre:</strong> ${nombre}</p>
+          <p><strong>Teléfono:</strong> ${telefono}</p>
+          <p><strong>Email:</strong> ${email}</p>
+          <p><strong>Localización:</strong> ${localizacion || '—'}</p>
+          <p><strong>Tipo de propiedad:</strong> ${tipo || '—'}</p>
+          <p><strong>Precio estimado:</strong> ${precio || '—'}</p>
+          <p><strong>Plazo deseado:</strong> ${plazo || '—'}</p>
+        `,
+      }),
+    });
+
     return NextResponse.json({ ok: true }, { status: 200 });
   } catch (err) {
     console.error('leads API error:', err);
