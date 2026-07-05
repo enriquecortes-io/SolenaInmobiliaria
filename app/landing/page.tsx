@@ -119,22 +119,17 @@ export default function LandingPage() {
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const form = e.currentTarget;
+    const data = Object.fromEntries(new FormData(form));
     setStatus('sending');
     try {
-      const res = await fetch(form.action, {
+      const res = await fetch('/api/leads', {
         method: 'POST',
-        body: new FormData(form),
-        headers: { Accept: 'application/json' },
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(data),
       });
-      if (res.ok) {
-        form.reset();
-        setStatus('success');
-      } else {
-        setStatus('error');
-      }
-    } catch {
-      setStatus('error');
-    }
+      if (res.ok) { form.reset(); setStatus('success'); }
+      else { setStatus('error'); }
+    } catch { setStatus('error'); }
   };
 
   const whyCardBackground = (variant: (typeof whyCards)[number]['variant']) => {
@@ -813,7 +808,7 @@ export default function LandingPage() {
 
           <form
             ref={formRef}
-            action="https://formspree.io/f/YOUR_FORM_ID"
+            
             method="POST"
             style={{ display: 'flex', flexDirection: 'column', gap: 0 }}
             onSubmit={handleSubmit}
