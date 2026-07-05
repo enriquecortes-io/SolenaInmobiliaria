@@ -127,7 +127,7 @@ const T = {
       { number: '01', title: 'Fair price from day one', text: 'We value your property with real market data from your area. No inflated prices that never sell.' },
       { number: '02', title: 'Professional marketing included', text: 'Quality photos, listing on 30+ portals and daily management. Maximum exposure with no effort on your part.' },
       { number: '03', title: 'Pre-approved buyers', text: 'We work with buyers who already have approved financing. No deals falling through at the last minute.' },
-      { number: '04', title: 'You manage nothing', text: 'We organize and accompany every visit. You receive a daily report. Only you decide when to say yes.' },
+      { number: '04', title: 'Zero Stress', text: 'We organize and accompany every visit. You receive a daily report. Only you decide when to say yes.' },
       { number: '05', title: 'Full legal support', text: 'From signing the contract to the notary. We guide you every step to ensure a safe, surprise-free sale.' },
       { number: '06', title: 'We only charge if we sell', text: 'No upfront costs. No surprises. Our success depends on yours.' },
     ],
