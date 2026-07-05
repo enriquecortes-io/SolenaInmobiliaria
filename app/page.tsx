@@ -742,7 +742,7 @@ function Footer() {
             marginBottom: "0.3rem",
           }}>Contacto</span>
           <span style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1rem", color: "#C9A96E" }}>
-            Marbella, Málaga, España
+            Urb. La Alzambra, Centro de Negocios Vasari, Marbella, España
           </span>
           <a href="mailto:Info@solenainmobiliaria.es" style={{ fontFamily: "'Cormorant Garamond',serif", fontSize: "1rem", color: "#C9A96E", textDecoration: "none" }}>
             Info@solenainmobiliaria.es
