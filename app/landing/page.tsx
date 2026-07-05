@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useRef, FormEvent } from 'react';
+import { useState, useRef, useEffect, FormEvent } from 'react';
 
 const T = {
   es: {
@@ -274,6 +274,39 @@ export default function LandingPage() {
   const formRef = useRef<HTMLFormElement>(null);
   const t = T[lang];
 
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    import('gsap').then(({ gsap }) => {
+      import('gsap/ScrollTrigger').then(({ ScrollTrigger }) => {
+        gsap.registerPlugin(ScrollTrigger);
+
+        // Label de sección
+        gsap.fromTo('.why-label', 
+          { opacity: 0, y: 20 },
+          { opacity: 1, y: 0, duration: 0.6, ease: 'power2.out',
+            scrollTrigger: { trigger: '.why-label', start: 'top 85%', once: true }
+          }
+        );
+
+        // Título de sección
+        gsap.fromTo('.why-title',
+          { opacity: 0, y: 30 },
+          { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out', delay: 0.1,
+            scrollTrigger: { trigger: '.why-title', start: 'top 85%', once: true }
+          }
+        );
+
+        // Cards con stagger
+        gsap.fromTo('.why-card',
+          { opacity: 0, y: 50 },
+          { opacity: 1, y: 0, duration: 0.7, ease: 'power2.out', stagger: 0.15,
+            scrollTrigger: { trigger: '.why-card', start: 'top 80%', once: true }
+          }
+        );
+      });
+    });
+  }, []);
+
   const toggleFaq = (index: number) => setOpenFaq(prev => prev === index ? null : index);
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
@@ -370,12 +403,12 @@ export default function LandingPage() {
       <section style={{ padding: 'clamp(80px, 10vw, 120px) clamp(24px, 6vw, 80px)' }}>
         <div style={{ maxWidth: 1100, margin: '0 auto' }}>
           <div style={{ marginBottom: 60 }}>
-            <div style={{ fontSize: 11, letterSpacing: '3px', textTransform: 'uppercase', color: '#6B3F2A', fontWeight: 700, marginBottom: 14 }}>{t.why_label}</div>
-            <h2 style={{ fontFamily: "'Libre Baskerville', serif", fontSize: 'clamp(32px, 4vw, 50px)', fontWeight: 900, color: '#2A1A10', lineHeight: 1.1, maxWidth: 600 }}>{t.why_h2}</h2>
+            <div className='why-label' style={{ fontSize: 11, letterSpacing: '3px', textTransform: 'uppercase', color: '#6B3F2A', fontWeight: 700, marginBottom: 14 }}>{t.why_label}</div>
+            <h2 className='why-title' style={{ fontFamily: "'Libre Baskerville', serif", fontSize: 'clamp(32px, 4vw, 50px)', fontWeight: 900, color: '#2A1A10', lineHeight: 1.1, maxWidth: 600 }}>{t.why_h2}</h2>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 300px), 1fr))', gap: 2 }}>
             {t.why_cards.map((card, i) => (
-              <div key={i} style={{ background: whyCardBackground(whyVariants[i]), padding: '44px 36px', border: whyCardBorder(whyVariants[i]) }}>
+              <div key={i} className='why-card' style={{ background: whyCardBackground(whyVariants[i]), padding: '44px 36px', border: whyCardBorder(whyVariants[i]) }}>
                 <div style={{ fontFamily: "'Libre Baskerville', serif", fontSize: 48, fontWeight: 900, color: whyNumberColor(whyVariants[i]), lineHeight: 1, marginBottom: 20 }}>{card.number}</div>
                 <h3 style={{ fontFamily: "'Libre Baskerville', serif", fontSize: 22, fontWeight: 700, color: whyTitleColor(whyVariants[i]), marginBottom: 14, lineHeight: 1.2 }}>{card.title}</h3>
                 <p style={{ fontSize: 14, color: whyTextColor(whyVariants[i]), lineHeight: 1.7 }}>{card.text}</p>
