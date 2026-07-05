@@ -6,7 +6,33 @@ const supabase = createClient(
   process.env.SUPABASE_SERVICE_ROLE_KEY!
 );
 
+// Rate limiting simple en memoria
+const rateLimit = new Map<string, { count: number; resetAt: number }>();
+const LIMIT = 5;
+const WINDOW_MS = 60 * 60 * 1000; // 1 hora
+
+function checkRateLimit(ip: string): boolean {
+  const now = Date.now();
+  const entry = rateLimit.get(ip);
+  if (!entry || now > entry.resetAt) {
+    rateLimit.set(ip, { count: 1, resetAt: now + WINDOW_MS });
+    return true;
+  }
+  if (entry.count >= LIMIT) return false;
+  entry.count++;
+  return true;
+}
+
 export async function POST(req: NextRequest) {
+  const ip = req.headers.get('x-forwarded-for')?.split(',')[0] ?? 'unknown';
+  
+  if (!checkRateLimit(ip)) {
+    return NextResponse.json(
+      { error: 'Demasiadas solicitudes. Inténtalo más tarde.' },
+      { status: 429 }
+    );
+  }
+
   try {
     const body = await req.json();
     const { nombre, telefono, email, localizacion, tipo, precio, plazo } = body;
