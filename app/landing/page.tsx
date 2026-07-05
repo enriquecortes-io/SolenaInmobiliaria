@@ -327,6 +327,27 @@ export default function LandingPage() {
             }
           );
         });
+
+        // Contador 60 días
+        const counter = document.querySelector('.stat-counter');
+        if (counter) {
+          const obj = { val: 0 };
+          gsap.to(obj, {
+            val: 60,
+            duration: 2.5,
+            ease: 'power2.out',
+            onUpdate: () => { counter.textContent = Math.round(obj.val).toString(); },
+            scrollTrigger: { trigger: counter, start: 'top 80%', once: true }
+          });
+        }
+
+        // Fade in textos alrededor del contador
+        gsap.fromTo('.stat-box-content',
+          { opacity: 0, y: 30 },
+          { opacity: 1, y: 0, duration: 1, ease: 'power2.out', stagger: 0.2,
+            scrollTrigger: { trigger: '.stat-counter', start: 'top 80%', once: true }
+          }
+        );
       });
     });
   }, []);
@@ -526,11 +547,11 @@ export default function LandingPage() {
       {/* BLOQUE 60 DÍAS */}
       <section style={{ background: '#2A1A10', padding: 'clamp(60px, 8vw, 100px) clamp(24px, 6vw, 80px)' }}>
         <div style={{ maxWidth: 600, margin: '0 auto', textAlign: 'center' }}>
-          <div style={{ fontFamily: "'Libre Baskerville', serif", fontStyle: 'italic', fontSize: 15, color: 'rgba(245,240,232,.5)', marginBottom: 8 }}>{t.stat_box_label}</div>
-          <div style={{ fontFamily: "'Libre Baskerville', serif", fontSize: 'clamp(80px, 15vw, 140px)', fontWeight: 900, color: '#6B3F2A', lineHeight: 1, letterSpacing: '-3px' }}>{t.stat_box_days}</div>
-          <div style={{ fontFamily: "'Libre Baskerville', serif", fontSize: 'clamp(20px, 3vw, 28px)', fontWeight: 700, color: '#F5F0E8', marginTop: 8, marginBottom: 28 }}>{t.stat_box_sub}</div>
+          <div className='stat-box-content' style={{ fontFamily: "'Libre Baskerville', serif", fontStyle: 'italic', fontSize: 15, color: 'rgba(245,240,232,.5)', marginBottom: 8 }}>{t.stat_box_label}</div>
+          <div className='stat-counter' style={{ fontFamily: "'Libre Baskerville', serif", fontSize: 'clamp(80px, 15vw, 140px)', fontWeight: 900, color: '#6B3F2A', lineHeight: 1, letterSpacing: '-3px' }}>0</div>
+          <div className='stat-box-content' style={{ fontFamily: "'Libre Baskerville', serif", fontSize: 'clamp(20px, 3vw, 28px)', fontWeight: 700, color: '#F5F0E8', marginTop: 8, marginBottom: 28 }}>{t.stat_box_sub}</div>
           <div style={{ width: 40, height: 2, background: '#6B3F2A', margin: '0 auto 20px' }} />
-          <div style={{ fontSize: 15, color: 'rgba(245,240,232,.55)', lineHeight: 1.75 }}>
+          <div className='stat-box-content' style={{ fontSize: 15, color: 'rgba(245,240,232,.55)', lineHeight: 1.75 }}>
             {t.stat_box_text1} <strong style={{ color: 'rgba(245,240,232,.8)' }}>{t.stat_box_bold}</strong> {t.stat_box_text2}
           </div>
         </div>
