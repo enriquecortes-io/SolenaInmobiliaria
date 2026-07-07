@@ -2,6 +2,7 @@
 import { useState, useEffect } from "react";
 import Dashboard from "./Dashboard";
 import Leads from "./Leads";
+import Portfolio from "./Portfolio";
 
 const C = {
   bg:      "#FAF9F7",
@@ -136,7 +137,7 @@ export default function AdminPanel() {
         {section==="propiedades" && (
           <div style={{ padding:"32px" }}>
             <h1 style={{ fontSize:"24px", fontWeight:700, color:C.sidebar }}>Propiedades</h1>
-            <p style={{ color:C.text }}>Módulo en construcción.</p>
+            <Portfolio />
           </div>
         )}
       </div>
