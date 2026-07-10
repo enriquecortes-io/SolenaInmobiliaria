@@ -1,4 +1,5 @@
-import { Metadata } from 'next';
+'use client';
+
 import dynamic from 'next/dynamic';
 import { Suspense } from 'react';
 import ReferralHero from '@/components/Referrals/ReferralHero';
@@ -9,17 +10,11 @@ import CTABanner from '@/components/Referrals/CTABanner';
 
 const FAQ = dynamic(() => import('@/components/Referrals/FAQ'), {
   loading: () => <div className="min-h-[400px] bg-gray-50 animate-pulse" />,
-  ssr: false,
 });
 
 const ReferralForm = dynamic(() => import('@/components/Referrals/ReferralForm'), {
   loading: () => <div className="min-h-[300px] bg-white border border-gray-200 rounded-lg animate-pulse" />,
 });
-
-export const metadata: Metadata = {
-  title: 'Programa de Referidos Solena | Gana 1.000€ - 10.000€',
-  description: 'Refiere propietarios y gana el 20% de nuestra comisión.',
-};
 
 export default function ReferidosPage() {
   return (
@@ -29,6 +24,7 @@ export default function ReferidosPage() {
       <EarningsCalculator />
       <Testimonials />
       <CTABanner />
+      
       <Suspense fallback={<div className="min-h-[400px] bg-gray-50 animate-pulse" />}>
         <section className="py-20 bg-gray-50">
           <div className="max-w-2xl mx-auto px-4">
@@ -36,6 +32,7 @@ export default function ReferidosPage() {
           </div>
         </section>
       </Suspense>
+
       <Suspense fallback={<div className="min-h-[600px] bg-white animate-pulse" />}>
         <section className="py-20 bg-white">
           <div className="max-w-3xl mx-auto px-4">
