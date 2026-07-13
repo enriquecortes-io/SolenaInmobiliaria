@@ -1,28 +1,29 @@
 import { createClient } from '@supabase/supabase-js';
 import { NextRequest, NextResponse } from 'next/server';
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
-
 export async function POST(req: NextRequest) {
   try {
     const body = await req.json();
-    const { ownerName, ownerPhone, ownerEmail, propertyAddress, propertyCity, referrerName, referrerEmail } = body;
+    console.log('Body recibido:', JSON.stringify(body));
+    console.log('SUPABASE_URL:', process.env.NEXT_PUBLIC_SUPABASE_URL);
+    console.log('SERVICE_KEY exists:', !!process.env.SUPABASE_SERVICE_ROLE_KEY);
 
-    if (!ownerName || !ownerPhone || !propertyAddress || !referrerName || !referrerEmail) {
-      return NextResponse.json({ error: 'Faltan campos obligatorios' }, { status: 400 });
-    }
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL!.replace(/\/$/, ''),
+      process.env.SUPABASE_SERVICE_ROLE_KEY!
+    );
+
+    const { ownerName, ownerPhone, ownerEmail, propertyAddress, propertyCity, referrerName, referrerEmail } = body;
 
     const { data, error } = await supabase
       .from('referrals')
       .insert([{
         owner_name: ownerName,
         owner_phone: ownerPhone,
-        owner_email: ownerEmail || null,
+        owner_email: ownerEmail || 'no-email@referido.es',
         property_address: propertyAddress,
-        property_city: propertyCity || null,
+        property_city: propertyCity || 'Sin especificar',
+        estimated_value: 0,
         referrer_name: referrerName,
         referrer_email: referrerEmail,
         status: 'pending',
@@ -31,11 +32,14 @@ export async function POST(req: NextRequest) {
       .select('id')
       .single();
 
+    console.log('Supabase error:', JSON.stringify(error));
+    console.log('Supabase data:', JSON.stringify(data));
+
     if (error) throw error;
 
     return NextResponse.json({ success: true, referralId: data.id }, { status: 201 });
   } catch (error) {
-    console.error('Referral error:', error);
-    return NextResponse.json({ error: 'Error interno del servidor' }, { status: 500 });
+    console.error('Catch error:', JSON.stringify(error));
+    return NextResponse.json({ error: 'Error interno del servidor', details: String(error) }, { status: 500 });
   }
 }
