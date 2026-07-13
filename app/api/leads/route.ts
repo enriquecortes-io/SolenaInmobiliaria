@@ -62,7 +62,7 @@ export async function POST(req: NextRequest) {
       },
       body: JSON.stringify({
         from: 'Solena Leads <noreply@solenainmo.es>',
-        to: ['Info@solenainmobiliaria.es'],
+        to: ['info@solenainmo.es'],
         subject: `Nuevo lead: ${nombre}`,
         html: `
           <h2>Nuevo lead del landing — Solena</h2>
