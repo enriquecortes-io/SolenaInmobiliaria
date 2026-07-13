@@ -8,7 +8,7 @@ export default function ReferidosPage() {
   const [propertyValue, setPropertyValue] = useState(400000);
   const formRef = useRef<HTMLFormElement>(null);
 
-  const earnings = useMemo(() => Math.round(propertyValue * 0.03 * 0.2), [propertyValue]);
+  const earnings = useMemo(() => Math.round(propertyValue * 0.05 * 0.2), [propertyValue]);
 
   useEffect(() => {
     if (typeof window === 'undefined') return;
@@ -257,7 +257,7 @@ export default function ReferidosPage() {
               <div style={{ fontFamily: "'Libre Baskerville', serif", fontSize: 'clamp(40px, 5vw, 56px)', fontWeight: 900, color: '#F5F0E8', lineHeight: 1 }}>
                 {earnings.toLocaleString('es-ES')} €
               </div>
-              <p style={{ fontSize: 13, color: 'rgba(245,240,232,.5)', marginTop: 10 }}>20% de la comisión sobre una venta al 3%</p>
+              <p style={{ fontSize: 13, color: 'rgba(245,240,232,.5)', marginTop: 10 }}>Basado en una comisión media del 5%. La comisión real puede variar según la operación.</p>
             </div>
           </div>
         </div>
