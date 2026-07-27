@@ -1,11 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import { NextRequest, NextResponse } from 'next/server';
 
-const supabase = createClient(
-  process.env.NEXT_PUBLIC_SUPABASE_URL!,
-  process.env.SUPABASE_SERVICE_ROLE_KEY!
-);
-
 // Rate limiting simple en memoria
 const rateLimit = new Map<string, { count: number; resetAt: number }>();
 const LIMIT = 5;
@@ -34,6 +29,10 @@ export async function POST(req: NextRequest) {
   }
 
   try {
+    const supabase = createClient(
+      (process.env.NEXT_PUBLIC_SUPABASE_URL || '').replace(/\/$/, ''),
+      process.env.SUPABASE_SERVICE_ROLE_KEY || ''
+    );
     const body = await req.json();
     const { nombre, telefono, email, localizacion, tipo, precio, plazo } = body;
 

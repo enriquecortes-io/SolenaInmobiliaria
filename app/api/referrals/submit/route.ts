@@ -6,6 +6,10 @@ const resend = new Resend(process.env.RESEND_API_KEY);
 
 export async function POST(req: NextRequest) {
   try {
+    const supabase = createClient(
+      (process.env.NEXT_PUBLIC_SUPABASE_URL || '').replace(/\/$/, ''),
+      process.env.SUPABASE_SERVICE_ROLE_KEY || ''
+    );
     const body = await req.json();
     const { ownerName, ownerPhone, ownerEmail, propertyAddress, propertyCity, referrerName, referrerEmail } = body;
 
@@ -13,12 +17,7 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: 'Faltan campos obligatorios' }, { status: 400 });
     }
 
-    const supabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL!.replace(/\/$/, ''),
-      process.env.SUPABASE_SERVICE_ROLE_KEY!
-    );
-
-    const { data, error } = await supabase
+        const { data, error } = await supabase
       .from('referrals')
       .insert([{
         owner_name: ownerName,
