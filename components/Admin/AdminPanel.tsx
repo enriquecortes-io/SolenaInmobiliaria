@@ -134,12 +134,7 @@ export default function AdminPanel() {
       <div style={{ flex:1, overflow:"auto" }}>
         {section==="dashboard"   && <Dashboard password={password}/>}
         {section==="leads"       && <Leads password={password}/>}
-        {section==="propiedades" && (
-          <div style={{ padding:"32px" }}>
-            <h1 style={{ fontSize:"24px", fontWeight:700, color:C.sidebar }}>Propiedades</h1>
-            <Portfolio />
-          </div>
-        )}
+        {section==="propiedades" && <Portfolio password={password}/>}
       </div>
     </div>
   );
