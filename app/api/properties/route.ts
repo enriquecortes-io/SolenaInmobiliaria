@@ -16,7 +16,7 @@ export async function GET() {
     if (error) throw error;
     const properties = (data || []).map(p => ({
       id: p.slug || p.id,
-      title: p.titulo || '',
+      title: p.titulo?.es || p.titulo?.en || '',
       location: p.ubicacion || '',
       price: p.precio || 0,
       bedrooms: p.habitaciones || 0,
