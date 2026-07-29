@@ -10,7 +10,7 @@ export function convertGDriveUrl(url: string, size = 2000): string {
     url.match(/[?&]id=([a-zA-Z0-9_-]+)/) ||
     url.match(/\/d\/([a-zA-Z0-9_-]+)/);
   if (!m) return url;
-  return `https://drive.google.com/thumbnail?id=${m[1]}&sz=w${size}`;
+  return `https://lh3.googleusercontent.com/d/${m[1]}=w${size}`;
 }
 
 /** Para vídeos de Drive: devuelve la URL de reproductor embebido, o null si no es Drive. */
