@@ -7,7 +7,7 @@ export const dynamic = "force-dynamic";
 
 const C = {
   bg: "#FAFAF7", dark: "#1A0E08", gold: "#C9A96E",
-  text: "#1A1714", muted: "rgba(45,74,62,0.75)", border: "#DDD8D0",
+  text: "#1A1714", muted: "rgba(45,74,62,0.75)", border: "#DDD8D0", precio: "#C1694F",
 };
 const SERIF = "'Libre Baskerville', Georgia, serif";
 const SANS = "'Inter', sans-serif";
@@ -99,7 +99,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
               {p.ubicacion}
             </p>
           )}
-          <p style={{ fontFamily: SERIF, fontSize: "clamp(1.5rem,3vw,2.2rem)", fontWeight: 600, color: C.gold, margin: 0 }}>
+          <p style={{ fontFamily: SERIF, fontSize: "clamp(1.5rem,3vw,2.2rem)", fontWeight: 600, color: C.precio, margin: 0 }}>
             {precio}
           </p>
         </header>

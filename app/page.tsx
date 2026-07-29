@@ -431,7 +431,7 @@ function PropertyCard({ property: p }: { property: Property }) {
               fontFamily: "'Libre Baskerville', serif",
               fontSize: "1.5rem",
               fontWeight: 600,
-              color: "#C9A96E",
+              color: "#C1694F",
               margin: 0,
             }}>
               {p.price.toLocaleString("es-ES", { style: "currency", currency: "EUR", maximumFractionDigits: 0 })}
