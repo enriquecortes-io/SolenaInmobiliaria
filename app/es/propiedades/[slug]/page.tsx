@@ -99,7 +99,19 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
               {p.ubicacion}
             </p>
           )}
-          <p style={{ fontFamily: SERIF, fontSize: "clamp(1.5rem,3vw,2.2rem)", fontWeight: 600, color: C.precio, margin: 0 }}>
+          <p style={{
+            fontFamily: SERIF,
+            fontSize: "clamp(1.5rem,3vw,2.2rem)",
+            fontWeight: 600,
+            margin: 0,
+            display: "inline-block",
+            color: C.precio,
+            background: "linear-gradient(90deg, #C1694F 0%, #C4956A 40%, #B8976E 70%, #C9A96E 100%)",
+            WebkitBackgroundClip: "text",
+            backgroundClip: "text",
+            WebkitTextFillColor: "transparent",
+            letterSpacing: "0.01em",
+          }}>
             {precio}
           </p>
         </header>
