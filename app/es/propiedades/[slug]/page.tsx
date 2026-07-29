@@ -1,6 +1,7 @@
 import { createClient } from "@supabase/supabase-js";
 import { notFound } from "next/navigation";
 import { convertGDriveUrl, gdriveVideoEmbed } from "@/lib/gdrive";
+import PropertyAnimations from "@/components/Property/PropertyAnimations";
 
 export const dynamic = "force-dynamic";
 
@@ -79,7 +80,8 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
   };
 
   return (
-    <main style={{ background: C.bg, minHeight: "100vh", paddingTop: "5rem" }}>
+    <main style={{ background: C.bg, minHeight: "100vh", paddingTop: "5rem", overflowX: "hidden" }}>
+      <PropertyAnimations />
       <div style={{ maxWidth: 1100, margin: "0 auto", padding: "0 clamp(1.5rem,4vw,3rem) 5rem" }}>
 
         <a href="/es" style={{ ...LABEL, color: C.gold, textDecoration: "none", display: "inline-block", marginBottom: "2rem" }}>
