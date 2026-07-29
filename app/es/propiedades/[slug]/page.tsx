@@ -1,5 +1,6 @@
 import { createClient } from "@supabase/supabase-js";
 import { notFound } from "next/navigation";
+import { convertGDriveUrl, gdriveVideoEmbed } from "@/lib/gdrive";
 
 export const dynamic = "force-dynamic";
 
@@ -44,7 +45,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
 
   const titulo = T(p.titulo);
   const descripcion = T(p.descripcion);
-  const fotos: string[] = Array.isArray(p.galeria_urls) ? p.galeria_urls.filter(Boolean) : [];
+  const fotos: string[] = (Array.isArray(p.galeria_urls) ? p.galeria_urls.filter(Boolean) : []).map((u: string) => convertGDriveUrl(u));
   const precio = p.precio
     ? Number(p.precio).toLocaleString("es-ES", { style: "currency", currency: "EUR", maximumFractionDigits: 0 })
     : "Precio a consultar";
@@ -173,8 +174,13 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
         {p.video_url && (
           <section style={{ marginBottom: "3rem" }}>
             <h2 style={{ ...LABEL, color: C.gold, marginBottom: "1rem" }}>Vídeo</h2>
-            <video src={p.video_url} controls playsInline
-              style={{ width: "100%", maxHeight: 620, background: "#000", border: `1px solid ${C.border}` }} />
+            {gdriveVideoEmbed(p.video_url) ? (
+              <iframe src={gdriveVideoEmbed(p.video_url)!} allow="autoplay" allowFullScreen
+                style={{ width: "100%", height: 620, border: `1px solid ${C.border}`, background: "#000" }} />
+            ) : (
+              <video src={p.video_url} controls playsInline
+                style={{ width: "100%", maxHeight: 620, background: "#000", border: `1px solid ${C.border}` }} />
+            )}
           </section>
         )}
 

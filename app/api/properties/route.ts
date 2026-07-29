@@ -1,5 +1,6 @@
 import { createClient } from '@supabase/supabase-js';
 import { NextResponse } from 'next/server';
+import { convertGDriveUrl } from '@/lib/gdrive';
 
 export async function GET() {
   try {
@@ -22,7 +23,7 @@ export async function GET() {
       bedrooms: p.habitaciones || 0,
       bathrooms: p.banos || 0,
       area: p.m2_construidos || 0,
-      image_url: p.galeria_urls?.[0] || '',
+      image_url: convertGDriveUrl(p.galeria_urls?.[0] || ''),
       tipo: p.tipo || '',
       zona: p.zona || '',
     }));
