@@ -22,6 +22,8 @@ const L: React.CSSProperties = { display:"block", fontSize:"11px", fontWeight:60
 const S: React.CSSProperties = { padding:"8px 12px", border:`1px solid ${C.border}`, borderRadius:"6px", fontSize:"13px", fontFamily:"system-ui", outline:"none", background:"white", color:"#111" };
 const INP: React.CSSProperties = { width:"100%", padding:"10px 12px", border:`1px solid ${C.border}`, borderRadius:"6px", fontSize:"14px", fontFamily:"system-ui", outline:"none", boxSizing:"border-box", marginBottom:"16px" };
 
+const T = (v:any):string => (v && typeof v === "object") ? (v.es || v.en || "") : (v || "");
+
 const EMPTY: any = {
   slug:"", referencia:"", titulo:"", descripcion:"", precio:0, habitaciones:0, banos:0,
   m2_construidos:0, m2_parcela:0, m2_terraza:0, plazas_parking:0,
@@ -57,7 +59,7 @@ export default function Portfolio({ password }: { password: string }) {
   const openNew = () => { setIsNew(true); setEditing({ ...EMPTY }); setStatus(""); };
   const openEdit = (p: Property) => {
     setIsNew(false);
-    setEditing({ ...p, galeria_urls: (p.galeria_urls||[]).join("\n"), amenidades: p.amenidades||[] });
+    setEditing({ ...p, titulo: T(p.titulo), descripcion: T(p.descripcion), galeria_urls: (p.galeria_urls||[]).join("\n"), amenidades: p.amenidades||[] });
     setStatus("");
   };
 
@@ -69,6 +71,8 @@ export default function Portfolio({ password }: { password: string }) {
     try {
       const property = {
         ...editing, slug,
+        titulo: { es: editing.titulo, en: "", fr: "", ru: "" },
+        descripcion: { es: editing.descripcion || "", en: "", fr: "", ru: "" },
         galeria_urls: (editing.galeria_urls||"").split("\n").map((s:string)=>s.trim()).filter(Boolean),
       };
       const res = await fetch("/api/admin/save-property", {
@@ -110,7 +114,7 @@ export default function Portfolio({ password }: { password: string }) {
   const filtered = properties.filter(p => {
     if (filters.search) {
       const q = filters.search.toLowerCase();
-      if (!(p.titulo||"").toLowerCase().includes(q) && !(p.slug||"").includes(q) && !(p.referencia||"").toLowerCase().includes(q) && !(p.ubicacion||"").toLowerCase().includes(q)) return false;
+      if (!T(p.titulo).toLowerCase().includes(q) && !(p.slug||"").includes(q) && !(p.referencia||"").toLowerCase().includes(q) && !(p.ubicacion||"").toLowerCase().includes(q)) return false;
     }
     if (filters.tipo && p.tipo!==filters.tipo) return false;
     if (filters.zona && p.zona!==filters.zona) return false;
@@ -214,7 +218,7 @@ export default function Portfolio({ password }: { password: string }) {
                     <span style={{ fontFamily:"monospace", fontSize:"12px", fontWeight:700, color:C.terra, background:"#faf3f1", padding:"3px 8px", borderRadius:"4px", whiteSpace:"nowrap" }}>{p.referencia||"—"}</span>
                   </td>
                   <td style={{ padding:"14px 16px" }}>
-                    <div style={{ fontWeight:600, fontSize:"14px", color:"#111" }}>{p.titulo||p.slug}</div>
+                    <div style={{ fontWeight:600, fontSize:"14px", color:"#111" }}>{T(p.titulo)||p.slug}</div>
                     <div style={{ fontSize:"12px", color:"#8A847C", marginTop:"2px" }}>{p.slug}</div>
                   </td>
                   <td style={{ padding:"14px 16px", fontSize:"13px", textTransform:"capitalize" }}>{p.tipo||"—"}</td>
@@ -237,7 +241,7 @@ export default function Portfolio({ password }: { password: string }) {
                     <div style={{ display:"flex", gap:"6px" }}>
                       <button onClick={()=>openEdit(p)}
                         style={{ padding:"6px 10px", background:"#eff6ff", border:"none", borderRadius:"6px", fontSize:"12px", cursor:"pointer", color:"#1d4ed8" }}>Editar</button>
-                      <button onClick={()=>setDeleteModal({slug:p.slug, nombre:p.titulo||p.slug})}
+                      <button onClick={()=>setDeleteModal({slug:p.slug, nombre:T(p.titulo)||p.slug})}
                         style={{ padding:"6px 10px", background:"#fef2f2", border:"none", borderRadius:"6px", fontSize:"12px", cursor:"pointer", color:"#991b1b" }}>✕</button>
                     </div>
                   </td>
