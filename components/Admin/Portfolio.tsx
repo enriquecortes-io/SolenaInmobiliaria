@@ -1,8 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
 import ImageSorter from "./ImageSorter";
-import ImageSorter from "./ImageSorter";
-import ImageSorter from "./ImageSorter";
 
 function slugify(s: string): string {
   return (s||"").normalize("NFD").replace(/[\u0300-\u036f]/g,"")
@@ -381,16 +379,6 @@ export default function Portfolio({ password }: { password: string }) {
 
             <label style={L}>URLs Galería (una por línea — la primera es la principal)</label>
             <textarea value={editing.galeria_urls||""} onChange={e=>setEditing((p:any)=>({...p,galeria_urls:e.target.value}))} rows={4} style={{...INP,resize:"vertical"}}/>
-            <ImageSorter
-              urls={(editing.galeria_urls||"").split("\n").map((s:string)=>s.trim()).filter(Boolean)}
-              onChange={urls => setEditing((p:any)=>({...p, galeria_urls: urls.join("\n")}))}
-              onSave={handleSave}
-            />
-            <ImageSorter
-              urls={(editing.galeria_urls||"").split("\n").map((s:string)=>s.trim()).filter(Boolean)}
-              onChange={urls => setEditing((p:any)=>({...p, galeria_urls: urls.join("\n")}))}
-              onSave={handleSave}
-            />
             <ImageSorter
               urls={(editing.galeria_urls||"").split("\n").map((s:string)=>s.trim()).filter(Boolean)}
               onChange={urls => setEditing((p:any)=>({...p, galeria_urls: urls.join("\n")}))}
