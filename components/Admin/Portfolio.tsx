@@ -86,6 +86,27 @@ export default function Portfolio({ password }: { password: string }) {
     } catch { setStatus("❌ Error al guardar"); }
   };
 
+  const handleAutoSave = async () => {
+    if (!editing || !editing.titulo || editing.titulo.trim().length < 2) return;
+    const slug = editing.slug?.trim() || slugify(editing.titulo);
+    if (!slug) return;
+    try {
+      const property = {
+        ...editing, slug,
+        titulo: { es: editing.titulo, en: "", fr: "", ru: "" },
+        descripcion: { es: editing.descripcion || "", en: "", fr: "", ru: "" },
+        galeria_urls: (editing.galeria_urls||"").split("\n").map((s:string)=>s.trim()).filter(Boolean),
+      };
+      const res = await fetch("/api/admin/save-property", {
+        method:"POST", headers:{"Content-Type":"application/json"},
+        body: JSON.stringify({ password, property }),
+      });
+      const data = await res.json();
+      if (data.ok) { setStatus("✅ Orden guardado"); fetchProperties(); }
+      else setStatus(`❌ ${data.error}`);
+    } catch { setStatus("❌ Error al guardar orden"); }
+  };
+
   const handleToggle = async (p: Property, field: "activa"|"destacada") => {
     try {
       await fetch("/api/admin/save-property", {
@@ -382,7 +403,7 @@ export default function Portfolio({ password }: { password: string }) {
             <ImageSorter
               urls={(editing.galeria_urls||"").split("\n").map((s:string)=>s.trim()).filter(Boolean)}
               onChange={urls => setEditing((p:any)=>({...p, galeria_urls: urls.join("\n")}))}
-              onSave={handleSave}
+              onSave={handleAutoSave}
             />
 
             <div style={{ display:"flex", gap:"16px", marginBottom:"24px" }}>
