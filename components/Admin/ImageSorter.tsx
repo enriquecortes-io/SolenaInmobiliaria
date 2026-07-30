@@ -1,5 +1,6 @@
 "use client";
 import { useState, useCallback, useRef, useMemo, useEffect, memo } from "react";
+import { convertGDriveUrl } from "@/lib/gdrive";
 
 interface Props {
   urls: string[];
@@ -118,7 +119,7 @@ const ImageCard = memo(function ImageCard({
       </button>
 
       <img
-        src={src}
+        src={convertGDriveUrl(src)}
         alt={`image-${index}`}
         loading="lazy"
         decoding="async"
